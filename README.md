@@ -1,6 +1,6 @@
 # Heal Together - A Social Media Platform for Building Supportive Communities 
 
-![Heal Together](link_to_placeholder_logo.png)
+![Heal Together]https://github.com/ezaanamin1/Heal-Together/blob/main/frontend/src/images/HEAL%20TOGETHER-1%20(3).png
 
 ## Introduction
 
