@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { createTheme } from '@mui/material/styles';
 import { CssBaseline,ThemeProvider } from '@mui/material';
 
-import { themeSettings } from "./theme"
 
 
 function App() {
@@ -33,7 +32,8 @@ useEffect(()=>{
   const [verficationLastName, setverficationLastName] = useState('');
   const [ExpireTime, setExpireTime] = useState(0);
   const [CreatePost, SetCreatePost] = useState(false);
-  const [currentTheme,SetCurrentTheme] = useState("")
+  const [currentTheme,SetCurrentTheme] = useState("");
+  const [LoginModal, SetLoginModal] = useState(false);
 
 
   const [theme, setTheme] = useState("light");
@@ -66,7 +66,8 @@ useEffect(()=>{
     SetCreatePost,
     theme, setTheme,
     ColorTheme, SetColorTheme,
-    currentTheme,SetCurrentTheme
+    currentTheme,SetCurrentTheme,
+    LoginModal, SetLoginModal
   };
 
 

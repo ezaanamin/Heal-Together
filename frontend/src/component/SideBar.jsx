@@ -18,11 +18,14 @@ import { makeStyles } from '@mui/styles';
 import Person2Icon from '@mui/icons-material/Person2';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PositionedMenu from './PositionedMenu';
-
+import LoginModal from './LoginModal';
+import FaceIcon from '@mui/icons-material/Face';
+import { useEffect } from 'react';
 const SideBar = () => {
   const [searchBar, SetSearchBar] = useState(false);
   const [icons, setIcons] = useState(1);
-  const [anchorEl, setAnchorEl] = useState(null); // State to control the menu anchor
+  const [anchorEl, setAnchorEl] = useState(null); 
+  const [Login,SetLogin] = useState(false);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,7 +38,8 @@ const SideBar = () => {
   const {
 
     theme,
-    setTheme 
+    setTheme,
+    SetLoginModal
   } = useContext(UserContext);
 
   const SideBarContainer = styled.div`
@@ -112,8 +116,29 @@ const SideBar = () => {
 
   const classes = useStyles();
 
+
+useEffect(()=>{
+  const GetToken = () => {
+  
+    const Token = localStorage.getItem('Token');
+
+    if(Token)
+    {
+      SetLogin(true);
+    }
+    else
+    {
+        SetLogin(false);
+    }
+   
+  };
+
+  GetToken()
+},[theme])
+
   return (
     <MainComponent>
+      <LoginModal/>
       <Logo src={logo} />
       <SideBarItems>
         <IconButton style={{ marginBottom: 10 }}>
@@ -139,7 +164,18 @@ const SideBar = () => {
       </SideBarItems>
 
       <SideRight>
-        {/* Rest of the content in the SideBar */}
+        {
+          Login?
+          <h1>hii</h1>:
+
+          <IconButton onClick={()=>SetLoginModal(true)} style={{ marginBottom: 10 }}>
+          <FaceIcon fontSize='large' />
+          <IconHeading>Login</IconHeading>
+          </IconButton>
+      
+
+        }
+   
       </SideRight>
     </MainComponent>
   );

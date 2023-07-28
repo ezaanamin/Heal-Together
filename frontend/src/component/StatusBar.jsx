@@ -112,6 +112,34 @@ background-color: #8a5fbf;
 }
 `;
 
+const GreenColor=styled(StatusBarHeading)`
+
+color:#FFFFFF
+
+`
+const BlueColor=styled(StatusBarHeading)`
+color:#FFFFFF
+
+
+`
+const LightColor=styled(StatusBarHeading)`
+
+color:#333333
+
+`
+const PurpleColor=styled(StatusBarHeading)`
+color:#333333
+
+
+
+`
+
+const MainText =
+  theme === 'light' ? LightColor :
+  theme === 'blue' ? BlueColor :
+  theme === 'green' ? GreenColor :
+  theme === 'purple' ? PurpleColor :LightColor 
+
 
 const MainContainer =
   theme === 'light' ? LightMainContainer :
@@ -134,9 +162,9 @@ const MainStatus =
         <StatusBarItems>
           <Profile src={ProfilePic} />
         </StatusBarItems>
-        <StatusBarHeading>
+        <MainText>
           Share Your Thoughts, Feel Heard!
-        </StatusBarHeading>
+        </MainText>
       </MainStatus>
       <hr style={{ width: 650, marginTop: 5 }} />
       <StatusBarItems>

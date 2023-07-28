@@ -10,13 +10,11 @@ import { useContext } from 'react';
 import PostModal from '../../component/CreatePost';
 import { ThemeContext } from "../../Context/theme-context"
 import { themes } from '../../Context/theme-context';
-import { ColorModeContext, tokens } from "../../theme"
 import SideBar from '../../component/SideBar';
 const Home = () => {
 
   const nav = useNavigate();
   const { CreatePost, SetCreatePost,theme, setTheme } = useContext(UserContext);
-  const colorMode = useContext(ColorModeContext);
 
 
 

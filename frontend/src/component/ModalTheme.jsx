@@ -1,40 +1,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import { useState,useEffect } from 'react';
+import {useEffect } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import CloseIcon from '@mui/icons-material/Close';
-import TextField from '@mui/material/TextField';
-
 import styled from 'styled-components';
-import DateDropdown from './DateDropDown';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import * as yup from 'yup';
-import { Formik } from 'formik';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { SignUpPost } from '../redux/slice/API';
-import { useSelector, useDispatch } from 'react-redux';
 
 
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 
 
@@ -47,6 +22,29 @@ export default function ModalThemeModal() {
   
     const {currentTheme,SetCurrentTheme,ColorTheme,SetColorTheme,theme, setTheme}=useContext(UserContext)
 
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      pt: 2,
+      px: 4,
+      pb: 3,
+      backgroundColor: theme === 'light' ? '#CCCCCC' :
+      theme === 'blue' ? '#5c8fbf' :
+      theme === 'green' ? '#7dbf6b' :
+      theme === 'purple' ? '#f2e8f5' : '#CCCCCC',
+      
+      
+    };
+    
+    
+
+
 useEffect(()=>{
 
 },[theme])
@@ -56,21 +54,33 @@ useEffect(()=>{
     SetColorTheme(false);
   };
 
-  const LightMainContainer = styled.h1`
-  color: #CCCCCC;
+
+
+const PurpleBackGround = styled.h1`
+  color:  #333333;
 `;
 
-const BlueMainContainer = styled.h1`
-  color: #5c8fbf;
+const LightMainContainer = styled.div`
+background-color: #CCCCCC;
 `;
 
-const GreenMainContainer = styled.h1`
-  color: #7dbf6b;
+const BlueMainContainer = styled.div`
+background-color: #5c8fbf;
 `;
 
-const PurpleMainContainer = styled.h1`
-  color: #8a5fbf;
+const GreenMainContainer = styled.div`
+background-color: #7dbf6b;
 `;
+
+const PurpleMainContainer = styled`
+background-color: #f2e8f5;
+`;
+
+const IconHeading = styled.p`
+margin-left: 10px;
+`;
+
+
 
 
 const ParModal=styled.p`
@@ -94,7 +104,8 @@ height:50px;
 width:50px;
 &:active {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5); /* Updated box-shadow for active state */
-}
+};
+font-weight: bold;
 
 `;
 
@@ -147,49 +158,54 @@ const Text = styled.span`
   margin-left: 10px;
   font-size: 18px;
   color: #333;
+  font-weight: bold;
+
 `;
 
-const SaveButton = styled.button`
-background-color: #4caf50; /* Green background color */
-color: white; /* Text color */
-padding: 10px 20px; /* Padding around the text */
-border: none; /* Remove default border */
-border-radius: 4px; /* Rounded corners */
-cursor: pointer; /* Show pointer cursor on hover */
-margin-left: auto; /* Right align the button within its container */
+const GreenColor=styled(Text)`
 
-margin-top:20px;
-position: relative;
-left:352px;
-`;
+color:#FFFFFF
+
+`
+const BlueColor=styled(Text)`
+color:#FFFFFF
 
 
-const BlueButtonSave = styled(SaveButton)`
-  background-color: #008CBA;
-`;
-const GreenButtonSave = styled(SaveButton)`
-  background-color: #4CAF50;
-`;
-const PurpleButtonSave = styled(SaveButton)`
-  background-color: #800080;
-`;
-const LightButtonSave=styled(SaveButton)`
+`
+const LightColor=styled(Text)`
 
-background-color:  #CCCCCC;
+color:#333333
+
+`
+const PurpleColor=styled(Text)`
+color:#333333
+
+
+
 `
 
-const MainContainer =
-  theme === 'light' ? LightMainContainer :
-  theme === 'blue' ? BlueMainContainer :
-  theme === 'green' ? GreenMainContainer :
-  theme === 'purple' ? PurpleMainContainer :LightMainContainer 
+const MainText =
+  theme === 'light' ? LightColor :
+  theme === 'blue' ? BlueColor :
+  theme === 'green' ? GreenColor :
+  theme === 'purple' ? PurpleColor :LightColor 
 
+  const LightBackGround = styled.h1`
+  color: #333333;
+`;
 
-  const SaveButtonMain =
-  theme === 'light' ? LightButtonSave :
-  theme === 'blue' ? BlueButtonSave :
-  theme === 'green' ? GreenButtonSave :
-  theme === 'purple' ? PurpleButtonSave :LightMainContainer 
+const BlueBackGround = styled.h1`
+  color: #FFFFFF;
+`;
+
+const GreenBackGround = styled.h1`
+  color: #FFFFFF;
+`;
+  const Main =
+  theme === 'light' ? LightBackGround :
+  theme === 'blue' ? BlueBackGround :
+  theme === 'green' ? GreenBackGround :
+  theme === 'purple' ? PurpleBackGround :LightBackGround 
 
   useEffect(()=>{
 
@@ -211,16 +227,16 @@ const MainContainer =
     
         <Box sx={{ ...style, width: 400 }}>
         <CloseIcon style={{fontSize:30}} onClick={handleClose}/>
-<MainContainer >Choose Your Calm Oasis</MainContainer>
+<Main>Choose Your Calm Oasis</Main>
 
 <hr/>
-<ParModal style={{width:400,marginTop:15}}  >Welcome to Heal Together - A Social Media Platform for Building Supportive Communities. We believe in providing a soothing and personalized experience for our users.</ParModal>
+<MainText style={{width:400,marginTop:15}}  >Welcome to Heal Together - A Social Media Platform for Building Supportive Communities. We believe in providing a soothing and personalized experience for our users.</MainText>
 
 
 {
   theme=='light'?<LightButtonActive/>:<LightButton onClick={()=>setTheme("light")}/>
 }
-<Text>Light Theme: Experience the soothing ambience of our light theme, offering a sense of clarity and simplicity.</Text>
+<MainText>Light Theme: Experience the soothing ambience of our light theme, offering a sense of clarity and simplicity.</MainText>
 
 
 {
@@ -228,7 +244,7 @@ const MainContainer =
   <BlueButton onClick={()=>setTheme("blue")}/>
 }
 
-      <Text>Tranquil Tides: Dive into the calming blues, where serenity meets the horizon.</Text>
+      <MainText>Tranquil Tides: Dive into the calming blues, where serenity meets the horizon.</MainText>
 
       <br />
 
@@ -236,7 +252,7 @@ const MainContainer =
   theme=='green'?<GreenButtonActive/>:<GreenButton onClick={()=>setTheme("green")}/>
 }
      
-      <Text>Harmony Haven: Embrace the serene greens, where nature's harmony awaits.</Text>
+      <MainText>Harmony Haven: Embrace the serene greens, where nature's harmony awaits.</MainText>
 
       <br />
       {
@@ -244,7 +260,7 @@ const MainContainer =
       }
 
 
-      <Text>Peaceful Palette: Unwind with relaxing purples, painting a tranquil atmosphere.</Text>
+      <MainText>Peaceful Palette: Unwind with relaxing purples, painting a tranquil atmosphere.</MainText>
     
 
 </Box>
