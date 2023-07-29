@@ -19,22 +19,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SignUpPost } from '../redux/slice/API';
 import { useSelector, useDispatch } from 'react-redux';
+import MentalHealthDropdown from './MentalHealthDropDown';
 
 
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 const SignUp=styled.div`
 
@@ -59,13 +47,17 @@ const SignUpButton=styled.button`
 width:250px;
 height:40px;
 font-size:25px;
-background-color:#42b72a  ;
+background-color:#00bfff  ;
 color:white;
 margin-bottom:10px;
 border-radius:10px;
-border-color:#42b72a;
+border-color:#00bfff;
 position:relative;
 left:70px;
+&:hover {
+  background-color: #0099cc;
+  /* Add other styling for the button on hover here */
+}
 
 
 `
@@ -95,7 +87,7 @@ export default function SignUpModal() {
       verficationEmail,setverficationEmail,
       ExpireTime,setExpireTime,
       verficationFirstName,setverficationFirstName,
-      verficationLastName,setverficationLastName
+      verficationLastName,setverficationLastName,theme
     }=useContext(UserContext)
     const dispatch = useDispatch();
 
@@ -118,6 +110,22 @@ export default function SignUpModal() {
 
 
   });
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    backgroundColor:" #f2f2f2",
+    borderRadius:10,
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
+  
 
   const handle= async(values)=>{
 
@@ -173,10 +181,10 @@ else
       >
     
         <Box sx={{ ...style, width: 400 }}>
-        <CloseIcon style={{fontSize:30}} onClick={handleClose}/>
-<h1>Sign Up</h1>
-<p>It's quick and easy.</p>
+<h1> Welcome to Heal Together!</h1>
+<p style={{marginBottom:10}}>Let's create a safe space for you.</p>
 <hr/>
+
 <Formik
   initialValues={{
     email:"",
@@ -201,6 +209,9 @@ onSubmit={(values, { setSubmitting }) => {
   setSubmitting(false);
 }}
 >
+
+
+
   {({  handleSubmit, setFieldValue,errors, touched }) => (
     <div>
 <SignUp>

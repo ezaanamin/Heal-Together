@@ -21,7 +21,7 @@ import { Login } from '../redux/slice/API';
 export default function LoginModal() {
   const dispatch = useDispatch();
 
-      const {LoginModal,SetLoginModal,theme}=useContext(UserContext)
+      const {LoginModal,SetLoginModal,theme,SignUpModal, SetSignUpModal}=useContext(UserContext)
 
     const style = {
       position: 'absolute',
@@ -269,6 +269,16 @@ const handleClick = (email, password) => {
 };
 
 
+const SignUp=()=>
+{
+  SetLoginModal(false);
+  SetSignUpModal(true);
+
+
+
+}
+
+
   return (
     <div>
       <Modal
@@ -334,7 +344,7 @@ const handleClick = (email, password) => {
           <hr/>
 
 
-          <MainCreate>Create Account</MainCreate>
+          <MainCreate onClick={SignUp}>Create Account</MainCreate>
 
 
 

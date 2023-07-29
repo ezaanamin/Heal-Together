@@ -37,7 +37,8 @@ const InputField = ({name,label,type,changedText,value}) => {
     borderRadius: 50,
     display: "flex",
     justifyContent: 'center',
-    marginBottom:2
+    marginBottom:2,
+    width:700
   }}
   InputLabelProps={{
     sx: {

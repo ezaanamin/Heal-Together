@@ -8,6 +8,7 @@ import {
 import Verification from '../pages/verification';
 import EmailVerication from '../pages/EmailVerfication';
 import Home from '../pages/Home';
+import Login from '../pages/Login';
   const router = createBrowserRouter([
 
 
@@ -29,6 +30,14 @@ import Home from '../pages/Home';
     },
     {
       path: "/",
+      element: (
+        <div>
+   <Login/>
+        </div>
+      ),
+    },
+    {
+      path: "/home",
       element: (
         <div>
    <Home/>

@@ -21,6 +21,7 @@ import PositionedMenu from './PositionedMenu';
 import LoginModal from './LoginModal';
 import FaceIcon from '@mui/icons-material/Face';
 import { useEffect } from 'react';
+import SignUpModal from './SignUpModal';
 const SideBar = () => {
   const [searchBar, SetSearchBar] = useState(false);
   const [icons, setIcons] = useState(1);
@@ -139,6 +140,8 @@ useEffect(()=>{
   return (
     <MainComponent>
       <LoginModal/>
+      <SignUpModal/>
+
       <Logo src={logo} />
       <SideBarItems>
         <IconButton style={{ marginBottom: 10 }}>
