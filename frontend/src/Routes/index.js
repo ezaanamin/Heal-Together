@@ -9,6 +9,7 @@ import Verification from '../pages/verification';
 import EmailVerication from '../pages/EmailVerfication';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import GettingStarted from '../pages/GettingStarted';
   const router = createBrowserRouter([
 
 
@@ -41,6 +42,14 @@ import Login from '../pages/Login';
       element: (
         <div>
    <Home/>
+        </div>
+      ),
+    },
+    {
+      path: "/getting_started",
+      element: (
+        <div>
+   <GettingStarted/>
         </div>
       ),
     },

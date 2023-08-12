@@ -69,6 +69,13 @@ color:red;
 
 
 `
+const TermsPrivacyPolicy=styled.p`
+
+margin-bottom:10px;
+
+
+
+`
 
 
 
@@ -318,6 +325,8 @@ onChange={(event) => setFieldValue("password", event.target.value)}
              <Errors>{errors.gender}</Errors>
            ) : null
       }
+
+      <TermsPrivacyPolicy>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy</TermsPrivacyPolicy>
       
       <SignUpButton  onClick={handleSubmit} >Sign Up</SignUpButton>
       </div>

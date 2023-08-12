@@ -132,13 +132,19 @@ function resendCode()
 
 
 }
+const Verification=styled.div`
+
+background-color: #E6F1F7;
+height:100vh;
+
+`
 
       const VerificationBox=styled.div`
 
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color:#f0f2f5;
+      background-color:#B0D4E8;
       height: 600px;
       width: 600px;
       margin: 150px auto 0;
@@ -160,7 +166,7 @@ function resendCode()
       width:300px;
       height:50px;
       color:white;
-      background-color:#002D62;
+      background-color:#007BFF;
       margin-top:20px;
       margin-bottom:20px;
 
@@ -179,6 +185,7 @@ function resendCode()
 
 
     return (
+      <Verification>
       <VerificationBox>
 
     <MailIcon style={{fontSize:50,color:"#002D62"}} />
@@ -205,6 +212,7 @@ function resendCode()
 
 
       </VerificationBox>
+      </Verification>
   
     );
 }

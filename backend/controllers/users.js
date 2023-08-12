@@ -58,25 +58,25 @@ console.log(info)
 
 export const NewUser=  async (req, res) => {
 
+  console.log(req.body)
+  res.send("hiii")
 
   const uri = process.env.NEO4J_URI
 const user = process.env.NEO4J_USERNAME
 const password =process.env.NEO4J_PASSWORD
 
 
-   const month = convertMonthToInt(req.body.values.month);
+  //  const month = convertMonthToInt(req.body.values.month);
 
-   const year=req.body.values.year
-   const day=req.body.values.day
+  //  const year=req.body.values.year
+  //  const day=req.body.values.day
 
 
-   if (day > getDaysInMonth(year, month)) {
-    // Invalid day
-    res.send("Wrong Date")
-  }
-  else
-  {
-    const myDate = new Date(year, month, day);
+  //  if (day > getDaysInMonth(year, month)) {
+  //   // Invalid day
+  //   res.send("Wrong Date")
+  // }
+
     /*
     firstName:String,
     SurName:String,
@@ -88,84 +88,110 @@ const password =process.env.NEO4J_PASSWORD
 
 
 */
-const current_date = new Date();
 
+// bcrypt.hash(req.body.values.password, 10, (err, hash) => {
 
-let current_year = current_date.getFullYear();
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
 
-let age=current_year-year;
-bcrypt.hash(req.body.values.password, 10, (err, hash) => {
+//   else
+//   {
 
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  else
-  {
-
-    const newUser={
-      firstName:req.body.values.firstName,
-      SurName:req.body.values.SurName,
-      email:req.body.values.email,
-      dateOfBirth:myDate.toISOString(),
-      Gender:req.body.values.gender,
-      age:age,
-      password:hash,
-      verification:false
+//     const newUser={
+//       firstName:req.body.values.firstName,
+//       SurName:req.body.values.SurName,
+//       email:req.body.values.email,
+//       dateOfBirth:myDate.toISOString(),
+//       Gender:req.body.values.gender,
+//       age:age,
+//       password:hash,
+//       verification:false
     
-     }
+//      }
 
    
 
 
 
-    let verfied_code=generateCode();
-    //console.log(verfied_code)
-    SendCode(req.body.values.email,verfied_code,req.body.values.firstName,req.body.values.SurName)
-    const currentTime = moment();
+//     let verfied_code=generateCode();
+//     //console.log(verfied_code)
+//     SendCode(req.body.values.email,verfied_code,req.body.values.firstName,req.body.values.SurName)
+//     const currentTime = moment();
 
-const newTime = currentTime.add(30, 'minutes');
+// const newTime = currentTime.add(30, 'minutes');
 
-const formattedTime = newTime.format('HH:mm:ss');
+// const formattedTime = newTime.format('HH:mm:ss');
 
 
-Users.create(newUser).then((doc)=>{
+// Users.create(newUser).then((doc)=>{
 
-  if(doc)
-  {
-    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
-    const session = driver.session();
+//   if(doc)
+//   {
+//     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+//     const session = driver.session();
 
-    const resultPromise = session.run(
-      'CREATE (n:User {firstName: $firstName, SurName: $SurName, email: $email, dateOfBirth: $dateOfBirth, Gender: $Gender, age: $age, password: $password}) RETURN n',
-      newUser
-    );
+//     const resultPromise = session.run(
+//       'CREATE (n:User {firstName: $firstName, SurName: $SurName, email: $email, dateOfBirth: $dateOfBirth, Gender: $Gender, age: $age, password: $password,verification:false}) RETURN n',
+//       newUser
+//     );
     
-    resultPromise.then(result => {
-      session.close();
+//     resultPromise.then(result => {
+//       session.close();
     
-      // on application exit:
-      driver.close();
-    });
+//       // on application exit:
+//       driver.close();
+//     });
 
 
 
-    res.json({"Code":verfied_code,"ExpireTime":formattedTime})
-  }
-  else
-  {
-    res.json("Error")
+//     res.json({"Code":verfied_code,"ExpireTime":formattedTime})
+//   }
+//   else
+//   {
+//     res.json("Error")
 
-  }
+//   }
 
-})
-}
-  })
+// })
+// }
+//   })
     }
-  }
-
-
+  
+ 
+  export const deleteAllNodes = async (req, res) => {
+    const uri = process.env.NEO4J_URI
+    const user = process.env.NEO4J_USERNAME
+    const password =process.env.NEO4J_PASSWORD
+    try {
+      const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+      const session = driver.session();
+  
+      // Cypher query to delete all nodes and their relationships
+      const cypherQuery = `
+        MATCH (n)
+        DETACH DELETE n
+      `;
+  
+      // Run the query to delete all nodes
+      const result = await session.run(cypherQuery);
+  
+      // Close the session and the driver
+      await session.close();
+      driver.close();
+  
+      // Check if any nodes were deleted
+      if (result.summary.counters.nodesDeleted() > 0) {
+        res.status(200).json({ message: 'All nodes deleted successfully.' });
+      } else {
+        res.status(404).json({ message: 'No nodes found to delete.' });
+      }
+    } catch (error) {
+      console.error('Error while deleting nodes:', error);
+      res.status(500).json({ message: 'Server error while deleting nodes.' });
+    }
+  };
   
 
 
@@ -223,28 +249,43 @@ res.json({"Code":verfied_code,"ExpireTime":formattedTime})
 
 
   }
-export const VerfiedUser=async (req, res) => {
+  export const VerfiedUser = async (req, res) => {
+    const uri = process.env.NEO4J_URI;
+    const user = process.env.NEO4J_USERNAME;
+    const password = process.env.NEO4J_PASSWORD;
+  
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const session = driver.session();
+  
+    try {
 
+      const updatedUser = await Users.findOneAndUpdate(
+        { email: req.body.email },
+        { verification: true },
+        { new: true }
+      );
 
-  Users.findOneAndUpdate({email:req.body.email},{verification:true}).then((doc)=>{
-
-
-    if(doc)
-    {
-      res.json({"Status":"success"})
+      const result = await session.run(
+        'MATCH (user:User {email: $email}) ' +
+        'SET user.verification = true ' +
+        'RETURN user',
+        { email: req.body.email }
+      );
+  
+      if (updatedUser && result.records.length > 0) {
+        res.json({ "Status": "success" });
+      } else {
+        res.json({ "Status": "error" });
+      }
+    } catch (error) {
+      console.error('Error occurred while updating user:', error);
+      res.status(500).json({ "Status": "error" });
+    } finally {
+      session.close();
+      driver.close();
     }
-    else
-    {
-        res.json({"Status":"error"})
-
-        console.log("Statuserror")
-    }
-
-
-  })
-
-
   }
+  
   export const VerifyUser =(req, res) => {
 
       try{

@@ -52,7 +52,7 @@ const LoginPage = () => {
   const LoginSection = styled.div`
 
   position: relative;
-  left:650px;
+  left:550px;
  
   `;
 
