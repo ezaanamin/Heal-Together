@@ -6,7 +6,7 @@ import { UserContext } from '../Context/context';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import logo from "../images/HEAL TOGETHER-1 (3).png";
+import logo from "../images/HealTogether_Logo2_transparent.png";
 import InputField from './InputField';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';

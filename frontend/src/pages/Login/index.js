@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components"
-import logo from "../../images/HEAL TOGETHER-1.png"
+import logo from "../../images/HealTogether_Logo7.png"
 import InputField from '../../component/InputField';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
@@ -227,7 +227,7 @@ theme === 'purple' ? PurpleButton :LightButton
 const CreateAccount = styled.button`
 marginTop: 10px;
 height: 40px;
-width: 200px;
+width: 250px;
 display: block;
 marginLeft: auto;
 marginRight: auto;
@@ -302,8 +302,9 @@ if (Login.fulfilled.match(action)) {
 
 const SignUp=()=>
 {
-SetLoginModal(false);
-SetSignUpModal(true);
+
+  nav('/getting_started');
+
 
 
 
@@ -369,7 +370,7 @@ SetSignUpModal(true);
           <hr/>
 
 
-          <MainCreate onClick={SignUp}>Create Account</MainCreate>
+          <MainCreate onClick={SignUp}>Begin Healing Journey</MainCreate>
 
  </LoginSection>
     </Container>

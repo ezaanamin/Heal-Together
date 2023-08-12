@@ -9,7 +9,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 
 import styled from 'styled-components';
-import DateDropdown from './DateDropDown';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -304,7 +303,6 @@ onChange={(event) => setFieldValue("password", event.target.value)}
            ) : null}
 <h3>Date of Birth</h3>
 
-<DateDropdown formSubmit={handleSubmit} onChange={(event) => setFieldValue("day", event.target.value)} onChange1={(event) => setFieldValue("month", event.target.value)} onChange2={(event) => setFieldValue("year", event.target.value)}/>
 
 <h3>Gender</h3>
 <RadioGroup

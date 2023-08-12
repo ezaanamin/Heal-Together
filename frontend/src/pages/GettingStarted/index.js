@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import styled from "styled-components"
-import logo from "../../images/HEAL TOGETHER-1 (3).png"
+import logo from "../../images/HealTogether_Logo2_transparent.png";
 import { questions } from '../../getting_started_questions';
 import { InputLabel, MenuItem, Select, Button } from '@mui/material';
 import { checkboxQuestions } from '../../getting_started_questions/checkbox';
@@ -13,6 +13,8 @@ import { UserContext } from '../../Context/context';
 import { useContext } from 'react';
 import { SignUpPost } from '../../redux/slice/API';
 import TextField from '@mui/material/TextField';
+
+
 
 const GettingStarted = () => {
 
@@ -28,21 +30,22 @@ const GettingStarted = () => {
 
   };
 
+
+
   const validationSchema = yup.object({
     email: yup
-      .string('Enter your email').email()
-      .required('email is required'),
+      .string('Enter your email')
+      .email('Invalid email')
+      .required('Email is required'),
     password: yup
       .string('Enter your password')
       .min(8, 'Password should be of minimum 8 characters length')
       .required('Password is required'),
-      firstName:yup.string().required('First Name is required.'),
-      SurName:yup.string().required('Surname Name is required.'),
-      gender: yup.string().test('isRequired', 'Please select an option.', value => value !== undefined),
-
-
-
+    firstName: yup.string().required('First Name is required.'),
+    SurName: yup.string().required('Surname Name is required.'),
   });
+
+
   const {
     day, 
     month,
@@ -103,13 +106,9 @@ const[question, setQuestion]=useState(initialStateQuestion)
         SurName:values.SurName,
         email:values.email,
         password:values.password,
-        gender:values.gender,
-        day:day,
-        month:month,
-        year:year
       }
     
-      const promise = dispatch(SignUpPost({values:v,Question1:initialState,Question2:initialStateQuestion}))
+      const promise = dispatch(SignUpPost({values:v,Question1:emotionalStates,Question2:question}))
     
       promise.then((action) => {
         if (SignUpPost.fulfilled.match(action)) {
@@ -345,23 +344,7 @@ const NextCheckBox=()=>{
 }
 
 
-    useEffect(() => {
-
-
-        const handleBackButton = (event) => {
-          event.preventDefault();
-          window.history.forward();
-        };
-    
-        // Disable the back button
-        window.history.pushState(null, null, window.location.pathname);
-        window.addEventListener('popstate', handleBackButton);
-    
-        return () => {
-          // Re-enable the back button when the component unmounts
-          window.removeEventListener('popstate', handleBackButton);
-        };
-      }, []);
+ 
 
     return (
         <GettingStarted>
@@ -452,7 +435,6 @@ const NextCheckBox=()=>{
     password:"",
     firstName:"",
     SurName:"",
-    gender:"",
 
 
 
@@ -464,8 +446,7 @@ const NextCheckBox=()=>{
 validationSchema={validationSchema}
   
 onSubmit={(values, { setSubmitting }) => {
- 
-  alert("hii")
+console.log(initialStateQuestion,'ezaan');
   handle(values);
 
   setSubmitting(false);
@@ -477,11 +458,10 @@ onSubmit={(values, { setSubmitting }) => {
   {({  handleSubmit, setFieldValue,errors, touched }) => (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection:"column" }}>
 
-<h3 style={{marginTop:25}}>You've completed the questionnaire!</h3>
+<h4 style={{marginTop:25}}>Congratulations on Completing the Questionnaire! Just a Few Steps Left...</h4>
 
-<TextField 
-style={{marginBottom:15,width:400,marginTop:20}}  
 
+<TextField style={{width:400}} 
 label="First Name"
 id="firstName"
 name="firstName"
@@ -496,10 +476,10 @@ variant="outlined"
 
 
 
-
 <TextField id="outlined-basic" label="Surname" variant="outlined"
-style={{marginBottom:15,width:400,marginTop:20}}  
+
 name="SurName"
+style={{width:400}}
 onChange={(event) => setFieldValue("SurName", event.target.value)} 
 
 margin="normal"
@@ -510,6 +490,7 @@ margin="normal"
 
 
 
+<SignUp>
 {errors.firstName && touched.firstName ? (
              <Errors>{errors.firstName}</Errors>
            ) : null}
@@ -517,9 +498,7 @@ margin="normal"
 {errors.SurName && touched.SurName ? (
              <Errors>{errors.SurName}</Errors>
            ) : null}
-
-
-
+</SignUp>
 <TextField 
    sx={{
     '@media (max-width: 600px)': {
@@ -563,9 +542,10 @@ onChange={(event) => setFieldValue("password", event.target.value)}
 
 
 
-<SignUpButton  onClick={handleSubmit} >Sign Up</SignUpButton>
 
+      {/* <TermsPrivacyPolicy>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy</TermsPrivacyPolicy> */}
       
+      <SignUpButton  onClick={handleSubmit} >Sign Up</SignUpButton>
       </div>
 
 

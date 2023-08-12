@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from "../images/HEAL TOGETHER-1 (3).png";
+import logo from "../images/HealTogether_Logo2_transparent.png";
 import { Box, TextField, IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SearchBar from "material-ui-search-bar";
