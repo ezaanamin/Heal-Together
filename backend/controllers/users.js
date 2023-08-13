@@ -58,36 +58,22 @@ console.log(info)
 
 export const NewUser=  async (req, res) => {
 
-  console.log(req.body)
-  res.send("hiii")
+  console.log(req.body.values);
+  console.log(req.body.Question1);
+  console.log(req.body.Question2);
 
   const uri = process.env.NEO4J_URI
 const user = process.env.NEO4J_USERNAME
 const password =process.env.NEO4J_PASSWORD
+    // firstName:String,
+    // SurName:String,
+    // dateOfBith:Date,
+    // email:String,
+    // age:Number,
+    // password:String,
+    // Gender:String,
 
 
-  //  const month = convertMonthToInt(req.body.values.month);
-
-  //  const year=req.body.values.year
-  //  const day=req.body.values.day
-
-
-  //  if (day > getDaysInMonth(year, month)) {
-  //   // Invalid day
-  //   res.send("Wrong Date")
-  // }
-
-    /*
-    firstName:String,
-    SurName:String,
-    dateOfBith:Date,
-    email:String,
-    age:Number,
-    password:String,
-    Gender:String,
-
-
-*/
 
 // bcrypt.hash(req.body.values.password, 10, (err, hash) => {
 

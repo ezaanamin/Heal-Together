@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import MegaDraft from './MegaDraft';
 import EmojiPicker from './EmojiPicker';
 import AddToPost from './AddToPost';
-import { TopRatedMoives, TopRatedTVSHOW } from '../redux/slice/API';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 function getModalStyle() {
@@ -63,75 +62,32 @@ function getModalStyle() {
 
   
   function PostModal() {
-
-
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const options = {
-//         method: 'GET',
-//         headers: {
-//           accept: 'application/json',
-//           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZDNmNjk5NmYzYTBhOGEwMjRlODYxY2MwYjc2OWU0ZCIsInN1YiI6IjYyNTFjNzY5OGZkZGE5MWM5ZWE4NjFhZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3XyuU3Ymo_WkKLX-_hf7gbPtjvlbUp4afjRmSbDJmjA'
-//         }
-//       };
-      
-//      const response= await axios.get('https://api.themoviedb.org/3/movie/top_rated', options)
-    
-//      console.log(response.data['results'])
-    
-//     } catch (error) {
-//       console.error('Error fetching data:', error);
-//     }
-//   };
-
-//   fetchData();
-// }, []); // The empty dependency array ensures this effect runs only once after the initial render.
-
-
 const dispach=useDispatch();
-
-
-useEffect(()=>{
-dispach(TopRatedMoives());
-dispach(TopRatedTVSHOW());
-},[])
 const state = useSelector((state) => state);
-
-
-
-
-    const [modalStyle] = useState(getModalStyle);
-    const {
-        CreatePost,SetCreatePost
-      }=useContext(UserContext)
-  
-  
+const [modalStyle] = useState(getModalStyle);
+const {CreatePost,SetCreatePost}=useContext(UserContext)
     const handleClick = async ()=>
     {
       SetCreatePost(false)
    
     }
     const [textValue, setTextValue] = useState('');
-    const [fontSize, setFontSize] = useState(16); // Initial font size
-    const textareaRef = useRef(null); // Create a ref for the textarea element
+    const [fontSize, setFontSize] = useState(16);
+    const textareaRef = useRef(null);
   
     const handleInputChange = (event) => {
       setTextValue(event.target.value);
     };
   
     useEffect(() => {
-      // Adjust the font size based on the length of the input text
       if (textValue.length > 50) {
-        setFontSize(14); // Smaller font size
+        setFontSize(14); 
       } else {
-        setFontSize(16); // Default font size
+        setFontSize(16);
       }
     }, [textValue]);
   
     useEffect(() => {
-      // Focus on the textarea when the component mounts
       if (textareaRef.current) {
         textareaRef.current.focus();
       }
@@ -140,7 +96,6 @@ const state = useSelector((state) => state);
     const [selectedEmoji, setSelectedEmoji] = useState(null);
 
     const handleEmojiSelect = (emoji) => {
-      // Check if the emoji represents a feeling before setting it as selected
       if (emoji && emoji.categories.includes('Smileys & Emotion')) {
         setSelectedEmoji(emoji);
       }

@@ -20,6 +20,57 @@ useEffect(()=>{
 
   GetTheme()
 },[])
+const Primary_Profile_initialState = {
+  primary_motivation:"",
+  professional_treatment:"",
+  comfortable_discussing_mental_health:"",
+  connect_with_others:"",
+  religious:"",
+  received_a_diagnosis:"",
+  age:0
+};
+const Coping_and_Interest_initialState = {
+  depression: false,
+  anxiety: false,
+  bipolar: false,
+  ptsd: false,
+  ocd: false,
+  schizophrenia: false,
+  eatingDisorders: false,
+  other: false,
+  eating_disorders:false,
+  copingTechniques: false,
+  personalStories: false,
+  medication: false,
+  reducingStigma: false,
+  healthyLifestyle: false,
+  spirituality: false,
+  otherInterests: false,
+  meditation: false,
+  creativeActivities: false,
+  talkToFriends: false,
+  exercise: false,
+  seekingHelp: false,
+  otherCoping: false,
+  creative_activities:false,
+  talking_to_friends_family:false,
+  exercising:false,
+  professional_help:false,
+  copingother:false,
+  coping_techniques:false,
+  personal_stories:false,
+  reducing_stigma:false,
+  healthy_lifestyle:false,
+};
+
+const [Coping_and_Interest_question, setCoping_and_Interest_question] = useState(Coping_and_Interest_initialState);
+const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Profile_initialState)
+
+
+
+
+
+
   const [SignUpModal, SetSignUpModal] = useState(false);
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState('');
@@ -67,7 +118,9 @@ useEffect(()=>{
     theme, setTheme,
     ColorTheme, SetColorTheme,
     currentTheme,SetCurrentTheme,
-    LoginModal, SetLoginModal
+    LoginModal, SetLoginModal,
+    Coping_and_Interest_question, setCoping_and_Interest_question,
+    Primary_Profile_question, setPrimary_Profile_question
   };
 
 

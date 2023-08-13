@@ -1,4 +1,4 @@
-export const checkboxQuestions = [
+export const Coping_and_Interest_Questions = [
     {
       question: "If yes, please select the condition(s) you've been diagnosed with (Check all that apply):",
       options: [

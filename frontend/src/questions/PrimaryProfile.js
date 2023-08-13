@@ -1,4 +1,4 @@
-export const questions = [
+export const Primary_Profile = [
   {
     "question": "What is your primary motivation for joining Heal Together?",
     "options": [
