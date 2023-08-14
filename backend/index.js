@@ -5,9 +5,9 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import UserRoutes from "./routes/users.js"
 import { userData } from "./userData.js"
-import Users from "./model/users.js"
 import neo4j from "neo4j-driver"
 import cookieParser from "cookie-parser"
+import { Users } from "./model/users.js"
 
 const app=express()
 dotenv.config();

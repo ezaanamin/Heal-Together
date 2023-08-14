@@ -7,7 +7,10 @@ import { Formik } from 'formik';
 import { SignUpPost } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 const SignUpForm = () => {
+  const  nav=useNavigate();
     const dispatch=useDispatch();
 
     const validationSchema = yup.object({
@@ -34,7 +37,7 @@ const handleSignUpAndVerification= async(values)=>{
       password:values.password,
     }
   
-    const promise = dispatch(SignUpPost({values:v,Question1:Coping_and_Interest_question,Question2:Primary_Profile_question}))
+    const promise = dispatch(SignUpPost({values:v,Coping_and_Interest_Questions:Coping_and_Interest_question,Primary_Profile:Primary_Profile_question}))
   
     promise.then((action) => {
       if (SignUpPost.fulfilled.match(action)) {
@@ -43,6 +46,7 @@ const handleSignUpAndVerification= async(values)=>{
         setverficationEmail(values.email)
         setverficationFirstName(values.firstName);
         setverficationLastName(values.SurName);
+        nav('/verification')
         
   
   

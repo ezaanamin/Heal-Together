@@ -8,6 +8,7 @@ import {FormControl,FormControlLabel,Checkbox} from "@material-ui/core";
 import { UserContext } from '../../Context/context';
 import { useContext } from 'react';
 import SignUpForm from '../../component/SignUpForm';
+
 const GettingStarted = () => {
   const {Coping_and_Interest_question,setCoping_and_Interest_question,Primary_Profile_question, setPrimary_Profile_question}=useContext(UserContext)
   const [questionNo,SetQuestionNo]=useState(0)
