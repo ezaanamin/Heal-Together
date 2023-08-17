@@ -22,11 +22,12 @@ import LoginModal from './LoginModal';
 import FaceIcon from '@mui/icons-material/Face';
 import { useEffect } from 'react';
 import SignUpModal from './SignUpModal';
+import FemaleAvatar from "../images/user_default_female.png"
+import MaleAvatar from "../images/user_default_male.png"
 const SideBar = () => {
   const [searchBar, SetSearchBar] = useState(false);
   const [icons, setIcons] = useState(1);
   const [anchorEl, setAnchorEl] = useState(null); 
-  const [Login,SetLogin] = useState(false);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,7 +41,11 @@ const SideBar = () => {
 
     theme,
     setTheme,
-    SetLoginModal
+    SetLoginModal,
+    Login,SetLogin,
+    UserGender,
+    UserFirstName,
+    UserSurName,
   } = useContext(UserContext);
 
   const SideBarContainer = styled.div`
@@ -81,6 +86,14 @@ const SideBar = () => {
     height: 50px;
   `;
 
+  const Profile=styled.img`
+  height:50px;
+  border-radius:50px;
+  margin-top:10px;
+
+  
+  `
+
   const LightMainContainer = styled(SideBarContainer)`
     background-color: #CCCCCC;
   `;
@@ -101,6 +114,18 @@ const SideBar = () => {
     margin-left: 10px;
   `;
 
+  const ModalUserHeading=styled.p`
+  position: relative;
+  font-size:20px;
+
+  margin-top:20px;
+  font-weight:bold;
+  
+
+  
+  
+  `
+
   const MainComponent =
     theme === 'blue' ? BlueMainContainer :
     theme === 'green' ? GreenMainContainer :
@@ -118,24 +143,6 @@ const SideBar = () => {
   const classes = useStyles();
 
 
-useEffect(()=>{
-  const GetToken = () => {
-  
-    const Token = localStorage.getItem('Token');
-
-    if(Token)
-    {
-      SetLogin(true);
-    }
-    else
-    {
-        SetLogin(false);
-    }
-   
-  };
-
-  GetToken()
-},[theme])
 
   return (
     <MainComponent>
@@ -167,18 +174,17 @@ useEffect(()=>{
       </SideBarItems>
 
       <SideRight>
-        {
-          Login?
-          <h1>hii</h1>:
+      {
+            UserGender=="Male"?
+                  <Profile src={MaleAvatar}/>:
+                  <Profile src={FemaleAvatar}/>
 
-          <IconButton onClick={()=>SetLoginModal(true)} style={{ marginBottom: 10 }}>
-          <FaceIcon fontSize='large' />
-          <IconHeading>Login</IconHeading>
-          </IconButton>
-      
 
-        }
-   
+
+          }
+
+<ModalUserHeading>{UserFirstName}  {UserSurName}</ModalUserHeading>
+
       </SideRight>
     </MainComponent>
   );

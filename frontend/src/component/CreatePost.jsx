@@ -7,13 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from '@material-ui/icons/Close';
-import ProfilePic from "../images/profile_pic_default.png"
 import styled from 'styled-components';
 import MegaDraft from './MegaDraft';
 import EmojiPicker from './EmojiPicker';
 import AddToPost from './AddToPost';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import FemaleAvatar from "../images/user_default_female.png"
+import MaleAvatar from "../images/user_default_male.png"
 function getModalStyle() {
 
 
@@ -65,7 +66,9 @@ function getModalStyle() {
 const dispach=useDispatch();
 const state = useSelector((state) => state);
 const [modalStyle] = useState(getModalStyle);
-const {CreatePost,SetCreatePost}=useContext(UserContext)
+const {CreatePost,SetCreatePost,    UserFirstName,
+  UserSurName,
+  UserGender,}=useContext(UserContext)
     const handleClick = async ()=>
     {
       SetCreatePost(false)
@@ -118,8 +121,15 @@ const {CreatePost,SetCreatePost}=useContext(UserContext)
     </Typography>
 
 <ModalUser>
-    <Profile src={ProfilePic}/>
-<ModalUserHeading>User</ModalUserHeading>
+{
+            UserGender=="Male"?
+                  <Profile src={MaleAvatar}/>:
+                  <Profile src={FemaleAvatar}/>
+
+
+
+          }
+<ModalUserHeading>{UserFirstName}  {UserSurName}</ModalUserHeading>
 
     </ModalUser>
 <MegaDraft/>

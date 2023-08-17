@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles } from "@material-ui/core/styles";
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -6,7 +6,8 @@ import PhotoIcon from '@mui/icons-material/Photo';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { UserContext } from '../Context/context';
 import { useContext } from 'react';
-import ProfilePic from "../images/profile_pic_default.png";
+import FemaleAvatar from "../images/user_default_female.png"
+import MaleAvatar from "../images/user_default_male.png"
 
 const StatusBar = () => {
   const useStyles = makeStyles(theme => ({
@@ -20,10 +21,11 @@ const StatusBar = () => {
   const classes = useStyles();
 
   const {
-    CreatePost,
+
     SetCreatePost,
     theme,
-    setTheme 
+  
+    UserGender,
   } = useContext(UserContext);
 
   const StyledStatusBar = styled.div`
@@ -153,6 +155,10 @@ const MainStatus =
   theme === 'green' ? GreenStatusBar :
   theme === 'purple' ? PurpleStatusBar : LightMainContainer;
 
+  // useEffect(()=>{
+
+  //   alert(UserGender)
+  // },[])
 
 
   return (
@@ -160,7 +166,14 @@ const MainStatus =
     <MainContainer>
       <MainStatus onClick={() => SetCreatePost(true)} theme={theme}>
         <StatusBarItems>
-          <Profile src={ProfilePic} />
+          {
+            UserGender=="Male"?
+                  <Profile src={MaleAvatar}/>:
+                  <Profile src={FemaleAvatar}/>
+
+
+
+          }
         </StatusBarItems>
         <MainText>
           Share Your Thoughts, Feel Heard!

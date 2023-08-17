@@ -41,6 +41,7 @@ const handleSignUpAndVerification= async(values)=>{
   
     promise.then((action) => {
       if (SignUpPost.fulfilled.match(action)) {
+        
         SetCode( action.payload.Code);
         setExpireTime( action.payload.ExpireTime);
         setverficationEmail(values.email)

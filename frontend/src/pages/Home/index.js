@@ -14,7 +14,7 @@ import SideBar from '../../component/SideBar';
 const Home = () => {
 
   const nav = useNavigate();
-  const { CreatePost, SetCreatePost,theme, setTheme } = useContext(UserContext);
+  const { CreatePost, SetCreatePost,theme, setTheme,    Login,SetLogin } = useContext(UserContext);
 
 
 
@@ -35,6 +35,8 @@ const Home = () => {
       }
     }
   }, []);
+
+
 
   const StyledHome = styled.div`
     width: 100%;
@@ -57,6 +59,20 @@ const PurpleMainContainer = styled(StyledHome)`
   background-color: #b39ed9;
 `;
 
+useEffect(()=>{
+
+  
+  const Token = localStorage.getItem('Token');
+
+  if(!Token)
+  {
+    nav('/')
+  }
+  
+
+ 
+
+},[Login])
 
 
 const MainComponent =

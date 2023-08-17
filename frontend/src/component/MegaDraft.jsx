@@ -54,7 +54,6 @@ const MegaDraft = () => {
   };
 
   const placeholderStyle = {
-    /* Add your custom styling for the placeholder here */
     color: '#b2b3b5',
     fontSize:20,
     border:"none",

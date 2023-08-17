@@ -61,7 +61,12 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const {LoginModal,SetLoginModal,theme, SetSignUpModal}=useContext(UserContext)
+  const {LoginModal,SetLoginModal,theme, SetSignUpModal,
+    UserFirstName, SetUserFirstName,
+    UserSurName,SetUserSurName,
+    UserGender, SetUserGender,
+  
+  }=useContext(UserContext)
 
 const style = {
   position: 'absolute',
@@ -287,6 +292,10 @@ promise.then((action) => {
 if (Login.fulfilled.match(action)) {
 // setverficationEmail("")
  localStorage.setItem('Token', JSON.stringify(action.payload.Token));
+ SetUserFirstName(action.payload.firstName);
+ SetUserSurName(action.payload.SurName);
+ SetUserGender(action.payload.gender);
+
  nav('/home')
 
 

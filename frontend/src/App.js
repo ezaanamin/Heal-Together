@@ -65,13 +65,10 @@ const Coping_and_Interest_initialState = {
 
 const [Coping_and_Interest_question, setCoping_and_Interest_question] = useState(Coping_and_Interest_initialState);
 const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Profile_initialState)
-
-
-
-
-
-
   const [SignUpModal, SetSignUpModal] = useState(false);
+  const [UserFirstName, SetUserFirstName] = useState("");
+  const[UserSurName,SetUserSurName] = useState("");
+  const [UserGender, SetUserGender] = useState("")
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
@@ -91,6 +88,10 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
   const[ColorTheme, SetColorTheme] = useState(false);
 
   const userContextValue = {
+    UserFirstName, SetUserFirstName,
+    UserSurName,SetUserSurName,
+    UserGender, SetUserGender,
+
     SignUpModal,
     SetSignUpModal,
     date,
@@ -120,7 +121,7 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
     currentTheme,SetCurrentTheme,
     LoginModal, SetLoginModal,
     Coping_and_Interest_question, setCoping_and_Interest_question,
-    Primary_Profile_question, setPrimary_Profile_question
+    Primary_Profile_question, setPrimary_Profile_question,
   };
 
 

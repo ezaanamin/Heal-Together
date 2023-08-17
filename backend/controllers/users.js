@@ -390,7 +390,8 @@ res.json({"Code":verfied_code,"ExpireTime":formattedTime})
                   expiresIn: '2h',
                 }
               );
-res.json({"Token": token})             
+              // console.log(doc.gender)
+res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.surName})             
             } else {
               res.json('Wrong password');
             }
