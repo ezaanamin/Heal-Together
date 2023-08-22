@@ -8,6 +8,8 @@ import { userData } from "./userData.js"
 import neo4j from "neo4j-driver"
 import cookieParser from "cookie-parser"
 import { Users } from "./model/users.js"
+import { sampleUsers } from './sampleUser.js';
+import multer from "multer"
 
 const app=express()
 dotenv.config();
@@ -34,7 +36,22 @@ app.get("/",(req,res)=>{
   res.json("hiii")
 })
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "/home/ezaan-amin/Documents/Programming/Profiolo/Heal-Together/backend/upload");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
 
+const upload = multer({ storage });
+
+app.post("/upload", upload.single("file"), function (req, res) {
+  const file = req.file;
+  console.log(file)
+  res.status(200).json(file.filename);
+});
 
 app.post("/test",(req,res)=>{
  console.log(req.body)

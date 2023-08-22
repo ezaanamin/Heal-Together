@@ -4,12 +4,13 @@ import logo from "../../images/HealTogether_Logo7.png"
 import InputField from '../../component/InputField';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { Login } from '../../redux/slice/API'
 import { UserContext } from '../../Context/context';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import SignUpModal from '../../component/SignUpModal';
+//import RecommendedUser from '../../component/RecommendedUser';
 
 
 const LoginPage = () => {
@@ -61,33 +62,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const {LoginModal,SetLoginModal,theme, SetSignUpModal,
-    UserFirstName, SetUserFirstName,
-    UserSurName,SetUserSurName,
-    UserGender, SetUserGender,
-  
-  }=useContext(UserContext)
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 100,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-  backgroundColor: theme === 'light' ? '#20B2AA' :
-  theme === 'blue' ? '#6ea8d9' :
-  theme === 'green' ? '#8fd9a6' :
-  theme === 'purple' ? '#b39ed9' : '#20B2AA',
-  
-  
-};
-
+  const {theme, SetUserFirstName,SetUserSurName, SetUserGender,}=useContext(UserContext)
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email').required('Email is required'),
   password: yup
@@ -97,44 +72,6 @@ const validationSchema = yup.object().shape({
 }); 
 
 
-const handleClose=()=>{
-
-  SetLoginModal(false);
-}
-
-
-
-const Text=styled.p`
-text-align:center;
-font-size:18px;
-margin-bottom:10px;
-font-weight:bold;
-
-
-
-
-`
-const GreenColor=styled(Text)`
-
-color:#FFFFFF
-
-`
-const BlueColor=styled(Text)`
-color:#FFFFFF
-
-
-`
-const LightColor=styled(Text)`
-
-color:#20B2AA 
-
-`
-const PurpleColor=styled(Text  )`
-color:#20B2AA 
-
-
-
-`
 
 const LoginHeading=styled.h1`
 
@@ -148,41 +85,8 @@ font-weight:bold;
 
 `
 
-const GreenHeading=styled(LoginHeading)`
-
-color:#FFFFFF
-
-`
-const BlueHeading=styled(LoginHeading)`
-color:#FFFFFF
 
 
-`
-const LightHeading=styled(LoginHeading)`
-
-color:#20B2AA 
-
-`
-const PurpleHeaing=styled(LoginHeading)`
-color:#20B2AA 
-
-
-
-`
-
-const MainHeading=
-
-theme === 'light' ? LightHeading :
-theme === 'blue' ? BlueHeading :
-theme === 'green' ? GreenHeading :
-theme === 'purple' ? PurpleHeaing :LightHeading 
-
-
-const MainText =
-theme === 'light' ? LightColor :
-theme === 'blue' ? BlueColor :
-theme === 'green' ? GreenColor :
-theme === 'purple' ? PurpleColor :LightColor 
 
 
 const LoginButton=styled.button`
@@ -262,14 +166,12 @@ background-color: #8bb5e8;
 color: #ffffff;
 
 `;
-
-// Serene Green Theme
 const GreenButtonCreate = styled(CreateAccount)`
 background-color: #a8e89e;
 color: #ffffff; 
 `;
 
-// Relaxing Purple Theme
+
 const PurpleButtonCreate = styled(CreateAccount)`
 background-color: #c18ae8; 
 color: #333333; 
@@ -290,14 +192,22 @@ const promise = dispatch(Login({email:email,password:password}))
 
 promise.then((action) => {
 if (Login.fulfilled.match(action)) {
-// setverficationEmail("")
+
+  if(action.payload.status==="Wrong Email or User Not Found")
+  {
+    alert(action.payload.status)
+  }
+  else
+  {
+
+  
  localStorage.setItem('Token', JSON.stringify(action.payload.Token));
  SetUserFirstName(action.payload.firstName);
  SetUserSurName(action.payload.SurName);
  SetUserGender(action.payload.gender);
 
  nav('/home')
-
+  }
 
 
 } else if (Login.rejected.match(action)) {
@@ -310,14 +220,7 @@ if (Login.fulfilled.match(action)) {
 
 
 const SignUp=()=>
-{
-
-  nav('/getting_started');
-
-
-
-
-}
+{nav('/getting_started');}
 
 
   return (
@@ -342,7 +245,7 @@ const SignUp=()=>
               handleClick(values.email, values.password);
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            {({ handleChange, values, errors, }) => (
               <Form>
                 <InputField
                   label="Email"

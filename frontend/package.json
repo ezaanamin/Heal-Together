@@ -34,7 +34,7 @@
     "react-jwt": "^1.2.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.13.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.7.4",
     "react-verification-code-input": "^1.2.9",
     "styled-components": "^6.0.0-rc.3",

@@ -5,21 +5,21 @@ import MailIcon from '@mui/icons-material/Mail';
 import styled from 'styled-components';
 import { UserContext } from '../../Context/context';
 import { useContext } from 'react';
-import { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import VerificationCodeInput from 'react-verification-code-input';
 import { ReSendCode,VerfiedUser } from '../../redux/slice/API';
+import { Recommended } from '../../redux/slice/API';
 const Verification = () => {
 
   const nav=useNavigate();
   const {
-    verficationEmail,setverficationEmail,  ExpireTime,setExpireTime,
-    Code,SetCode,
+    verficationEmail, ExpireTime,setExpireTime,
+    Code,SetCode,SetFirstTimeUser,SetRecommendedUserList,
+    Coping_and_Interest_question
+
   }=useContext(UserContext)
-  const [generateCode,setgenerateCode]=useState(false);
-  const [userCode,setuserCode]=useState(0);
-  const inputRef = useRef();
+  const [setgenerateCode]=useState(false);
   const dispatch = useDispatch();
 
 
@@ -67,7 +67,6 @@ const Verification = () => {
       }, [Code]);
     
       
-      const [verificationCode, setVerificationCode] = useState(0);
   
   
       const handleVerfication=(code)=>{
@@ -83,15 +82,44 @@ console.log(typeof Code1, typeof Code)
 
           promise.then((action) => {
             if (VerfiedUser.fulfilled.match(action)) {
-             setverficationEmail("")
-              // setverficationEmail(values.email)
-              // setverficationFirstName(values.firstName);
-              // setverficationLastName(values.SurName);
-            nav('/')
-              
+
+              localStorage.setItem('Token', JSON.stringify(action.payload.Token));
+
+
+              const promise1=dispatch(Recommended({Coping_and_Interest_Questions:Coping_and_Interest_question}))
+
+              promise1.then((action)=>{
+
+                if (Recommended.fulfilled.match(action)) {
+
+               SetFirstTimeUser(true)
+               SetRecommendedUserList(action.payload.data);
+            
+                nav('/home')
+
+
+                }
+                else if(Recommended.rejected.match(action))
+                {
+                  alert("Error")
+    
+                }
+                else
+
+                {
+                  alert("Error")
+                }
+                  
+              })
+            
+
         
         
-            } else if (VerfiedUser.rejected.match(action)) {
+            }
+       
+            
+            
+            else if (VerfiedUser.rejected.match(action)) {
              alert("Error")
             }
           });

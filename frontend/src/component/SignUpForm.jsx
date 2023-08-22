@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { UserContext } from '../Context/context';
 import { useContext } from 'react';
 import * as yup from 'yup';
-import { Formik } from 'formik';
-import { SignUpPost } from '../redux/slice/API';
+import {Formik } from 'formik';
+import {SignUpPost } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ const SignUpForm = () => {
         firstName: yup.string().required('First Name is required.'),
         SurName: yup.string().required('Surname Name is required.'),
       });
-const {SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName,Coping_and_Interest_question,setCoping_and_Interest_question,Primary_Profile_question, setPrimary_Profile_question}=useContext(UserContext)
+const {SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName,Coping_and_Interest_question,Primary_Profile_question}=useContext(UserContext)
 const handleSignUpAndVerification= async(values)=>{
 
   
@@ -56,10 +56,10 @@ const handleSignUpAndVerification= async(values)=>{
       }
     });
   
-  
-  
-  
-    }
+ 
+   
+
+  }
 
     
     const SignUp=styled.div`

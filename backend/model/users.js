@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
       sexual_orientation: String,
       religious_identity: String
     },
+    user_profile_pic:String,
     interestsAndQuestions: {
       depression: Boolean,
       anxiety: Boolean,

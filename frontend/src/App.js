@@ -1,11 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Routes from './Routes';
 import { UserContext } from './Context/context';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { createTheme } from '@mui/material/styles';
-import { CssBaseline,ThemeProvider } from '@mui/material';
+
 
 
 
@@ -82,6 +79,8 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
   const [CreatePost, SetCreatePost] = useState(false);
   const [currentTheme,SetCurrentTheme] = useState("");
   const [LoginModal, SetLoginModal] = useState(false);
+  const [firstTimeUser,SetFirstTimeUser]=useState(false);
+  const [RecommendedUserList,SetRecommendedUserList]=useState([])
 
 
   const [theme, setTheme] = useState("light");
@@ -91,7 +90,7 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
     UserFirstName, SetUserFirstName,
     UserSurName,SetUserSurName,
     UserGender, SetUserGender,
-
+    firstTimeUser,SetFirstTimeUser,
     SignUpModal,
     SetSignUpModal,
     date,
@@ -122,6 +121,7 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
     LoginModal, SetLoginModal,
     Coping_and_Interest_question, setCoping_and_Interest_question,
     Primary_Profile_question, setPrimary_Profile_question,
+    RecommendedUserList,SetRecommendedUserList
   };
 
 

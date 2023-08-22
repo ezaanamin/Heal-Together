@@ -341,7 +341,25 @@ res.json({"Code":verfied_code,"ExpireTime":formattedTime})
       );
   
       if (updatedUser && result.records.length > 0) {
-        res.json({ "Status": "success" });
+Users.findOne({email:req.body.email}).then((doc)=>{
+
+  if(doc)
+  {
+    const token = jwt.sign(
+      { user_id: doc._id },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: '2h',
+      }
+    );
+    res.json({ "Status": "success","Token":token });
+
+    
+
+  }
+
+})
+
       } else {
         res.json({ "Status": "error" });
       }
@@ -400,7 +418,41 @@ res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.s
             console.error('Error comparing passwords:', error);
           });
       } else {
-        res.json({ status: 'Wrong Email' });
+        console.log("User not found")
+        res.json({ status: 'Wrong Email or User Not Found' });
       }
     });
   };
+
+export const RecommendedUserProfile  = (req, res) => {
+const values=[];
+
+for (const key in req.body.Coping_and_Interest_Questions) {
+  if (req.body.Coping_and_Interest_Questions[key]) {
+   values.push(key);
+  }
+}
+const orConditions = values.map(field => ({ [`interestsAndQuestions.${field}`]: true }));
+
+const query = { $or: orConditions };
+
+Users.find(query).limit(10).then((doc)=>{
+
+
+if(doc)
+{
+  console.log(doc);
+  console.log(doc.length)
+  res.json({"data":doc})
+}
+else
+{
+  res.status(500).json({ "Status": "error" });
+
+}
+
+}
+)
+
+
+}

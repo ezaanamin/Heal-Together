@@ -1,20 +1,18 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken, decodeToken, isTokenExpired } from 'react-jwt';
-import Navbar from '../../component/SideBar';
+import { decodeToken, } from 'react-jwt';
 import styled from 'styled-components';
 import StatusBar from '../../component/StatusBar';
 import { UserContext } from '../../Context/context';
 import { useContext } from 'react';
 import PostModal from '../../component/CreatePost';
-import { ThemeContext } from "../../Context/theme-context"
-import { themes } from '../../Context/theme-context';
 import SideBar from '../../component/SideBar';
+import RecommendedUser from "../../component/RecommendedUser"
 const Home = () => {
 
   const nav = useNavigate();
-  const { CreatePost, SetCreatePost,theme, setTheme,    Login,SetLogin } = useContext(UserContext);
+  const { CreatePost,theme,Login,firstTimeUser,RecommendedUserList } = useContext(UserContext);
 
 
 
@@ -69,7 +67,7 @@ useEffect(()=>{
     nav('/')
   }
   
-
+console.log(RecommendedUserList,'ezaanamin')
  
 
 },[Login])
@@ -86,8 +84,15 @@ const MainComponent =
     <>
 
        <MainComponent>
-       <SideBar/>
-
+<SideBar/>
+       <div>
+      <h1>Recommended Users</h1>
+  
+      {firstTimeUser ? 
+      <RecommendedUser/>:null
+}
+     
+    </div>
         {CreatePost ? <PostModal/>:null}
         <StatusBar />
         </MainComponent>

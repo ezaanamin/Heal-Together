@@ -20,6 +20,33 @@ export const SignUpPost = createAsyncThunk(
   }
 );
 
+export const  Recommended=createAsyncThunk(
+  'post/recommended',
+  async(data,{rejectWithValue})=>{
+
+try
+{
+  const response=await axios.post('http://localhost:4000/users/recommended',data);
+
+  return response.data;
+
+}
+catch(error)
+{
+  return rejectWithValue(error.response.data);
+
+
+}
+
+    
+
+
+  }
+
+
+
+);
+
 export const VerfiedUser = createAsyncThunk(
   'post/VerfiedUser',
   async (data, { rejectWithValue }) => {
@@ -121,6 +148,22 @@ export const APISlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       });
+
+
+      builder
+      .addCase(Recommended.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(Recommended.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(Recommended.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
+
 
 
 

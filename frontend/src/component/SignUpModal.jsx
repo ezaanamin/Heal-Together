@@ -1,24 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
-import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
-
 import styled from 'styled-components';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SignUpPost } from '../redux/slice/API';
-import { useSelector, useDispatch } from 'react-redux';
-import MentalHealthDropdown from './MentalHealthDropDown';
+import {  useDispatch } from 'react-redux';
+
 
 
 
@@ -88,12 +83,11 @@ export default function SignUpModal() {
       day, 
       month,
       year,
-      setDateError,
-      Code,SetCode,
-      verficationEmail,setverficationEmail,
-      ExpireTime,setExpireTime,
-      verficationFirstName,setverficationFirstName,
-      verficationLastName,setverficationLastName,theme
+    SetCode,
+      setverficationEmail,
+     setExpireTime,
+      setverficationFirstName,
+      setverficationLastName
     }=useContext(UserContext)
     const dispatch = useDispatch();
 
@@ -135,12 +129,7 @@ export default function SignUpModal() {
 
   const handle= async(values)=>{
 
-if(day=="" || month=="" || year=="" )
-{
-  setDateError(true)
-}
-else
-{
+
   console.log(values)
   const v={
     firstName:values.firstName,
@@ -171,7 +160,7 @@ else
     }
   });
 
-}
+
 
 
   }
