@@ -86,7 +86,7 @@ const MainComponent =
        <MainComponent>
 <SideBar/>
        <div>
-      <h1>Recommended Users</h1>
+  
   
       {firstTimeUser ? 
       <RecommendedUser/>:null

@@ -1,38 +1,10 @@
-import bcrypt from 'bcrypt';
-
-
-const saltRounds = 10;
-const hashedPassword1 = bcrypt.hashSync("P@ssw0rd1", saltRounds);
-const hashedPassword2 = bcrypt.hashSync("Str0ngP@ssw0rd2", saltRounds);
-const hashedPassword3 = bcrypt.hashSync("C0mpl3xP@ssw0rd3", saltRounds);
-const hashedPassword4 = bcrypt.hashSync("S3cur3P@ssw0rd4", saltRounds);
-const hashedPassword5 = bcrypt.hashSync("H@rdT0Gu3ssP@ssw0rd5", saltRounds);
-const hashedPassword6 = bcrypt.hashSync("Unbr3ak@bl3P@ssw0rd6", saltRounds);
-const hashedPassword7 = bcrypt.hashSync("P@ssw0rd7!", saltRounds);
-const hashedPassword8 = bcrypt.hashSync("Str0ngP@ssw0rd8!", saltRounds);
-const hashedPassword9 = bcrypt.hashSync("C0mpl3xP@ssw0rd9!", saltRounds);
-const hashedPassword10 = bcrypt.hashSync("S3cur3P@ssw0rd10!", saltRounds);
-const hashedPassword11 = bcrypt.hashSync("H@rdT0Gu3ssP@ssw0rd11!", saltRounds);
-const hashedPassword12 = bcrypt.hashSync("Unbr3ak@bl3P@ssw0rd12!", saltRounds);
-const hashedPassword13 = bcrypt.hashSync("P@ssw0rd13#", saltRounds);
-const hashedPassword14 = bcrypt.hashSync("Str0ngP@ssw0rd14#", saltRounds);
-const hashedPassword15 = bcrypt.hashSync("C0mpl3xP@ssw0rd15#", saltRounds);
-const hashedPassword16 = bcrypt.hashSync("S3cur3P@ssw0rd16#", saltRounds);
-const hashedPassword17 = bcrypt.hashSync("H@rdT0Gu3ssP@ssw0rd17#", saltRounds);
-const hashedPassword18 = bcrypt.hashSync("Unbr3ak@bl3P@ssw0rd18#", saltRounds);
-const hashedPassword19 = bcrypt.hashSync("P@ssw0rd19$", saltRounds);
-const hashedPassword20 = bcrypt.hashSync("Str0ngP@ssw0rd20$", saltRounds);
-const hashedPassword21 = bcrypt.hashSync("C0mpl3xP@ssw0rd21$", saltRounds);
-const hashedPassword22 = bcrypt.hashSync("S3cur3P@ssw0rd22$", saltRounds);
-const hashedPassword23 = bcrypt.hashSync("H@rdT0Gu3ssP@ssw0rd23$", saltRounds);
-const hashedPassword24 = bcrypt.hashSync("Unbr3ak@bl3P@ssw0rd24$", saltRounds);
 export const sampleUsers = [
   {
     firstName: "Liam",
     surName: "Smith",
     email: "liam@example.com",
     age: 28,
-    password: hashedPassword1,
+    password: "$2a$10$7GqEjL8bh7I09iAg9wGkVeX0L4b66prO4uHPscOzV4tcnHxJHo2o6",
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -89,7 +61,7 @@ export const sampleUsers = [
     surName: "Johnson",
     email: "sophia@example.com",
     age: 25,
-    password: hashedPassword2,
+    password: "$2a$10$na8mjBDyxK63cT5nB0L9HeX5NkzLNGCR1YzSD9QJENc5O5KQe5r9O",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -146,7 +118,7 @@ export const sampleUsers = [
     surName: "Ahmed",
     email: "muhammad@example.com",
     age: 32,
-    password: hashedPassword3,
+    password: "$2a$10$je8bCS7H2t0c3ahWnn4BEOzQD3ZxxURnW6xNJnjh.p/VbZ7U6YB0",
     user_profile_pic: "user_default_male.png",
     gender: "Male",
     verification: true,
@@ -203,7 +175,7 @@ export const sampleUsers = [
     surName: "Martinez",
     email: "olivia@example.com",
     age: 29,
-    password: hashedPassword4,
+    password: "$2a$10$LHKn1eMZ3Zc0HgjOorakHugxz1U6s2xzEjls2HttfHwslgubqXGR.",
     user_profile_pic: "user_default_female.png",
     gender: "Female",
     verification: true,
@@ -262,7 +234,7 @@ export const sampleUsers = [
     surName: "Brown",
     email: "mia@example.com",
     age: 27,
-    password: hashedPassword5,
+    password: "$2a$10$ML56TSGcdcvEmH4eb5LYT.aE0CM/ZdUalMawUIYFyXZQb0eGKp10O",
     user_profile_pic: "user_default_female.png",
 
     gender: "Female",
@@ -319,7 +291,7 @@ export const sampleUsers = [
     surName: "Patel",
     email: "aryan@example.com",
     age: 22,
-    password: hashedPassword6,
+    password: "$2a$10$/f2bQCH/rldgTTg3orw4quD/2NPlF4iHr9PVweLwW2ufb72E7Wj0u",
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -376,7 +348,7 @@ export const sampleUsers = [
     surName: "Khan",
     email: "amina@example.com",
     age: 31,
-    password: hashedPassword7,
+    password: "$2a$10$0jLwEdapNBRcGHnr1..eJ.0ehzEf.jk3HKRfM7TVvyuTP4Z1ZjKK6",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -433,7 +405,7 @@ export const sampleUsers = [
     surName: "Ali",
     email: "zara@example.com",
     age: 33,
-    password: hashedPassword8,
+    password: "$2a$10$0KRbWV0twa2g/LbStHdOhu31yrXeEgZq1oQRpQxSOmc6aGKnlY5Ze",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -492,7 +464,7 @@ export const sampleUsers = [
     surName: "Wilson",
     email: "david@example.com",
     age: 40,
-    password: hashedPassword9, 
+    password: "$2a$10$hsvS5RF6h92Q0ZK6FfTQve9EYow29/N7o/e98NVa7aMmy7SZO/AvC", 
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -550,7 +522,7 @@ export const sampleUsers = [
     surName: "Hassan",
     email: "amira@example.com",
     age: 29,
-    password: hashedPassword10,
+    password: "$2a$10$C/G1qIb7ENqmsmLEgr86MuwCXZc0Hx12DR/hnKKMqvtayZXZLnmBW",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -608,7 +580,7 @@ export const sampleUsers = [
     surName: "Miller",
     email: "leo@example.com",
     age: 35,
-    password: hashedPassword11,
+    password: "$2a$10$EwS6F13CMm4G4HY24F3dzOQbZVjzK7BePtPZL3eVr6SfD1sAadkAy",
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -667,7 +639,7 @@ export const sampleUsers = [
     surName: "Lopez",
     email: "sofia@example.com",
     age: 23,
-    password: hashedPassword12,
+    password: "$2a$10$LtlZpxRPfAeX2q0eANg2ZOESyJ7QxsGtB37xK4yBQ3EJ9tUnR2Qfu",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -725,7 +697,7 @@ export const sampleUsers = [
     surName: "Hussein",
     email: "omar@example.com",
     age: 28,
-    password: hashedPassword13,
+    password: "$2a$10$nB7nbD7i4OZgJzfq08inl.bOBlxtFoiOL2/wSUECFXZ//EpDOl7KW",
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -784,7 +756,7 @@ export const sampleUsers = [
     surName: "Garcia",
     email: "ella@example.com",
     age: 26,
-    password: hashedPassword14,
+    password: "$2a$10$pgg6Q/CDuJYvVDgPzI1mb.Jkj.gBpAIdT73lywzw.9DDwU4lZITv.",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -842,7 +814,7 @@ export const sampleUsers = [
     surName: "Verma",
     email: "aarav@example.com",
     age: 30,
-    password: hashedPassword15,
+    password: "$2a$10$BZGdJ6x.LzY0KJK1n8or7eL6t2V9ezy0n5wDGbVoh11X/wZn17IQ6",
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -900,7 +872,7 @@ export const sampleUsers = [
     surName: "Rahman",
     email: "aisha@example.com",
     age: 28,
-    password: hashedPassword16,
+    password: "$2a$10$rrpppxDlz1DCWNSK6xzZ9uiL8nbojP18PtDTwAn59ZkAawvZM2s1G",
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -958,7 +930,7 @@ export const sampleUsers = [
     surName: "Anderson",
     email: "lucas@example.com",
     age: 32,
-    password: hashedPassword17,
+    password: "$2a$10$vSwaqE9H0v.NHSdJ5m3i/eAdFlGMBTun.zvwzR71VAPKu0W7fEJZ.",
     gender: "Male",
     user_profile_pic: "user_default_male.png",
     verification: true,
@@ -1017,7 +989,7 @@ export const sampleUsers = [
       surName: "Johnson",
       email: "alice.johnson@example.com",
       age: 28,
-      password:hashedPassword18,
+      password:"$2a$10$XcbNUw.K7Z52jwTfd0U6nOmT3Z3PSQd83jNSe3ERbLD0p/b9uUMFC",
       gender: "Female",
       verification: true,
       userProfile: {
@@ -1074,7 +1046,7 @@ export const sampleUsers = [
         surName: "Chung",
         email: "sara.chung@example.com",
         age: 25,
-        password: hashedPassword19,
+        password: "$2a$10$Y/BchmIglXs/3RqHlmj1leP9upbm8CxGwSfvoDnYMTL6Q1gujMwry",
         gender: "Female",
         verification: true,
         userProfile: {
@@ -1129,7 +1101,7 @@ export const sampleUsers = [
         surName: "Rahman",
         email: "ahmed.rahman@example.com",
         age: 30,
-        password: hashedPassword20,
+        password: "$2a$10$/JfdEp6ufnMzYkEfAe5r4OHFP9qzv1C2tjI7UJIt0F7O.lAr6BcFi",
         gender: "Male",
         verification: true,
         userProfile: {
@@ -1185,7 +1157,7 @@ export const sampleUsers = [
           surName: "Nguyen",
           email: "ravi.nguyen@example.com",
           age: 34,
-          password: hashedPassword21,
+          password: "$2a$10$R/2doC7uJUsWnjvFXmH8M.0IhYDb09tFTjrmG7i2F.9eO6r3NWa.u",
           gender: "Male",
           verification: true,
           userProfile: {
@@ -1240,7 +1212,7 @@ export const sampleUsers = [
           surName: "Gonzalez",
           email: "zara.gonzalez@example.com",
           age: 29,
-          password: hashedPassword22,
+          password: "$2a$10$Q1A3weeirgWY3LvWvR/uPe8jU7cZ9TXd77Xf0y6j6eOrGNHUsPT5q",
           gender: "Female",
           verification: true,
           userProfile: {
@@ -1296,7 +1268,7 @@ export const sampleUsers = [
             surName: "Kumar",
             email: "aliyah.kumar@example.com",
             age: 22,
-            password: hashedPassword23,
+            password: "$2a$10$LpT9UJxGZib7hEpx6EmkwOtcCoZOEX3b5VleVYc02AitjAMuWabLy",
             gender: "Female",
             verification: true,
             userProfile: {
@@ -1351,7 +1323,7 @@ export const sampleUsers = [
             surName: "Martinez",
             email: "leila.martinez@example.com",
             age: 27,
-            password: hashedPassword24,
+            password: "$2a$10$rNpUCqZiWLIZC5DSMN0/PeD7bNnUNq.33d/zlN5tqoGLX/kAfJf6e",
             gender: "Female",
             verification: true,
             userProfile: {

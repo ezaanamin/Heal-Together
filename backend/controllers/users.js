@@ -456,3 +456,23 @@ else
 
 
 }
+
+export const AddingRandomDataNeo4j= async (req, res) => {
+
+  const uri = process.env.NEO4J_URI
+  const user = process.env.NEO4J_USERNAME
+  const password =process.env.NEO4J_PASSWORD
+
+  const resultPromise = session.run()
+
+
+  resultPromise.then(result => {
+    session.close();
+  
+    // on application exit:
+    driver.close();
+  });
+
+
+
+}

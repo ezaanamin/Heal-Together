@@ -11,6 +11,8 @@ import { Users } from "./model/users.js"
 import { sampleUsers } from './sampleUser.js';
 import multer from "multer"
 
+import ObjectsToCsv from "objects-to-csv"
+
 const app=express()
 dotenv.config();
 app.use(cors())
@@ -99,7 +101,15 @@ const session = driver.session();
 
  //Users.insertMany(userData)
 
-
+//  (async () => {
+//   const csv = new ObjectsToCsv(sampleUsers);
+ 
+//   // Save to file:
+//   await csv.toDisk('/home/ezaan-amin/Documents/Programming/Profiolo/Heal-Together/backend/data.csv');
+ 
+//   // Return the CSV file as string:
+//   console.log(await csv.toString());
+// })();
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
