@@ -55,7 +55,7 @@ const SideBar = () => {
     top: 0;
     left: 0;
     height: 100vh;
-    width: 500px;
+    width: 400px;
     background-color: white;
   `;
 

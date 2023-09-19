@@ -10,6 +10,7 @@ import EmailVerication from '../pages/EmailVerfication';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import GettingStarted from '../pages/GettingStarted';
+import Profile from '../pages/Profile';
   const router = createBrowserRouter([
 
 
@@ -53,6 +54,16 @@ import GettingStarted from '../pages/GettingStarted';
         </div>
       ),
     },
+    {
+      path: "/:name",
+      element: (
+        <div>
+
+<Profile/>
+        </div>
+      ),
+
+    }
  
   ]);
 

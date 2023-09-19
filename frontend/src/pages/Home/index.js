@@ -17,22 +17,22 @@ const Home = () => {
 
 
 
-  useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if (token) {
-      const expirationTime = decodeToken(token).exp * 1000;
-      if (Date.now() > expirationTime) {
-        localStorage.removeItem('Token');
-      } else {
-        const timeoutId = setTimeout(() => {
-          localStorage.removeItem('Token');
-          nav('/');
-        }, expirationTime - Date.now());
+  // useEffect(() => {
+  //   const token = localStorage.getItem('Token');
+  //   if (token) {
+  //     const expirationTime = decodeToken(token).exp * 1000;
+  //     if (Date.now() > expirationTime) {
+  //       localStorage.removeItem('Token');
+  //     } else {
+  //       const timeoutId = setTimeout(() => {
+  //         localStorage.removeItem('Token');
+  //         nav('/');
+  //       }, expirationTime - Date.now());
 
-        return () => clearTimeout(timeoutId);
-      }
-    }
-  }, []);
+  //       return () => clearTimeout(timeoutId);
+  //     }
+  //   }
+  // }, []);
 
 
 
@@ -57,20 +57,20 @@ const PurpleMainContainer = styled(StyledHome)`
   background-color: #b39ed9;
 `;
 
-useEffect(()=>{
+// useEffect(()=>{
 
   
-  const Token = localStorage.getItem('Token');
+//   const Token = localStorage.getItem('Token');
 
-  if(!Token)
-  {
-    nav('/')
-  }
+//   if(!Token)
+//   {
+//     nav('/')
+//   }
   
-console.log(RecommendedUserList,'ezaanamin')
+// console.log(RecommendedUserList,'ezaanamin')
  
 
-},[Login])
+// },[Login])
 
 
 const MainComponent =

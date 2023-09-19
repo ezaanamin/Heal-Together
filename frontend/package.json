@@ -24,6 +24,7 @@
     "formik": "^2.4.2",
     "material-ui-search-bar": "^1.0.0",
     "megadraft": "^0.8.0",
+    "primereact": "^9.6.2",
     "react": "^18.2.0",
     "react-auth-code-input": "^3.2.1",
     "react-date-picker": "^10.2.0",

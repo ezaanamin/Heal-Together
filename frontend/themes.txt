@@ -1,0 +1,23 @@
+
+
+1. Calming Blue Theme:
+   - Primary Color: #6ea8d9 (a soothing light blue)
+   - Accent Color (for buttons): #b3c9e8
+   - Hover Color (for buttons): #8bb5e8
+   - Button Text Color: #333333
+   - Border Color: You can use a slightly darker shade of the primary color, such as #4277a8, for the borders.
+
+2. Serene Green Theme:
+   - Primary Color: #8fd9a6 (a tranquil light green)
+   - Accent Color (for buttons): #c9e8c1
+   - Hover Color (for buttons): #a8e89e
+   - Button Text Color: #333333
+   - Border Color: You can use a slightly darker shade of the primary color, such as #6bb681, for the borders.
+
+3. Relaxing Purple Theme:
+   - Primary Color: #b39ed9 (a calming lavender purple)
+   - Accent Color (for buttons): #d9c1e8
+   - Hover Color (for buttons): #c18ae8
+   - Button Text Color: #333333
+   - Border Color: You can use a slightly darker shade of the primary color, such as #906db3, for the borders.
+
