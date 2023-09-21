@@ -19,7 +19,7 @@ const Verification = () => {
     Coping_and_Interest_question
 
   }=useContext(UserContext)
-  const [setgenerateCode]=useState(false);
+  const [generateCode,setgenerateCode]=useState(false);
   const dispatch = useDispatch();
 
 

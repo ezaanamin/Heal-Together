@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import styled from "styled-components"
 import logo from "../../images/HealTogether_Logo2_transparent.png";
 import { Primary_Profile } from '../../questions/PrimaryProfile';
-import { Coping_and_Interest_Questions } from '../../questions/CopingandInterestQuestions';
+import { Interest_questions } from '../../questions/Interest_questions';
 import { InputLabel, MenuItem, Select } from '@mui/material';
 import {FormControl,FormControlLabel,Checkbox} from "@material-ui/core";
 import { UserContext } from '../../Context/context';
 import { useContext } from 'react';
 import SignUpForm from '../../component/SignUpForm';
-
+import { Mental_Health_Insight } from '../../questions/mentalHealthInsight';
+import { Coping_Question } from '../../questions/Coping_Question';
 const GettingStarted = () => {
-  const {Coping_and_Interest_question,setCoping_and_Interest_question,Primary_Profile_question, setPrimary_Profile_question}=useContext(UserContext)
+  const {Interest_question,setInterest_question,Primary_Profile_question, setPrimary_Profile_question,Mental_health_insight,SetMentalHealthInsight,    Coping,SetCoping}=useContext(UserContext)
   const [questionNo,SetQuestionNo]=useState(0)
   const [questionCheckBox,SetQuestionCheckBox]=useState(-1);
 
@@ -96,13 +97,31 @@ const UpdateAndLogProfileQuestion=(product,value)=>{
  }
 
 
-const toggleCopingAndInterest=(value)=>{
-console.log(Coping_and_Interest_question[value],'ezaan');
-  setCoping_and_Interest_question((prevState) => ({
+const toggleInterest=(value)=>{
+console.log(Interest_question[value],'ezaan');
+  setInterest_question((prevState) => ({
     ...prevState,
     [value]: !prevState[value],
   })); 
 }
+
+const   ToggleMentalHealth=(value)=>{
+  console.log(Mental_health_insight[value],'ezaan');
+  SetMentalHealthInsight((prevState) => ({
+      ...prevState,
+      [value]: !prevState[value],
+    })); 
+  }
+  
+  const toggleCoping=(value)=>{
+    console.log(Coping[value],'ezaan');
+    SetCoping((prevState) => ({
+        ...prevState,
+        [value]: !prevState[value],
+      })); 
+    }
+    
+  
 
 
 const IncrementQuestionCheckBoxAndLog=()=>{
@@ -163,20 +182,20 @@ const IncrementQuestionCheckBoxAndLog=()=>{
 }
 
 {
-  questionCheckBox>-1  && questionCheckBox!=3?
-  <QuestionHeading>{Coping_and_Interest_Questions[questionCheckBox].question}</QuestionHeading>
+  questionCheckBox>-1  && questionCheckBox==0?
+  <QuestionHeading>{Mental_Health_Insight[questionCheckBox].question}</QuestionHeading>
 :null
   
 
 }
 
-{  questionCheckBox>-1  && questionCheckBox!=3 ? (
-  Coping_and_Interest_Questions[questionCheckBox].options.map((option, index) => (
+{  questionCheckBox>-1  && questionCheckBox==0 ? (
+  Mental_Health_Insight[questionCheckBox].options.map((option, index) => (
  
     <FormControlLabel
       key={index}
-      control={<Checkbox  onChange={()=>toggleCopingAndInterest(option.value)}/>}
-      checked={Coping_and_Interest_question[option.value]}
+      control={<Checkbox  onChange={()=>ToggleMentalHealth(option.value)}/>}
+      checked={Mental_health_insight[option.value]}
 
       label={option.label}
     />
@@ -185,6 +204,54 @@ const IncrementQuestionCheckBoxAndLog=()=>{
 ) : (
   null
 )}
+
+{
+  questionCheckBox>-1  && questionCheckBox==1?
+  <QuestionHeading>{Coping_Question[0].question}</QuestionHeading>
+:null
+  
+
+}
+
+{  questionCheckBox>-1  && questionCheckBox==1 ? (
+  Coping_Question[0].options.map((option, index) => (
+ 
+    <FormControlLabel
+      key={index}
+      control={<Checkbox  onChange={()=>toggleCoping(option.value)}/>}
+      checked={Coping[option.value]}
+
+      label={option.label}
+    />
+  ))
+
+) : (
+  null
+)}
+{
+  questionCheckBox>-1  && questionCheckBox==2?
+  <QuestionHeading>{Interest_questions[0].question}</QuestionHeading>
+:null
+  
+
+}
+
+{  questionCheckBox>-1  && questionCheckBox==2 ? (
+  Interest_questions[0].options.map((option, index) => (
+ 
+    <FormControlLabel
+      key={index}
+      control={<Checkbox  onChange={()=>toggleInterest(option.value)}/>}
+      checked={Interest_question[option.value]}
+
+      label={option.label}
+    />
+  ))
+
+) : (
+  null
+)}
+
 
 {questionCheckBox>-1 && questionCheckBox!=3 ?
 

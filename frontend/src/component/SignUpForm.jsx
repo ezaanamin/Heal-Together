@@ -24,8 +24,17 @@ const SignUpForm = () => {
           .required('Password is required'),
         firstName: yup.string().required('First Name is required.'),
         SurName: yup.string().required('Surname Name is required.'),
+        userName: yup
+        .string()
+        .min(3, 'Username must be at least 3 characters')
+        .max(20, 'Username must be at most 20 characters')
+        .matches(
+          /^[a-zA-Z0-9_]+$/,
+          'Username can only contain letters, numbers, and underscores'
+        )
+        .required('Username is required'),
       });
-const {SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName,Coping_and_Interest_question,Primary_Profile_question}=useContext(UserContext)
+const {SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName,Interest_question,Primary_Profile_question,Mental_health_insight,Coping}=useContext(UserContext)
 const handleSignUpAndVerification= async(values)=>{
 
   
@@ -35,9 +44,10 @@ const handleSignUpAndVerification= async(values)=>{
       SurName:values.SurName,
       email:values.email,
       password:values.password,
+      username:values.userName
     }
   
-    const promise = dispatch(SignUpPost({values:v,Coping_and_Interest_Questions:Coping_and_Interest_question,Primary_Profile:Primary_Profile_question}))
+    const promise = dispatch(SignUpPost({values:v,Interest_questions:Interest_question,Mental_health_insight_Question:Mental_health_insight,Coping_Question:Coping,Primary_Profile:Primary_Profile_question}))
   
     promise.then((action) => {
       if (SignUpPost.fulfilled.match(action)) {
@@ -161,6 +171,16 @@ color:red;
       
       />
       
+      <TextField id="outlined-basic" label="UserName" variant="outlined"
+      
+      name="userName"
+      style={{width:400}}
+      onChange={(event) => setFieldValue("userName", event.target.value)} 
+      
+      margin="normal"
+      
+      
+      />
       
       
       
@@ -171,6 +191,10 @@ color:red;
       
       {errors.SurName && touched.SurName ? (
                    <Errors>{errors.SurName}</Errors>
+                 ) : null}
+
+{errors.userName && touched.userName ? (
+                   <Errors>{errors.userName}</Errors>
                  ) : null}
       </SignUp>
       <TextField 

@@ -1,20 +1,24 @@
 import mongoose from "mongoose";
 
-const PendingfriendSchema = new mongoose.Schema({
+const PendingSupportSchema = new mongoose.Schema({
   
   user_id:mongoose.Types.ObjectId,
   status:String,
 
 });
-const userSchema = new mongoose.Schema(
+const UsersSchema = new mongoose.Schema(
   {
     firstName: String,
     surName: String,
     email: String,
     age: Number,
+    username:String,
     password: String,
     gender: String,
     verification: Boolean,
+    user_profile_pic:String,
+    user_cover_pic:String,
+    userStory:String,
     userProfile: {
       primary_motivation: String,
       professional_treatment: String,
@@ -27,8 +31,7 @@ const userSchema = new mongoose.Schema(
       sexual_orientation: String,
       religious_identity: String
     },
-    user_profile_pic:String,
-    interestsAndQuestions: {
+    Mental_Health_Insight:{
       depression: Boolean,
       anxiety: Boolean,
       bipolar: Boolean,
@@ -37,34 +40,39 @@ const userSchema = new mongoose.Schema(
       schizophrenia: Boolean,
       eatingDisorders: Boolean,
       other: Boolean,
-      eating_disorders: Boolean,
-      copingTechniques: Boolean,
+
+
+    },
+    Coping:{
+      meditation: Boolean,
+      creativeActivities: Boolean,
+      talking_to_friends_family: Boolean,
+      exercising: Boolean,
+      professional_help: Boolean,
+      copingother: Boolean,
+      creative_activities: Boolean
+  
+
+
+    },
+    Interests: {
+   
+      copingTechniques:Boolean ,
       personalStories: Boolean,
       medication: Boolean,
       reducingStigma: Boolean,
       healthyLifestyle: Boolean,
       spirituality: Boolean,
       otherInterests: Boolean,
-      meditation: Boolean,
-      creativeActivities: Boolean,
-      talkToFriends: Boolean,
-      exercise: Boolean,
-      seekingHelp: Boolean,
-      otherCoping: Boolean,
-      creative_activities: Boolean,
-      talking_to_friends_family: Boolean,
-      exercising: Boolean,
-      professional_help: Boolean,
-      copingother: Boolean,
       coping_techniques: Boolean,
       personal_stories: Boolean,
-      reducing_stigma: Boolean,
-      healthy_lifestyle: Boolean
+      healthy_lifestyle:Boolean
+  
     },
-    friend: Number,
-    pendingFriends: [PendingfriendSchema]
+    SupportGroup: Number,
+    pendingSupportGroup: [PendingSupportSchema]
   },
   { timestamps: true }
 );
- export const Users = mongoose.model('User', userSchema);
+ export const Users = mongoose.model('Users', UsersSchema);
 

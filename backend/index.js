@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser"
 import { Users } from "./model/users.js"
 import { sampleUsers } from './sampleUser.js';
 import multer from "multer"
+import { MongoClient } from 'mongodb';
 
 import ObjectsToCsv from "objects-to-csv"
 
@@ -110,6 +111,12 @@ const session = driver.session();
 //   // Return the CSV file as string:
 //   console.log(await csv.toString());
 // })();
+
+// Connection URI (replace with your MongoDB connection string)
+
+
+// Create a new MongoClient
+
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
