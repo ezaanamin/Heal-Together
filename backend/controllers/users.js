@@ -546,7 +546,7 @@ const orConditions = values.map(field => ({ [`interestsAndQuestions.${field}`]: 
 
 const query = { $or: orConditions };
 
-Users.find(query).limit(10).then((doc)=>{
+Users.find(query).limit(8).then((doc)=>{
 
 
 if(doc)

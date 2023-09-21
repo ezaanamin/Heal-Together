@@ -10,6 +10,7 @@ const UserDisplay = styled.div`
     align-items: center;
     gap: 20px;
     margin-bottom: 20px;
+    justify-content: space-between;
 `;
 
 const ProfilePic = styled.img`
@@ -17,8 +18,6 @@ const ProfilePic = styled.img`
     width: 50px;
     border-radius: 10px;
 `;
-
-
 
 const UserName = styled.h3`
     margin: 0;
@@ -29,9 +28,9 @@ const ConnectButton = styled.button`
     color: white;
     border-radius: 10px;
     border-color: #6fbf73;
-    height: 50px;
-    width:50px;
-    flex: 1;
+    height: 30px;
+    width:130px;
+  
     &:hover {
         background-color: #9bcfc9;
         border-color: #9bcfc9;
@@ -94,11 +93,11 @@ const RecommendedUser = () => {
                 
                 {RecommendedUserList.map((user) => (
                     <UserDisplay key={user._id}>
-                        <ProfilePic src={`http://localhost:4000/upload/${user.user_profile_pic}`} alt="Profile Pic" />
-                     
+                        <div>
+                            <ProfilePic src={`http://localhost:4000/upload/${user.user_profile_pic}`} alt="Profile Pic" />
                             <UserName>{user.firstName} {user.surName}</UserName>
-                            <ConnectButton>Connect</ConnectButton>
-                      
+                        </div>
+                        <ConnectButton>Connect</ConnectButton>
                     </UserDisplay>
                 ))}
                 

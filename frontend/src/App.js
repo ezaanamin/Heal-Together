@@ -81,8 +81,7 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
   const [currentTheme,SetCurrentTheme] = useState("");
   const [LoginModal, SetLoginModal] = useState(false);
   const [firstTimeUser,SetFirstTimeUser]=useState(false);
-  const [RecommendedUserList,SetRecommendedUserList]=useState([])
-
+  const [RecommendedUserList, SetRecommendedUserList]= useState([]);
 
   const [theme, setTheme] = useState("light");
   const[ColorTheme, SetColorTheme] = useState(false);

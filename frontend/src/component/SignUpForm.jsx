@@ -240,7 +240,7 @@ color:red;
       
       
       
-      
+
             {/* <TermsPrivacyPolicy>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy</TermsPrivacyPolicy> */}
             
             <SignUpButton  onClick={handleSubmit} >Sign Up</SignUpButton>
