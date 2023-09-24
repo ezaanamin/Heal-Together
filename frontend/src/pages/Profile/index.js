@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../../component/SideBar'
 import styled from 'styled-components'
 import { useContext } from 'react';
@@ -8,9 +8,51 @@ import Pic from "../../images/profile.jpg"
 import ProfileCompoents from '../../component/Comments';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useState } from 'react';
+import {useParams} from "react-router-dom";
+import {useDispatch } from 'react-redux';
+import { GetUsersProfile } from '../../redux/slice/API';
 function Profile() {
 
     const {theme} = useContext(UserContext);
+    const [support_group,SetSupportGroup]=useState(0)
+    const [mentalHealth,SetMentalHealth]=useState([]);
+    const [coping,SetCoping]=useState([]);
+    const [UserFirstName,SetUserFirstName]=useState("");
+    const [UserSurName,SetUserSurName]=useState("");
+    const [userProfilePic,SetUserProfilePic]=useState("");
+    const [UserExist,SetUserExist]=useState(false)
+    const [UserStory,SetUserStory]=useState("")
+    const [coverphoto,SetCoverPhoto]=useState("")
+
+  const LightBackgroundProfile="#ffffff"
+    const BlueBackgroundProfile="#6ea8d9";
+    const GreenBackgroundProfile="#8fd9a6";
+    const PurpleBackgroundProfile="#b39ed9";
+
+
+
+   const LightBackgroundProfileCover="#f9f9f9"
+    const BlueBackgroundProfileCover="#c2d9f2";
+    const GreenBackgroundProfileCover="#d8f2d2";
+    const PurpleBackgroundProfileCover="#e2d2f2";
+
+
+    const MainBackgroundProfile =
+    theme === 'light' ? LightBackgroundProfile:
+    theme === 'blue' ? BlueBackgroundProfile :
+    theme === 'green' ? GreenBackgroundProfile :
+    theme === 'purple' ? PurpleBackgroundProfile :LightBackgroundProfile 
+
+
+
+
+    const MainBackgroundProfileCover  =
+    theme === 'light' ? LightBackgroundProfileCover:
+    theme === 'blue' ? BlueBackgroundProfileCover :
+    theme === 'green' ? GreenBackgroundProfileCover :
+    theme === 'purple' ? PurpleBackgroundProfileCover :LightBackgroundProfileCover 
+
+
    
     const StyledHome = styled.div`
     width: 100%;
@@ -76,6 +118,18 @@ const CoverPhoto = styled.img`
   top: 0;
 `;
 
+const NoCoverPhoto=styled.div`
+
+width: 80%;
+height: 30%;
+position: relative;
+left: 0px;
+top: 0;
+background-color: ${MainBackgroundProfileCover};
+
+
+`
+
 const ProfilePhoto = styled.img`
   border-radius: 150px;
   height: 200px;
@@ -84,12 +138,33 @@ const ProfilePhoto = styled.img`
   left: 150px;
   top: 400px;
   z-index: 1;
+
   border: 4px solid ${props => {
     if (props.theme === 'blue') return '#d9d9d9';
     if (props.theme === 'green') return '#c1e8c1';
     if (props.theme === 'purple') return '#e8c1e8';
     if (props.theme === 'light') return '#999999';
-    return '#d9d9d9'; // Default border color
+    return '#d9d9d9';
+  }};
+
+  transform: translate(-50%, -50%);
+`;
+
+const NoAccountProfilePhoto = styled.div`
+  border-radius: 150px;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  left: 150px;
+  top: 400px;
+  z-index: 1;
+  background-color:${MainBackgroundProfile};;
+  border: 4px solid ${props => {
+    if (props.theme === 'blue') return '#d9d9d9';
+    if (props.theme === 'green') return '#c1e8c1';
+    if (props.theme === 'purple') return '#e8c1e8';
+    if (props.theme === 'light') return '#999999';
+    return '#d9d9d9';
   }};
 
   transform: translate(-50%, -50%);
@@ -144,18 +219,20 @@ width:300px;
 height:50px;
 border-radius: 150px;
 margin-right:25px;
+text-transform: capitalize;
+
 
   background-color: ${props => {
     if (props.theme === 'blue') return '#b3c9e8';
     if (props.theme === 'green') return ' #c9e8c1';
     if (props.theme === 'purple') return '#d9c1e8';
-    return '#6ea8d9'; // Default background color for the blue theme
+    return '#6ea8d9'; 
   }};
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8'; // Border color for the blue theme
-    if (props.theme === 'green') return '#6bb681'; // Border color for the green theme
-    if (props.theme === 'purple') return '#906db3'; // Border color for the purple theme
-    return '#000'; // Default border color (black)
+    if (props.theme === 'blue') return '#4277a8'; 
+    if (props.theme === 'green') return '#6bb681';
+    if (props.theme === 'purple') return '#906db3'; 
+    return '#000'; 
   }};
   color: #333333 ;
 
@@ -164,7 +241,7 @@ margin-right:25px;
       if (props.theme === 'blue') return '#8bb5e8';
       if (props.theme === 'green') return ' #a8e89e';
       if (props.theme === 'purple') return '#c18ae8';
-      return '#8bb5e8'; // Default hover background color for the blue theme
+      return '#8bb5e8'; 
     }};
 
 
@@ -195,6 +272,17 @@ color: ${ProfileText};
 
 
 `
+
+const AccountDoesnotExist=styled.h1`
+
+color: ${ProfileText};
+
+
+`
+const SearchAccount=styled.p`
+color: ${ProfileText};
+
+`
 const MentalHealthInsightsHeading=styled.h2`
 
 color: ${ProfileText};
@@ -217,13 +305,15 @@ left: 50px;
 `
 const MyStory=styled.h2`
 color: ${ProfileText};
+text-align:center;
 
 
 `
 const MyStoryText=styled.p`
 width:1200px;
 text-align:center;
-font-size:20px;
+font-size:16px;
+
 
 
 `
@@ -260,10 +350,10 @@ position: relative;
 
   const MentalHealthGuide = styled.div`
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8'; // Border color for the blue theme
-    if (props.theme === 'green') return '#6bb681'; // Border color for the green theme
-    if (props.theme === 'purple') return '#906db3'; // Border color for the purple theme
-    return '#000'; // Default border color (black)
+    if (props.theme === 'blue') return '#4277a8'; 
+    if (props.theme === 'green') return '#6bb681'; 
+    if (props.theme === 'purple') return '#906db3';
+    return '#000';
   }};
   width: 1400px;
   height: 250px;
@@ -381,53 +471,93 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
     backgroundImage: `url(${imagePreview})`,
   };
 
+  const { username } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(username, 'ezaan amin');
+    const promise = dispatch(GetUsersProfile({ username: username }));
+
+    promise.then((action) => {
+      if (GetUsersProfile.fulfilled.match(action)) {
+
+        if(action.payload.status=="Account doesn't exist")
+        {
+          SetUserExist(true)
+        }
+        else
+        {
+          console.log(action.payload.UsersDetail[0],'ezaan amin')
+          SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
+          console.log(action.payload.UsersDetail[0]['firstname'],'stark')
+          SetUserSurName(action.payload.UsersDetail[0]['surname'])
+          SetSupportGroup(action.payload.support_group[0])
+          SetMentalHealth(action.payload.User_Mental_Health_Insight)
+          SetUserProfilePic(action.payload.UsersDetail[0]['user_profile_pic'])
+          SetUserStory(action.payload.UsersDetail[0]['myStory'])
+          SetCoverPhoto(action.payload.UsersDetail[0]['cover_photo'])
+          SetCoping(action.payload.User_Coping)
+        }
+   
+      } else if (GetUsersProfile.rejected.match(action)) {
+        alert("Error");
+      }
+    });
+  }, []);
+
+  useEffect(()=>{
+
+
+    console.log(coping[0],'stark')
+  },[UserFirstName,UserSurName])
   return (
 <>
-     <SideBar/>
-        <MainComponent>
-         
+{!UserExist?
+<>
+<SideBar/>
+<MainComponent>
+ 
 
 
-            <Header>Ezaan Amin</Header>
-            
+    <Header>Profile</Header>
+    
 
-         
-            <MainBorderColor/>
-          
-      {/* <div style={avatarUploadStyle}>
-        <div style={avatarEditStyle}>
-          <input
-            type="file"
-            id="imageUpload"
-            accept=".png, .jpg, .jpeg"
-            style={avatarEditInputStyle}
-            onChange={handleImageChange}
-          />
-          <label htmlFor="imageUpload" style={avatarEditLabelStyle}></label>
-        </div>
-        <div style={avatarPreviewStyle}>
-          <div style={avatarPreviewDivStyle}></div>
-        </div>
-      </div> */}
-            <CoverPhoto src={Cover}/>
-            <ProfilePhoto src={Pic} theme={theme}/>
-            <ButtonLayer>
+ 
+    <MainBorderColor/>
+  
+{/* <div style={avatarUploadStyle}>
+<div style={avatarEditStyle}>
+  <input
+    type="file"
+    id="imageUpload"
+    accept=".png, .jpg, .jpeg"
+    style={avatarEditInputStyle}
+    onChange={handleImageChange}
+  />
+  <label htmlFor="imageUpload" style={avatarEditLabelStyle}></label>
+</div>
+<div style={avatarPreviewStyle}>
+  <div style={avatarPreviewDivStyle}></div>
+</div>
+</div> */}
+    <CoverPhoto src={`http://localhost:4000/upload/${coverphoto}`}/>
+    <ProfilePhoto src={`http://localhost:4000/upload/${userProfilePic}`} theme={theme}/>
+    <ButtonLayer>
 
-      <Button theme={theme}>Send a Message of Support</Button>
-      <Button theme={theme}>Connect & Support</Button>
+<Button theme={theme}>Send a Message of Support</Button>
+<Button theme={theme}>Connect & Support</Button>
 
-            </ButtonLayer>
+    </ButtonLayer>
 <InformationLayer>
 
-<ProfileHeading>Ezaan Amin</ProfileHeading>
-<ProfileHeading>3 Support group</ProfileHeading>
+<ProfileHeading>{UserFirstName}  {UserSurName}</ProfileHeading>
+<ProfileHeading>{support_group} Support group</ProfileHeading>
 
 
 </InformationLayer>
-   
+
 <MentalHealthGuide  theme={theme}>
 
-  <HeadingMentalHealth>Mental Health Insights & Coping Techniques</HeadingMentalHealth>
+<HeadingMentalHealth>Mental Health Insights & Coping Techniques</HeadingMentalHealth>
 <div style={{position:"absolute",right:0,top:10}}>
 
 
@@ -437,35 +567,43 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
 <MentalHealthInsights>
 <MentalHealthInsightsHeading>Mental Health Insights</MentalHealthInsightsHeading>
 <div style={{position:"relative",left:30}}>
-<Button theme={theme}>Depression</Button>
-<Button theme={theme}>Anxiety</Button>
+{Array.from({ length: 2 }).map((_, index) => (
+<>
+<Button theme={theme}>{mentalHealth[index]}</Button>
+
+</>
+
+))}
+{/* <Button theme={theme}>Depression</Button>
+<Button theme={theme}>Anxiety</Button> */}
 </div>
 </MentalHealthInsights>
 <CopingTechniques>
 <MentalHealthInsightsHeading>Coping Techniques</MentalHealthInsightsHeading>
 <div style={{position:"relative",left:70}}>
-<Button theme={theme}>Exercising</Button>
-<Button theme={theme}>Professional Help</Button>
+{Array.from({ length: 2 }).map((_, index) => (
+<>
+<Button theme={theme}>{coping[index]}</Button>
+
+</>
+
+))}
 </div>
 </CopingTechniques>
 </MentalHealthGuide>
 
-     <MyStorySection>
+<MyStorySection>
 
 
-      <MyStory>My Story</MyStory>
-      <MyStoryText>Ezaan had always been the life of the party, the one who made everyone laugh and feel at ease. But behind his cheerful exterior,
-      he had been struggling with anxiety for years. It wasn't until he hit rock bottom, unable to get out of bed for days, that he finally sought help. 
-      Through therapy and the support of his loved ones, Ezaan started his journey toward healing. It was a tough road, filled with setbacks and breakthroughs, 
-      but gradually, he learned to manage his anxiety and take better care of his mental health. Ezaan's story serves as a reminder that it's okay to ask for help 
-      and that there is hope even in the darkest of times.</MyStoryText>
-     </MyStorySection>
-    <WellnessUpdatesHeading>
-    <WellnessUpdates>Wellness Updates</WellnessUpdates>
+<MyStory>My Story</MyStory>
+<MyStoryText>{UserStory}</MyStoryText>
+</MyStorySection>
+<WellnessUpdatesHeading>
+<WellnessUpdates>Wellness Updates</WellnessUpdates>
 
 
-    </WellnessUpdatesHeading>
-  <WellnessUpdatesSection>
+</WellnessUpdatesHeading>
+<WellnessUpdatesSection>
 
 <WellnessUpdatesComments>
 
@@ -475,12 +613,37 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
 <ProfileCompoents/>
 <ProfileCompoents/>
 </WellnessUpdatesComments>
-  </WellnessUpdatesSection>
+</WellnessUpdatesSection>
 
-          
-          
-        </MainComponent>
+  
+  
+</MainComponent>
+</>
+:
+<>
+<SideBar/>
+<MainComponent>
+<Header>Profile</Header>
+<NoCoverPhoto/>
+    <NoAccountProfilePhoto theme={theme}/>
 
+ 
+    <MainBorderColor/>
+    <InformationLayer>
+
+<ProfileHeading>{username} </ProfileHeading>
+
+<AccountDoesnotExist>This account doesn't exist </AccountDoesnotExist>
+
+<SearchAccount>Try searching for another.</SearchAccount>
+
+</InformationLayer>
+
+
+</MainComponent>
+</>
+}
+    
 
    
 

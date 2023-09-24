@@ -32,6 +32,7 @@ const SignUpForm = () => {
           /^[a-zA-Z0-9_]+$/,
           'Username can only contain letters, numbers, and underscores'
         )
+        .matches(/^\S*$/, 'Username must not contain spaces')
         .required('Username is required'),
       });
 const {SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName,Interest_question,Primary_Profile_question,Mental_health_insight,Coping}=useContext(UserContext)

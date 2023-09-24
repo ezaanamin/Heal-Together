@@ -51,7 +51,6 @@ console.log(info)
 }
 
 export const NewUser = async (req, res) => {
-  console.log(req.body);
   try {
     const existingUser = await Users.findOne({ email: req.body.values.email });
 
@@ -131,114 +130,120 @@ Coping:{
 
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
     const session = driver.session();
-    const resultPromise = session.run(
-      `
-      CREATE (n:User {
-        firstName: $firstName,
-        surName: $surName,
-        username:$username,
-        email: $email,
-        age: $age,
-        password: $password,
-        verification: $verification,
-        primary_motivation: $primary_motivation,
-        professional_treatment: $professional_treatment,
-        comfortable_discussing_mental_health: $comfortable_discussing_mental_health,
-        connect_with_others: $connect_with_others,
-        religious: $religious,
-        received_a_diagnosis: $received_a_diagnosis,
-        gender_identity: $gender_identity,
-        sexual_orientation: $sexual_orientation,
-        religious_identity: $religious_identity,
-        depression: $depression,
-        anxiety: $anxiety,
-        bipolar: $bipolar,
-        ptsd: $ptsd,
-        ocd: $ocd,
-        schizophrenia: $schizophrenia,
-        eatingDisorders: $eatingDisorders,
-        other: $other,
-        eating_disorders: $eating_disorders,
-        copingTechniques: $copingTechniques,
-        personalStories: $personalStories,
-        medication: $medication,
-        reducingStigma: $reducingStigma,
-        healthyLifestyle: $healthyLifestyle,
-        spirituality: $spirituality,
-        otherInterests: $otherInterests,
-        meditation: $meditation,
-        creativeActivities: $creativeActivities,
-        talkToFriends: $talkToFriends,
-        exercise: $exercise,
-        seekingHelp: $seekingHelp,
-        otherCoping: $otherCoping,
-        creative_activities: $creative_activities,
-        talking_to_friends_family: $talking_to_friends_family,
-        exercising: $exercising,
-        professional_help: $professional_help,
-        copingother: $copingother,
-        coping_techniques: $coping_techniques,
-        personal_stories: $personal_stories,
-        reducing_stigma: $reducing_stigma,
-        healthy_lifestyle: $healthy_lifestyle
+    const parameters = {
+      firstName: newUser.firstName,
+      surName: newUser.surName,
+      username: newUser.username,
+      email: newUser.email,
+      age: newUser.age,
+      password: newUser.password,
+      verification: newUser.verification,
+      primary_motivation: newUser.userProfile.primary_motivation,
+      professional_treatment: newUser.userProfile.professional_treatment,
+      comfortable_discussing_mental_health: newUser.userProfile.comfortable_discussing_mental_health,
+      connect_with_others: newUser.userProfile.connect_with_others,
+      religious: newUser.userProfile.religious,
+      received_a_diagnosis: newUser.userProfile.received_a_diagnosis,
+      gender_identity: newUser.userProfile.gender_identity,
+      sexual_orientation: newUser.userProfile.sexual_orientation,
+      religious_identity: newUser.userProfile.religious_identity,
+      depression: newUser.Mental_Health_Insight.depression,
+      anxiety: newUser.Mental_Health_Insight.anxiety,
+      bipolar: newUser.Mental_Health_Insight.bipolar,
+      ptsd: newUser.Mental_Health_Insight.ptsd,
+      ocd: newUser.Mental_Health_Insight.ocd,
+      schizophrenia: newUser.Mental_Health_Insight.schizophrenia,
+      eatingDisorders: newUser.Mental_Health_Insight.eatingDisorders,
+      other: newUser.Mental_Health_Insight.other,
+      eating_disorders: newUser.Mental_Health_Insight.eating_disorders,
+      copingTechniques: newUser.Coping.copingTechniques,
+      personalStories: newUser.Coping.personalStories,
+      medication: newUser.Coping.medication,
+      reducingStigma: newUser.Coping.reducingStigma,
+      healthyLifestyle: newUser.Coping.healthyLifestyle,
+      spirituality: newUser.Coping.spirituality,
+      otherInterests: newUser.Coping.otherInterests,
+      meditation: newUser.Interests.meditation,
+      creativeActivities: newUser.Interests.creativeActivities,
+      talkToFriends: newUser.Interests.talkToFriends,
+      exercise: newUser.Interests.exercise,
+      seekingHelp: newUser.Interests.seekingHelp,
+      otherCoping: newUser.Interests.otherCoping,
+      creative_activities: newUser.Interests.creative_activities,
+      talking_to_friends_family: newUser.Interests.talking_to_friends_family,
+      exercising: newUser.Interests.exercising,
+      professional_help: newUser.Interests.professional_help,
+      copingother: newUser.Interests.copingother,
+      coping_techniques: newUser.Interests.coping_techniques,
+      personal_stories: newUser.Interests.personal_stories,
+      reducing_stigma: newUser.Interests.reducing_stigma,
+      healthy_lifestyle: newUser.Interests.healthy_lifestyle,
+    };
+    
+    session
+      .run(
+        `
+        CREATE (n:User {
+          firstName: $firstName,
+          surName: $surName,
+          username: $username,
+          email: $email,
+          age: $age,
+          password: $password,
+          verification: $verification,
+          primary_motivation: $primary_motivation,
+          professional_treatment: $professional_treatment,
+          comfortable_discussing_mental_health: $comfortable_discussing_mental_health,
+          connect_with_others: $connect_with_others,
+          religious: $religious,
+          received_a_diagnosis: $received_a_diagnosis,
+          gender_identity: $gender_identity,
+          sexual_orientation: $sexual_orientation,
+          religious_identity: $religious_identity,
+          depression: $depression,
+          anxiety: $anxiety,
+          bipolar: $bipolar,
+          ptsd: $ptsd,
+          ocd: $ocd,
+          schizophrenia: $schizophrenia,
+          eatingDisorders: $eatingDisorders,
+          other: $other,
+          eating_disorders: $eating_disorders,
+          copingTechniques: $copingTechniques,
+          personalStories: $personalStories,
+          medication: $medication,
+          reducingStigma: $reducingStigma,
+          healthyLifestyle: $healthyLifestyle,
+          spirituality: $spirituality,
+          otherInterests: $otherInterests,
+          meditation: $meditation,
+          creativeActivities: $creativeActivities,
+          talkToFriends: $talkToFriends,
+          exercise: $exercise,
+          seekingHelp: $seekingHelp,
+          otherCoping: $otherCoping,
+          creative_activities: $creative_activities,
+          talking_to_friends_family: $talking_to_friends_family,
+          exercising: $exercising,
+          professional_help: $professional_help,
+          copingother: $copingother,
+          coping_techniques: $coping_techniques,
+          personal_stories: $personal_stories,
+          reducing_stigma: $reducing_stigma,
+          healthy_lifestyle: $healthy_lifestyle
+        })
+        RETURN n
+        `,
+        parameters
+      )
+      .then((result) => {
+        console.log(result.records[0].get('n'));
+        session.close();
+        driver.close();
       })
-      RETURN n
-      `,
-      {
-        firstName: newUser.firstName,
-        surName: newUser.surName,
-        username:newUser.username,
-        email: newUser.email,
-        age: newUser.age,
-        password: newUser.password,
-        verification: newUser.verification,
-        primary_motivation: newUser.userProfile.primary_motivation,
-        professional_treatment: newUser.userProfile.professional_treatment,
-        comfortable_discussing_mental_health: newUser.userProfile.comfortable_discussing_mental_health,
-        connect_with_others: newUser.userProfile.connect_with_others,
-        religious: newUser.userProfile.religious,
-        received_a_diagnosis: newUser.userProfile.received_a_diagnosis,
-        gender_identity: newUser.userProfile.gender_identity,
-        sexual_orientation: newUser.userProfile.sexual_orientation,
-        religious_identity: newUser.userProfile.religious_identity,
-        depression: newUser.Mental_Health_Insight.depression,
-        anxiety: newUser.Mental_Health_Insight.anxiety,
-        bipolar: newUser.Mental_Health_Insight.bipolar,
-        ptsd: newUser.Mental_Health_Insight.ptsd,
-        ocd: newUser.Mental_Health_Insight.ocd,
-        schizophrenia: newUser.Mental_Health_Insight.schizophrenia,
-        eatingDisorders: newUser.Mental_Health_Insight.eatingDisorders,
-        other: newUser.Mental_Health_Insight.other,
-        eating_disorders: newUser.Mental_Health_Insight.eating_disorders,
-        copingTechniques: newUser.Coping.copingTechniques,
-        personalStories: newUser.Coping.personalStories,
-        medication: newUser.Coping.medication,
-        reducingStigma: newUser.Coping.reducingStigma,
-        healthyLifestyle: newUser.Coping.healthyLifestyle,
-        spirituality: newUser.Coping.spirituality,
-        otherInterests: newUser.Coping.otherInterests,
-        meditation: newUser.Interests.meditation,
-        creativeActivities: newUser.Interests.creativeActivities,
-        talkToFriends: newUser.Interests.talkToFriends,
-        exercise: newUser.Interests.exercise,
-        seekingHelp: newUser.Interests.seekingHelp,
-        otherCoping: newUser.Interests.otherCoping,
-        creative_activities: newUser.Interests.creative_activities,
-        talking_to_friends_family: newUser.Interests.talking_to_friends_family,
-        exercising: newUser.Interests.exercising,
-        professional_help: newUser.Interests.professional_help,
-        copingother: newUser.Interests.copingother,
-        coping_techniques: newUser.Interests.coping_techniques,
-        personal_stories: newUser.Interests.personal_stories,
-        reducing_stigma: newUser.Interests.reducing_stigma,
-        healthy_lifestyle: newUser.Interests.healthy_lifestyle
-      }
-    );
-    resultPromise.then(result => {
-      session.close();
-      driver.close();
-    });
-
+      .catch((error) => {
+        console.error(error);
+      });
     const verfied_code = generateCode();
     SendCode(
       req.body.values.email,
@@ -349,14 +354,16 @@ res.json({"Code":verfied_code,"ExpireTime":formattedTime})
         { new: true }
       );
 
-      const result = await session.run(
-        'MATCH (user:User {email: $email}) ' +
-        'SET user.verification = true ' +
-        'RETURN user',
-        { email: req.body.email }
-      );
+      // const result = await session.run(
+      //   'MATCH (user:User {email: $email}) ' +
+      //   'SET user.verification = true ' +
+      //   'RETURN user',
+      //   { email: req.body.email }
+      // );
   
-      if (updatedUser && result.records.length > 0) {
+      if (updatedUser) {      
+        // if (updatedUser && result.records.length > 0)
+        console.log("Ezaan Rules")
 Users.findOne({email:req.body.email}).then((doc)=>{
 
   if(doc)
@@ -368,6 +375,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
         expiresIn: '2h',
       }
     );
+    console.log(token)
     res.json({ "Status": "success","Token":token });
 
     
@@ -395,7 +403,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
         const headers=token.split(" ")[1]
         console.log(headers);
         const pay= jwt.verify(String(headers),process.env.TOKEN_KEY);
-
+ console.log(pay.user_id,'ezaan amin')
         res.json({"Token":pay.user_id})
    
         }
@@ -412,92 +420,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
 
     const email = req.body.email;
   
-    const values=[];
-    const excludedKeys = [
-      '$isNew',
-      'on',
-      '$on',
-      'once',
-      '$once',
-      'emit',
-      '$emit',
-      'listeners',
-      '$listeners',
-      'removeListener',
-      '$removeListener',
-      'setMaxListeners',
-      '$setMaxListeners',
-      'removeAllListeners',
-      '$removeAllListeners',
-      'addListener',
-      '$addListener',
-      '$__buildDoc',
-      'toBSON',
-      'init',
-      '$init',
-      '$__init',
-      'updateOne',
-      'replaceOne',
-      '$session',
-      '$timestamps',
-      'overwrite',
-      '$set',
-      'set',
-      '$__shouldModify',
-      '$__set',
-      '$__getValue',
-      '$inc',
-      '$__setValue',
-      'get',
-      '$get',
-      '$__path',
-      'markModified',
-      '$__saveInitialState',
-      'unmarkModified',
-      '$ignore',
-      'directModifiedPaths',
-      'modifiedPaths',
-      'isModified',
-      '$isModified',
-      '$isDefault',
-      '$isDeleted',
-      'isDirectModified',
-      'isInit',
-      'isSelected',
-      '$__isSelected',
-      'isDirectSelected',
-      'validate',
-      '$validate',
-      '$__validate',
-      'validateSync',
-      'invalidate',
-      '$markValid',
-      '$isValid',
-      '$__reset',
-      '$__undoReset',
-      '$__dirty',
-      '$__setSchema',
-      '$__getArrayPathsToValidate',
-      '$getAllSubdocs',
-      '$__handleReject',
-      '$toObject',
-      'ownerDocument',
-      'parent',
-      '$parent',
-      'inspect',
-      'toString',
-      'equals',
-      'populate',
-      '$getPopulatedDocs',
-      'populated',
-      '$populated',
-      '$assertPopulated',
-      'depopulate',
-      '$__fullPath',
-      'getChanges',
-      '$isMongooseDocumentPrototype',
-      '$clone',
-    ];
+   
 
     Users.findOne({ email: email }).then((doc) => {
       if (doc) {
@@ -505,12 +428,8 @@ Users.findOne({email:req.body.email}).then((doc)=>{
           .then((result) => {
             if (result) {
 
-for (const key in doc.interestsAndQuestions) {
-  if (doc.interestsAndQuestions[key] &&   !excludedKeys.includes(key)   ) {
-   values.push(key);
-  }
-}
-console.log(values)
+
+
               const token = jwt.sign(
                 { user_id: doc._id },
                 process.env.TOKEN_KEY,
@@ -537,12 +456,12 @@ res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.s
 export const RecommendedUserProfile  = (req, res) => {
 const values=[];
 
-for (const key in req.body.Coping_and_Interest_Questions) {
-  if (req.body.Coping_and_Interest_Questions[key]) {
+for (const key in req.body.Mental_health_insight) {
+  if (req.body.Mental_health_insight[key]) {
    values.push(key);
   }
 }
-const orConditions = values.map(field => ({ [`interestsAndQuestions.${field}`]: true }));
+const orConditions = values.map(field => ({ [`Mental_Health_Insight.${field}`]: true }));
 
 const query = { $or: orConditions };
 
@@ -586,3 +505,68 @@ export const AddingRandomDataNeo4j= async (req, res) => {
 
 
 }
+
+export const GetUsersProfile = async (req, res) => {
+  try {
+    const uri = process.env.NEO4J_URI;
+    const user = process.env.NEO4J_USERNAME;
+    const password = process.env.NEO4J_PASSWORD;
+ 
+    const UsersDetail = [];
+    const support_group = [];
+    const username=req.body.username
+    const doc = await Users.findOne({username:username})
+    
+    if (!doc) {
+      return res.json({status:"Account doesn't exist"});
+    }
+  
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const session = driver.session();
+    
+    const cypherQuery = `
+      MATCH (p:Users {firstName: "Leo"})-[:support_group]->()
+      RETURN COUNT(p) AS count
+    `;
+    
+    const result = await session.run(cypherQuery);
+    const count = result.records[0].get('count');
+    support_group.push(count.low);
+    
+    await session.close();
+    driver.close();
+    
+  
+
+    
+    const User_Mental_Health_Insight = Object.entries(doc.Mental_Health_Insight)
+    .filter(([key, value]) => value === true)
+    .map(([key, value]) => key);
+    
+    UsersDetail.push({
+      firstname: doc.firstName,
+      surname: doc.surName,
+      username: doc.username,
+      user_profile_pic: doc.user_profile_pic,
+      myStory:doc.userStory,
+      cover_photo:doc.user_cover_pic
+    });
+    
+    // console.log(support_group);
+    // console.log(User_Mental_Health_Insight);
+
+    // console.log(UsersDetail);
+    // console.log(doc.Coping)
+    const trueCopingMethods = Object.entries(doc.Coping)
+  .filter(([key, value]) => value === true)
+  .map(([key, value]) => key);
+
+console.log(trueCopingMethods)
+    res.json({support_group:support_group,User_Mental_Health_Insight:User_Mental_Health_Insight,User_Coping:trueCopingMethods,UsersDetail:UsersDetail})
+  
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+

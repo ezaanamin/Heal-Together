@@ -1,11 +1,21 @@
 
 
+Primary Color: #ffffff (pure white)
+Accent Color (for buttons): #f2f2f2 (light gray)
+Hover Color (for buttons): #e0e0e0 (slightly darker gray)
+Button Text Color: #333333 (dark gray)
+Border Color: #d9d9d9 (very light gray)
+Cover Photo Background: #ffffff (same as the primary color)
+Profile Picture Background: #f9f9f9 (a very light gray)
+
 1. Calming Blue Theme:
    - Primary Color: #6ea8d9 (a soothing light blue)
    - Accent Color (for buttons): #b3c9e8
    - Hover Color (for buttons): #8bb5e8
    - Button Text Color: #333333
    - Border Color: You can use a slightly darker shade of the primary color, such as #4277a8, for the borders.
+   Cover Photo Background: #6ea8d9 (same as primary color)
+Profile Picture Background: #c2d9f2 (a lighter shade of the primary color)
 
 2. Serene Green Theme:
    - Primary Color: #8fd9a6 (a tranquil light green)
@@ -13,6 +23,8 @@
    - Hover Color (for buttons): #a8e89e
    - Button Text Color: #333333
    - Border Color: You can use a slightly darker shade of the primary color, such as #6bb681, for the borders.
+   Cover Photo Background: #8fd9a6 (same as primary color)
+Profile Picture Background: #d8f2d2 (a lighter shade of the primary color)
 
 3. Relaxing Purple Theme:
    - Primary Color: #b39ed9 (a calming lavender purple)
@@ -20,4 +32,6 @@
    - Hover Color (for buttons): #c18ae8
    - Button Text Color: #333333
    - Border Color: You can use a slightly darker shade of the primary color, such as #906db3, for the borders.
+   Cover Photo Background: #b39ed9 (same as primary color)
+Profile Picture Background: #e2d2f2 (a lighter shade of the primary color)
 

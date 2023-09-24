@@ -21,6 +21,10 @@ const Home = () => {
     const token = localStorage.getItem('Token');
     if (token) {
       const expirationTime = decodeToken(token).exp * 1000;
+      const expiration = decodeToken(token)
+
+      console.log(expiration,'ezaan')
+
       if (Date.now() > expirationTime) {
         localStorage.removeItem('Token');
       } else {

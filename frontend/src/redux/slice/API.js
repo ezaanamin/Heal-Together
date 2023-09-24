@@ -83,6 +83,17 @@ export const Login = createAsyncThunk(
     }
   }
 );
+export const GetUsersProfile = createAsyncThunk(
+  'post/userProfile',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/users/getUsers', data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const APISlice = createSlice({
   name: 'API',
@@ -165,6 +176,28 @@ export const APISlice = createSlice({
       });
 
 
+//GetUsersProfile
+
+
+
+builder
+.addCase(GetUsersProfile.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetUsersProfile.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetUsersProfile.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
+
+
+
+
+      
 
 
 

@@ -66,7 +66,44 @@ const password =process.env.NEO4J_PASSWORD
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
 const session = driver.session();
 
+const dataArray = [];
 
+// // Create the data 24 times with true/false values and add it to the array
+// for (let i = 0; i < 24; i++) {
+//   const data = {
+//     Mental_Health_Insight: {
+//       depression: Math.random() < 0.5,
+//       anxiety: Math.random() < 0.5,
+//       bipolar: Math.random() < 0.5,
+//       ptsd: Math.random() < 0.5,
+//       ocd: Math.random() < 0.5,
+//       schizophrenia: Math.random() < 0.5,
+//       eatingDisorders: Math.random() < 0.5,
+//       other: Math.random() < 0.5,
+//     },
+//     Interests: {
+//       copingTechniques: Math.random() < 0.5,
+//       personalStories: Math.random() < 0.5,
+//       medication: Math.random() < 0.5,
+//       reducingStigma: Math.random() < 0.5,
+//       healthyLifestyle: Math.random() < 0.5,
+//       spirituality: Math.random() < 0.5,
+//       otherInterests: Math.random() < 0.5,
+//     },
+//     Coping: {
+//       meditation: Math.random() < 0.5,
+//       creativeActivities: Math.random() < 0.5,
+//       talkToFriends: Math.random() < 0.5,
+//       exercise: Math.random() < 0.5,
+//       seekingHelp: Math.random() < 0.5,
+//       otherCoping: Math.random() < 0.5,
+//     },
+//     pendingFriends: [],
+//   };
+//   dataArray.push(data);
+// }
+
+// console.log(dataArray);
 // const tx = session.beginTransaction();
 
 // try {
@@ -100,23 +137,27 @@ const session = driver.session();
 
 
 
- //Users.insertMany(userData)
 
 //  (async () => {
 //   const csv = new ObjectsToCsv(sampleUsers);
  
 //   // Save to file:
-//   await csv.toDisk('/home/ezaan-amin/Documents/Programming/Profiolo/Heal-Together/backend/data.csv');
+//   await csv.toDisk('/home/ezaan-amin/Documents/Programming/Portfolio/Heal-Together/backend/userData3.csv');
  
 //   // Return the CSV file as string:
-//   console.log(await csv.toString());
+//   // console.log(await csv.toString());
 // })();
 
 // Connection URI (replace with your MongoDB connection string)
 
 
 // Create a new MongoClient
-
+// Users.find({}).then((doc)=>{
+//   if(doc)
+//   {
+//     console.log(doc)
+//   }
+// })
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,

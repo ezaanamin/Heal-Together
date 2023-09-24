@@ -55,7 +55,7 @@ import Profile from '../pages/Profile';
       ),
     },
     {
-      path: "/:name",
+      path: "/:username",
       element: (
         <div>
 

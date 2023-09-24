@@ -16,7 +16,7 @@ const Verification = () => {
   const {
     verficationEmail, ExpireTime,setExpireTime,
     Code,SetCode,SetFirstTimeUser,SetRecommendedUserList,
-    Coping_and_Interest_question
+    Mental_health_insight
 
   }=useContext(UserContext)
   const [generateCode,setgenerateCode]=useState(false);
@@ -85,8 +85,10 @@ console.log(typeof Code1, typeof Code)
 
               localStorage.setItem('Token', JSON.stringify(action.payload.Token));
 
+ 
 
-              const promise1=dispatch(Recommended({Coping_and_Interest_Questions:Coping_and_Interest_question}))
+
+              const promise1=dispatch(Recommended({Mental_health_insight:Mental_health_insight}))
 
               promise1.then((action)=>{
 
