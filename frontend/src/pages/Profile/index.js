@@ -11,9 +11,10 @@ import { useState } from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch } from 'react-redux';
 import { GetUsersProfile } from '../../redux/slice/API';
+import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
 function Profile() {
 
-    const {theme} = useContext(UserContext);
+    const {theme, UserProfileModal,SetUserProfileModal} = useContext(UserContext);
     const [support_group,SetSupportGroup]=useState(0)
     const [mentalHealth,SetMentalHealth]=useState([]);
     const [coping,SetCoping]=useState([]);
@@ -22,7 +23,8 @@ function Profile() {
     const [userProfilePic,SetUserProfilePic]=useState("");
     const [UserExist,SetUserExist]=useState(false)
     const [UserStory,SetUserStory]=useState("")
-    const [coverphoto,SetCoverPhoto]=useState("")
+    const [coverphoto,SetCoverPhoto]=useState("");
+    const[UserProfile,SetUserProfile]=useState([])
 
   const LightBackgroundProfile="#ffffff"
     const BlueBackgroundProfile="#6ea8d9";
@@ -496,6 +498,7 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
           SetUserStory(action.payload.UsersDetail[0]['myStory'])
           SetCoverPhoto(action.payload.UsersDetail[0]['cover_photo'])
           SetCoping(action.payload.User_Coping)
+          SetUserProfile(action.payload.userProfile)
         }
    
       } else if (GetUsersProfile.rejected.match(action)) {
@@ -515,7 +518,11 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
 <>
 <SideBar/>
 <MainComponent>
- 
+ {UserProfileModal?
+ <Comprehensive_Mental_Health_Guide_Model firstName={UserFirstName} Surname={UserSurName} UserProfileInformation={UserProfile} username={username} mental_health={mentalHealth} coping={coping}/>
+:null
+
+ }
 
 
     <Header>Profile</Header>
@@ -561,7 +568,7 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
 <div style={{position:"absolute",right:0,top:10}}>
 
 
-<Button theme={theme}>Comprehensive Mental Health Guide</Button>
+<Button onClick={()=>SetUserProfileModal(true)} theme={theme}>Comprehensive Mental Health Guide</Button>
 
 </div>
 <MentalHealthInsights>

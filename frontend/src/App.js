@@ -82,6 +82,7 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
   const [LoginModal, SetLoginModal] = useState(false);
   const [firstTimeUser,SetFirstTimeUser]=useState(false);
   const [RecommendedUserList, SetRecommendedUserList]= useState([]);
+  const[UserProfileModal,SetUserProfileModal]=useState(false)
 
   const [theme, setTheme] = useState("light");
   const[ColorTheme, SetColorTheme] = useState(false);
@@ -123,7 +124,8 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
     Primary_Profile_question, setPrimary_Profile_question,
     RecommendedUserList,SetRecommendedUserList,
     Mental_health_insight,SetMentalHealthInsight,
-    Coping,SetCoping
+    Coping,SetCoping,
+    UserProfileModal,SetUserProfileModal
   };
 
 

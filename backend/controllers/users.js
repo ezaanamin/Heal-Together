@@ -363,7 +363,7 @@ res.json({"Code":verfied_code,"ExpireTime":formattedTime})
   
       if (updatedUser) {      
         // if (updatedUser && result.records.length > 0)
-        console.log("Ezaan Rules")
+    
 Users.findOne({email:req.body.email}).then((doc)=>{
 
   if(doc)
@@ -551,7 +551,7 @@ export const GetUsersProfile = async (req, res) => {
       myStory:doc.userStory,
       cover_photo:doc.user_cover_pic
     });
-    
+    console.log(doc.userProfile)
     // console.log(support_group);
     // console.log(User_Mental_Health_Insight);
 
@@ -562,7 +562,7 @@ export const GetUsersProfile = async (req, res) => {
   .map(([key, value]) => key);
 
 console.log(trueCopingMethods)
-    res.json({support_group:support_group,User_Mental_Health_Insight:User_Mental_Health_Insight,User_Coping:trueCopingMethods,UsersDetail:UsersDetail})
+    res.json({support_group:support_group,User_Mental_Health_Insight:User_Mental_Health_Insight,User_Coping:trueCopingMethods,UsersDetail:UsersDetail,userProfile:doc.userProfile})
   
   } catch (error) {
     console.error(error);
