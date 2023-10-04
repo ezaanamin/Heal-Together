@@ -4,6 +4,8 @@ import moment from  "moment"
 import neo4j, { auth } from "neo4j-driver"
 import jwt from "jsonwebtoken"
 import { Users } from "../model/users.js"
+import { createClient } from 'redis';
+
 function generateCode() {
   const min = 100000; 
   const max = 999999; 
@@ -375,7 +377,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
         expiresIn: '2h',
       }
     );
-    console.log(token)
+
     res.json({ "Status": "success","Token":token });
 
     
@@ -397,20 +399,24 @@ Users.findOne({email:req.body.email}).then((doc)=>{
   }
   
   export const VerifyUser =(req, res) => {
-
-      try{
-        const token = req.headers['authorization']
-        const headers=token.split(" ")[1]
-        console.log(headers);
-        const pay= jwt.verify(String(headers),process.env.TOKEN_KEY);
- console.log(pay.user_id,'ezaan amin')
-        res.json({"Token":pay.user_id})
+console.log("bye")
+    console.log(req.body)
+    res.json("Hiii")
+//       try{
+//         const token = req.headers['authorization']
+//         const headers=token.split(" ")[1]
+//         console.log(headers);
+//         const pay= jwt.verify(String(headers),process.env.TOKEN_KEY);
+//  console.log(pay.user_id,'ezaan amin')
+//         res.json({"Token":pay.user_id})
    
-        }
-      catch(e){
-        console.log("Not authorized")
-        res.status(401).send();
-    }
+//         }
+//       catch(e){
+//         console.log("Not authorized")
+//         res.status(401).send();
+//     }
+
+console.log(req.body.token)
   
   // console.log("hii")
   
@@ -437,6 +443,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
                   expiresIn: '2h',
                 }
               );
+              console.log(token)
               // console.log(doc.gender)
 res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.surName})             
             } else {
@@ -506,15 +513,47 @@ export const AddingRandomDataNeo4j= async (req, res) => {
 
 }
 
+const returnData = (type,res) => {
+  res.json({
+    SupportGroup: type.SupportGroup,
+    UserMentalHealthInsight: type.UserMentalHealthInsight,
+    UserCoping: type.UserCoping,
+    UsersDetail: type.UsersDetail,
+    userProfile: type.userProfile,
+  });
+
+}
+function transformDataToArrays(data) {
+  return Object.entries(data)
+    .filter(([key, value]) => value === true)
+    .map(([key, value]) => key);
+}
 export const GetUsersProfile = async (req, res) => {
-  try {
-    const uri = process.env.NEO4J_URI;
-    const user = process.env.NEO4J_USERNAME;
-    const password = process.env.NEO4J_PASSWORD;
- 
-    const UsersDetail = [];
-    const support_group = [];
-    const username=req.body.username
+
+  const uri = process.env.NEO4J_URI;
+  const user = process.env.NEO4J_USERNAME;
+  const password = process.env.NEO4J_PASSWORD;
+
+  const UsersDetail = [];
+  const SupportGroup = [];
+  const username=req.body.username
+  const client = createClient();
+  await client.connect(); 
+
+const UserCheckBool= await client.exists(username)
+
+const value = await client.get(username);
+const UserData = JSON.parse(value);
+
+if(UserCheckBool==1)
+{
+  returnData(UserData,res)
+
+}
+else
+{
+
+
     const doc = await Users.findOne({username:username})
     
     if (!doc) {
@@ -531,7 +570,7 @@ export const GetUsersProfile = async (req, res) => {
     
     const result = await session.run(cypherQuery);
     const count = result.records[0].get('count');
-    support_group.push(count.low);
+    SupportGroup.push(count.low);
     
     await session.close();
     driver.close();
@@ -539,9 +578,8 @@ export const GetUsersProfile = async (req, res) => {
   
 
     
-    const User_Mental_Health_Insight = Object.entries(doc.Mental_Health_Insight)
-    .filter(([key, value]) => value === true)
-    .map(([key, value]) => key);
+    const UserMentalHealthInsight = transformDataToArrays(doc.Mental_Health_Insight);
+
     
     UsersDetail.push({
       firstname: doc.firstName,
@@ -551,22 +589,23 @@ export const GetUsersProfile = async (req, res) => {
       myStory:doc.userStory,
       cover_photo:doc.user_cover_pic
     });
-    console.log(doc.userProfile)
-    // console.log(support_group);
-    // console.log(User_Mental_Health_Insight);
+    const UserCoping = transformDataToArrays(doc.Coping);
 
-    // console.log(UsersDetail);
-    // console.log(doc.Coping)
-    const trueCopingMethods = Object.entries(doc.Coping)
-  .filter(([key, value]) => value === true)
-  .map(([key, value]) => key);
+  const data = {
+    SupportGroup: SupportGroup,
+    UserMentalHealthInsight: UserMentalHealthInsight,
+    UserCoping: UserCoping,
+    UsersDetail: UsersDetail,
+    userProfile: doc.userProfile
+  };
 
-console.log(trueCopingMethods)
-    res.json({support_group:support_group,User_Mental_Health_Insight:User_Mental_Health_Insight,User_Coping:trueCopingMethods,UsersDetail:UsersDetail,userProfile:doc.userProfile})
+  const UserData = JSON.stringify(data);
+
+   await client.set(username,UserData);
+   const expirationInSeconds = 3600; 
+   client.expire(username, expirationInSeconds);
+    returnData(data,res)
   
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Internal Server Error");
-  }
+  } 
 };
 

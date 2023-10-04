@@ -11,6 +11,7 @@ import { useState } from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch } from 'react-redux';
 import { GetUsersProfile } from '../../redux/slice/API';
+import { VerifyUser } from '../../redux/slice/API';
 import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
 function Profile() {
 
@@ -24,7 +25,8 @@ function Profile() {
     const [UserExist,SetUserExist]=useState(false)
     const [UserStory,SetUserStory]=useState("")
     const [coverphoto,SetCoverPhoto]=useState("");
-    const[UserProfile,SetUserProfile]=useState([])
+    const[UserProfile,SetUserProfile]=useState([]);
+    const [UserLogin,SetUserLogin]=useState(false)
 
   const LightBackgroundProfile="#ffffff"
     const BlueBackgroundProfile="#6ea8d9";
@@ -482,7 +484,7 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
     promise.then((action) => {
       if (GetUsersProfile.fulfilled.match(action)) {
 
-        if(action.payload.status=="Account doesn't exist")
+        if(action.payload.status==="Account doesn't exist")
         {
           SetUserExist(true)
         }
@@ -492,12 +494,12 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
           SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
           console.log(action.payload.UsersDetail[0]['firstname'],'stark')
           SetUserSurName(action.payload.UsersDetail[0]['surname'])
-          SetSupportGroup(action.payload.support_group[0])
-          SetMentalHealth(action.payload.User_Mental_Health_Insight)
+          SetSupportGroup(action.payload.SupportGroup[0])
+          SetMentalHealth(action.payload.UserMentalHealthInsight)
           SetUserProfilePic(action.payload.UsersDetail[0]['user_profile_pic'])
           SetUserStory(action.payload.UsersDetail[0]['myStory'])
           SetCoverPhoto(action.payload.UsersDetail[0]['cover_photo'])
-          SetCoping(action.payload.User_Coping)
+          SetCoping(action.payload.UserCoping)
           SetUserProfile(action.payload.userProfile)
         }
    
@@ -507,11 +509,37 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
     });
   }, []);
 
-  useEffect(()=>{
+useEffect(()=>{
+  const token = localStorage.getItem('Token');
 
 
-    console.log(coping[0],'stark')
-  },[UserFirstName,UserSurName])
+  if(token)
+  {
+   console.log(token,'2002')
+    //VerifyUser
+    const promise = dispatch(VerifyUser({ token: token }));
+    promise.then((action) => {
+      if (VerifyUser.fulfilled.match(action)) {
+
+        alert("Ezaan Amin")
+      
+
+      }
+
+    })
+
+
+      
+
+  }
+  else
+  {
+    alert("hii")
+  }
+
+
+},[])
+
   return (
 <>
 {!UserExist?

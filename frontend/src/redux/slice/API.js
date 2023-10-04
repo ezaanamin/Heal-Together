@@ -59,6 +59,19 @@ export const VerfiedUser = createAsyncThunk(
   }
 );
 
+export const VerifyUser= createAsyncThunk(
+  'post/VerifyUser',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/users/verifyUser', data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 export const ReSendCode = createAsyncThunk(
   'post/ReSendCode',
   async (data, { rejectWithValue }) => {
@@ -175,6 +188,19 @@ export const APISlice = createSlice({
         state.error = action.payload;
       });
 
+      builder
+      .addCase(VerifyUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(VerifyUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(VerifyUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
 
 //GetUsersProfile
 
