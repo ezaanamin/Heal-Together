@@ -5,7 +5,7 @@ export const sampleUsers = [
     email: "liam@gmail.com",
     username:"LSmith123",
     age: 28,
-    password: "$2a$10$7GqEjL8bh7I09iAg9wGkVeX0L4b66prO4uHPscOzV4tcnHxJHo2o6",
+    password: "$2b$10$c7HM84GlZ32xQzWlw7QkD.SIFI1DG4up.OW8i/2fRin6ITy3o8mpS", // $kD3fG&8L
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -61,7 +61,7 @@ export const sampleUsers = [
     email: "sophia@gmail.com",
     age: 25,
     username: "SJohnson456",
-    password: "$2a$10$na8mjBDyxK63cT5nB0L9HeX5NkzLNGCR1YzSD9QJENc5O5KQe5r9O",
+    password: "$2b$10$eDTPCE0t8PPSgxaM7vh37u2jEtERU.ROmo5hPlRn7.vi6UKCPXDAG", // 9*Yn7wP$Z
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -116,7 +116,7 @@ export const sampleUsers = [
     email: "muhammad@gmail.com",
     username:"MAhmed789",
     age: 32,
-    password: "$2a$10$je8bCS7H2t0c3ahWnn4BEOzQD3ZxxURnW6xNJnjh.p/VbZ7U6YB0",
+    password: "$2b$10$fkofusD89yUJYOxPj7JZkuI/SJxnPwm5/DjjjcbySzDRKNZBFa1gK", // Xz6#2b@WQ
     user_profile_pic: "user_default_male.png",
     gender: "Male",
     verification: true,
@@ -173,7 +173,7 @@ export const sampleUsers = [
     email: "olivia@gmail.com",
     username:"OMartinez101",
     age: 29,
-    password: "$2a$10$LHKn1eMZ3Zc0HgjOorakHugxz1U6s2xzEjls2HttfHwslgubqXGR.",
+    password: "$2b$10$/yCIpc/bL54CMMw7jCvUbOmw4k8Bg.JUJ4Wm.b5s7YVqAUCTT5wNS", //5@eRtV1Kx
     user_profile_pic: "user_default_female.png",
     gender: "Female",
     verification: true,
@@ -229,7 +229,7 @@ export const sampleUsers = [
     email: "mia@gmail.com",
     username:"MBrown234",
     age: 27,
-    password: "$2a$10$ML56TSGcdcvEmH4eb5LYT.aE0CM/ZdUalMawUIYFyXZQb0eGKp10O",
+    password: "$2b$10$HtPft01Tc.i/cgYB36quo.E/o2WvXERtrlPrP9Tm/tk0P7nyRDTC2", // 3D#vT$Nj7
     user_profile_pic: "user_default_female.png",
 
     gender: "Female",
@@ -284,7 +284,7 @@ export const sampleUsers = [
     email: "aryan@gmail.com",
     age: 22,
     username:"APatel567",
-    password: "$2a$10$/f2bQCH/rldgTTg3orw4quD/2NPlF4iHr9PVweLwW2ufb72E7Wj0u",
+    password: "$2b$10$eHZzDJzlb5tRuBwwZS7PYuVeL/MGHwYAnvh3mkfIERc0sfZJYuZtu", // H@8Fg2z$X
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -340,7 +340,7 @@ export const sampleUsers = [
     email: "amina@gmail.com",
     age: 31,
     username:"AKhan890",
-    password: "$2a$10$0jLwEdapNBRcGHnr1..eJ.0ehzEf.jk3HKRfM7TVvyuTP4Z1ZjKK6",
+    password: "$2b$10$ni.9VMaWYxSm6h3wqzBkLeGYaUps067/m3rAANDQ8fwi3r/NR.PZS", //Y*4KpE&6W
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -398,7 +398,7 @@ export const sampleUsers = [
     email: "zara@gmail.com",
     age: 33,
     username:"ZAli1234",
-    password: "$2a$10$0KRbWV0twa2g/LbStHdOhu31yrXeEgZq1oQRpQxSOmc6aGKnlY5Ze",
+    password: "$2b$10$AebuX7iuiI1MmrM0XaSrSOvjfH5BDOMFJH.pyWEiU70fC0/1HGga.",// 7RqZ!tK1L
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -455,7 +455,7 @@ export const sampleUsers = [
     email: "david@gmail.com",
     age: 40,
     username:"DWilson5678",
-    password: "$2a$10$hsvS5RF6h92Q0ZK6FfTQve9EYow29/N7o/e98NVa7aMmy7SZO/AvC", 
+    password: "$2b$10$L/3Q7x9SOAgrJtQ2b1XOGeL0BNHJtTcnHsyF/fKo3wN0ZKkuc3wwy", // M2w$NpXtY 
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -511,7 +511,7 @@ export const sampleUsers = [
     email: "amira@gmail.com",
     age: 29,
     username:"AHassan901",
-    password: "$2a$10$C/G1qIb7ENqmsmLEgr86MuwCXZc0Hx12DR/hnKKMqvtayZXZLnmBW",
+    password: "$2b$10$jE6S.4VA2etGRTQxriQEQ.uR0pVi0SZnpxM9d9wkZpOQ0YMlGuw0S", // B#fL7GdK9
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -566,7 +566,7 @@ export const sampleUsers = [
     age: 35,
     username:"LMiller2345",
 
-    password: "$2a$10$EwS6F13CMm4G4HY24F3dzOQbZVjzK7BePtPZL3eVr6SfD1sAadkAy",
+    password: "$2b$10$HFov3XI7AxGTtazqJaAyn.V3pqKFpRBNGoZgkG8Ti1LdccjmtKpdS", // Q5zT*3VpX
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -652,7 +652,7 @@ export const sampleUsers = [
     age: 23,
     username:"SLopez6789",
 
-    password: "$2a$10$LtlZpxRPfAeX2q0eANg2ZOESyJ7QxsGtB37xK4yBQ3EJ9tUnR2Qfu",
+    password: "$2b$10$9.1UcY18DwMbrJe8qTuR2.boEhXUZ9wp3M0c8fnjGjnaZhDY5f1Uq", // J#mP@72qR
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -709,7 +709,7 @@ export const sampleUsers = [
     age: 28,
     username:"OHussein12345",
 
-    password: "$2a$10$nB7nbD7i4OZgJzfq08inl.bOBlxtFoiOL2/wSUECFXZ//EpDOl7KW",
+    password: "$2b$10$U.anIIbqfEkUWvLEFjqc.OrYuN7s28UanpF0FYxu86X1dJk9ZRQlG", // 1Sd$Rf#vJ
     gender: "Male",
     verification: true,
     user_profile_pic: "user_default_male.png",
@@ -764,7 +764,7 @@ export const sampleUsers = [
     surName: "Garcia",
     email: "ella@gmail.com",
     age: 26,
-    password: "$2a$10$pgg6Q/CDuJYvVDgPzI1mb.Jkj.gBpAIdT73lywzw.9DDwU4lZITv.",
+    password: "$2b$10$0hwBWxsFidx5BaBgvRoi6OuyX8PPb1H/FQhVLz039gc79P00rfCba", // P2@LkT5Gz
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -820,7 +820,7 @@ export const sampleUsers = [
     surName: "Verma",
     email: "aarav@gmail.com",
     age: 30,
-    password: "$2a$10$BZGdJ6x.LzY0KJK1n8or7eL6t2V9ezy0n5wDGbVoh11X/wZn17IQ6",
+    password: "$2b$10$H3m5YyUnJYFxYzN6rUuFiO3IOP9GdYVh2AJ8QqLxJHMV60AHPA/zu", // 6VnX$Qr9T
     gender: "Male",
     username:"AVerma123456",
 
@@ -877,7 +877,7 @@ export const sampleUsers = [
     surName: "Rahman",
     email: "aisha@gmail.com",
     age: 28,
-    password: "$2a$10$rrpppxDlz1DCWNSK6xzZ9uiL8nbojP18PtDTwAn59ZkAawvZM2s1G",
+    password: "$2b$10$g4hoZ0JknoxsM8CV1H52aO4OFemwAY1rxqgjwZRUveGnVDlsqzU5O", // K#jZ7pGdQ
     gender: "Female",
     username:"ARahman78901",
 
@@ -933,7 +933,7 @@ export const sampleUsers = [
     surName: "Anderson",
     email: "lucas@gmail.com",
     age: 32,
-    password: "$2a$10$vSwaqE9H0v.NHSdJ5m3i/eAdFlGMBTun.zvwzR71VAPKu0W7fEJZ.",
+    password: "$2b$10$kIVOp0WvWQydFy6fkyhfluGxovAtizZmYjNbM5aZusA4eqBeUe3ju", // 4YrA@Wm6N
     gender: "Male",
     username:"LAnderson234567",
 
@@ -989,7 +989,7 @@ export const sampleUsers = [
       surName: "Johnson",
       email: "alice.johnson@gmail.com",
       age: 28,
-      password:"$2a$10$XcbNUw.K7Z52jwTfd0U6nOmT3Z3PSQd83jNSe3ERbLD0p/b9uUMFC",
+      password:"$2b$10$LnH.vyWw2kxH3x73bMveceHs4KzPXDViBqkDvGaXRJ.kgmdLCEdee", // 8$DvPfZ3q
       gender: "Female",
       username:"AJohnson567890",
 
@@ -1048,7 +1048,7 @@ export const sampleUsers = [
         age: 25,
         username:"SChung1234567",
 
-        password: "$2a$10$Y/BchmIglXs/3RqHlmj1leP9upbm8CxGwSfvoDnYMTL6Q1gujMwry",
+        password: "$2b$10$svwiLZcJns19q13eeZBTPuqy/PqFFQkWy9TDRS9P060u7ZsB0f/rG", // G9#TnL$Bm
         gender: "Female",
         verification: true,
         userProfile: {
@@ -1104,7 +1104,7 @@ export const sampleUsers = [
         age: 30,
         username:"ARahman890123",
 
-        password: "$2a$10$/JfdEp6ufnMzYkEfAe5r4OHFP9qzv1C2tjI7UJIt0F7O.lAr6BcFi",
+        password: "$2b$10$OnD3SNoCzAof84eOEcEgeerymHfZp0OKuFGydghAPSQfVSl5Azd8a", // CqW$5PjR*
         gender: "Male",
         verification: true,
         userProfile: {
@@ -1159,7 +1159,7 @@ export const sampleUsers = [
           surName: "Nguyen",
           email: "ravi.nguyen@gmail.com",
           age: 34,
-          password: "$2a$10$R/2doC7uJUsWnjvFXmH8M.0IhYDb09tFTjrmG7i2F.9eO6r3NWa.u",
+          password: "$2b$10$IZb5/uo.2ipKT8tRgbzZ3uyuB1RGDBOeOndWSwLT0i41xUyRCrYYe" , // T#r6Mv7Jx
           gender: "Male",
           username:"RNguyen12345678",
 
@@ -1214,7 +1214,7 @@ export const sampleUsers = [
           surName: "Gonzalez",
           email: "zara.gonzalez@gmail.com",
           age: 29,
-          password: "$2a$10$Q1A3weeirgWY3LvWvR/uPe8jU7cZ9TXd77Xf0y6j6eOrGNHUsPT5q",
+          password: "$2b$10$uA/wj7ZTHfyFhuoaStK4SuXf5Mt2JAcPyuL57F6eMEm0BQkx/VvPi", //7Yb*2Rk9V
           gender: "Female",
           username:"ZGonzalez123456789",
 
@@ -1271,7 +1271,7 @@ export const sampleUsers = [
             surName: "Kumar",
             email: "aliyah.kumar@gmail.com",
             age: 22,
-            password: "$2a$10$LpT9UJxGZib7hEpx6EmkwOtcCoZOEX3b5VleVYc02AitjAMuWabLy",
+            password: "$2b$10$KbUAcKJaIilN6xJBJWB/xuxzyqRtfK5I2uH3THSb7bFUA2349DU/S", // XjT$3zRwN
             gender: "Female",
             username:"AKumar1234567890",
 
@@ -1326,7 +1326,7 @@ export const sampleUsers = [
             email: "leila.martinez@gmail.com",
             age: 27,
             username:"LMartinez123456789",
-            password: "$2a$10$rNpUCqZiWLIZC5DSMN0/PeD7bNnUNq.33d/zlN5tqoGLX/kAfJf6e",
+            password: "$2b$10$qoSQjcfymiV5urTzVshSEepEJkhjd5YsmvbyTz5mgVRiX679Bg6cy", // L4K#pSvHd
             gender: "Female",
             verification: true,
             userProfile: {

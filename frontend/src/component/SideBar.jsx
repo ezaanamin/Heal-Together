@@ -24,6 +24,10 @@ import { useEffect } from 'react';
 import SignUpModal from './SignUpModal';
 import FemaleAvatar from "../images/user_default_female.png"
 import MaleAvatar from "../images/user_default_male.png"
+import {
+
+  Link,
+} from "react-router-dom";
 const SideBar = () => {
   const [searchBar, SetSearchBar] = useState(false);
   const [icons, setIcons] = useState(1);
@@ -46,6 +50,7 @@ const SideBar = () => {
     UserGender,
     UserFirstName,
     UserSurName,
+    UserUsername,SetUserUsername
   } = useContext(UserContext);
 
   const SideBarContainer = styled.div`
@@ -165,7 +170,14 @@ const SideBar = () => {
         </IconButton>
         <IconButton style={{ marginBottom: 10 }}>
           <Person2Icon fontSize='large' />
-          <IconHeading>Profile</IconHeading>
+          {
+            <Link to={`/${UserUsername}`}>
+
+            <IconHeading>Profile</IconHeading>
+            </Link>
+
+          }
+    
         </IconButton>
 
         <div style={{ marginBottom: 10 }}>

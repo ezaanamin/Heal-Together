@@ -12,7 +12,7 @@ import RecommendedUser from "../../component/RecommendedUser"
 const Home = () => {
 
   const nav = useNavigate();
-  const { CreatePost,theme,Login,firstTimeUser,RecommendedUserList } = useContext(UserContext);
+  const { CreatePost,theme,Login,firstTimeUser,RecommendedUserList,SetUserFirstName,SetUserSurName, SetUserGender,UserUsername,SetUserUsername } = useContext(UserContext);
 
 
 
@@ -38,6 +38,23 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const userFirstName = localStorage.getItem('UserFirstName');
+    const userSurName = localStorage.getItem('UserSurName');
+    const userGender = localStorage.getItem('UserGender');
+    const userUsername = localStorage.getItem('UserUsername');
+
+    if(userFirstName || userGender || userSurName || userUsername)
+    {
+      SetUserFirstName(userFirstName);
+      SetUserSurName(userSurName);
+      SetUserGender(userGender);
+      SetUserUsername(userUsername)
+
+    }
+  
+   
+  }, []);
 
 
   const StyledHome = styled.div`

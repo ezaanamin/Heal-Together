@@ -23,7 +23,19 @@ async function comparePassword(password, hashedPassword) {
 }
 
 
+export const HashPassword= async (req, res) =>{
 
+  bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+    if (err) {
+      res.json({'Error hashing password:': err});
+      return;
+    }
+  
+    res.json({'Hashed Password:': hashedPassword});
+  
+ 
+  });
+}
 async function SendCode(email,code,firstName,LastName)
 {
 
@@ -372,7 +384,7 @@ Users.findOne({email:req.body.email}).then((doc)=>{
   {
     const token = jwt.sign(
       { user_id: doc._id },
-      process.env.TOKEN_KEY,
+     doc.username,
       {
         expiresIn: '2h',
       }
@@ -399,25 +411,31 @@ Users.findOne({email:req.body.email}).then((doc)=>{
   }
   
   export const VerifyUser =(req, res) => {
-console.log("bye")
-    console.log(req.body)
-    res.json("Hiii")
-//       try{
-//         const token = req.headers['authorization']
-//         const headers=token.split(" ")[1]
-//         console.log(headers);
-//         const pay= jwt.verify(String(headers),process.env.TOKEN_KEY);
-//  console.log(pay.user_id,'ezaan amin')
-//         res.json({"Token":pay.user_id})
-   
-//         }
-//       catch(e){
-//         console.log("Not authorized")
-//         res.status(401).send();
-//     }
 
-console.log(req.body.token)
+    const token=req.body.token
+    const username=req.body.username
+
+    const token_key=username+process.env.TOKEN_KEY
+    const cleanedToken = token.replace(/"/g, '');
+
   
+
+      try{
+        // const token = req.headers['authorization']
+        // const headers=token.split(" ")[1]
+        // console.log(headers);
+        const pay= jwt.verify(String(cleanedToken),token_key);
+
+        res.json({status:"Login"})
+   
+        }
+      catch(e){
+   
+        res.json({status:"Unauthorized"})
+ 
+    }
+
+
   // console.log("hii")
   
     }
@@ -426,6 +444,8 @@ console.log(req.body.token)
 
     const email = req.body.email;
   
+  
+    // console.log("hiii") // for testing 
    
 
     Users.findOne({ email: email }).then((doc) => {
@@ -434,20 +454,27 @@ console.log(req.body.token)
           .then((result) => {
             if (result) {
 
+           
+
+              const token_key=doc.username+process.env.TOKEN_KEY
+
+              // console.log(token_key) // for testing token key
+
 
 
               const token = jwt.sign(
                 { user_id: doc._id },
-                process.env.TOKEN_KEY,
+                token_key,
                 {
                   expiresIn: '2h',
                 }
               );
-              console.log(token)
+          
               // console.log(doc.gender)
-res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.surName})             
+res.json({"Token": token,gender:doc.gender,firstName:doc.firstName,SurName:doc.surName,username:doc.username})             
             } else {
-              res.json('Wrong password');
+        
+              res.json({status:'Wrong password'});
             }
           })
           .catch((error) => {

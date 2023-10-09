@@ -490,6 +490,8 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
         }
         else
         {
+          console.log(action.payload.userProfile['user_cover_pic'],'stark')
+          // console.log(action.payload.UsersDetail[0],'stark')
           console.log(action.payload.UsersDetail[0],'ezaan amin')
           SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
           console.log(action.payload.UsersDetail[0]['firstname'],'stark')
@@ -497,8 +499,9 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
           SetSupportGroup(action.payload.SupportGroup[0])
           SetMentalHealth(action.payload.UserMentalHealthInsight)
           SetUserProfilePic(action.payload.UsersDetail[0]['user_profile_pic'])
-          SetUserStory(action.payload.UsersDetail[0]['myStory'])
-          SetCoverPhoto(action.payload.UsersDetail[0]['cover_photo'])
+          SetUserStory(action.payload.userProfile['userStory'])
+          SetCoverPhoto(action.payload.userProfile['user_cover_pic'])
+    
           SetCoping(action.payload.UserCoping)
           SetUserProfile(action.payload.userProfile)
         }
@@ -515,13 +518,22 @@ useEffect(()=>{
 
   if(token)
   {
-   console.log(token,'2002')
+
     //VerifyUser
-    const promise = dispatch(VerifyUser({ token: token }));
+    const promise = dispatch(VerifyUser({ token: token,username:username }));
     promise.then((action) => {
       if (VerifyUser.fulfilled.match(action)) {
 
-        alert("Ezaan Amin")
+        if(action.payload.status==="Login")
+        {
+          SetUserLogin(true)
+        }
+        if(action.payload.status==="Unauthorized")
+        {
+          SetUserLogin(false)
+
+        }
+
       
 
       }
@@ -577,9 +589,18 @@ useEffect(()=>{
     <CoverPhoto src={`http://localhost:4000/upload/${coverphoto}`}/>
     <ProfilePhoto src={`http://localhost:4000/upload/${userProfilePic}`} theme={theme}/>
     <ButtonLayer>
+{UserLogin?
 
-<Button theme={theme}>Send a Message of Support</Button>
+  <Button theme={theme}>Edit Profile</Button>:
+  <>
+  <Button theme={theme}>Send a Message of Support</Button>
 <Button theme={theme}>Connect & Support</Button>
+
+  </>
+
+
+}
+
 
     </ButtonLayer>
 <InformationLayer>

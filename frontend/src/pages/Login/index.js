@@ -62,7 +62,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const {theme, SetUserFirstName,SetUserSurName, SetUserGender,}=useContext(UserContext)
+  const {theme, SetUserFirstName,SetUserSurName, SetUserGender,    UserUsername,SetUserUsername}=useContext(UserContext)
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email').required('Email is required'),
   password: yup
@@ -197,14 +197,20 @@ if (Login.fulfilled.match(action)) {
   {
     alert(action.payload.status)
   }
+
+  if(action.payload.status==="Wrong password")
+  {
+    alert(action.payload.status)
+  }
   else
   {
 
   
  localStorage.setItem('Token', JSON.stringify(action.payload.Token));
- SetUserFirstName(action.payload.firstName);
- SetUserSurName(action.payload.SurName);
- SetUserGender(action.payload.gender);
+localStorage.setItem('UserFirstName', action.payload.firstName);
+localStorage.setItem('UserSurName', action.payload.SurName);
+localStorage.setItem('UserGender', action.payload.gender);
+localStorage.setItem('UserUsername', action.payload.username);
 
  nav('/home')
   }

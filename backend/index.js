@@ -7,7 +7,7 @@ import UserRoutes from "./routes/users.js"
 import neo4j from "neo4j-driver"
 import cookieParser from "cookie-parser"
 import { Users } from "./model/users.js"
-import { sampleUsers } from './sampleUser.js';
+// import { sampleUsers } from './sampleUser.js';
 import multer from "multer"
 import { MongoClient } from 'mongodb';
 
@@ -141,7 +141,7 @@ const dataArray = [];
 //   const csv = new ObjectsToCsv(sampleUsers);
  
 //   // Save to file:
-//   await csv.toDisk('/home/ezaan-amin/Documents/Programming/Portfolio/Heal-Together/backend/userData3.csv');
+//   await csv.toDisk('/home/ezaan-amin/Documents/Profolio/Heal-Together/backend/userdata5.csv');
  
 //   // Return the CSV file as string:
 //   // console.log(await csv.toString());
