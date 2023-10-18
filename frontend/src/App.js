@@ -83,12 +83,14 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
   const [firstTimeUser,SetFirstTimeUser]=useState(false);
   const [RecommendedUserList, SetRecommendedUserList]= useState([]);
   const[UserProfileModal,SetUserProfileModal]=useState(false);
-  const [UserUsername,SetUserUsername]=useState("")
+  const [UserUsername,SetUserUsername]=useState("");
+  const[EditProfileModal,SetEditProfileModal]=useState(false)
 
   const [theme, setTheme] = useState("light");
   const[ColorTheme, SetColorTheme] = useState(false);
 
   const userContextValue = {
+    EditProfileModal,SetEditProfileModal,
     UserFirstName, SetUserFirstName,
     UserSurName,SetUserSurName,
     UserGender, SetUserGender,

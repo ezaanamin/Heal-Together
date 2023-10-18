@@ -555,14 +555,62 @@ function transformDataToArrays(data) {
     .filter(([key, value]) => value === true)
     .map(([key, value]) => key);
 }
-export const GetUsersProfile = async (req, res) => {
 
+const updateUserData = async (doc, username, res) => {
   const uri = process.env.NEO4J_URI;
   const user = process.env.NEO4J_USERNAME;
   const password = process.env.NEO4J_PASSWORD;
+  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+  const session = driver.session();
+  
+  const cypherQuery = `
+    MATCH (p:Users {firstName: "Leo"})-[:support_group]->()
+    RETURN COUNT(p) AS count
+  `;
+  
+  const result = await session.run(cypherQuery);
+  const count = result.records[0].get('count');
+  const SupportGroup = [count.low];
+  
+  await session.close();
+  driver.close();
+  
+  const UserMentalHealthInsight = transformDataToArrays(doc.Mental_Health_Insight);
+  
+  const UsersDetail = [
+    {
+      firstname: doc.firstName,
+      surname: doc.surName,
+      username: doc.username,
+      user_profile_pic: doc.user_profile_pic,
+      userStory: doc.userStory,
+      user_cover_pic: doc.user_cover_pic
+    }
+  ];
+  
+  const UserCoping = transformDataToArrays(doc.Coping);
+  
+  const data = {
+    SupportGroup: SupportGroup,
+    UserMentalHealthInsight: UserMentalHealthInsight,
+    UserCoping: UserCoping,
+    UsersDetail: UsersDetail,
+    userProfile: doc.userProfile
+  };
+  
+  const UserData = JSON.stringify(data);
+  
+  await client.set(username, UserData);
+  const expirationInSeconds = 3600;
+  client.expire(username, expirationInSeconds);
+  returnData(data, res);
+};
 
-  const UsersDetail = [];
-  const SupportGroup = [];
+export const GetUsersProfile = async (req, res) => {
+
+
+
+
   const username=req.body.username
   const client = createClient();
   await client.connect(); 
@@ -587,52 +635,63 @@ else
       return res.json({status:"Account doesn't exist"});
     }
   
-    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
-    const session = driver.session();
-    
-    const cypherQuery = `
-      MATCH (p:Users {firstName: "Leo"})-[:support_group]->()
-      RETURN COUNT(p) AS count
-    `;
-    
-    const result = await session.run(cypherQuery);
-    const count = result.records[0].get('count');
-    SupportGroup.push(count.low);
-    
-    await session.close();
-    driver.close();
-    
-  
-
-    
-    const UserMentalHealthInsight = transformDataToArrays(doc.Mental_Health_Insight);
-
-    
-    UsersDetail.push({
-      firstname: doc.firstName,
-      surname: doc.surName,
-      username: doc.username,
-      user_profile_pic: doc.user_profile_pic,
-      myStory:doc.userStory,
-      cover_photo:doc.user_cover_pic
-    });
-    const UserCoping = transformDataToArrays(doc.Coping);
-
-  const data = {
-    SupportGroup: SupportGroup,
-    UserMentalHealthInsight: UserMentalHealthInsight,
-    UserCoping: UserCoping,
-    UsersDetail: UsersDetail,
-    userProfile: doc.userProfile
-  };
-
-  const UserData = JSON.stringify(data);
-
-   await client.set(username,UserData);
-   const expirationInSeconds = 3600; 
-   client.expire(username, expirationInSeconds);
-    returnData(data,res)
-  
-  } 
+    updateUserData(doc,username)
+  }
 };
+
+export const EditProfile = async (req, res) => {
+
+  const username=req.body.username;
+
+  var myquery = { username: username };
+     var newvalues ={ $set:{
+      firstName:req.body.firstName,
+      surName:req.body.surName,
+      userStory:req.body.userStory,
+      user_cover_pic:req.body.user_cover_pic,
+      user_profile_pic:req.body.user_profile_pic,
+         
+        
+  
+          }
+        }
+
+        Users.updateOne(myquery, newvalues)
+        .then((doc) => {
+
+          if(doc)
+          {
+
+            client.del(username, (err, reply) => {
+              if (err) {
+                console.error("Error deleting user data from Redis:", err);
+              }
+              else
+              {
+                Users.find({username:username}).then((doc)=>{
+                  if(doc)
+                  {
+                    updateUserData(doc,username)
+
+                  }
+                })
+
+              }
+          
+            });
+            res.status(200).send("Successful");
+            
+          }
+        })
+        .catch((err) => {
+
+          if (err)
+          {
+            res.status(500).send("Error");
+          }
+        });
+  
+  }
+  
+
 

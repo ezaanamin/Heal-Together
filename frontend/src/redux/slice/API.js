@@ -108,9 +108,21 @@ export const GetUsersProfile = createAsyncThunk(
   }
 );
 
+export const EditUserProfile = createAsyncThunk(
+  'post/EditUserProfile',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/users/editprofile', data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const APISlice = createSlice({
   name: 'API',
-  initialState: { data: [],moives:[],TVSHOW:[],Books:[], error: null, status: 'idle',verfiedStatus:null},
+  initialState: { data: [], error: null, status: 'idle',verfiedStatus:null},
   reducers: {},
   extraReducers: (builder) => {
   
@@ -221,6 +233,22 @@ builder
 });
 
 
+builder
+.addCase(EditUserProfile.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(EditUserProfile.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(EditUserProfile.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
+
+
+
 
 
       
@@ -229,5 +257,18 @@ builder
 
   },
 });
+
+
+export const uploadImage = createAsyncThunk(
+  'image/upload',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/upload', formData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export default APISlice.reducer;

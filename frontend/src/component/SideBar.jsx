@@ -24,6 +24,8 @@ import { useEffect } from 'react';
 import SignUpModal from './SignUpModal';
 import FemaleAvatar from "../images/user_default_female.png"
 import MaleAvatar from "../images/user_default_male.png"
+import { useNavigate } from 'react-router-dom';
+import { decodeToken, } from 'react-jwt';
 import {
 
   Link,
@@ -32,7 +34,7 @@ const SideBar = () => {
   const [searchBar, SetSearchBar] = useState(false);
   const [icons, setIcons] = useState(1);
   const [anchorEl, setAnchorEl] = useState(null); 
-
+  const nav = useNavigate();
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,7 +52,8 @@ const SideBar = () => {
     UserGender,
     UserFirstName,
     UserSurName,
-    UserUsername,SetUserUsername
+    UserUsername,SetUserUsername,
+    SetUserFirstName,SetUserSurName, SetUserGender,
   } = useContext(UserContext);
 
   const SideBarContainer = styled.div`
@@ -147,8 +150,45 @@ const SideBar = () => {
 
   const classes = useStyles();
 
+  useEffect(() => {
+    const userFirstName = localStorage.getItem('UserFirstName');
+    const userSurName = localStorage.getItem('UserSurName');
+    const userGender = localStorage.getItem('UserGender');
+    const userUsername = localStorage.getItem('UserUsername');
+
+    if(userFirstName || userGender || userSurName || userUsername)
+    {
+      SetUserFirstName(userFirstName);
+      SetUserSurName(userSurName);
+      SetUserGender(userGender);
+      SetUserUsername(userUsername)
+
+    }
+  
+   
+  }, []);
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('Token');
+    if (token) {
+      const expirationTime = decodeToken(token).exp * 1000;
+      const expiration = decodeToken(token)
+
+      console.log(expiration,'ezaan')
+
+      if (Date.now() > expirationTime) {
+        localStorage.removeItem('Token');
+      } else {
+        const timeoutId = setTimeout(() => {
+          localStorage.removeItem('Token');
+          nav('/');
+        }, expirationTime - Date.now());
+
+        return () => clearTimeout(timeoutId);
+      }
+    }
+  }, []);
   return (
     <MainComponent>
       <LoginModal/>
@@ -158,7 +198,13 @@ const SideBar = () => {
       <SideBarItems>
         <IconButton style={{ marginBottom: 10 }}>
           <HomeIcon fontSize="large" />
+          {            <Link to={`/home`}>
+
           <IconHeading>Home</IconHeading>
+
+          </Link>
+
+          }
         </IconButton>
         <IconButton style={{ marginBottom: 10 }}>
           <ChatIcon fontSize="large" />

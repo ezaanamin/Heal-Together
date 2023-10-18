@@ -13,9 +13,9 @@ import {useDispatch } from 'react-redux';
 import { GetUsersProfile } from '../../redux/slice/API';
 import { VerifyUser } from '../../redux/slice/API';
 import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
+import EditProfile from "../../component/EditProfile"
 function Profile() {
-
-    const {theme, UserProfileModal,SetUserProfileModal} = useContext(UserContext);
+    const {theme, UserProfileModal,SetUserProfileModal,  EditProfileModal,SetEditProfileModal,} = useContext(UserContext);
     const [support_group,SetSupportGroup]=useState(0)
     const [mentalHealth,SetMentalHealth]=useState([]);
     const [coping,SetCoping]=useState([]);
@@ -88,7 +88,7 @@ const MainComponent =
   const StyledHr = styled.hr`
   border: none;
   height: 3px;
-  background-color:#d9d9d9;
+  background-color:#4277a8;
   margin:1px
 `;
 
@@ -97,16 +97,16 @@ background-color:  #999999 ;
 `;
 
 const BlueBorder= styled(StyledHr)`
-background-color:#d9d9d9;
+background-color: #4277a8;
 
 `;
 
 const GreenBorder= styled(StyledHr)`
-background-color: #c1e8c1;
+background-color:  #6bb681;
 `;
 
 const PurpleBorder= styled(StyledHr)`
-background-color: #e8c1e8 
+background-color:#906db3
 `;
 
 const MainBorderColor=
@@ -144,11 +144,11 @@ const ProfilePhoto = styled.img`
   z-index: 1;
 
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#d9d9d9';
-    if (props.theme === 'green') return '#c1e8c1';
-    if (props.theme === 'purple') return '#e8c1e8';
+    if (props.theme === 'blue') return '#4277a8';
+    if (props.theme === 'green') return '#6bb681';
+    if (props.theme === 'purple') return '#906db3';
     if (props.theme === 'light') return '#999999';
-    return '#d9d9d9';
+    return '#4277a8';
   }};
 
   transform: translate(-50%, -50%);
@@ -164,11 +164,11 @@ const NoAccountProfilePhoto = styled.div`
   z-index: 1;
   background-color:${MainBackgroundProfile};;
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#d9d9d9';
-    if (props.theme === 'green') return '#c1e8c1';
-    if (props.theme === 'purple') return '#e8c1e8';
+    if (props.theme === 'blue') return '#4277a8';
+    if (props.theme === 'green') return '#6bb681';
+    if (props.theme === 'purple') return '#906db3';
     if (props.theme === 'light') return '#999999';
-    return '#d9d9d9';
+    return '#4277a8';
   }};
 
   transform: translate(-50%, -50%);
@@ -366,114 +366,6 @@ position: relative;
   left: 50px;
 `;
 
-const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7');
-
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        setImagePreview(e.target.result);
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  function handleImageChange(e) {
-    readURL(e.target);
-  }
-
-  const containerStyle = {
-    maxWidth: '960px',
-    margin: '30px auto',
-    padding: '20px',
-    background: 'whitesmoke',
-    fontFamily: 'Open Sans, sans-serif',
-  };
-
-  const h1Style = {
-    fontSize: '20px',
-    textAlign: 'center',
-    margin: '20px 0 20px',
-  };
-
-  const smallStyle = {
-    display: 'block',
-    fontSize: '15px',
-    paddingTop: '8px',
-    color: 'gray',
-  };
-
-  const avatarUploadStyle = {
-    position: 'absolute',
-    maxWidth: '205px',
-    margin: '50px auto',
-    left:50,
-    top:250,
-    zIndex:1
-  };
-
-  const avatarEditStyle = {
-    position: 'absolute',
-    right: '12px',
-    zIndex: '1',
-    top: '10px',
-  };
-
-  const avatarEditInputStyle = {
-    display: 'none',
-  };
-
-  const avatarEditLabelStyle = {
-    display: 'inline-block',
-    width: '34px',
-    height: '34px',
-    marginBottom: '0',
-    borderRadius: '100%',
-    background: '#FFFFFF',
-    border: '1px solid transparent',
-    boxShadow: '0px 2px 4px 0px rgba(0, 0, 0, 0.12)',
-    cursor: 'pointer',
-    fontWeight: 'normal',
-    transition: 'all 0.2s ease-in-out',
-  };
-
-  const avatarEditLabelHoverStyle = {
-    background: '#f1f1f1',
-    borderColor: '#d6d6d6',
-  };
-
-  const avatarEditLabelAfterStyle = {
-    content: '\f040',
-    fontFamily: 'FontAwesome',
-    color: '#757575',
-    position: 'absolute',
-    top: '10px',
-    left: '0',
-    right: '0',
-    textAlign: 'center',
-    margin: 'auto',
-  };
-
-  const avatarPreviewStyle = {
-    width: '192px',
-    height: '192px',
-    position: 'relative',
-    
- 
-    borderRadius: '100%',
-    border: '6px solid #F8F8F8',
-    boxShadow: '0px 2px 4px 0px rgba(0, 0, 0, 0.1)',
-  };
-
-  const avatarPreviewDivStyle = {
-    width: '100%',
-    height: '100%',
-    borderRadius: '100%',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundImage: `url(${imagePreview})`,
-  };
 
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -490,7 +382,7 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
         }
         else
         {
-          console.log(action.payload.userProfile['user_cover_pic'],'stark')
+          console.log(action.payload.UsersDetail[0]['user_cover_pic'],'TONY STARK')
           // console.log(action.payload.UsersDetail[0],'stark')
           console.log(action.payload.UsersDetail[0],'ezaan amin')
           SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
@@ -499,27 +391,20 @@ const [imagePreview, setImagePreview] = useState('http://i.pravatar.cc/500?img=7
           SetSupportGroup(action.payload.SupportGroup[0])
           SetMentalHealth(action.payload.UserMentalHealthInsight)
           SetUserProfilePic(action.payload.UsersDetail[0]['user_profile_pic'])
-          SetUserStory(action.payload.userProfile['userStory'])
-          SetCoverPhoto(action.payload.userProfile['user_cover_pic'])
-    
+          SetUserStory(action.payload.UsersDetail[0]['userStory'])
+          SetCoverPhoto(action.payload.UsersDetail[0]['user_cover_pic'])
           SetCoping(action.payload.UserCoping)
           SetUserProfile(action.payload.userProfile)
         }
-   
       } else if (GetUsersProfile.rejected.match(action)) {
         alert("Error");
       }
     });
   }, []);
-
 useEffect(()=>{
   const token = localStorage.getItem('Token');
-
-
   if(token)
-  {
-
-    //VerifyUser
+  { //VerifyUser
     const promise = dispatch(VerifyUser({ token: token,username:username }));
     promise.then((action) => {
       if (VerifyUser.fulfilled.match(action)) {
@@ -533,25 +418,14 @@ useEffect(()=>{
           SetUserLogin(false)
 
         }
-
-      
-
       }
-
     })
-
-
-      
-
   }
   else
   {
-    alert("hii")
+    SetUserLogin(false)
   }
-
-
 },[])
-
   return (
 <>
 {!UserExist?
@@ -563,62 +437,32 @@ useEffect(()=>{
 :null
 
  }
-
-
+ {
+  EditProfileModal?
+  <EditProfile username={username} story={UserStory} First_Name={UserFirstName} SurName={UserSurName} cover_photo ={`http://localhost:4000/upload/${coverphoto}`} profile_pic={`http://localhost:4000/upload/${userProfilePic}`}/>:
+  null
+ }
     <Header>Profile</Header>
-    
-
- 
     <MainBorderColor/>
-  
-{/* <div style={avatarUploadStyle}>
-<div style={avatarEditStyle}>
-  <input
-    type="file"
-    id="imageUpload"
-    accept=".png, .jpg, .jpeg"
-    style={avatarEditInputStyle}
-    onChange={handleImageChange}
-  />
-  <label htmlFor="imageUpload" style={avatarEditLabelStyle}></label>
-</div>
-<div style={avatarPreviewStyle}>
-  <div style={avatarPreviewDivStyle}></div>
-</div>
-</div> */}
-    <CoverPhoto src={`http://localhost:4000/upload/${coverphoto}`}/>
+  <CoverPhoto src={`http://localhost:4000/upload/${coverphoto}`}/>
     <ProfilePhoto src={`http://localhost:4000/upload/${userProfilePic}`} theme={theme}/>
     <ButtonLayer>
 {UserLogin?
-
-  <Button theme={theme}>Edit Profile</Button>:
+  <Button onClick={()=>SetEditProfileModal(true)} theme={theme}>Edit Profile</Button>:
   <>
   <Button theme={theme}>Send a Message of Support</Button>
 <Button theme={theme}>Connect & Support</Button>
-
   </>
-
-
 }
-
-
     </ButtonLayer>
 <InformationLayer>
-
 <ProfileHeading>{UserFirstName}  {UserSurName}</ProfileHeading>
 <ProfileHeading>{support_group} Support group</ProfileHeading>
-
-
 </InformationLayer>
-
 <MentalHealthGuide  theme={theme}>
-
 <HeadingMentalHealth>Mental Health Insights & Coping Techniques</HeadingMentalHealth>
 <div style={{position:"absolute",right:0,top:10}}>
-
-
 <Button onClick={()=>SetUserProfileModal(true)} theme={theme}>Comprehensive Mental Health Guide</Button>
-
 </div>
 <MentalHealthInsights>
 <MentalHealthInsightsHeading>Mental Health Insights</MentalHealthInsightsHeading>
@@ -626,9 +470,7 @@ useEffect(()=>{
 {Array.from({ length: 2 }).map((_, index) => (
 <>
 <Button theme={theme}>{mentalHealth[index]}</Button>
-
 </>
-
 ))}
 {/* <Button theme={theme}>Depression</Button>
 <Button theme={theme}>Anxiety</Button> */}
@@ -647,32 +489,20 @@ useEffect(()=>{
 </div>
 </CopingTechniques>
 </MentalHealthGuide>
-
 <MyStorySection>
-
-
 <MyStory>My Story</MyStory>
 <MyStoryText>{UserStory}</MyStoryText>
 </MyStorySection>
 <WellnessUpdatesHeading>
 <WellnessUpdates>Wellness Updates</WellnessUpdates>
-
-
 </WellnessUpdatesHeading>
 <WellnessUpdatesSection>
-
 <WellnessUpdatesComments>
-
-
-
 <ProfileCompoents/>
 <ProfileCompoents/>
 <ProfileCompoents/>
 </WellnessUpdatesComments>
 </WellnessUpdatesSection>
-
-  
-  
 </MainComponent>
 </>
 :
@@ -682,20 +512,12 @@ useEffect(()=>{
 <Header>Profile</Header>
 <NoCoverPhoto/>
     <NoAccountProfilePhoto theme={theme}/>
-
- 
     <MainBorderColor/>
-    <InformationLayer>
-
+  <InformationLayer>
 <ProfileHeading>{username} </ProfileHeading>
-
 <AccountDoesnotExist>This account doesn't exist </AccountDoesnotExist>
-
 <SearchAccount>Try searching for another.</SearchAccount>
-
 </InformationLayer>
-
-
 </MainComponent>
 </>
 }

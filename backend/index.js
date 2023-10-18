@@ -40,20 +40,30 @@ app.get("/",(req,res)=>{
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/home/ezaan-amin/Documents/Programming/Profiolo/Heal-Together/backend/upload");
+    cb(null, "upload/");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
+const upload = multer({ storage: storage });
 
-const upload = multer({ storage });
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
 
-app.post("/upload", upload.single("file"), function (req, res) {
-  const file = req.file;
-  console.log(file)
-  res.status(200).json(file.filename);
+ 
+  const uploadedFile = req.file;
+  
+  
+
+  res.status(200).send('File uploaded successfully.');
 });
+
+
+
+
 
 app.post("/test",(req,res)=>{
  console.log(req.body)
