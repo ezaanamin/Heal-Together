@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Routes from './Routes';
 import { UserContext } from './Context/context';
+import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "./themes/themes" 
+import { ThemeProvider } from '@mui/material/styles';
 
 
 
 
 function App() {
-
 useEffect(()=>{
   const GetTheme = () => {
   
@@ -134,11 +135,12 @@ const[Primary_Profile_question, setPrimary_Profile_question]=useState(Primary_Pr
 
 
   return (
-    <UserContext.Provider value={userContextValue}>
 
+    <UserContext.Provider value={userContextValue}>
+    <ThemeProvider theme={currentTheme}>
 
 <Routes/>
-
+</ThemeProvider>
 
     </UserContext.Provider>
   );

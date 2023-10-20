@@ -1,26 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import InputField from './InputField';
-import * as yup from 'yup';
-import { Formik, Form } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import CheckIcon from '@mui/icons-material/Check';
-import { FormControl, FormControlLabel, Checkbox } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import CustomCheckbox from './CustomCheckBox';
 import Typography from '@mui/material/Typography';
 import { uploadImage } from '../redux/slice/API';
 import { EditUserProfile } from '../redux/slice/API';
+import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
+
 
 export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username }) {
   const dispatch = useDispatch();
@@ -41,14 +36,14 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   const [currentWordCount, setCurrentWordCount] = useState(0);
 
 
-  const LightMainContainer = '#CCCCCC';
-  const BlueMainContainer = '#a5c3e0'
-  const GreenMainContainer = '#aeddbb'
-  const PurpleMainContainer = '#f2e8f5';
-  const LightBorder = '#c1b3d9';
-  const BlueBorder = '#4277a8';
-  const GreenBorder = '#6bb681';
-  const PurpleBorder = '#906db3'
+  const LightMainContainer = defaultTheme.palette.primary.main
+  const BlueMainContainer =calmingBlueTheme.palette.primary.main
+  const GreenMainContainer =sereneGreenTheme.palette.primary.main
+  const PurpleMainContainer = relaxingPurpleTheme.palette.primary.main
+  const LightBorder =defaultTheme.palette.borderLine.backgroundColor
+  const BlueBorder =calmingBlueTheme.palette.borderLine.backgroundColor
+  const GreenBorder =sereneGreenTheme.palette.borderLine.backgroundColor
+  const PurpleBorder =relaxingPurpleTheme.palette.borderLine.backgroundColor
 
   const MainBorderColor =
     theme === 'blue' ? BlueBorder :
@@ -71,28 +66,24 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 100,
-    backgroundColor: theme === 'light' ? '#CCCCCC' :
-      theme === 'blue' ? '#a5c3e0' :
-        theme === 'green' ? '#aeddbb' :
-          theme === 'purple' ? '#f2e8f5' : '#CCCCCC',
+    backgroundColor: theme === 'blue' ? calmingBlueTheme.palette.primary.main :
+              theme === 'green' ? sereneGreenTheme.palette.primary.main :
+              theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
+              theme === 'light' ? defaultTheme.palette.primary.main :
+              defaultTheme.palette.primary.main,
+   
     borderWidth: '2px',
     borderStyle: 'solid',
-    borderColor: theme === 'light' ? '#CCCCCC' :
-      theme === 'blue' ? '#4277a8' :
-        theme === 'green' ? ' #6bb681' :
-          theme === 'purple' ? '#c1b3d9' : '#CCCCCC',
+    borderColor: theme === 'light' ? defaultTheme.palette.borderLine.backgroundColor:
+      theme === 'blue' ?  calmingBlueTheme.palette.borderLine.backgroundColor: 
+        theme === 'green' ?  sereneGreenTheme.palette.borderLine.backgroundColor :
+          theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor,
     boxShadow: '24px',
     padding: '8px',
   };
 
 
-  const validationSchema = yup.object().shape({
-    email: yup.string().email('Enter a valid email').required('Email is required'),
-    password: yup
-      .string()
-      .min(8, 'Password should be at least 8 characters')
-      .required('Password is required'),
-  });
+
 
 
   const handleClose = () => {
@@ -100,16 +91,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     SetEditProfileModal(false);
   }
 
-  const Logo = styled.img`
-    
-    width:100px;
-    height:100px;
-    display:block;
-    margin-right:auto;
-    margin-left:auto;
-    
-   
-    `
+
 
   const Text = styled.p`
     text-align:center;
@@ -121,68 +103,24 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     
     
     `
-  const GreenColor = styled(Text)`
 
-color:#FFFFFF
-
-`
+    const GreenColor = styled(Text)`
+    color: ${sereneGreenTheme.palette.text.primary};
+  `;
+  
   const BlueColor = styled(Text)`
-color:#FFFFFF
-
-
-`
+    color: ${calmingBlueTheme.palette.text.primary};
+  `;
+  
   const LightColor = styled(Text)`
-
-color:#333333
-
-`
+    color: ${defaultTheme.palette.text.primary};
+  `;
+  
   const PurpleColor = styled(Text)`
-color:#333333
+    color: ${relaxingPurpleTheme.palette.text.primary};
+  `;
 
 
-
-`
-
-  const LoginHeading = styled.h1`
-
-text-align: center;
-
-margin-bottom:10px;
-font-weight:bold;
-
-
-
-
-`
-
-  const GreenHeading = styled(LoginHeading)`
-
-color:#FFFFFF
-
-`
-  const BlueHeading = styled(LoginHeading)`
-color:#FFFFFF
-
-
-`
-  const LightHeading = styled(LoginHeading)`
-
-color:#333333
-
-`
-  const PurpleHeaing = styled(LoginHeading)`
-color:#333333
-
-
-
-`
-
-  const MainHeading =
-
-    theme === 'light' ? LightHeading :
-      theme === 'blue' ? BlueHeading :
-        theme === 'green' ? GreenHeading :
-          theme === 'purple' ? PurpleHeaing : LightHeading
 
 
   const MainText =
@@ -207,23 +145,24 @@ color:#333333
 `;
 
   const BlueButton = styled(SaveButton)`
-  background-color: #6ea8d9;
-  color: #ffffff; 
+  background-color:${calmingBlueTheme.palette.secondary.main};
+  color: ${calmingBlueTheme.palette.text.primary};
+
 `;
 
   const GreenButton = styled(SaveButton)`
-  background-color: #8fd9a6; 
-  color: #ffffff; 
+  background-color:${sereneGreenTheme.palette.secondary.main};
+  color: ${sereneGreenTheme.palette.text.primary};
 `;
 
   const LightButton = styled(SaveButton)`
-  background-color: #ffffff; 
-  color: #333333; 
+   background-color:${defaultTheme.palette.secondary.main};
+  color: ${defaultTheme.palette.text.primary};
 `;
 
   const PurpleButton = styled(SaveButton)`
-  background-color: #b39ed9; 
-  color: #333333; 
+  background-color:${relaxingPurpleTheme.palette.secondary.main};
+  color: ${relaxingPurpleTheme.palette.text.primary};
 `;
 
 
@@ -267,36 +206,7 @@ color:#333333
 
 `;
 
-  const LightButtonCreate = styled(CreateAccount)`
-background-color:#ffffff;
-color: #333333; 
 
-`
-
-  const BlueButtonCreate = styled(CreateAccount)`
-  background-color: #8bb5e8;  
-  color: #ffffff;
-  
-`;
-
-  // Serene Green Theme
-  const GreenButtonCreate = styled(CreateAccount)`
-background-color: #a8e89e;
-color: #ffffff; 
-`;
-
-  // Relaxing Purple Theme
-  const PurpleButtonCreate = styled(CreateAccount)`
- background-color: #c18ae8; 
- color: #333333; 
-
-  
-`;
-  const MainCreate =
-    theme === 'light' ? LightButtonCreate :
-      theme === 'blue' ? BlueButtonCreate :
-        theme === 'green' ? GreenButtonCreate :
-          theme === 'purple' ? PurpleButtonCreate : LightButtonCreate
 
   const CoverPhoto = styled.img`
   width: 600px;
@@ -341,17 +251,7 @@ margin-bottom:25px;
 
 
 `
-  const StyledTextarea = styled(TextareaAutosize)`
-  width: 600px;
-  background-color: ${MainBackGround};
 
-
-
-  &:focus-visible {
-    outline: 0;
-  }
-
-`;
 
 
 

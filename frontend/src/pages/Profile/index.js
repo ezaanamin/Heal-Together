@@ -14,6 +14,9 @@ import { GetUsersProfile } from '../../redux/slice/API';
 import { VerifyUser } from '../../redux/slice/API';
 import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
 import EditProfile from "../../component/EditProfile"
+import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../../themes/themes"
+
+
 function Profile() {
     const {theme, UserProfileModal,SetUserProfileModal,  EditProfileModal,SetEditProfileModal,} = useContext(UserContext);
     const [support_group,SetSupportGroup]=useState(0)
@@ -28,10 +31,10 @@ function Profile() {
     const[UserProfile,SetUserProfile]=useState([]);
     const [UserLogin,SetUserLogin]=useState(false)
 
-  const LightBackgroundProfile="#ffffff"
-    const BlueBackgroundProfile="#6ea8d9";
-    const GreenBackgroundProfile="#8fd9a6";
-    const PurpleBackgroundProfile="#b39ed9";
+    const LightBackgroundProfile=defaultTheme.palette.primary.main
+    const BlueBackgroundProfile=calmingBlueTheme.palette.primary.main
+    const GreenBackgroundProfile=sereneGreenTheme.palette.primary.main
+    const PurpleBackgroundProfile=relaxingPurpleTheme.palette.primary.main
 
 
 
@@ -66,19 +69,23 @@ function Profile() {
 
   `;
   const LightMainContainer = styled(StyledHome)`
-  background-color: #f0f2f5;
+     background-color:${defaultTheme.palette.secondary.main};
+
 `;
 
 const BlueMainContainer = styled(StyledHome)`
-  background-color: #6ea8d9;
+   background-color:${calmingBlueTheme.palette.secondary.main};
+
 `;
 
 const GreenMainContainer = styled(StyledHome)`
-  background-color: #8fd9a6;
+     background-color:${sereneGreenTheme.palette.secondary.main};
+
 `;
 
 const PurpleMainContainer = styled(StyledHome)`
-  background-color: #b39ed9;
+    background-color:${relaxingPurpleTheme.palette.secondary.main};
+
 `;
 const MainComponent =
   theme === 'blue' ? BlueMainContainer :
@@ -88,25 +95,24 @@ const MainComponent =
   const StyledHr = styled.hr`
   border: none;
   height: 3px;
-  background-color:#4277a8;
   margin:1px
 `;
 
 const LightBorder = styled(StyledHr)`
-background-color:  #999999 ;
+background-color:${defaultTheme.palette.borderLine.backgroundColor}
 `;
 
 const BlueBorder= styled(StyledHr)`
-background-color: #4277a8;
+background-color:${calmingBlueTheme.palette.borderLine.backgroundColor}
 
 `;
 
 const GreenBorder= styled(StyledHr)`
-background-color:  #6bb681;
+background-color:${sereneGreenTheme.palette.borderLine.backgroundColor}
 `;
 
 const PurpleBorder= styled(StyledHr)`
-background-color:#906db3
+background-color:${relaxingPurpleTheme.palette.borderLine.backgroundColor}
 `;
 
 const MainBorderColor=
@@ -144,11 +150,11 @@ const ProfilePhoto = styled.img`
   z-index: 1;
 
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8';
-    if (props.theme === 'green') return '#6bb681';
-    if (props.theme === 'purple') return '#906db3';
-    if (props.theme === 'light') return '#999999';
-    return '#4277a8';
+    if (props.theme === 'blue') return `${calmingBlueTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'green') return `${sereneGreenTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'light') return `${defaultTheme.palette.borderLine.backgroundColor}`;
+    return `${defaultTheme.palette.borderLine.backgroundColor}`;
   }};
 
   transform: translate(-50%, -50%);
@@ -164,11 +170,11 @@ const NoAccountProfilePhoto = styled.div`
   z-index: 1;
   background-color:${MainBackgroundProfile};;
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8';
-    if (props.theme === 'green') return '#6bb681';
-    if (props.theme === 'purple') return '#906db3';
-    if (props.theme === 'light') return '#999999';
-    return '#4277a8';
+    if (props.theme === 'blue') return `${calmingBlueTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'green') return `${sereneGreenTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'light') return `${defaultTheme.palette.borderLine.backgroundColor}`;
+    return `${defaultTheme.palette.borderLine.backgroundColor}`;
   }};
 
   transform: translate(-50%, -50%);
@@ -186,10 +192,10 @@ flex-direction:column;
 `
 
 
-const GreenTextColor = '#FFFFFF';
-const BlueTextColor = '#FFFFFF';
-const LightTextColor = '#333333';
-const PurpleTextColor = '#333333';
+const GreenTextColor = sereneGreenTheme.palette.text.primary
+const BlueTextColor = calmingBlueTheme.palette.text.primary
+const LightTextColor = defaultTheme.palette.text.primary
+const PurpleTextColor = relaxingPurpleTheme.palette.text.primary
 const MentalHealthInsights=styled.div`
  display:flex;
  flex-direction:row;
@@ -227,25 +233,26 @@ text-transform: capitalize;
 
 
   background-color: ${props => {
-    if (props.theme === 'blue') return '#b3c9e8';
-    if (props.theme === 'green') return ' #c9e8c1';
-    if (props.theme === 'purple') return '#d9c1e8';
-    return '#6ea8d9'; 
+    if (props.theme === 'blue') return `${calmingBlueTheme.palette.secondary.main}`
+    if (props.theme === 'green') return `${sereneGreenTheme.palette.secondary.main}`
+    if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.secondary.main}`
+    return `${defaultTheme.palette.secondary.main}`
   }};
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8'; 
-    if (props.theme === 'green') return '#6bb681';
-    if (props.theme === 'purple') return '#906db3'; 
-    return '#000'; 
-  }};
-  color: #333333 ;
+  if (props.theme === 'blue') return calmingBlueTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'green') return sereneGreenTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'purple') return relaxingPurpleTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'light') return defaultTheme.palette.borderLine.backgroundColor;
+  return defaultTheme.palette.borderLine.backgroundColor;
+}};
+color: ${defaultTheme.palette.text.primary};
 
   &:hover {
     background-color: ${props => {
-      if (props.theme === 'blue') return '#8bb5e8';
-      if (props.theme === 'green') return ' #a8e89e';
-      if (props.theme === 'purple') return '#c18ae8';
-      return '#8bb5e8'; 
+      if (props.theme === 'blue') return `${calmingBlueTheme.palette.action.hover}`
+      if (props.theme === 'green') return `${sereneGreenTheme.palette.action.hover}`
+      if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.action.hover}`
+      return `${defaultTheme.palette.action.hover}`
     }};
 
 
@@ -354,10 +361,11 @@ position: relative;
 
   const MentalHealthGuide = styled.div`
   border: 4px solid ${props => {
-    if (props.theme === 'blue') return '#4277a8'; 
-    if (props.theme === 'green') return '#6bb681'; 
-    if (props.theme === 'purple') return '#906db3';
-    return '#000';
+    if (props.theme === 'blue') return `${calmingBlueTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'green') return `${sereneGreenTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.borderLine.backgroundColor}`;
+    if (props.theme === 'light') return `${defaultTheme.palette.borderLine.backgroundColor}`;
+    return `${defaultTheme.palette.borderLine.backgroundColor}`;
   }};
   width: 1400px;
   height: 250px;

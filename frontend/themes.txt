@@ -6,6 +6,7 @@
 - Border Color: #d9d9d9 (very light gray)
 - Cover Photo Background: #ffffff (same as the primary color)
 - Profile Picture Background: #f9f9f9 (a very light gray)
+- Modal Background Color: #ffffff (pure white)
 
 **Calming Blue Theme:**
 - Primary Color: #6ea8d9 (a soothing light blue)

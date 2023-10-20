@@ -6,21 +6,13 @@ import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-
-
-
-
-
-
-
+import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../themes/themes"
 export default function ModalThemeModal() {
-  const nav=useNavigate()
 
 
   
   
-    const {currentTheme,SetCurrentTheme,ColorTheme,SetColorTheme,theme, setTheme}=useContext(UserContext)
+    const {ColorTheme,SetColorTheme,theme, setTheme}=useContext(UserContext)
 
     const style = {
       position: 'absolute',
@@ -34,10 +26,13 @@ export default function ModalThemeModal() {
       pt: 2,
       px: 4,
       pb: 3,
-      backgroundColor: theme === 'light' ? '#CCCCCC' :
-      theme === 'blue' ? '#5c8fbf' :
-      theme === 'green' ? '#7dbf6b' :
-      theme === 'purple' ? '#f2e8f5' : '#CCCCCC',
+      backgroundColor:
+      theme === 'blue' ? calmingBlueTheme.palette.primary.main :
+                theme === 'green' ? sereneGreenTheme.palette.primary.main :
+                theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
+                theme === 'light' ? defaultTheme.palette.primary.main
+                :
+                defaultTheme.palette.primary.main,
       
       
     };
@@ -56,38 +51,7 @@ useEffect(()=>{
 
 
 
-const PurpleBackGround = styled.h1`
-  color:  #333333;
-`;
 
-const LightMainContainer = styled.div`
-background-color: #CCCCCC;
-`;
-
-const BlueMainContainer = styled.div`
-background-color: #5c8fbf;
-`;
-
-const GreenMainContainer = styled.div`
-background-color: #7dbf6b;
-`;
-
-const PurpleMainContainer = styled`
-background-color: #f2e8f5;
-`;
-
-const IconHeading = styled.p`
-margin-left: 10px;
-`;
-
-
-
-
-const ParModal=styled.p`
-width: 400px;
-margin-top:15px;
-
-`
 const Button = styled.button`
   display: inline-block;
   padding: 10px;
@@ -103,7 +67,7 @@ const Button = styled.button`
 height:50px;
 width:50px;
 &:active {
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5); /* Updated box-shadow for active state */
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 };
 font-weight: bold;
 
@@ -111,41 +75,42 @@ font-weight: bold;
 
 const LightButton=styled(Button)`
 
-background-color:  #CCCCCC;
+background-color:${defaultTheme.overrides.MuiButton.root.backgroundColor};
 
 `
 const LightButtonActive=styled(LightButton)`
 
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add your desired box shadow values here */
-
+box-shadow: 0 9px ${defaultTheme.palette.ButtonActive.backgroundColor};
 `
 
 const BlueButton = styled(Button)`
-  background-color: #008CBA;
+background-color:${calmingBlueTheme.overrides.MuiButton.root.backgroundColor};
+
 `;
 
 const BlueButtonActive=styled(BlueButton)`
-box-shadow: 0 9px #005f7f; 
+  box-shadow: 0 9px ${calmingBlueTheme.palette.ButtonActive.backgroundColor};
 
 `
 
 
 const GreenButton = styled(Button)`
-  background-color: #4CAF50;
+ background-color:${sereneGreenTheme.overrides.MuiButton.root.backgroundColor};
+
 `;
 
-const GreenButtonActive=styled(GreenButton)`
-box-shadow: 0 9px #387d3a; /* Updated box-shadow for green button */
-
-`
+const GreenButtonActive = styled(GreenButton)`
+  box-shadow: 0 9px ${sereneGreenTheme.palette.ButtonActive.backgroundColor};
+`;
 const PurpleButton = styled(Button)`
-  background-color: #800080;
+background-color:${relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor};
+
 `;
 
 
 const PurpleButtonActive=styled(PurpleButton)`
 
-box-shadow: 0 9px #5c005c; /* Updated box-shadow for purple button */
+box-shadow: 0 9px ${relaxingPurpleTheme.palette.ButtonActive.backgroundColor};
 
 `
 
@@ -162,27 +127,22 @@ const Text = styled.span`
 
 `;
 
-const GreenColor=styled(Text)`
+const GreenColor = styled(Text)`
+color: ${sereneGreenTheme.palette.text.primary};
+`;
 
-color:#FFFFFF
+const BlueColor = styled(Text)`
+color: ${calmingBlueTheme.palette.text.primary};
+`;
 
-`
-const BlueColor=styled(Text)`
-color:#FFFFFF
+const LightColor = styled(Text)`
+color: ${defaultTheme.palette.text.primary};
+`;
 
+const PurpleColor = styled(Text)`
+color: ${relaxingPurpleTheme.palette.text.primary};
+`;
 
-`
-const LightColor=styled(Text)`
-
-color:#333333
-
-`
-const PurpleColor=styled(Text)`
-color:#333333
-
-
-
-`
 
 const MainText =
   theme === 'light' ? LightColor :
@@ -191,16 +151,23 @@ const MainText =
   theme === 'purple' ? PurpleColor :LightColor 
 
   const LightBackGround = styled.h1`
-  color: #333333;
+color: ${defaultTheme.palette.text.primary};
+
 `;
 
 const BlueBackGround = styled.h1`
-  color: #FFFFFF;
+color: ${calmingBlueTheme.palette.text.primary};
+
 `;
 
 const GreenBackGround = styled.h1`
-  color: #FFFFFF;
+ color: ${sereneGreenTheme.palette.text.primary};
+
 `;
+const PurpleBackGround = styled.h1`
+  color:${relaxingPurpleTheme.palette.text.primary};
+`;
+
   const Main =
   theme === 'light' ? LightBackGround :
   theme === 'blue' ? BlueBackGround :
@@ -234,13 +201,13 @@ const GreenBackGround = styled.h1`
 
 
 {
-  theme=='light'?<LightButtonActive/>:<LightButton onClick={()=>setTheme("light")}/>
+  theme==='light'?<LightButtonActive/>:<LightButton onClick={()=>setTheme("light")}/>
 }
 <MainText>Light Theme: Experience the soothing ambience of our light theme, offering a sense of clarity and simplicity.</MainText>
 
 
 {
-  theme=='blue'?<BlueButtonActive/>:
+  theme==='blue'?<BlueButtonActive/>:
   <BlueButton onClick={()=>setTheme("blue")}/>
 }
 
@@ -249,14 +216,14 @@ const GreenBackGround = styled.h1`
       <br />
 
 {
-  theme=='green'?<GreenButtonActive/>:<GreenButton onClick={()=>setTheme("green")}/>
+  theme==='green'?<GreenButtonActive/>:<GreenButton onClick={()=>setTheme("green")}/>
 }
      
       <MainText>Harmony Haven: Embrace the serene greens, where nature's harmony awaits.</MainText>
 
       <br />
       {
-        theme=='purple'?<PurpleButtonActive/>:<PurpleButton onClick={()=>setTheme("purple")}/>
+        theme==='purple'?<PurpleButtonActive/>:<PurpleButton onClick={()=>setTheme("purple")}/>
       }
 
 

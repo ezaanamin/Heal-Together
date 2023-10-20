@@ -9,6 +9,8 @@ import { useContext } from 'react';
 import PostModal from '../../component/CreatePost';
 import SideBar from '../../component/SideBar';
 import RecommendedUser from "../../component/RecommendedUser"
+import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../../themes/themes"
+
 const Home = () => {
 
   const nav = useNavigate();
@@ -44,19 +46,22 @@ const Home = () => {
   `;
 
   const LightMainContainer = styled(StyledHome)`
-  background-color: #f0f2f5;
+   
+   background-color:${defaultTheme.palette.primary.main};
+
 `;
 
 const BlueMainContainer = styled(StyledHome)`
-  background-color: #6ea8d9;
+  background-color: ${calmingBlueTheme.palette.primary.main};
+
 `;
 
 const GreenMainContainer = styled(StyledHome)`
-  background-color: #8fd9a6;
+  background-color: ${sereneGreenTheme.palette.primary.main};
 `;
 
 const PurpleMainContainer = styled(StyledHome)`
-  background-color: #b39ed9;
+  background-color: ${relaxingPurpleTheme.palette.primary.main};
 `;
 
 useEffect(()=>{
@@ -83,7 +88,6 @@ const MainComponent =
   theme === 'green' ? GreenMainContainer :
   theme === 'purple' ? PurpleMainContainer :
   theme === 'light' ? LightMainContainer : LightMainContainer;
-
 
   return (
     <>

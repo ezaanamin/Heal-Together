@@ -3,15 +3,14 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
-import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import logo from "../images/HealTogether_Logo2_transparent.png";
 import InputField from './InputField';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { Login } from '../redux/slice/API';
+import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
 
 
 
@@ -21,7 +20,7 @@ import { Login } from '../redux/slice/API';
 export default function LoginModal() {
   const dispatch = useDispatch();
 
-      const {LoginModal,SetLoginModal,theme,SignUpModal, SetSignUpModal}=useContext(UserContext)
+      const {LoginModal,SetLoginModal,theme,SetSignUpModal}=useContext(UserContext)
 
     const style = {
       position: 'absolute',
@@ -35,10 +34,11 @@ export default function LoginModal() {
       pt: 2,
       px: 4,
       pb: 3,
-      backgroundColor: theme === 'light' ? '#CCCCCC' :
-      theme === 'blue' ? '#5c8fbf' :
-      theme === 'green' ? '#7dbf6b' :
-      theme === 'purple' ? '#f2e8f5' : '#CCCCCC',
+      backgroundColor: theme === 'blue' ? calmingBlueTheme.palette.primary.main :
+      theme === 'green' ? sereneGreenTheme.palette.primary.main :
+      theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
+      theme === 'light' ? defaultTheme.palette.primary.main :
+      defaultTheme.palette.primary.main,
       
       
     };
@@ -78,27 +78,22 @@ export default function LoginModal() {
     
     
     `
-    const GreenColor=styled(Text)`
+    const GreenColor = styled(Text)`
+    color: ${sereneGreenTheme.palette.text.primary};
+  `;
+  
+  const BlueColor = styled(Text)`
+    color: ${calmingBlueTheme.palette.text.primary};
+  `;
+  
+  const LightColor = styled(Text)`
+    color: ${defaultTheme.palette.text.primary};
+  `;
+  
+  const PurpleColor = styled(Text)`
+    color: ${relaxingPurpleTheme.palette.text.primary};
+  `;
 
-color:#FFFFFF
-
-`
-const BlueColor=styled(Text)`
-color:#FFFFFF
-
-
-`
-const LightColor=styled(Text)`
-
-color:#333333
-
-`
-const PurpleColor=styled(Text  )`
-color:#333333
-
-
-
-`
 
 const LoginHeading=styled.h1`
 
@@ -112,34 +107,35 @@ font-weight:bold;
 
 `
 
-const GreenHeading=styled(LoginHeading)`
+const GreenHeading = styled(LoginHeading)`
 
-color:#FFFFFF
-
-`
-const BlueHeading=styled(LoginHeading)`
-color:#FFFFFF
-
+color: ${sereneGreenTheme.palette.text.primary};
 
 `
-const LightHeading=styled(LoginHeading)`
-
-color:#333333
-
-`
-const PurpleHeaing=styled(LoginHeading)`
-color:#333333
-
+  const BlueHeading = styled(LoginHeading)`
+    color: ${calmingBlueTheme.palette.text.primary};
 
 
 `
+  const LightHeading = styled(LoginHeading)`
 
-const MainHeading=
+color: ${defaultTheme.palette.text.primary};
 
-theme === 'light' ? LightHeading :
-theme === 'blue' ? BlueHeading :
-theme === 'green' ? GreenHeading :
-theme === 'purple' ? PurpleHeaing :LightHeading 
+`
+  const PurpleHeaing = styled(LoginHeading)`
+    color: ${relaxingPurpleTheme.palette.text.primary};
+
+
+
+`
+
+  const MainHeading =
+
+    theme === 'light' ? LightHeading :
+      theme === 'blue' ? BlueHeading :
+        theme === 'green' ? GreenHeading :
+          theme === 'purple' ? PurpleHeaing : LightHeading
+
 
 
 const MainText =
@@ -165,23 +161,24 @@ const MainText =
   
   `
   const BlueButton = styled(LoginButton)`
-  background-color: #6ea8d9;
-  color: #ffffff; 
+  background-color:${calmingBlueTheme.palette.secondary.main};
+  color: ${calmingBlueTheme.palette.text.primary};
+
 `;
 
-const GreenButton = styled(LoginButton)`
-  background-color: #8fd9a6; 
-  color: #ffffff; 
+  const GreenButton = styled(LoginButton)`
+  background-color:${sereneGreenTheme.palette.secondary.main};
+  color: ${sereneGreenTheme.palette.text.primary};
 `;
 
-const LightButton = styled(LoginButton)`
-  background-color: #ffffff; 
-  color: #333333; 
+  const LightButton = styled(LoginButton)`
+   background-color:${defaultTheme.palette.secondary.main};
+  color: ${defaultTheme.palette.text.primary};
 `;
 
-const PurpleButton = styled(LoginButton)`
-  background-color: #b39ed9; 
-  color: #333333; 
+  const PurpleButton = styled(LoginButton)`
+  background-color:${relaxingPurpleTheme.palette.secondary.main};
+  color: ${relaxingPurpleTheme.palette.text.primary};
 `;
 
 
@@ -216,29 +213,27 @@ const CreateAccount = styled.button`
 `;
 
 const LightButtonCreate=styled(CreateAccount)`
-background-color:#ffffff;
-color: #333333; 
+background-color:${defaultTheme.overrides.MuiButton.root.backgroundColor};
+color:${defaultTheme.palette.text.primary};
 
 `
 
 const BlueButtonCreate = styled(CreateAccount)`
-  background-color: #8bb5e8;  
-  color: #ffffff;
-  
-`;
+background-color:${calmingBlueTheme.overrides.MuiButton.root.backgroundColor};
+color:${calmingBlueTheme.palette.text.primary};
 
-// Serene Green Theme
+`;
 const GreenButtonCreate = styled(CreateAccount)`
-background-color: #a8e89e;
-color: #ffffff; 
+background-color:${sereneGreenTheme.overrides.MuiButton.root.backgroundColor};
+color:${sereneGreenTheme.palette.text.primary};
 `;
 
-// Relaxing Purple Theme
-const PurpleButtonCreate = styled(CreateAccount)`
- background-color: #c18ae8; 
- color: #333333; 
 
-  
+const PurpleButtonCreate = styled(CreateAccount)`
+background-color:${relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor};
+color:${relaxingPurpleTheme.palette.text.primary};
+
+
 `;
 const MainCreate=
 theme === 'light' ? LightButtonCreate :

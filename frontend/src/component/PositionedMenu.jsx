@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -13,14 +11,15 @@ import styled from "styled-components"
 import { UserContext } from '../Context/context';
 import { useContext } from 'react';
 import ModalTheme from './ModalTheme';
+import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
+
 const FunctionalComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const {
-    CreatePost,
-    SetCreatePost,
+
     theme,
-    setTheme,
+
     ColorTheme,SetColorTheme,  
   } = useContext(UserContext);
 
@@ -36,17 +35,21 @@ const FunctionalComponent = () => {
 `;
 
 const LightMainContainer = styled(ColorLensIcon)`
-color: #3333;
+color: ${defaultTheme.palette.text.primary};
+
 `;
 
 const BlueMainContainer = styled(ColorLensIcon)`
- color: #b3c9e8 ;
+color: ${calmingBlueTheme.palette.text.primary};
+
 `;
 const GreenMainContainer = styled(ColorLensIcon)`
-color: #c9e8c1 ;
+color: ${sereneGreenTheme.palette.text.primary};
+
 `;
 const PurpleMainContainer = styled(ColorLensIcon)`
-color: #c18ae8 ;
+color: ${relaxingPurpleTheme.palette.text.primary};
+
 `;
 
 

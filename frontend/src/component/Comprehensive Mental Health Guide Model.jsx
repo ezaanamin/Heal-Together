@@ -3,16 +3,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
-import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import * as yup from 'yup';
-import { Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { SignUpPost } from '../redux/slice/API';
-import {  useDispatch } from 'react-redux';
+import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
 
 
 function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,UserProfileInformation,mental_health,coping}) {
@@ -44,29 +36,29 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
         paddingBottom: 3,
       };
       
-      // Assuming you have a 'theme' variable
+
       if (theme === "blue") {
-        style.backgroundColor = '#6ea8d9'; 
-        style.border = '2px solid #d9d9d9';
+        style.backgroundColor = calmingBlueTheme.palette.primary.main;
+        style.border = `2px solid ${calmingBlueTheme.palette.borderLine.backgroundColor}`;
       } 
       if (theme === "green") {
-        style.backgroundColor = '#8fd9a6'; 
-        style.border = '2px solid #c1e8c1';
+        style.backgroundColor = sereneGreenTheme.palette.primary.main;
+        style.border = `2px solid ${sereneGreenTheme.palette.borderLine.backgroundColor}`;
       } 
       if (theme === "purple") {
-        style.backgroundColor = '#b39ed9'; 
-        style.border = '2px solid #e8c1e8';
+        style.backgroundColor = relaxingPurpleTheme.palette.primary.main;
+        style.border = `2px solid ${relaxingPurpleTheme.palette.borderLine.backgroundColor}`;
       } 
       if (theme === "light") {
-        style.backgroundColor = '#f0f2f5';  
-        style.border = '2px solid #999999';
+        style.backgroundColor = defaultTheme.palette.primary.main;
+        style.border = `2px solid ${defaultTheme.palette.borderLine.backgroundColor}`;
       }
 
 
-      const GreenTextColor = '#FFFFFF';
-      const BlueTextColor = '#FFFFFF';
-      const LightTextColor = '#333333';
-      const PurpleTextColor = '#333333';
+      const GreenTextColor =sereneGreenTheme.palette.text.primary
+      const BlueTextColor = calmingBlueTheme.palette.text.primary
+      const LightTextColor =defaultTheme.palette.text.primary
+      const PurpleTextColor =relaxingPurpleTheme.palette.text.primary
 
       const ProfileText =
       theme === 'light' ? LightTextColor:
@@ -81,20 +73,20 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
       `
       const GridContainer = styled.div`
       display: grid;
-      grid-gap: 10px; /* Adjust this value to control the gap between all items */
+      grid-gap: 10px; 
 
       padding: 10px;
-      grid-template-columns: repeat(2, 1fr); /* Two columns */
-      grid-template-rows: auto; /* Automatically sized rows */
+      grid-template-columns: repeat(2, 1fr); 
+      grid-template-rows: auto; 
     `;
     
-    // Styled component for the grid items
+
     const GridItem = styled.div`
       text-align: center;
       color: ${ProfileText};
    
       
-      /* Add margin between the items (top margin in this case) */
+
       margin-top: ${(props) => (props.spaceBetween ? '20px' : '0')};
     `;
     const CenteredContainer = styled.div`
@@ -111,26 +103,29 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
     margin-right: 25px;
     text-transform: capitalize;
     background-color: ${props => {
-      if (props.theme === 'blue') return '#b3c9e8';
-      if (props.theme === 'green') return ' #c9e8c1';
-      if (props.theme === 'purple') return '#d9c1e8';
-      return '#6ea8d9';
+    if (props.theme === 'blue') return `${calmingBlueTheme.palette.secondary.main}`
+    if (props.theme === 'green') return `${sereneGreenTheme.palette.secondary.main}`
+    if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.secondary.main}`
+    return `${defaultTheme.palette.secondary.main}`
+  }};
+  border: 4px solid ${props => {
+  if (props.theme === 'blue') return calmingBlueTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'green') return sereneGreenTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'purple') return relaxingPurpleTheme.palette.borderLine.backgroundColor;
+  if (props.theme === 'light') return defaultTheme.palette.borderLine.backgroundColor;
+  return defaultTheme.palette.borderLine.backgroundColor;
+}};
+color: ${defaultTheme.palette.text.primary};
+
+  &:hover {
+    background-color: ${props => {
+      if (props.theme === 'blue') return `${calmingBlueTheme.palette.action.hover}`
+      if (props.theme === 'green') return `${sereneGreenTheme.palette.action.hover}`
+      if (props.theme === 'purple') return `${relaxingPurpleTheme.palette.action.hover}`
+      return `${defaultTheme.palette.action.hover}`
     }};
-    border: 4px solid ${props => {
-      if (props.theme === 'blue') return '#4277a8';
-      if (props.theme === 'green') return '#6bb681';
-      if (props.theme === 'purple') return '#906db3';
-      return '#000';
-    }};
-    color: #333333;
-  
-    &:hover {
-      background-color: ${props => {
-        if (props.theme === 'blue') return '#8bb5e8';
-        if (props.theme === 'green') return ' #a8e89e';
-        if (props.theme === 'purple') return '#c18ae8';
-        return '#8bb5e8';
-      }};
+
+
     }
   `
 

@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import SignUpModal from '../../component/SignUpModal';
 //import RecommendedUser from '../../component/RecommendedUser';
+import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../../themes/themes"
+
 
 
 const LoginPage = () => {
@@ -22,14 +24,14 @@ const LoginPage = () => {
     background-image: ${({ theme }) =>
       `linear-gradient(to right, ${
         theme === 'light'
-          ? '#20B2AA 58%'
+          ? `${defaultTheme.palette.primary.main} 58%`
           : theme === 'blue'
-          ? '#6ea8d9 58%'
+          ? `${calmingBlueTheme.palette.primary.main} 58%`
           : theme === 'green'
-          ? '#7dc98f  58%'
+          ? `${sereneGreenTheme.palette.primary.main} 58%`
           : theme === 'purple'
-          ? '#b39ed9 58%'
-          : '#20B2AA 58%'
+          ? `${relaxingPurpleTheme.palette.primary.main} 58%`
+          : `${defaultTheme.palette.primary.main} 58%`
       }, white 50%)`};
     font-family: 'Nanum Gothic', sans-serif;
   
@@ -47,7 +49,6 @@ const LoginPage = () => {
   `;
 
   const Logo = styled.img`
-    /* Add any additional styling for the logo here */
   `;
 
   const LoginSection = styled.div`
@@ -62,7 +63,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const {theme, SetUserFirstName,SetUserSurName, SetUserGender,    UserUsername,SetUserUsername}=useContext(UserContext)
+  const {theme}=useContext(UserContext)
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email').required('Email is required'),
   password: yup
@@ -105,23 +106,29 @@ font-weight:bold;
 
 `
 const BlueButton = styled(LoginButton)`
-background-color: #6ea8d9;
-color: #ffffff; 
+   background-color:${calmingBlueTheme.palette.secondary.main};
+color:${calmingBlueTheme.palette.text.primary};
 `;
 
 const GreenButton = styled(LoginButton)`
-background-color: #8fd9a6; 
-color: #ffffff; 
+   background-color:${sereneGreenTheme.palette.secondary.main};
+
+   color:${calmingBlueTheme.palette.text.primary};
+
 `;
 
 const LightButton = styled(LoginButton)`
-background-color: #20B2AA ; 
-color: #333333; 
+   background-color:${defaultTheme.palette.secondary.main};
+
+   color:${calmingBlueTheme.palette.text.primary};
+
 `;
 
 const PurpleButton = styled(LoginButton)`
-background-color: #b39ed9; 
-color: #333333; 
+   background-color:${relaxingPurpleTheme.palette.secondary.main};
+
+   color:${calmingBlueTheme.palette.text.primary};
+
 `;
 
 
@@ -156,25 +163,25 @@ margin-top: 10px;
 `;
 
 const LightButtonCreate=styled(CreateAccount)`
-background-color:#20B2AA ;
-color: #333333; 
+background-color:${defaultTheme.overrides.MuiButton.root.backgroundColor};
+color:${defaultTheme.palette.text.primary};
 
 `
 
 const BlueButtonCreate = styled(CreateAccount)`
-background-color: #8bb5e8;  
-color: #ffffff;
+background-color:${calmingBlueTheme.overrides.MuiButton.root.backgroundColor};
+color:${calmingBlueTheme.palette.text.primary};
 
 `;
 const GreenButtonCreate = styled(CreateAccount)`
-background-color: #a8e89e;
-color: #ffffff; 
+background-color:${sereneGreenTheme.overrides.MuiButton.root.backgroundColor};
+color:${sereneGreenTheme.palette.text.primary};
 `;
 
 
 const PurpleButtonCreate = styled(CreateAccount)`
-background-color: #c18ae8; 
-color: #333333; 
+background-color:${relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor};
+color:${relaxingPurpleTheme.palette.text.primary};
 
 
 `;

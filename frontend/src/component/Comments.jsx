@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { UserContext } from '../Context/context'
 import { useContext } from 'react'
+import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
 
 function ProfileCompoents() {
 
@@ -18,36 +19,36 @@ margin-bottom:20px;
 
     const {theme} = useContext(UserContext);
     const LightStatusBar = styled(Profile)`
-    background-color: #f0f2f5;
+    background-color: ${defaultTheme.palette.Comments.backgroundColor};
     &:hover {
-      background-color: #e1e3e6;
+      background-color: ${defaultTheme.palette.CommentsHover.backgroundColor}
     }
-    color:#333333
+    color:${defaultTheme.palette.text.primary} 
 
   `;
 
   const BlueStatusBar = styled(Profile)`
-    background-color: #5c8fbf;
+    background-color:${calmingBlueTheme.palette.Comments.backgroundColor};
     &:hover {
-      background-color:#8bb5e8 ;
+      background-color:${calmingBlueTheme.palette.CommentsHover.backgroundColor}
       
     }
-    color:white;
+    color:${calmingBlueTheme.palette.text.primary} 
   `;
   const GreenStatusBar = styled(Profile)`
-  background-color:#7dbf6b;
+  background-color:${sereneGreenTheme.palette.Comments.backgroundColor};
   &:hover {
-    background-color: #a8e89e;
+    background-color:${sereneGreenTheme.palette.CommentsHover.backgroundColor}
   }
-  color:white;
+  color:${sereneGreenTheme.palette.text.primary} 
 
 `;
 const PurpleStatusBar = styled(Profile)`
-background-color: #8a5fbf;
+background-color:${relaxingPurpleTheme.palette.Comments.backgroundColor};
 &:hover {
-  background-color: #c18ae8;
+  background-color:${relaxingPurpleTheme.palette.CommentsHover.backgroundColor}
 }
-color:#333333
+color:${relaxingPurpleTheme.palette.text.primary} 
 
 `;
  

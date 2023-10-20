@@ -556,7 +556,7 @@ function transformDataToArrays(data) {
     .map(([key, value]) => key);
 }
 
-const updateUserData = async (doc, username, res) => {
+const updateUserData = async (doc, username,client, res) => {
   const uri = process.env.NEO4J_URI;
   const user = process.env.NEO4J_USERNAME;
   const password = process.env.NEO4J_PASSWORD;
@@ -635,13 +635,15 @@ else
       return res.json({status:"Account doesn't exist"});
     }
   
-    updateUserData(doc,username)
+    updateUserData(doc,username,client)
   }
 };
 
 export const EditProfile = async (req, res) => {
 
   const username=req.body.username;
+  const client = createClient();
+  await client.connect(); 
 
   var myquery = { username: username };
      var newvalues ={ $set:{
@@ -671,7 +673,7 @@ export const EditProfile = async (req, res) => {
                 Users.find({username:username}).then((doc)=>{
                   if(doc)
                   {
-                    updateUserData(doc,username)
+                    updateUserData(doc,username,client)
 
                   }
                 })
