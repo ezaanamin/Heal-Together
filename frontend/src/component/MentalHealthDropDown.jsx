@@ -26,7 +26,6 @@ const options = [
 
 const MentalHealthDropdown = () => {
   const handleChange = (selectedOptions) => {
-    // Do something with the selected options
     console.log(selectedOptions);
   };
 

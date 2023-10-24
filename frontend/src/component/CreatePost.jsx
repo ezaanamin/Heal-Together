@@ -1,70 +1,17 @@
 import React from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
-import { makeStyles } from "@material-ui/core/styles";
 import { useState,useRef,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from '@material-ui/icons/Close';
-import styled from 'styled-components';
 import MegaDraft from './MegaDraft';
-import EmojiPicker from './EmojiPicker';
 import AddToPost from './AddToPost';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import FemaleAvatar from "../images/user_default_female.png"
 import MaleAvatar from "../images/user_default_male.png"
-function getModalStyle() {
-
-
-    return {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-    };
-  }
-
-  const useStyles = makeStyles(theme => ({
-    paper: {
-      position: "absolute",
-      width: 400,
-      backgroundColor:"white",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(4),
-      outline: "none",
-      color:"black"
-      
-    }
-  }));
-
-  const Profile=styled.img`
-  height:50px;
-  border-radius:50px;
-  margin-top:10px;
-
-  
-  `
-  const ModalUser=styled.div`
-  display:flex;
-  flex-direction: row;
-  
-  `
-  const ModalUserHeading=styled.p`
-  position: absolute;
-  left:90px;
-  margin-top:20px;
-  font-weight:bold;
-  
-
-  
-  
-  `
-
-  
+import { getModalStyle,ProfileImg,ModalUser,ModalUserHeading,useStyles } from '../styles/styles';  
   function PostModal() {
-const dispach=useDispatch();
-const state = useSelector((state) => state);
+
 const [modalStyle] = useState(getModalStyle);
 const {CreatePost,SetCreatePost,    UserFirstName,
   UserSurName,
@@ -77,10 +24,6 @@ const {CreatePost,SetCreatePost,    UserFirstName,
     const [textValue, setTextValue] = useState('');
     const [fontSize, setFontSize] = useState(16);
     const textareaRef = useRef(null);
-  
-    const handleInputChange = (event) => {
-      setTextValue(event.target.value);
-    };
   
     useEffect(() => {
       if (textValue.length > 50) {
@@ -95,15 +38,6 @@ const {CreatePost,SetCreatePost,    UserFirstName,
         textareaRef.current.focus();
       }
     }, []);
-
-    const [selectedEmoji, setSelectedEmoji] = useState(null);
-
-    const handleEmojiSelect = (emoji) => {
-      if (emoji && emoji.categories.includes('Smileys & Emotion')) {
-        setSelectedEmoji(emoji);
-      }
-    };
-
     const CustomModal = () => {
       return (
         <Modal
@@ -122,9 +56,9 @@ const {CreatePost,SetCreatePost,    UserFirstName,
 
 <ModalUser>
 {
-            UserGender=="Male"?
-                  <Profile src={MaleAvatar}/>:
-                  <Profile src={FemaleAvatar}/>
+            UserGender==="Male"?
+                  <ProfileImg src={MaleAvatar}/>:
+                  <ProfileImg src={FemaleAvatar}/>
 
 
 

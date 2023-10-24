@@ -26,6 +26,9 @@ const defaultTheme = createTheme({
     ButtonActive:{
       backgroundColor:" #0000001A"
     },
+    SideBar:{
+      backgroundColor:"#CCCCCC"
+    },
   },
 
 
@@ -66,6 +69,9 @@ const calmingBlueTheme = createTheme({
   ButtonActive:{
     backgroundColor:"#005f7f"
   },
+  SideBar:{
+    backgroundColor:"#e1f0f8"
+  },
 
   },
 
@@ -104,6 +110,9 @@ const sereneGreenTheme = createTheme({
     },
     ButtonActive:{
       backgroundColor:" #387d3a"
+    },
+    SideBar:{
+      backgroundColor:"#e8f5e9"
     },
   },
 
@@ -144,6 +153,9 @@ const relaxingPurpleTheme = createTheme({
     },
     ButtonActive:{
       backgroundColor:"#5c005c"
+    },
+    SideBar:{
+      backgroundColor:"#f2e8f5"
     },
   },
 

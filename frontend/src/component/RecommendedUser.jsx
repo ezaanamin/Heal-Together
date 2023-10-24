@@ -3,56 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import DialogTitle from '@mui/material/DialogTitle';
 import { UserContext } from '../Context/context';
-import { styled } from 'styled-components';
-
-const UserDisplay = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-    justify-content: space-between;
-`;
-
-const ProfilePic = styled.img`
-    height: 50px;
-    width: 50px;
-    border-radius: 10px;
-`;
-
-const UserName = styled.h3`
-    margin: 0;
-`;
-
-const ConnectButton = styled.button`
-    background-color: #6fbf73;
-    color: white;
-    border-radius: 10px;
-    border-color: #6fbf73;
-    height: 30px;
-    width:130px;
-  
-    &:hover {
-        background-color: #9bcfc9;
-        border-color: #9bcfc9;
-    }
-`;
-
-const FinalConnectingButton = styled.button`
-    height: 50px;
-    font-size: 15px;
-    background-color: #6fbf73;
-    color: white;
-    border-radius: 10px;
-    border-color: #6fbf73;
-    margin: 0 auto;
-    display: block;
-    flex: 1;
-    &:hover {
-        background-color: #9bcfc9;
-        border-color: #9bcfc9;
-    }
-`;
-
+import { UserDisplay,ProfilePic,UserName,ConnectButton,FinalConnectingButton } from '../styles/styles';
 const RecommendedUser = () => {
     const style = {
         position: 'absolute',

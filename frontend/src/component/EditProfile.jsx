@@ -4,7 +4,6 @@ import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import CloseIcon from '@mui/icons-material/Close';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
@@ -14,9 +13,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import Typography from '@mui/material/Typography';
 import { uploadImage } from '../redux/slice/API';
 import { EditUserProfile } from '../redux/slice/API';
-import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
-
-
+import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditCoverPhoto,NameDiv,GetEditProfilePhoto} from '../styles/styles';
 export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username }) {
   const dispatch = useDispatch();
   const urlParts = cover_photo.split('/');
@@ -34,22 +31,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   const [surname, SetSurName] = useState(SurName);
   const [Story, SetStory] = useState(story)
   const [currentWordCount, setCurrentWordCount] = useState(0);
-
-
-  const LightMainContainer = defaultTheme.palette.primary.main
-  const BlueMainContainer =calmingBlueTheme.palette.primary.main
-  const GreenMainContainer =sereneGreenTheme.palette.primary.main
-  const PurpleMainContainer = relaxingPurpleTheme.palette.primary.main
-  const LightBorder =defaultTheme.palette.borderLine.backgroundColor
-  const BlueBorder =calmingBlueTheme.palette.borderLine.backgroundColor
-  const GreenBorder =sereneGreenTheme.palette.borderLine.backgroundColor
-  const PurpleBorder =relaxingPurpleTheme.palette.borderLine.backgroundColor
-
-  const MainBorderColor =
-    theme === 'blue' ? BlueBorder :
-      theme === 'green' ? GreenBorder :
-        theme === 'purple' ? PurpleBorder :
-          theme === 'light' ? LightBorder : LightBorder;
+  const MainBorder = MainBorderColor(theme);
   const maxWords = 200
   const handleTextChange = (e) => {
     const inputText = e.target.value;
@@ -59,203 +41,13 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     }
   };
 
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 100,
-    backgroundColor: theme === 'blue' ? calmingBlueTheme.palette.primary.main :
-              theme === 'green' ? sereneGreenTheme.palette.primary.main :
-              theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
-              theme === 'light' ? defaultTheme.palette.primary.main :
-              defaultTheme.palette.primary.main,
-   
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    borderColor: theme === 'light' ? defaultTheme.palette.borderLine.backgroundColor:
-      theme === 'blue' ?  calmingBlueTheme.palette.borderLine.backgroundColor: 
-        theme === 'green' ?  sereneGreenTheme.palette.borderLine.backgroundColor :
-          theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor,
-    boxShadow: '24px',
-    padding: '8px',
-  };
-
-
-
-
-
+  const style = getDynamicStyle(theme);  
   const handleClose = () => {
 
     SetEditProfileModal(false);
   }
-
-
-
-  const Text = styled.p`
-    text-align:center;
-    font-size:18px;
-    margin-bottom:10px;
-    font-weight:bold;
-    
-    
-    
-    
-    `
-
-    const GreenColor = styled(Text)`
-    color: ${sereneGreenTheme.palette.text.primary};
-  `;
-  
-  const BlueColor = styled(Text)`
-    color: ${calmingBlueTheme.palette.text.primary};
-  `;
-  
-  const LightColor = styled(Text)`
-    color: ${defaultTheme.palette.text.primary};
-  `;
-  
-  const PurpleColor = styled(Text)`
-    color: ${relaxingPurpleTheme.palette.text.primary};
-  `;
-
-
-
-
-  const MainText =
-    theme === 'light' ? LightColor :
-      theme === 'blue' ? BlueColor :
-        theme === 'green' ? GreenColor :
-          theme === 'purple' ? PurpleColor : LightColor
-
-
-  const SaveButton = styled.button`
-  height: 40px;
-  width: 100px;
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-  font-weight: bold;
-  border-radius: 50px;
-  border-color: ${MainBorderColor};
-`;
-
-  const BlueButton = styled(SaveButton)`
-  background-color:${calmingBlueTheme.palette.secondary.main};
-  color: ${calmingBlueTheme.palette.text.primary};
-
-`;
-
-  const GreenButton = styled(SaveButton)`
-  background-color:${sereneGreenTheme.palette.secondary.main};
-  color: ${sereneGreenTheme.palette.text.primary};
-`;
-
-  const LightButton = styled(SaveButton)`
-   background-color:${defaultTheme.palette.secondary.main};
-  color: ${defaultTheme.palette.text.primary};
-`;
-
-  const PurpleButton = styled(SaveButton)`
-  background-color:${relaxingPurpleTheme.palette.secondary.main};
-  color: ${relaxingPurpleTheme.palette.text.primary};
-`;
-
-
-
-  const MainButton =
-    theme === 'light' ? LightButton :
-      theme === 'blue' ? BlueButton :
-        theme === 'green' ? GreenButton :
-          theme === 'purple' ? PurpleButton : LightButton
-
-
-
-
-
-  const MainBackGround =
-    theme === 'blue' ? BlueMainContainer :
-      theme === 'green' ? GreenMainContainer :
-        theme === 'purple' ? PurpleMainContainer :
-          theme === 'light' ? LightMainContainer : LightMainContainer;
-
-
-  const CreateAccount = styled.button`
-  marginTop: 10px;
-  height: 40px;
-  width: 200px;
-  display: block;
-  marginLeft: auto;
-  marginRight: auto;
-  marginBottom: 10px;
-  fontWeight: bold;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-
-
-`;
-
-
-
-  const CoverPhoto = styled.img`
-  width: 600px;
-  height: 150px;
-  position: relative;
-  left: 0px;
-  top: 0;
-  transition: opacity 0.3s;
-  opacity: 0.2;
-  border:0px;
-`;
-
-
-  const EditProfilePhoto = styled.img`
-  border-radius: 150px;
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  left: 80px;
-  top: 250px;
-  z-index: 1;
-
-  border: 4px solid ${props => {
-      if (props.theme === 'blue') return '#4277a8';
-      if (props.theme === 'green') return '#6bb681';
-      if (props.theme === 'purple') return '#906db3';
-      if (props.theme === 'light') return '#999999';
-      return '#4277a8';
-    }};
-
-  transform: translate(-50%, -50%);
-
-    opacity: 0.2;
-
-`;
-
-  const NameDiv = styled.div`
-
-position:relative;
-left:130px;
-margin-bottom:25px;
-
-
-`
-
-
-
-
-
+  const MainBackGround=GetMainBackGround(theme)
+  const EditProfilePhoto =GetEditProfilePhoto(theme)
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
 
@@ -378,15 +170,15 @@ margin-bottom:25px;
 
           <Typography sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 2 }}>
             <CloseIcon onClick={() => handleClose()} style={{ marginRight: 25 }} />
-            <MainText>Edit Profile</MainText>
+            <Text>Edit Profile</Text>
 
             <Typography sx={{ position: "absolute", right: 0, top: -5 }}>
-              <MainButton onClick={() => HandleChange()}>Save</MainButton>
+              <SaveButton theme={theme} onClick={() => HandleChange()}>Save</SaveButton>
             </Typography>
 
           </Typography>
 
-          <CoverPhoto src={CoverPhotoPic} />
+          <EditCoverPhoto src={CoverPhotoPic} />
           <input type="file" id="imageInput" style={{ display: 'none' }} accept="image/*" onChange={handleCoverImageChange} />
           <label htmlFor="imageInput">
             <CameraAltIcon fontSize="large" style={{ position: 'relative', bottom: 100, left: 250, cursor: 'pointer' }} />
@@ -422,13 +214,13 @@ margin-bottom:25px;
               size="small" />
 
           </NameDiv>
-          <MainText>Story</MainText>
+          <Text>Story</Text>
           <div>
             <TextareaAutosize
               style={{
                 width: 500,
                 backgroundColor: MainBackGround,
-                borderColor: MainBorderColor,
+                borderColor: MainBorder,
                 borderWidth: '2px',
                 borderStyle: 'solid',
                 margin: '0',

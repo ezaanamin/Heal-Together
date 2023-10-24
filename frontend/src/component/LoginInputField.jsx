@@ -1,74 +1,16 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { UserContext } from '../Context/context';
 import TextField from '@mui/material/TextField';
-
-import { useState,useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Login } from '../redux/slice/API';
 import { useNavigate } from 'react-router-dom';
-
+import { LoginButton,LoginInputContainer,LoginForm,ForgotPassword,CreateAccount,Errors} from '../styles/styles';
 
 const LoginInputField = () => {
-
   const nav=useNavigate();
   const dispatch = useDispatch();
-
-  const LoginInputContainer = styled.div`
-    background-color: #E0E0E0FF;
-    width: 450px;
-    height: 400px;
-
-    @media only screen and (max-width: 600px) {
-      width: 550px;
-      height: 550px;
-    }
-  `;
-
-  const LoginForm = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const LoginButton = styled.button`
-    width: 300px;
-    height: 40px;
-    font-size: 15px;
-    background-color: #007bff;
-    color: white;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    border-color: #007bff;
-  `;
-
-  const ForgotPassword = styled.p`
-    margin-bottom: 10px;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  `;
-
-  const CreateAccount = styled.button`
-    width: 250px;
-    height: 40px;
-    font-size: 15px;
-    background-color: #42b72a;
-    color: white;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    border-color: #42b72a;
-  `;
-
-  const Errors = styled.p`
-    margin-bottom: 10px;
-    color: red;
-  `;
-
   const validationSchema = yup.object().shape({
     email: yup.string().email('Enter a valid email').required('Email is required'),
     password: yup
@@ -77,7 +19,7 @@ const LoginInputField = () => {
       .required('Password is required'),
   });
 
-  const { SignUpModal, SetSignUpModal } = useContext(UserContext);
+  const {SetSignUpModal } = useContext(UserContext);
 
   const handleOpen = () => {
     SetSignUpModal(true);

@@ -3,16 +3,10 @@ import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import { TextField } from '@mui/material';
 import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
-
 const InputField = ({name,label,type,changedText,value}) => {
-
     const {theme}=useContext(UserContext)
-
     return (
         <>
-
-
-
 <TextField
   label={label}
   type={type}

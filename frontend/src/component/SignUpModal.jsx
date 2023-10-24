@@ -4,7 +4,6 @@ import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../Context/context';
 import TextField from '@mui/material/TextField';
-import styled from 'styled-components';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -13,66 +12,7 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { SignUpPost } from '../redux/slice/API';
 import {  useDispatch } from 'react-redux';
-
-
-
-
-
-const SignUp=styled.div`
-
-display:flex;
-flex-direction: row;
-margin-top:10px;
-
-
-
-
-`
-const RadioFlex=styled.div`
-
-display:flex;
-flex-direction: row;
-align-items: center;
-
-
-`
-
-const SignUpButton=styled.button`
-width:250px;
-height:40px;
-font-size:25px;
-background-color:#00bfff  ;
-color:white;
-margin-bottom:10px;
-border-radius:10px;
-border-color:#00bfff;
-position:relative;
-left:70px;
-&:hover {
-  background-color: #0099cc;
-  /* Add other styling for the button on hover here */
-}
-
-
-`
-const Errors=styled.p`
-
-margin-bottom:10px;
-color:red;
-
-
-
-`
-const TermsPrivacyPolicy=styled.p`
-
-margin-bottom:10px;
-
-
-
-`
-
-
-
+import { SignUp,RadioFlex,SignUpButton,Errors,TermsPrivacyPolicy } from '../styles/styles';
 export default function SignUpModal() {
   const nav=useNavigate()
 

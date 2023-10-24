@@ -74,14 +74,14 @@ useEffect(()=>{
     nav('/')
   }
   
-console.log(RecommendedUserList,'ezaanamin')
+// console.log(RecommendedUserList,'ezaanamin')
  
 
 },[Login])
 
-useEffect(()=>{
-  alert(UserUsername)
-},[UserUsername])
+// useEffect(()=>{
+//   alert(UserUsername)
+// },[UserUsername])
 
 const MainComponent =
   theme === 'blue' ? BlueMainContainer :

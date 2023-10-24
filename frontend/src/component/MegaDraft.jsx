@@ -2,19 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import TagFacesIcon from '@mui/icons-material/TagFaces';
-import styled from "styled-components"
-
 const MegaDraft = () => {
-  const StyledPicker = styled(Picker)`
-  /* Add your custom styling for the Picker here */
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  max-height: 200px;
-  overflow-y: auto;
-`;
+
   const [textAreaValue, setTextAreaValue] = useState('');
   const [rows, setRows] = useState(10);
   const [row1, setRow1] = useState(1);
