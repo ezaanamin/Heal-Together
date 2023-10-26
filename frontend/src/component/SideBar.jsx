@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatIcon from '@mui/icons-material/Chat';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from "../contextState/contextState";
 import Person2Icon from '@mui/icons-material/Person2';
 import PositionedMenu from './PositionedMenu';
 import LoginModal from './LoginModal';
@@ -18,17 +18,11 @@ import { decodeToken, } from 'react-jwt';
 import {Link,} from "react-router-dom";
 import { SideBarLogo,SideBarProfile,SideBarItems,SideRight,SideBarContainer,IconHeading,SideBarUserHeading } from '../styles/styles';
 const SideBar = () => {
-
   const nav = useNavigate();
-  const {
+ 
+  const userContext = useContext(UserContext);
+  const { SetUserFirstName,SetUserGender,SetUserSurName,SetUserUsername } = userContext;
 
-    theme,
-    UserGender,
-    UserFirstName,
-    UserSurName,
-    UserUsername,SetUserUsername,
-    SetUserFirstName,SetUserSurName, SetUserGender,
-  } = useContext(UserContext);
   useEffect(() => {
     const userFirstName = localStorage.getItem('UserFirstName');
     const userSurName = localStorage.getItem('UserSurName');
@@ -41,13 +35,9 @@ const SideBar = () => {
       SetUserSurName(userSurName);
       SetUserGender(userGender);
       SetUserUsername(userUsername)
-
     }
   
-   
   }, []);
-
-
   useEffect(() => {
     const token = localStorage.getItem('Token');
     if (token) {
@@ -69,7 +59,7 @@ const SideBar = () => {
     }
   }, []);
   return (
-    <SideBarContainer theme={theme}>
+    <SideBarContainer theme={userContext.theme}>
       <LoginModal/>
       <SignUpModal/>
 
@@ -96,7 +86,7 @@ const SideBar = () => {
         <IconButton style={{ marginBottom: 10 }}>
           <Person2Icon fontSize='large' />
           {
-            <Link to={`/${UserUsername}`}>
+            <Link to={`/${userContext.UserUsername}`}>
 
             <IconHeading>Profile</IconHeading>
             </Link>
@@ -112,7 +102,7 @@ const SideBar = () => {
 
       <SideRight>
       {
-            UserGender==="Male"?
+        userContext.UserGender==="Male"?
                   <SideBarProfile src={MaleAvatar}/>:
                   <SideBarProfile src={FemaleAvatar}/>
 
@@ -120,7 +110,7 @@ const SideBar = () => {
 
           }
 
-<SideBarUserHeading>{UserFirstName}  {UserSurName}</SideBarUserHeading>
+<SideBarUserHeading>{userContext.UserFirstName}  {userContext.UserSurName}</SideBarUserHeading>
 
       </SideRight>
     </SideBarContainer>

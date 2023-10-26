@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from "../contextState/contextState"
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -12,29 +12,17 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { SignUpPost } from '../redux/slice/API';
 import {  useDispatch } from 'react-redux';
-import { SignUp,RadioFlex,SignUpButton,Errors,TermsPrivacyPolicy } from '../styles/styles';
+import { SignUp,RadioFlex,SignUpButton,Errors,TermsPrivacyPolicy, getDynamicStyle } from '../styles/styles';
 export default function SignUpModal() {
   const nav=useNavigate()
 
 
-  
-  
-    const {SignUpModal,SetSignUpModal,  
-      day, 
-      month,
-      year,
-    SetCode,
-      setverficationEmail,
-     setExpireTime,
-      setverficationFirstName,
-      setverficationLastName
-    }=useContext(UserContext)
+  const userContext = useContext(UserContext);
+  const { SetSignUpModal, SetCode,setverficationEmail,setExpireTime,setverficationFirstName,setverficationLastName} = userContext;
     const dispatch = useDispatch();
-
   const handleClose = () => {
     SetSignUpModal(false);
   };
-
   const validationSchema = yup.object({
     email: yup
       .string('Enter your email').email()
@@ -51,20 +39,8 @@ export default function SignUpModal() {
 
   });
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor:" #f2f2f2",
-    borderRadius:10,
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
+  const style = getDynamicStyle('green');      
+
   
 
   const handle= async(values)=>{
@@ -77,9 +53,9 @@ export default function SignUpModal() {
     email:values.email,
     password:values.password,
     gender:values.gender,
-    day:day,
-    month:month,
-    year:year
+    day:userContext.day,
+    month:userContext.month,
+    year:userContext.year
   }
 
   const promise = dispatch(SignUpPost({values:v}))
@@ -108,8 +84,8 @@ export default function SignUpModal() {
   return (
     <div>
       <Modal
-        open={SignUpModal}
-        onClose={handleClose}
+        open={userContext.SignUpModal}
+        // onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       

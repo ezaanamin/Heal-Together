@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux';
 import { Login } from '../redux/slice/API';
@@ -19,7 +19,8 @@ const LoginInputField = () => {
       .required('Password is required'),
   });
 
-  const {SetSignUpModal } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const { SetSignUpModal  } = userContext;
 
   const handleOpen = () => {
     SetSignUpModal(true);

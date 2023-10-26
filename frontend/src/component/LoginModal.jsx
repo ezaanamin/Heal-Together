@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState';
 import logo from "../images/HealTogether_Logo2_transparent.png";
 import InputField from './InputField';
 import * as yup from 'yup';
@@ -12,7 +12,9 @@ import { Login } from '../redux/slice/API';
 import { getDynamicStyle,MainHeading,Text,Logo,LoginButtonModal,CreateAccountModal } from '../styles/styles';
 export default function LoginModal() {
   const dispatch = useDispatch();
-  const {LoginModal,SetLoginModal,theme,SetSignUpModal}=useContext(UserContext)
+  
+  const userContext = useContext(UserContext);
+  const { SetLoginModal,SetSignUpModal } = userContext;
   const style=getDynamicStyle();
     const validationSchema = yup.object().shape({
       email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -48,7 +50,7 @@ const SignUp=()=>
   return (
     <div>
       <Modal
-        open={LoginModal}
+        open={userContext.LoginModal}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
@@ -97,13 +99,13 @@ const SignUp=()=>
                  <p>{errors.password}</p>
                   :null
                 }
-                <LoginButtonModal theme={theme} type="submit">Login</LoginButtonModal>
+                <LoginButtonModal theme={userContext.theme} type="submit">Login</LoginButtonModal>
               </Form>
             )}
           </Formik>
 
           <hr/>
-          <CreateAccountModal theme={theme} onClick={SignUp}>Create Account</CreateAccountModal>
+          <CreateAccountModal theme={userContext.theme} onClick={SignUp}>Create Account</CreateAccountModal>
 </Box>
       </Modal>
     </div>

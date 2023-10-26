@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -20,7 +20,8 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   const CoverPhotoName = urlParts[urlParts.length - 1];
   const urlParts1 = profile_pic.split('/');
   const profile_picName = urlParts1[urlParts1.length - 1];
-  const { EditProfileModal, SetEditProfileModal, theme } = useContext(UserContext)
+  const userContext = useContext(UserContext);
+  const { SetEditProfileModal } = userContext;
   const [CoverPhotoPic, setCoverPhotoPic] = useState(cover_photo);
   const [ProfilePic, SetProfilePic] = useState(profile_pic);
   const [ProfilePicFile, SetProfilePicFile] = useState(null);
@@ -31,7 +32,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   const [surname, SetSurName] = useState(SurName);
   const [Story, SetStory] = useState(story)
   const [currentWordCount, setCurrentWordCount] = useState(0);
-  const MainBorder = MainBorderColor(theme);
+  const MainBorder = MainBorderColor(userContext.theme);
   const maxWords = 200
   const handleTextChange = (e) => {
     const inputText = e.target.value;
@@ -41,13 +42,13 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     }
   };
 
-  const style = getDynamicStyle(theme);  
+  const style = getDynamicStyle(userContext.theme);  
   const handleClose = () => {
 
     SetEditProfileModal(false);
   }
-  const MainBackGround=GetMainBackGround(theme)
-  const EditProfilePhoto =GetEditProfilePhoto(theme)
+  const MainBackGround=GetMainBackGround(userContext.theme)
+  const EditProfilePhoto =GetEditProfilePhoto(userContext.theme)
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
 
@@ -97,6 +98,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
 
   }
 
+  
   const handleCoverAndProfilePicUpload = () => {
     if (CoverProilePicFile) {
       console.log(ProfilePicFile, 'ezaan amin')
@@ -160,7 +162,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   return (
     <div>
       <Modal
-        open={EditProfileModal}
+        open={userContext.EditProfileModal}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
@@ -173,7 +175,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
             <Text>Edit Profile</Text>
 
             <Typography sx={{ position: "absolute", right: 0, top: -5 }}>
-              <SaveButton theme={theme} onClick={() => HandleChange()}>Save</SaveButton>
+              <SaveButton theme={userContext.theme} onClick={() => HandleChange()}>Save</SaveButton>
             </Typography>
 
           </Typography>
@@ -185,7 +187,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
 
           </label>
           <CloseIcon onClick={RemoveCoverPhoto} fontSize='large' style={{ position: "relative", bottom: 100, left: 300 }} />
-          <EditProfilePhoto theme={theme} src={ProfilePic} />
+          <EditProfilePhoto theme={userContext.theme} src={ProfilePic} />
           <input type="file" id="profile_pic" style={{ display: 'none' }} accept="image/*" onChange={handleProfileImageChange} />
           <label htmlFor="profile_pic">
 

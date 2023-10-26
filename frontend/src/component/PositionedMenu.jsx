@@ -6,23 +6,18 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import styled from "styled-components"
-import { UserContext } from '../Context/context';
+
+import { UserContext } from '../contextState/contextState';
 import { useContext } from 'react';
 import ModalTheme from './ModalTheme';
-import { defaultTheme,calmingBlueTheme,sereneGreenTheme,relaxingPurpleTheme } from '../themes/themes'
+import { IconHeading,PositionedMenu } from '../styles/styles';
 
 const FunctionalComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const {
 
-    theme,
-
-    ColorTheme,SetColorTheme,  
-  } = useContext(UserContext);
-
+    const userContext = useContext(UserContext);
+    const {SetColorTheme} = userContext
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,42 +25,11 @@ const FunctionalComponent = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const IconHeading = styled.p`
-  margin-left: 10px;
-`;
-
-const LightMainContainer = styled(ColorLensIcon)`
-color: ${defaultTheme.palette.text.primary};
-
-`;
-
-const BlueMainContainer = styled(ColorLensIcon)`
-color: ${calmingBlueTheme.palette.text.primary};
-
-`;
-const GreenMainContainer = styled(ColorLensIcon)`
-color: ${sereneGreenTheme.palette.text.primary};
-
-`;
-const PurpleMainContainer = styled(ColorLensIcon)`
-color: ${relaxingPurpleTheme.palette.text.primary};
-
-`;
-
-
-
-const MainContainer =
-  theme === 'light' ? LightMainContainer :
-  theme === 'blue' ? BlueMainContainer :
-  theme === 'green' ? GreenMainContainer :
-  theme === 'purple' ? PurpleMainContainer :LightMainContainer 
-
-
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {
-          ColorTheme?
+          userContext.ColorTheme?
           <ModalTheme/>:
           null
         }
@@ -95,7 +59,7 @@ const MainContainer =
       >
         <MenuItem onClick={()=>SetColorTheme(true)} >
      
-          <MainContainer onClick={()=>SetColorTheme(true)}  fontSize='large'/>
+          <PositionedMenu onClick={()=>SetColorTheme(true)}  fontSize='large'/>
           Therapy Mode Theme
         </MenuItem>
         <MenuItem onClick={handleClose}>

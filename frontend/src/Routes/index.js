@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
-  } from "react-router-dom";
+import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import Verification from '../pages/verification';
 import EmailVerication from '../pages/EmailVerfication';
 import Home from '../pages/Home';

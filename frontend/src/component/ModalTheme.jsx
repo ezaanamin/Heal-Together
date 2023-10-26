@@ -3,16 +3,13 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {useEffect } from 'react';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
 import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../themes/themes"
 export default function ModalThemeModal() {
-
-
-  
-  
-    const {ColorTheme,SetColorTheme,theme, setTheme}=useContext(UserContext)
+    const userContext = useContext(UserContext);
+    const { setTheme,SetColorTheme } = userContext;
 
     const style = {
       position: 'absolute',
@@ -27,10 +24,10 @@ export default function ModalThemeModal() {
       px: 4,
       pb: 3,
       backgroundColor:
-      theme === 'blue' ? calmingBlueTheme.palette.primary.main :
-                theme === 'green' ? sereneGreenTheme.palette.primary.main :
-                theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
-                theme === 'light' ? defaultTheme.palette.primary.main
+      userContext.theme === 'blue' ? calmingBlueTheme.palette.primary.main :
+                userContext.theme === 'green' ? sereneGreenTheme.palette.primary.main :
+                userContext.theme === 'purple' ? relaxingPurpleTheme.palette.primary.main :
+                userContext.theme === 'light' ? defaultTheme.palette.primary.main
                 :
                 defaultTheme.palette.primary.main,
       
@@ -42,7 +39,7 @@ export default function ModalThemeModal() {
 
 useEffect(()=>{
 
-},[theme])
+},[userContext.theme])
 
     
   const handleClose = () => {
@@ -145,10 +142,10 @@ color: ${relaxingPurpleTheme.palette.text.primary};
 
 
 const MainText =
-  theme === 'light' ? LightColor :
-  theme === 'blue' ? BlueColor :
-  theme === 'green' ? GreenColor :
-  theme === 'purple' ? PurpleColor :LightColor 
+  userContext.theme === 'light' ? LightColor :
+  userContext.theme === 'blue' ? BlueColor :
+  userContext.theme === 'green' ? GreenColor :
+  userContext.theme === 'purple' ? PurpleColor :LightColor 
 
   const LightBackGround = styled.h1`
 color: ${defaultTheme.palette.text.primary};
@@ -169,23 +166,23 @@ const PurpleBackGround = styled.h1`
 `;
 
   const Main =
-  theme === 'light' ? LightBackGround :
-  theme === 'blue' ? BlueBackGround :
-  theme === 'green' ? GreenBackGround :
-  theme === 'purple' ? PurpleBackGround :LightBackGround 
+  userContext.theme === 'light' ? LightBackGround :
+  userContext.theme === 'blue' ? BlueBackGround :
+  userContext.theme === 'green' ? GreenBackGround :
+  userContext.theme === 'purple' ? PurpleBackGround :LightBackGround 
 
   useEffect(()=>{
 
-    localStorage.setItem('theme',theme );
+    localStorage.setItem('theme',userContext.theme );
 
-  },[theme])
+  },[userContext.theme])
 
 
 
   return (
     <div>
       <Modal
-        open={ColorTheme}
+        open={userContext.ColorTheme}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
@@ -201,13 +198,13 @@ const PurpleBackGround = styled.h1`
 
 
 {
-  theme==='light'?<LightButtonActive/>:<LightButton onClick={()=>setTheme("light")}/>
+  userContext.theme==='light'?<LightButtonActive/>:<LightButton onClick={()=>setTheme("light")}/>
 }
-<MainText>Light Theme: Experience the soothing ambience of our light theme, offering a sense of clarity and simplicity.</MainText>
+<MainText>Light Theme: Experience the soothing ambience of our light userContext.theme, offering a sense of clarity and simplicity.</MainText>
 
 
 {
-  theme==='blue'?<BlueButtonActive/>:
+  userContext.theme==='blue'?<BlueButtonActive/>:
   <BlueButton onClick={()=>setTheme("blue")}/>
 }
 
@@ -216,14 +213,14 @@ const PurpleBackGround = styled.h1`
       <br />
 
 {
-  theme==='green'?<GreenButtonActive/>:<GreenButton onClick={()=>setTheme("green")}/>
+  userContext.theme==='green'?<GreenButtonActive/>:<GreenButton onClick={()=>setTheme("green")}/>
 }
      
       <MainText>Harmony Haven: Embrace the serene greens, where nature's harmony awaits.</MainText>
 
       <br />
       {
-        theme==='purple'?<PurpleButtonActive/>:<PurpleButton onClick={()=>setTheme("purple")}/>
+        userContext.theme==='purple'?<PurpleButtonActive/>:<PurpleButton onClick={()=>setTheme("purple")}/>
       }
 
 

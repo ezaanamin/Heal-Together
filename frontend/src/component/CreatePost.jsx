@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState'
 import { useState,useRef,useEffect } from 'react';
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
@@ -13,9 +13,13 @@ import { getModalStyle,ProfileImg,ModalUser,ModalUserHeading,useStyles } from '.
   function PostModal() {
 
 const [modalStyle] = useState(getModalStyle);
-const {CreatePost,SetCreatePost,    UserFirstName,
-  UserSurName,
-  UserGender,}=useContext(UserContext)
+const userContext = useContext(UserContext);
+  const { SetCreatePost } = userContext;
+
+
+
+
+
     const handleClick = async ()=>
     {
       SetCreatePost(false)
@@ -43,8 +47,8 @@ const {CreatePost,SetCreatePost,    UserFirstName,
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={CreatePost}
-          onClose={CreatePost}
+          open={userContext.CreatePost}
+          onClose={userContext.CreatePost}
         >
          
           <div style={modalStyle} className={classes.paper}>
@@ -56,14 +60,14 @@ const {CreatePost,SetCreatePost,    UserFirstName,
 
 <ModalUser>
 {
-            UserGender==="Male"?
+  userContext.UserGender==="Male"?
                   <ProfileImg src={MaleAvatar}/>:
                   <ProfileImg src={FemaleAvatar}/>
 
 
 
           }
-<ModalUserHeading>{UserFirstName}  {UserSurName}</ModalUserHeading>
+<ModalUserHeading>{userContext.UserFirstName}  {userContext.UserSurName}</ModalUserHeading>
 
     </ModalUser>
 <MegaDraft/>

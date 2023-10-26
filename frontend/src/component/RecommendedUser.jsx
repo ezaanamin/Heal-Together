@@ -2,31 +2,13 @@ import React, { useContext } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import DialogTitle from '@mui/material/DialogTitle';
-import { UserContext } from '../Context/context';
-import { UserDisplay,ProfilePic,UserName,ConnectButton,FinalConnectingButton } from '../styles/styles';
+import { UserContext } from '../contextState/contextState';
+import { UserDisplay,ProfilePic,UserName,ConnectButton,FinalConnectingButton, getDynamicStyle  } from '../styles/styles';
 const RecommendedUser = () => {
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        backgroundColor: "#f2f2f2",
-        borderRadius: 10,
-        border: '2px solid #000',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-        overflow: 'hidden',
-    };
 
-    const {
-        firstTimeUser,
-        SetFirstTimeUser,
-        RecommendedUserList
-    } = useContext(UserContext);
-
+    const style = getDynamicStyle('green'); 
+    const userContext = useContext(UserContext);
+    const { firstTimeUser,SetFirstTimeUser, } = userContext;
     const handleClose = () => {
         SetFirstTimeUser(false);
     };
@@ -42,7 +24,7 @@ const RecommendedUser = () => {
                 <DialogTitle style={{ textAlign: "center" }}>Welcome to HealTogether- Connecting You to Similar Journeys</DialogTitle>
                 <p style={{ textAlign: "center", marginBottom: 10 }}>Experience the healing journey with HealTogether - where understanding connections await.</p>
                 
-                {RecommendedUserList.map((user) => (
+                {userContext.RecommendedUserList.map((user) => (
                     <UserDisplay key={user._id}>
                         <div>
                             <ProfilePic src={`http://localhost:4000/upload/${user.user_profile_pic}`} alt="Profile Pic" />

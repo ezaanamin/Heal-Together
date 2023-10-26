@@ -2,11 +2,15 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext, useEffect } from 'react';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../contextState/contextState';
 import { getDynamicStyle } from '../styles/styles';
 import { MainHeading,GridContainer, GridItem,CenteredContainer,Button} from '../styles/styles';
 function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,UserProfileInformation,mental_health,coping}) {
-      const {UserProfileModal,SetUserProfileModal,theme}=useContext(UserContext)
+;
+  const userContext = useContext(UserContext);
+
+  
+      const { SetUserProfileModal } = userContext;
 
       const handleClose = () => {
         SetUserProfileModal(false);
@@ -17,10 +21,10 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
 
       },[])
 
-      const style = getDynamicStyle(theme);      
+      const style = getDynamicStyle(userContext.theme);      
   return (
     <Modal
-    open={UserProfileModal}
+    open={userContext.UserProfileModal}
     onClose={handleClose}
     aria-labelledby="parent-modal-title"
     aria-describedby="parent-modal-description"
@@ -60,7 +64,7 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
 <GridContainer>
 {mental_health.map((mental_health) => (
   <CenteredContainer>
-         <Button theme={theme}>{mental_health}</Button>
+         <Button theme={userContext.theme}>{mental_health}</Button>
   </CenteredContainer>
 
 
@@ -75,7 +79,7 @@ function Comprehensive_Mental_Health_Guide_Model({firstName,Surname,username,Use
 <GridContainer>
 {coping.map((coping) => (
   <CenteredContainer>
-         <Button theme={theme}>{coping}</Button>
+         <Button theme={userContext.theme}>{coping}</Button>
   </CenteredContainer>
 
 
