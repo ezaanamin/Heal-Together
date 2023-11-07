@@ -787,13 +787,60 @@ display: flex;
 justify-content: center;
 align-items: center;
 position: relative;
+
+@media screen and (max-device-width:480px){
+
+  width: 100%;
+height: 100vh;
+background-image: ${({ theme }) =>
+  `linear-gradient(to bottom, ${
+    theme === 'light'
+      ? `${defaultTheme.palette.primary.main} 58%`
+      : theme === 'blue'
+      ? `${calmingBlueTheme.palette.primary.main} 58%`
+      : theme === 'green'
+      ? `${sereneGreenTheme.palette.primary.main} 58%`
+      : theme === 'purple'
+      ? `${relaxingPurpleTheme.palette.primary.main} 58%`
+      : `${defaultTheme.palette.primary.main} 58%`
+  }, white 50%)`};
+font-family: 'Nanum Gothic', sans-serif;
+
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+
+  
+}
 `;
+
 
 export const LogoContainer = styled.div`
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-90%, -50%);
+
+@media screen and (max-device-width:480px){
+  top: 50%;
+left: 50%;
+transform: translate(-50%, -80%);
+
+
+   }
+
+`;
+
+
+
+export const LoginLogo = styled.img`
+@media screen and (max-device-width:480px){
+width:520px
+
+
+   }
+
 `;
 
 
@@ -803,7 +850,18 @@ export const LoginSection = styled.div`
 position: relative;
 left:550px;
 
+
+
+@media screen and (max-device-width:480px){
+   
+
+left:10px;
+top:300px;
+}
+
 `;
+
+
 
 export const NoCoverPhoto=styled.div`
 

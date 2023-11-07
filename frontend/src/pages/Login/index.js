@@ -10,7 +10,7 @@ import { useContext } from 'react';
 import SignUpModal from '../../component/SignUpModal';
 //import RecommendedUser from '../../component/RecommendedUser';
 import { UserContext } from '../../contextState/contextState';
-import { Container,LogoContainer,LoginSection,LoginHeading,MainLoginButton,CreateAccountButton } from '../../styles/styles';
+import { Container,LoginLogo,LogoContainer,LoginSection,LoginHeading,MainLoginButton,CreateAccountButton } from '../../styles/styles';
 
 
 
@@ -95,9 +95,10 @@ const SignUp=()=>
       <SignUpModal/>
    
     
+
    <Container theme={theme}>
      <LogoContainer>
-       <img alt="Logo" src={logo} />
+       <LoginLogo alt="Logo" src={logo} />
      </LogoContainer>
 <LoginSection>
 
