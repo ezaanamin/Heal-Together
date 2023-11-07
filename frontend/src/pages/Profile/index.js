@@ -11,7 +11,7 @@ import { VerifyUser } from '../../redux/slice/API';
 import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
 import EditProfile from "../../component/EditProfile"
 import { StyledProfileHome,StyledHr,NoCoverPhoto,CoverPhoto,ProfilePhoto,NoAccountProfilePhoto,InformationLayer,MentalHealthInsights,CopingTechniques,
-  ButtonLayer,Button,ProfileHeading,Header,AccountDoesnotExist,SearchAccount,MentalHealthInsightsHeading,HeadingMentalHealth,MyStorySection,
+  ButtonLayer,ButtonModal,ProfileHeading,Header,AccountDoesnotExist,SearchAccount,MentalHealthInsightsHeading,HeadingMentalHealth,MyStorySection,
   MyStory,MyStoryText,WellnessUpdatesSection,WellnessUpdatesHeading,WellnessUpdates,WellnessUpdatesComments,MentalHealthGuide} from '../../styles/styles';
 function Profile() {
 
@@ -89,7 +89,6 @@ useEffect(()=>{
   }
 },[])
 
-const ProfileButton=Button(userContext.theme)
   return (
 <>
 {!UserExist?
@@ -112,10 +111,10 @@ const ProfileButton=Button(userContext.theme)
     <ProfilePhoto src={`http://localhost:4000/upload/${userProfilePic}`} theme={userContext.theme}/>
     <ButtonLayer>
 {UserLogin?
-  <ProfileButton onClick={()=>SetEditProfileModal(true)} theme={userContext.theme}>Edit Profile</ProfileButton>:
+  <ButtonModal onClick={()=>SetEditProfileModal(true)} theme={userContext.theme}>Edit Profile</ButtonModal>:
   <>
-  <ProfileButton theme={userContext.theme}>Send a Message of Support</ProfileButton>
-<ProfileButton theme={userContext.theme}>Connect & Support</ProfileButton>
+  <ButtonModal theme={userContext.theme}>Send a Message of Support</ButtonModal>
+<ButtonModal theme={userContext.theme}>Connect & Support</ButtonModal>
   </>
 }
     </ButtonLayer>
@@ -123,36 +122,17 @@ const ProfileButton=Button(userContext.theme)
 <ProfileHeading>{UserFirstName}  {UserSurName}</ProfileHeading>
 <ProfileHeading>{support_group} Support group</ProfileHeading>
 </InformationLayer>
-<MentalHealthGuide  theme={userContext.theme}>
-<HeadingMentalHealth>Mental Health Insights & Coping Techniques</HeadingMentalHealth>
-<div style={{position:"absolute",right:0,top:10}}>
-<ProfileButton onClick={()=>SetUserProfileModal(true)} theme={userContext.theme}>Comprehensive Mental Health Guide</ProfileButton>
+{UserLogin?
+<div style={{position:"relative",left:790,top:15}}>
+<ButtonModal onClick={()=>SetUserProfileModal(true)} theme={userContext.theme}>Comprehensive Mental Health Guide</ButtonModal>
 </div>
-<MentalHealthInsights>
-<MentalHealthInsightsHeading>Mental Health Insights</MentalHealthInsightsHeading>
-<div style={{position:"relative",left:30}}>
-{Array.from({ length: 2 }).map((_, index) => (
-<>
-<ProfileButton theme={userContext.theme}>{mentalHealth[index]}</ProfileButton>
-</>
-))}
-{/* <ProfileButton theme={userContext.theme}>Depression</ProfileButton>
-<ProfileButton theme={userContext.theme}>Anxiety</ProfileButton> */}
+:
+<div style={{position:"relative",left:500,top:15}}>
+<ButtonModal onClick={()=>SetUserProfileModal(true)} theme={userContext.theme}>Comprehensive Mental Health Guide</ButtonModal>
 </div>
-</MentalHealthInsights>
-<CopingTechniques>
-<MentalHealthInsightsHeading>Coping Techniques</MentalHealthInsightsHeading>
-<div style={{position:"relative",left:70}}>
-{Array.from({ length: 2 }).map((_, index) => (
-<>
-<ProfileButton theme={userContext.theme}>{coping[index]}</ProfileButton>
+}
 
-</>
 
-))}
-</div>
-</CopingTechniques>
-</MentalHealthGuide>
 <MyStorySection>
 <MyStory>My Story</MyStory>
 <MyStoryText>{UserStory}</MyStoryText>

@@ -13,7 +13,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import Typography from '@mui/material/Typography';
 import { uploadImage } from '../redux/slice/API';
 import { EditUserProfile } from '../redux/slice/API';
-import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditCoverPhoto,NameDiv,GetEditProfilePhoto} from '../styles/styles';
+import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditCoverPhoto,NameDiv,EditProfilePhoto} from '../styles/styles';
 export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username }) {
   const dispatch = useDispatch();
   const urlParts = cover_photo.split('/');
@@ -48,7 +48,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     SetEditProfileModal(false);
   }
   const MainBackGround=GetMainBackGround(userContext.theme)
-  const EditProfilePhoto =GetEditProfilePhoto(userContext.theme)
+
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
 

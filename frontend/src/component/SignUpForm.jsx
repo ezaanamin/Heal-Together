@@ -88,10 +88,10 @@ const SignUpForm = () => {
 
 
       {({ handleSubmit, setFieldValue, errors, touched }) => (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: "column" }}>
-
-          <h4 style={{ marginTop: 25 }}>Congratulations on Completing the Questionnaire! Just a Few Steps Left...</h4>
-
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', }}>
+  <h4 style={{ marginTop: 25, textAlign: 'center' }}>
+    Congratulations on Completing the Questionnaire! Just a Few Steps Left...
+  </h4>
 
           <TextField style={{ width: 400 }}
             label="First Name"

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import styled from "styled-components"
+import React from 'react';
 import logo from "../../images/HealTogether_Logo7.png"
 import InputField from '../../component/InputField';
 import * as yup from 'yup';
@@ -11,7 +10,6 @@ import { useContext } from 'react';
 import SignUpModal from '../../component/SignUpModal';
 //import RecommendedUser from '../../component/RecommendedUser';
 import { UserContext } from '../../contextState/contextState';
-import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../../themes/themes"
 import { Container,LogoContainer,LoginSection,LoginHeading,MainLoginButton,CreateAccountButton } from '../../styles/styles';
 
 
@@ -99,12 +97,12 @@ const SignUp=()=>
     
    <Container theme={theme}>
      <LogoContainer>
-       <img src={logo} />
+       <img alt="Logo" src={logo} />
      </LogoContainer>
 <LoginSection>
 
-<LoginHeading>Login</LoginHeading>
-<p style={{marginBottom:15}}>Unite, Connect, Heal: Welcome to Heal Together - Your Safe Space to Share and Grow</p>
+<LoginHeading>Welcome Back</LoginHeading>
+<p style={{marginBottom:15,textAlign:"center"}}>Unite, Connect, Heal</p>
 <Formik
            initialValues={{ email: '', password: '' }}
            validationSchema={validationSchema}

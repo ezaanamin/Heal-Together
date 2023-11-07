@@ -234,25 +234,19 @@ align-items: center;
 `;
 
 
-export const Button = (theme) => styled.button`
+export const ButtonModal = styled.button`
   width: 300px;
   height: 50px;
   border-radius: 150px;
   margin-right: 25px;
   text-transform: capitalize;
-  background-color: ${props => MainButton(props.theme) || 'BLUE'};
-
-  border: 4px solid ${
-    theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor :
-    theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor :
-    theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor :
-    defaultTheme.palette.borderLine.backgroundColor
-  };
+  background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
   color: ${ProfileText};
 
-  &:hover {
-    background-color: ${props => MainHover(props.theme) || 'BLUE'};
+  border: 4px solid ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
 
+  &:hover {
+    background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
   }
 `;
 
@@ -349,7 +343,7 @@ margin-bottom:25px;
 
 
 `
-export const GetEditProfilePhoto = styled.img`
+export const EditProfilePhoto = styled.img`
   border-radius: 50%; /* Reduced the border-radius to 50% for a circular shape */
   height: 100px;
   width: 100px;
@@ -602,15 +596,15 @@ align-items: center;
 width:250px;
 height:40px;
 font-size:25px;
-background-color:#00bfff  ;
+background-color:${sereneGreenTheme.palette.secondary.main};
 color:white;
 margin-bottom:10px;
 border-radius:10px;
-border-color:#00bfff;
-position:relative;
-left:70px;
+border-color:${sereneGreenTheme.palette.borderLine.backgroundColor};
+
+
 &:hover {
-  background-color: #0099cc;
+  background-color:${sereneGreenTheme.palette.action.hover};
  
 }
 
@@ -709,18 +703,18 @@ margin-bottom:20px;
 
 
 `
-export const GettingStartedDiv=styled.div`
-background-color:#c6e2de;
-width: 100%;
-height: 100vh;
-`
+export const GettingStartedDiv = styled.div`
+  background-color: ${sereneGreenTheme.palette.primary.main};
+  width: 100%;
+  height: 100vh;
+`;
 export const HeadingGettingStarted = styled.h1`
-color:#8aade2;
+color:${GreenTextColor};
 text-align: center;
-margin-top:105px; 
+margin-top:60px; 
 `
 export const SubHeadingGettingStarted = styled.p`
-color: #60a3a0;
+color:${GreenTextColor};
 text-align: center;
 margin-top: 15px;
 width: 700px;
@@ -738,7 +732,7 @@ width:600px;
 background-color: white;
 margin-right:auto;
 margin-left:auto;
-margin-top:15px;
+
 `
 export const QuestionHeading=styled.h3`
 margin-top:25px;
@@ -750,8 +744,8 @@ display:flex;
 flex-direction:column;
 `
 export const QuestionButton = styled.button`
-background-color: #b9e5e3;
-color: #60a3a0;
+background-color:${GreenStatusBarHover};
+color:${GreenTextColor};
 border-color: #b9e5e3;
 height: 50px;
 width: ${props => props.width || '200px'};
@@ -971,29 +965,28 @@ export const HeadingMentalHealth = styled.h2`
   top: 10px;
 `;
 
-export const MyStorySection=styled.div`
-position: absolute;
-top: 900px;
-left: 50px;
+export const MyStorySection = styled.div`
+  position: absolute;
+  top: 600px;
+  left:-250px;
+  width: 100%; /* Expand the width to center-align the content */
+  text-align: center; /* Center-align the content horizontally */
+`;
 
-`
-export const MyStory=styled.h2`
-color: ${ProfileText};
-text-align:center;
+export const MyStory = styled.h2`
+  color: ${ProfileText};
+  text-align: center; /* Center-align the text */
+`;
 
-
-`
-export const MyStoryText=styled.p`
-width:1200px;
-text-align:center;
-font-size:16px;
-
-
-
-`
+export const MyStoryText = styled.p`
+  width: 1200px;
+  text-align: center; /* Center-align the text */
+  font-size: 16px;
+  margin: 0 auto; /* Center the text within the section */
+`;
 export const WellnessUpdatesSection = styled.div`
   position: absolute;
-  top: 1100px;
+  top: 850px;
   left: 100px;
   display: flex;
   justify-content: center; 
@@ -1004,8 +997,8 @@ export const WellnessUpdatesSection = styled.div`
 export const WellnessUpdatesHeading=styled.div`
 position: absolute;
 
-top: 1060px;
-left: 50px;
+top: 800px;
+left: 120px;
 
 
 `
@@ -1050,7 +1043,9 @@ export const LoginHeading=styled.h1`
 text-align: center;
 
 margin-bottom:10px;
-font-weight:bold;
+font-weight:1900;
+font-size:50px;
+
 
 
 
@@ -1065,7 +1060,7 @@ export const MainLoginButton = styled.button`
   margin-left: auto;
   margin-right: auto;
   color: ${ProfileText};
-
+  border-radius: 5px;
   font-weight: bold;
   background-color: ${props =>MainButton(props.theme) || 'blue'};
 `;
@@ -1091,4 +1086,53 @@ margin-top: 10px;
 background-color: ${props => MainButton(props.theme) || 'blue'};
 color: ${ProfileText};
 
+`;
+export const ProgressBarContainer = styled.div`
+  width: 550px;
+  background-color: #ccc;
+  border-radius: 5px;
+  margin: 10px auto; /* Center-align horizontally with auto margins */
+  display: flex;
+  justify-content: center; /* Center-align horizontally within the container */
+  align-items: center; /* Center-align vertically within the container */
+  overflow: hidden;
+`;
+
+export const ProgressBarText = styled.div`
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+`;
+
+export const ProgressBarFill = styled.div`
+  text-align: right;
+  color: #fff;
+  background-color: #007bff;
+  padding: 10px;
+  width: ${props => props.percentage}%;
+`;
+
+export const StyledTextarea = styled.textarea`
+  margin-top: 10px;
+  margin-left: 50px;
+  width: 500px;
+  height: 100px;
+  background:${GreenColorSideBar};
+  border-color:${GreenBorder};
+  border-radius: 6px 6px 6px 6px;
+  border-style: none solid solid none;
+  border-width: medium 1px 1px medium;
+  box-shadow: 0 1px 2px ${GreenMainHoverColor} inset;
+  color: ${GreenTextColor};
+  font-size: 1em;
+  line-height: 1.4em;
+  padding: 5px 8px;
+  transition: background-color 0.2s ease 0s;
+  margin-bottom:20px;
+  
+  &:focus {
+    background: #FFFFFF;
+    outline-width: 0;
+  }
 `;

@@ -57,7 +57,7 @@ async function SendCode(email,code,firstName,LastName)
     from: process.env.EMAIL_ADDRESS, 
     to: email,
     subject: "Heal Together Verification Code ",
-    text: `Dear ${firstName } ${LastName} your Heal Together Verification Code  is ${code}. This code will expire within 30 mins`, // plain text body
+    text: `Dear ${firstName } ${LastName} your Heal Together Verification Code  is ${code}. This code will expire within 30 mins`,
 
   });
 
@@ -65,9 +65,18 @@ console.log(info)
 }
 
 export const NewUser = async (req, res) => {
-  try {
-    const existingUser = await Users.findOne({ email: req.body.values.email });
 
+  
+
+  try {
+     const existingUserWithUsername = await Users.findOne({ username: req.body.values.username });
+     if (existingUserWithUsername) {
+       return res.status(400).json({ error: 'Username is already in use. Please choose a different username.' });
+     }
+     const existingUserWithEmail = await Users.findOne({ email: req.body.values.email });
+     if (existingUserWithEmail) {
+       return res.status(400).json({ error: 'Email is already in use. Please use a different email address.' });
+     }
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
@@ -564,9 +573,10 @@ const updateUserData = async (doc, username,client, res) => {
   const session = driver.session();
   
   const cypherQuery = `
-    MATCH (p:Users {firstName: "Leo"})-[:support_group]->()
-    RETURN COUNT(p) AS count
-  `;
+  MATCH (p:Users {username: '${username}'})-[:support_group]->()
+  RETURN COUNT(p) AS count
+`;
+
   
   const result = await session.run(cypherQuery);
   const count = result.records[0].get('count');

@@ -37,7 +37,7 @@ const InputField = ({name,label,type,changedText,value}) => {
               userContext.theme === 'light' ? defaultTheme.palette.borderLine.backgroundColor
               :
               defaultTheme.palette.borderLine.backgroundColor,
-    borderRadius: 50,
+    borderRadius: 5,
     display: "flex",
     justifyContent: 'center',
     marginBottom:2,

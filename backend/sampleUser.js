@@ -61,7 +61,7 @@ export const sampleUsers = [
     email: "sophia@gmail.com",
     age: 25,
     username: "SJohnson456",
-    password: "$2b$10$eDTPCE0t8PPSgxaM7vh37u2jEtERU.ROmo5hPlRn7.vi6UKCPXDAG", // 9*Yn7wP$Z
+    password: "$2b$10$Rri1UosZoo2rjNnkQoFizuBe1OeN4z/XwrtnVWV7FY1cnS09ruHXa", // 9*Yn7wP$Z
     gender: "Female",
     verification: true,
     user_profile_pic: "user_default_female.png",
@@ -116,7 +116,7 @@ export const sampleUsers = [
     email: "muhammad@gmail.com",
     username:"MAhmed789",
     age: 32,
-    password: "$2b$10$fkofusD89yUJYOxPj7JZkuI/SJxnPwm5/DjjjcbySzDRKNZBFa1gK", // Xz6#2b@WQ
+    password: "$2b$10$Avwx0Vui4GKC0h8Z8bzhKeZZA/9/f6mWlnTNr8KzXCYlRtZOZOxra", // Xz6#2b@WQ
     user_profile_pic: "user_default_male.png",
     gender: "Male",
     verification: true,

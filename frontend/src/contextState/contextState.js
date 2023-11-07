@@ -48,6 +48,7 @@ const mental_health_insight={
 export function UserContextProvider({ children }) {
   const [Interest_question, setInterest_question] = useState(Interest_initialState);
   const [Mental_health_insight, SetMentalHealthInsight] = useState(mental_health_insight);
+  const [story, setStory] = useState('');
   const [Coping, SetCoping] = useState(coping);
   const [Primary_Profile_question, setPrimary_Profile_question] = useState(Primary_Profile_initialState);
   const [SignUpModal, SetSignUpModal] = useState(false);
@@ -133,6 +134,7 @@ export function UserContextProvider({ children }) {
     SetUserProfileModal,
     UserUsername,
     SetUserUsername,
+    story, setStory
   };
 
   return (
