@@ -68,11 +68,14 @@ export function UserContextProvider({ children }) {
   const [CreatePost, SetCreatePost] = useState(false);
   const [currentTheme, SetCurrentTheme] = useState("");
   const [LoginModal, SetLoginModal] = useState(false);
+  const [userFriendsModal,SetUserFriendModal]=useState(false);
   const [firstTimeUser, SetFirstTimeUser] = useState(false);
   const [RecommendedUserList, SetRecommendedUserList] = useState([]);
   const [UserProfileModal, SetUserProfileModal] = useState(false);
   const [UserUsername, SetUserUsername] = useState("");
   const [EditProfileModal, SetEditProfileModal] = useState(false);
+  const [supportGroupData, setSupportGroupData] = useState(null);
+
 
   const [theme, setTheme] = useState("light");
   const [ColorTheme, SetColorTheme] = useState(false);
@@ -134,7 +137,9 @@ export function UserContextProvider({ children }) {
     SetUserProfileModal,
     UserUsername,
     SetUserUsername,
-    story, setStory
+    story, setStory,
+    supportGroupData, setSupportGroupData,
+    userFriendsModal,SetUserFriendModal
   };
 
   return (

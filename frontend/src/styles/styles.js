@@ -40,7 +40,10 @@ const LightColorSideBar=defaultTheme.palette.SideBar.backgroundColor
 const BlueColorSideBar=calmingBlueTheme.palette.SideBar.backgroundColor
 const GreenColorSideBar=sereneGreenTheme.palette.SideBar.backgroundColor
 const PurpleColorSideBar=relaxingPurpleTheme.palette.SideBar.backgroundColor
-
+const LightPostBackgroundColor= defaultTheme.palette.Post.containerBackground;
+const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
+const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
+const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
 
 export const GetMainBackGround = (theme) => {
   return theme === 'light' ? LightMainContainer :
@@ -48,6 +51,15 @@ export const GetMainBackGround = (theme) => {
     theme === 'green' ?  GreenMainContainer  :
     theme === 'purple' ?  PurpleMainContainer:
     LightMainContainer; 
+};
+
+
+export const GetPostBackGroundColor = (theme) => {
+  return theme === 'light' ? LightPostBackgroundColor :
+    theme === 'blue' ? BluePostBackgroundColor :
+    theme === 'green' ?  GreenPostBackgroundColor  :
+    theme === 'purple' ?  PurplePostBackgroundColor:
+    LightPostBackgroundColor; 
 };
 export const ADDTOPOST=styled.div`
 border: 1px solid black;
@@ -968,15 +980,14 @@ left:300px;
 
 
 `
-export const ButtonLayer=styled.div`
-
-position: absolute;
-top: 400px;
-right:400px;
-display:flex;
-flex-direction:row;
-
-`
+export const ButtonLayer = styled.div`
+  position: absolute;
+  top: 400px;
+  right: 400px;
+  display: flex;
+  flex-direction: row;
+  z-index: 10; 
+`;
 
 
 
@@ -1194,3 +1205,21 @@ export const StyledTextarea = styled.textarea`
     outline-width: 0;
   }
 `;
+export const MindFulMomentContainer=styled.div`
+
+background-color: ${props => GetPostBackGroundColor(props.theme) || 'defaultColor'};
+
+display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    position: fixed;
+    top: 200px;
+    height: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-x: hidden;
+
+
+`

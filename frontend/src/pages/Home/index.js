@@ -8,6 +8,7 @@ import PostModal from '../../component/CreatePost';
 import SideBar from '../../component/SideBar';
 import RecommendedUser from "../../component/RecommendedUser"
 import { StyledHome } from '../../styles/styles';
+import MindFulMoment from '../../component/MindFulMoment';
 
 const Home = () => {
 
@@ -29,20 +30,20 @@ useEffect(() => {
 
     }   
   }, []);
-useEffect(()=>{
+// useEffect(()=>{
 
   
-  const Token = localStorage.getItem('Token');
+//   const Token = localStorage.getItem('Token');
 
-  if(!Token)
-  {
-    nav('/')
-  }
+//   if(!Token)
+//   {
+//     nav('/')
+//   }
   
-// console.log(RecommendedUserList,'ezaanamin')
+// // console.log(RecommendedUserList,'ezaanamin')
  
 
-},[userContext.Login])
+// },[userContext.Login])
 
 // useEffect(()=>{
 //   alert(userContext.UserUsername)
@@ -63,6 +64,8 @@ useEffect(()=>{
     </div>
         {userContext.CreatePost ? <PostModal/>:null}
         <StatusBar />
+
+
         </StyledHome>
     </>
 )

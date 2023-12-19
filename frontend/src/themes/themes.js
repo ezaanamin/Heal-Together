@@ -29,6 +29,11 @@ const defaultTheme = createTheme({
     SideBar:{
       backgroundColor:"#CCCCCC"
     },
+    Post:{
+      containerBackground: '#ffffff',
+      textPrimary: '#333333',
+      borderLine: '#999999',
+    }
   },
 
 
@@ -72,7 +77,11 @@ const calmingBlueTheme = createTheme({
   SideBar:{
     backgroundColor:"#e1f0f8"
   },
-
+Post:{
+  containerBackground: '#b3c9e8',
+  textPrimary: '#333333',
+  borderLine: '#4277a8',
+}
   },
 
   overrides: {
@@ -114,6 +123,11 @@ const sereneGreenTheme = createTheme({
     SideBar:{
       backgroundColor:"#e8f5e9"
     },
+    Post:{
+      containerBackground: '#c9e8c1',
+      textPrimary: '#333333',
+      borderLine: '#6bb681',
+    }
   },
 
 
@@ -157,6 +171,13 @@ const relaxingPurpleTheme = createTheme({
     SideBar:{
       backgroundColor:"#f2e8f5"
     },
+    Post:{
+      
+        containerBackground: '#d9c1e8',
+        textPrimary: '#333333',
+        borderLine: '#906db3',
+    
+    }
   },
 
 

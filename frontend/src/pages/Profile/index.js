@@ -10,13 +10,15 @@ import { GetUsersProfile } from '../../redux/slice/API';
 import { VerifyUser } from '../../redux/slice/API';
 import Comprehensive_Mental_Health_Guide_Model from '../../component/Comprehensive Mental Health Guide Model';
 import EditProfile from "../../component/EditProfile"
-import { StyledProfileHome,StyledHr,NoCoverPhoto,CoverPhoto,ProfilePhoto,NoAccountProfilePhoto,InformationLayer,MentalHealthInsights,CopingTechniques,
-  ButtonLayer,ButtonModal,ProfileHeading,Header,AccountDoesnotExist,SearchAccount,MentalHealthInsightsHeading,HeadingMentalHealth,MyStorySection,
-  MyStory,MyStoryText,WellnessUpdatesSection,WellnessUpdatesHeading,WellnessUpdates,WellnessUpdatesComments,MentalHealthGuide} from '../../styles/styles';
+import { UserFriends } from '../../redux/slice/API';
+import UserFriendModal from '../../component/UserFriendModal';
+import { StyledProfileHome,StyledHr,NoCoverPhoto,CoverPhoto,ProfilePhoto,NoAccountProfilePhoto,InformationLayer,
+  ButtonLayer,ButtonModal,ProfileHeading,Header,AccountDoesnotExist,SearchAccount,MyStorySection,
+  MyStory,MyStoryText,WellnessUpdatesSection,WellnessUpdatesHeading,WellnessUpdates,WellnessUpdatesComments} from '../../styles/styles';
 function Profile() {
 
     const userContext = useContext(UserContext);
-    const {SetUserProfileModal,SetEditProfileModal,} = userContext;
+    const {SetUserProfileModal,SetEditProfileModal,setSupportGroupData,SetUserFriendModal} = userContext;
     const [support_group,SetSupportGroup]=useState(0)
     const [mentalHealth,SetMentalHealth]=useState([]);
     const [coping,SetCoping]=useState([]);
@@ -27,7 +29,8 @@ function Profile() {
     const [UserStory,SetUserStory]=useState("")
     const [coverphoto,SetCoverPhoto]=useState("");
     const[UserProfile,SetUserProfile]=useState([]);
-    const [UserLogin,SetUserLogin]=useState(false)
+    const [UserLogin,SetUserLogin]=useState(false);
+
    
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -89,11 +92,36 @@ useEffect(()=>{
   }
 },[])
 
+const UserFriendsList = async () => {
+  try {
+    const action = await dispatch(UserFriends({ username }));
+    if (UserFriends.fulfilled.match(action)) {
+     
+      const data = action.payload; 
+      setSupportGroupData(data.support_group);
+      SetUserFriendModal(true)
+
+    } else {
+    }
+  } catch (error) {
+    console.error('Error fetching user friends:', error);
+ 
+  }
+};
+
+
+// useEffect(()=>{
+
+//   console.log(supportGroupData)
+
+// },[supportGroupData])
   return (
 <>
+<UserFriendModal support_group={userContext.supportGroupData}/>
 {!UserExist?
 <>
 <SideBar/>
+
 <StyledProfileHome theme={userContext.theme}>
  {userContext.UserProfileModal?
  <Comprehensive_Mental_Health_Guide_Model firstName={UserFirstName} Surname={UserSurName} UserProfileInformation={UserProfile} username={username} mental_health={mentalHealth} coping={coping}/>
@@ -120,7 +148,7 @@ useEffect(()=>{
     </ButtonLayer>
 <InformationLayer>
 <ProfileHeading>{UserFirstName}  {UserSurName}</ProfileHeading>
-<ProfileHeading>{support_group} Support group</ProfileHeading>
+<ProfileHeading onClick={()=>UserFriendsList()}>{support_group} Support group</ProfileHeading>
 </InformationLayer>
 {UserLogin?
 <div style={{position:"relative",left:790,top:15}}>

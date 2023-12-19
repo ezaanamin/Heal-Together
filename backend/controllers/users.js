@@ -548,17 +548,22 @@ export const AddingRandomDataNeo4j= async (req, res) => {
 
 
 }
-
-const returnData = (type,res) => {
-  res.json({
-    SupportGroup: type.SupportGroup,
-    UserMentalHealthInsight: type.UserMentalHealthInsight,
-    UserCoping: type.UserCoping,
-    UsersDetail: type.UsersDetail,
-    userProfile: type.userProfile,
-  });
-
-}
+const returnData = (type, res) => {
+  // Check if res is defined and has a json method
+  if (res && typeof res.json === 'function') {
+    res.json({
+      SupportGroup: type.SupportGroup,
+      UserMentalHealthInsight: type.UserMentalHealthInsight,
+      UserCoping: type.UserCoping,
+      UsersDetail: type.UsersDetail,
+      userProfile: type.userProfile,
+    });
+  } else {
+    // Handle the case where res is undefined or doesn't have a json method
+    console.error('Invalid or undefined response object');
+    // You might want to send a different response or handle the error accordingly
+  }
+};
 function transformDataToArrays(data) {
   return Object.entries(data)
     .filter(([key, value]) => value === true)
@@ -626,6 +631,7 @@ export const GetUsersProfile = async (req, res) => {
   await client.connect(); 
 
 const UserCheckBool= await client.exists(username)
+console.log(UserCheckBool,'ezaan amin')
 
 const value = await client.get(username);
 const UserData = JSON.parse(value);
@@ -705,5 +711,77 @@ export const EditProfile = async (req, res) => {
   
   }
   
+export const UserFriends= async (req, res) => {
+  const username=req.body.username
+  const client = createClient();
+  await client.connect(); 
 
+
+
+
+  var userFriends=username+"__friends"
+const value = await client.get(userFriends);
+// Check if the value exists in Redis
+if (value !== null) {
+  // Delete the value from Redis
+  await client.del(userFriends);
+}
+
+const UserData = JSON.parse(value);
+
+console.log(value)
+
+if(value==1)
+{
+  res.json({friends:UserData})
+}
+else
+{
+  const uri = process.env.NEO4J_URI;
+  const user = process.env.NEO4J_USERNAME;
+  const password = process.env.NEO4J_PASSWORD;
+  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+  const session = driver.session();
+
+  var support_group = {};
+    
+  const cypherQuery = `
+  MATCH (p:Users {username: '${username}'})-[:support_group]->(friend)
+  RETURN friend.firstName AS firstName, friend.surName AS surname, friend.username as Username,friend.user_cover_pic as profile_pic
+  LIMIT 25;
+`;
+
+const result = await session.run(cypherQuery);
+const friends_length = result.records.length
+for (let i = 0; i < friends_length; i++) {
+{
+
+  const friend_first_name=result.records[i]._fields[0]
+const friend_surName=result.records[i]._fields[1]
+const friend_username=result.records[i]._fields[2]
+const friend_profile_pic=result.records[i]._fields[3]
+// console.log(" " + friend_username)
+ var fullFriendName=friend_first_name+ " "+friend_surName
+ support_group[fullFriendName] = {
+  username: friend_username,
+  profile_pic: friend_profile_pic,
+};
+
+}
+
+
+
+
+}
+await client.set(userFriends, JSON.stringify(support_group));
+res.json({support_group:support_group})
+
+}
+
+
+
+
+
+
+}
 

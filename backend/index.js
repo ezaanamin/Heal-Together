@@ -10,9 +10,10 @@ import { Users } from "./model/users.js"
 // import { sampleUsers } from './sampleUser.js';
 import multer from "multer"
 import { MongoClient } from 'mongodb';
-
+import Post from "./model/posts.js"
 import ObjectsToCsv from "objects-to-csv"
-
+import Reply from "./model/Reply.js"
+import fs from "fs"
 const app=express()
 dotenv.config();
 app.use(cors())
@@ -60,10 +61,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
   res.status(200).send('File uploaded successfully.');
 });
-
-
-
-
 
 app.post("/test",(req,res)=>{
  console.log(req.body)

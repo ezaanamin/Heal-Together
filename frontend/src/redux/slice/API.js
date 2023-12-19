@@ -120,6 +120,19 @@ export const EditUserProfile = createAsyncThunk(
   }
 );
 
+
+export const UserFriends = createAsyncThunk(
+  'post/UserFriends',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/users/userfriend', data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const APISlice = createSlice({
   name: 'API',
   initialState: { data: [], error: null, status: 'idle',verfiedStatus:null},
