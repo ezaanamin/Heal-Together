@@ -151,11 +151,11 @@ const UserFriendsList = async () => {
 <ProfileHeading onClick={()=>UserFriendsList()}>{support_group} Support group</ProfileHeading>
 </InformationLayer>
 {UserLogin?
-<div style={{position:"relative",left:790,top:15}}>
+<div style={{position:"relative",left:790,top:10}}>
 <ButtonModal onClick={()=>SetUserProfileModal(true)} theme={userContext.theme}>Comprehensive Mental Health Guide</ButtonModal>
 </div>
 :
-<div style={{position:"relative",left:500,top:15}}>
+<div style={{position:"relative",left:500,top:10}}>
 <ButtonModal onClick={()=>SetUserProfileModal(true)} theme={userContext.theme}>Comprehensive Mental Health Guide</ButtonModal>
 </div>
 }

@@ -693,7 +693,7 @@ export const UserFriends = async (req, res) => {
     var support_group = {};
     const cypherQuery = `
   MATCH (p:Users {username: '${username}'})-[:support_group]->(friend)
-  RETURN friend.firstName AS firstName, friend.surName AS surname, friend.username as Username,friend.user_cover_pic as profile_pic
+  RETURN friend.firstName AS firstName, friend.surName AS surname, friend.username as Username,friend.user_profile_pic as profile_pic
   LIMIT 25;
 `;
     const result = await session.run(cypherQuery);

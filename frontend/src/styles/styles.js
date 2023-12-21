@@ -1037,25 +1037,28 @@ export const HeadingMentalHealth = styled.h2`
 export const MyStorySection = styled.div`
   position: absolute;
   top: 600px;
-  left:-250px;
-  width: 100%; /* Expand the width to center-align the content */
-  text-align: center; /* Center-align the content horizontally */
+  left: -250px;
+  width: 100%;
+  text-align: center;
 `;
 
 export const MyStory = styled.h2`
   color: ${ProfileText};
-  text-align: center; /* Center-align the text */
+  text-align: center;
 `;
 
 export const MyStoryText = styled.p`
   width: 1200px;
-  text-align: center; /* Center-align the text */
+  text-align: center;
   font-size: 16px;
-  margin: 0 auto; /* Center the text within the section */
+  margin: 0 auto;
+  margin-bottom: 10px; /* Add margin-bottom to create space between MyStoryText and WellnessUpdates */
 `;
+
+
 export const WellnessUpdatesSection = styled.div`
   position: absolute;
-  top: 850px;
+  top:900px;
   left: 100px;
   display: flex;
   justify-content: center; 
@@ -1066,7 +1069,7 @@ export const WellnessUpdatesSection = styled.div`
 export const WellnessUpdatesHeading=styled.div`
 position: absolute;
 
-top: 800px;
+top: 850px;
 left: 120px;
 
 
@@ -1074,7 +1077,7 @@ left: 120px;
 
 export const WellnessUpdates=styled.h2`
 color: ${ProfileText};
-position: relative;
+
 
 
 `
@@ -1223,3 +1226,27 @@ display: flex;
 
 
 `
+
+export const CompanionConnection = styled.button`
+  background-color: ${props => MainButton(props.theme) || 'BLUE'};
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position:absolute;
+  margin-top:10px;
+  right:20px;
+margin-left:10px;
+  &:hover {
+    background-color: ${props => MainHover(props.theme) || 'darkblue'};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  /* Add more styles as needed */
+`;
