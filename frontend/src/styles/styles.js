@@ -1250,3 +1250,32 @@ margin-left:10px;
 
   /* Add more styles as needed */
 `;
+ export const cardStyle = {
+  width: '200px',
+  height: '300px',
+  perspective: '1000px',
+};
+
+export const cardWrapperStyle = (isFlipped) => ({
+  width: '100%',
+  height: '100%',
+  transformStyle: 'preserve-3d',
+  transition: 'transform 1s', // Adjust the duration (1s is slower)
+  transform: isFlipped ? 'rotateY(360deg)' : 'rotateY(0deg)',
+});
+
+export const cardFaceStyle = (props) => ({
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  backfaceVisibility: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '24px',
+  backgroundColor: props.isFlipped ? props.flippedBackgroundColor || '#2ecc71' : props.frontBackgroundColor || '#3498db',
+  color: props.isFlipped ? `rgba(255, 255, 255, 0.7)` : '#fff', // Adjust opacity as needed
+  backgroundImage: props.isFlipped ? `url(${props.backImage})` : 'none',
+  backgroundSize: 'cover',
+  boxShadow: props.is3D ? '0 10px 20px rgba(0, 0, 0, 0.2)' : 'none',
+});

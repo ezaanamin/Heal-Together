@@ -75,6 +75,12 @@ export function UserContextProvider({ children }) {
   const [UserUsername, SetUserUsername] = useState("");
   const [EditProfileModal, SetEditProfileModal] = useState(false);
   const [supportGroupData, setSupportGroupData] = useState(null);
+  const [isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme] = useState(false);
+  const [isFlippedsereneGreenTheme, setFlippedsereneGreenTheme] = useState(false);
+  const [isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme] = useState(false);
+  const [isFlippedDefaultTheme, setFlippedDefaultTheme,] = useState(false);
+
+
 
 
   const [theme, setTheme] = useState("light");
@@ -139,7 +145,10 @@ export function UserContextProvider({ children }) {
     SetUserUsername,
     story, setStory,
     supportGroupData, setSupportGroupData,
-    userFriendsModal,SetUserFriendModal
+    userFriendsModal,SetUserFriendModal,  isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme,
+    isFlippedsereneGreenTheme, setFlippedsereneGreenTheme,
+    isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme,
+    isFlippedDefaultTheme, setFlippedDefaultTheme,
   };
 
   return (
