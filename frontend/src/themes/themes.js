@@ -1,46 +1,44 @@
 import { createTheme } from '@mui/material/styles';
 
-const defaultTheme = createTheme({
+const TranquilTealTheme = createTheme({
   palette: {
     primary: {
-      main: '#ffffff',
+      main: '#FFC0CB', // Pastel Pink
     },
     secondary: {
-      main: '#f2f2f2',
+      main: '#E6E6FA', // Pastel Lavender
     },
     text: {
-      primary: '#333333',
+      primary: '#4E342E', // Brown
     },
     action: {
-      hover: '#e0e0e0',
+      hover: '#FFDAB9', // Peach (lighter)
     },
     borderLine: {
-      backgroundColor: '#999999',
+      backgroundColor: '#D8BFD8', // Lavender (lighter)
     },
-    Comments:{
-      backgroundColor:"#CCCCCC"
+    Comments: {
+      backgroundColor: '#FFECB3', // Peach (lighter)
     },
-    CommentsHover:{
-      backgroundColor:"#d4d6d9"
+    CommentsHover: {
+      backgroundColor: '#FFE082', // Peach (lighter)
     },
-    ButtonActive:{
-      backgroundColor:" #0000001A"
+    ButtonActive: {
+      backgroundColor: '#FFDAB9', // Peach (lighter)
     },
-    SideBar:{
-      backgroundColor:"#CCCCCC"
+    SideBar: {
+      backgroundColor: '#E6E6FA', // Pastel Lavender
     },
-    Post:{
-      containerBackground: '#ffffff',
-      textPrimary: '#333333',
-      borderLine: '#999999',
-    }
+    Post: {
+      containerBackground: '#FFFFFF',
+      textPrimary: '#4E342E', // Brown
+      borderLine: '#D8BFD8', // Lavender (lighter)
+    },
   },
-
-
   overrides: {
     MuiButton: {
       root: {
-        borderColor: '#d9d9d9',
+        borderColor: '#8D6E63', // Brown (darker)
       },
     },
   },
@@ -192,4 +190,4 @@ const relaxingPurpleTheme = createTheme({
 
 
 
-export { defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme };
+export { TranquilTealTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme };

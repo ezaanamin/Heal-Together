@@ -78,7 +78,7 @@ export function UserContextProvider({ children }) {
   const [isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme] = useState(false);
   const [isFlippedsereneGreenTheme, setFlippedsereneGreenTheme] = useState(false);
   const [isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme] = useState(false);
-  const [isFlippedDefaultTheme, setFlippedDefaultTheme,] = useState(false);
+  const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme,] = useState(false);
 
 
 
@@ -148,7 +148,7 @@ export function UserContextProvider({ children }) {
     userFriendsModal,SetUserFriendModal,  isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme,
     isFlippedsereneGreenTheme, setFlippedsereneGreenTheme,
     isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme,
-    isFlippedDefaultTheme, setFlippedDefaultTheme,
+    isFlippedTranquilTealTheme, setFlippedTranquilTealTheme,
   };
 
   return (

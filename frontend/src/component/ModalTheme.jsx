@@ -4,11 +4,10 @@ import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
 import CloseIcon from '@mui/icons-material/Close';
-import  {defaultTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../themes/themes"
+import  {TranquilTealTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../themes/themes"
 import CardFlip from './CardFlip';
-import { useState } from 'react';
 import { useEffect } from 'react';
-import { purple } from '@mui/material/colors';
+import { ThemeModalHeading,getStyle } from '../styles/styles';
 export default function ModalThemeModal() {
   const userContext = useContext(UserContext);
   const { setTheme, SetColorTheme,   isFlippedcalmingBlueTheme,
@@ -17,32 +16,12 @@ export default function ModalThemeModal() {
     setFlippedrelaxingPurpleTheme,
     isFlippedsereneGreenTheme,
     setFlippedsereneGreenTheme,
-    isFlippedDefaultTheme,
-    setFlippedDefaultTheme,currentTheme, SetCurrentTheme} = userContext;
+    isFlippedTranquilTealTheme,
+    setFlippedTranquilTealTheme, SetCurrentTheme} = userContext;
 
     
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-    backgroundColor:
-      userContext.theme === 'blue'
-        ? calmingBlueTheme.palette.primary.main
-        : userContext.theme === 'green'
-        ? sereneGreenTheme.palette.primary.main
-        : userContext.theme === 'purple'
-        ? relaxingPurpleTheme.palette.primary.main
-        : defaultTheme.palette.primary.main,
-  };
+    const style = getStyle(userContext.theme);
+ 
 
   const handleClose = () => {
     SetColorTheme(false);
@@ -58,7 +37,7 @@ export default function ModalThemeModal() {
         setTheme("purple");
     } else if (isFlippedsereneGreenTheme) {
         setTheme("green");
-    } else if (isFlippedDefaultTheme) {
+    } else if (isFlippedTranquilTealTheme) {
         setTheme("default");
     }
 }, [
@@ -68,8 +47,8 @@ export default function ModalThemeModal() {
     setFlippedrelaxingPurpleTheme,
     isFlippedsereneGreenTheme,
     setFlippedsereneGreenTheme,
-    isFlippedDefaultTheme,
-    setFlippedDefaultTheme,
+    isFlippedTranquilTealTheme,
+    setFlippedTranquilTealTheme,
     setTheme,
     SetCurrentTheme
 ]);
@@ -78,6 +57,21 @@ export default function ModalThemeModal() {
     localStorage.setItem('theme', userContext.theme);
   }, [userContext.theme]);
 
+  useEffect(() => {
+
+    if (userContext.theme === "blue") {
+      setFlippedcalmingBlueTheme(true);
+    } else if (userContext.theme === "purple") {
+      setFlippedrelaxingPurpleTheme(true);
+    } else if (userContext.theme === "green") {
+      setFlippedsereneGreenTheme(true);
+    } else if (userContext.theme === "default") {
+      setFlippedTranquilTealTheme(true);
+    }
+  
+  }, []); 
+  
+  
   return (
     <div>
       <Modal
@@ -86,59 +80,58 @@ export default function ModalThemeModal() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 400 }}>
+        <Box sx={{ ...style, width: 700 }}>
           <CloseIcon style={{ fontSize: 30 }} onClick={handleClose} />
-          <CardFlip
-         cardtheme="blue"
-            isFlipped={isFlippedcalmingBlueTheme}
-            setFlipped={setFlippedcalmingBlueTheme}
-            flippedBackgroundColor="#ff5733"
-            frontBackgroundColor="#008080"
-            backImage="https://via.placeholder.com/200x300"
-            is3D={true}
-          >
-            Custom Content Here
-          </CardFlip>
+         <ThemeModalHeading> Harmony Palette: Choose Your Healing Theme</ThemeModalHeading>
+          <div style={{ display: 'flex', gap: '16px' }}>
+  <CardFlip
+    cardtheme="blue"
+    isFlipped={isFlippedcalmingBlueTheme}
+    setFlipped={setFlippedcalmingBlueTheme}
+    flippedBackgroundColor="#ff5733"
+    frontBackgroundColor={calmingBlueTheme.palette.primary.main}
+    backImage="http://localhost:4000/upload/calmingBlueTheme.jpg"
+    is3D={true}
+  >
+    Calming Blue Theme
+  </CardFlip>
 
-          <CardFlip
-                cardtheme="purple"
+  <CardFlip
+    cardtheme="purple"
+    isFlipped={isFlippedrelaxingPurpleTheme}
+    setFlipped={setFlippedrelaxingPurpleTheme}
+    flippedBackgroundColor="#ff5733"
+    frontBackgroundColor={relaxingPurpleTheme.palette.primary.main}
+    backImage="http://localhost:4000/upload/relaxingPurpleTheme.jpg"
+    is3D={true}
+  >
+    Relaxing Purple Theme
+  </CardFlip>
 
-            isFlipped={isFlippedrelaxingPurpleTheme}
-            setFlipped={setFlippedrelaxingPurpleTheme}
-            flippedBackgroundColor="#ff5733"
-            frontBackgroundColor="#008080"
-            backImage="https://via.placeholder.com/200x300"
-            is3D={true}
-          >
-            Custom Content Here
-          </CardFlip>
-
-          <CardFlip
-                  cardtheme="green"
-
-            isFlipped={isFlippedsereneGreenTheme}
-            setFlipped={setFlippedsereneGreenTheme}
-            flippedBackgroundColor="#ff5733"
-            frontBackgroundColor="#008080"
-            backImage="https://via.placeholder.com/200x300"
-            is3D={true}
-          >
-            Custom Content Here
-          </CardFlip>
-
-          <CardFlip
-                  cardtheme="default"
-
-            isFlipped={isFlippedDefaultTheme}
-            setFlipped={setFlippedDefaultTheme}
-            flippedBackgroundColor="#ff5733"
-            frontBackgroundColor="#008080"
-            backImage="https://via.placeholder.com/200x300"
-            is3D={true}
-          >
-            Custom Content Here
-          </CardFlip>
-     
+  <CardFlip
+    cardtheme="green"
+    isFlipped={isFlippedsereneGreenTheme}
+    setFlipped={setFlippedsereneGreenTheme}
+    flippedBackgroundColor="#ff5733"
+    frontBackgroundColor={sereneGreenTheme.palette.primary.main}
+    backImage="http://localhost:4000/upload/sereneGreenTheme.jpg"
+    is3D={true}
+  >
+    Serene Green Theme
+  </CardFlip>
+  
+  <CardFlip
+    cardtheme="default"
+    isFlipped={isFlippedTranquilTealTheme}
+    setFlipped={setFlippedTranquilTealTheme}
+    flippedBackgroundColor="#ff5733"
+    frontBackgroundColor={TranquilTealTheme.palette.primary.main}
+    backImage="http://localhost:4000/upload/LightTheme.jpg"
+    is3D={true}
+  >
+  Tranquil Teal Theme
+  </CardFlip>
+</div>
         </Box>
       </Modal>
     </div>

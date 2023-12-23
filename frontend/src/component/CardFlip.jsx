@@ -7,7 +7,7 @@ function CardFlip(props) {
   const userContext = useContext(UserContext);
   const {setTheme, setFlippedrelaxingPurpleTheme,
     setFlippedsereneGreenTheme,
-    setFlippedDefaultTheme,setFlippedcalmingBlueTheme} = userContext;
+    setFlippedTranquilTealTheme,setFlippedcalmingBlueTheme} = userContext;
  
 
   useEffect(()=>{
@@ -20,15 +20,15 @@ function CardFlip(props) {
     if (props.cardtheme === "blue") {
       setFlippedsereneGreenTheme(false);
       setFlippedrelaxingPurpleTheme(false);
-      setFlippedDefaultTheme(false);
+      setFlippedTranquilTealTheme(false);
     } else if (props.cardtheme === "purple") {
       setFlippedcalmingBlueTheme(false);
       setFlippedsereneGreenTheme(false);
-      setFlippedDefaultTheme(false);
+      setFlippedTranquilTealTheme(false);
     } else if (props.cardtheme === "green") {
       setFlippedcalmingBlueTheme(false);
       setFlippedrelaxingPurpleTheme(false);
-      setFlippedDefaultTheme(false);
+      setFlippedTranquilTealTheme(false);
     } else if (props.cardtheme === "default") {
       setFlippedcalmingBlueTheme(false);
       setFlippedrelaxingPurpleTheme(false);

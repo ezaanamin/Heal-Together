@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { relaxingPurpleTheme,sereneGreenTheme,defaultTheme,calmingBlueTheme } from "../themes/themes"
+import { relaxingPurpleTheme,sereneGreenTheme,TranquilTealTheme,calmingBlueTheme } from "../themes/themes"
 import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
-const LightStatusBar =defaultTheme.palette.Comments.backgroundColor
-const LightStatusBarHover =defaultTheme.palette.CommentsHover.backgroundColor
+const LightStatusBar =TranquilTealTheme.palette.Comments.backgroundColor
+const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
 const BlueStatusBar =calmingBlueTheme.palette.Comments.backgroundColor
 const BlueStatusBarHover =calmingBlueTheme.palette.CommentsHover.backgroundColor
 const GreenStatusBar =sereneGreenTheme.palette.Comments.backgroundColor
@@ -14,33 +14,33 @@ const PurpleStatusBar = relaxingPurpleTheme.palette.Comments.backgroundColor
 const PurpleStatusBarHover =relaxingPurpleTheme.palette.CommentsHover.backgroundColor
 const GreenTextColor =sereneGreenTheme.palette.text.primary
 const BlueTextColor = calmingBlueTheme.palette.text.primary
-const LightTextColor =defaultTheme.palette.text.primary
+const LightTextColor =TranquilTealTheme.palette.text.primary
 const PurpleTextColor =relaxingPurpleTheme.palette.text.primary
-const LightMainContainer = defaultTheme.palette.primary.main
+const LightMainContainer = TranquilTealTheme.palette.primary.main
 const BlueMainContainer =calmingBlueTheme.palette.primary.main
 const GreenMainContainer =sereneGreenTheme.palette.primary.main
 const PurpleMainContainer = relaxingPurpleTheme.palette.primary.main
-const LightBorder =defaultTheme.palette.borderLine.backgroundColor
+const LightBorder =TranquilTealTheme.palette.borderLine.backgroundColor
 const BlueBorder =calmingBlueTheme.palette.borderLine.backgroundColor
 const GreenBorder =sereneGreenTheme.palette.borderLine.backgroundColor
 const PurpleBorder =relaxingPurpleTheme.palette.borderLine.backgroundColor;
-const LightButtonColor=defaultTheme.palette.secondary.main;
+const LightButtonColor=TranquilTealTheme.palette.secondary.main;
 const BlueButtonColor=calmingBlueTheme.palette.secondary.main;
 const PurpleButtonColor=relaxingPurpleTheme.palette.secondary.main
 const GreenButtonColor=sereneGreenTheme.palette.secondary.main
 const BlueMainHoverColor= calmingBlueTheme.palette.action.hover
 const GreenMainHoverColor=sereneGreenTheme.palette.action.hover
-const LIghtMainHoverColor=defaultTheme.palette.action.hover
+const LIghtMainHoverColor=TranquilTealTheme.palette.action.hover
 const PurpleMainHoverColor=relaxingPurpleTheme.palette.action.hover
-const LightButtonCreateColor=defaultTheme.overrides.MuiButton.root.backgroundColor
+const LightButtonCreateColor=TranquilTealTheme.overrides.MuiButton.root.backgroundColor
 const BlueButtonCreateColor=calmingBlueTheme.overrides.MuiButton.root.backgroundColor
 const GreenButtonCreateColor=sereneGreenTheme.overrides.MuiButton.root.backgroundColor
 const PurpleButtonCreateColor=relaxingPurpleTheme.overrides.MuiButton.root.backgroundColort
-const LightColorSideBar=defaultTheme.palette.SideBar.backgroundColor
+const LightColorSideBar=TranquilTealTheme.palette.SideBar.backgroundColor
 const BlueColorSideBar=calmingBlueTheme.palette.SideBar.backgroundColor
 const GreenColorSideBar=sereneGreenTheme.palette.SideBar.backgroundColor
 const PurpleColorSideBar=relaxingPurpleTheme.palette.SideBar.backgroundColor
-const LightPostBackgroundColor= defaultTheme.palette.Post.containerBackground;
+const LightPostBackgroundColor= TranquilTealTheme.palette.Post.containerBackground;
 const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
 const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
 const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
@@ -252,13 +252,13 @@ export const ButtonModal = styled.button`
   border-radius: 150px;
   margin-right: 25px;
   text-transform: capitalize;
-  background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
+  background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : TranquilTealTheme.palette.borderLine.backgroundColor};
   color: ${ProfileText};
 
-  border: 4px solid ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
+  border: 4px solid ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : TranquilTealTheme.palette.borderLine.backgroundColor};
 
   &:hover {
-    background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : defaultTheme.palette.borderLine.backgroundColor};
+    background-color: ${props => props.theme === 'blue' ? calmingBlueTheme.palette.borderLine.backgroundColor : props.theme === 'green' ? sereneGreenTheme.palette.borderLine.backgroundColor : props.theme === 'purple' ? relaxingPurpleTheme.palette.borderLine.backgroundColor : TranquilTealTheme.palette.borderLine.backgroundColor};
   }
 `;
 
@@ -784,14 +784,14 @@ height: 100vh;
 background-image: ${({ theme }) =>
   `linear-gradient(to right, ${
     theme === 'light'
-      ? `${defaultTheme.palette.primary.main} 58%`
+      ? `${TranquilTealTheme.palette.primary.main} 58%`
       : theme === 'blue'
       ? `${calmingBlueTheme.palette.primary.main} 58%`
       : theme === 'green'
       ? `${sereneGreenTheme.palette.primary.main} 58%`
       : theme === 'purple'
       ? `${relaxingPurpleTheme.palette.primary.main} 58%`
-      : `${defaultTheme.palette.primary.main} 58%`
+      : `${TranquilTealTheme.palette.primary.main} 58%`
   }, white 50%)`};
 font-family: 'Nanum Gothic', sans-serif;
 
@@ -807,14 +807,14 @@ height: 100vh;
 background-image: ${({ theme }) =>
   `linear-gradient(to bottom, ${
     theme === 'light'
-      ? `${defaultTheme.palette.primary.main} 58%`
+      ? `${TranquilTealTheme.palette.primary.main} 58%`
       : theme === 'blue'
       ? `${calmingBlueTheme.palette.primary.main} 58%`
       : theme === 'green'
       ? `${sereneGreenTheme.palette.primary.main} 58%`
       : theme === 'purple'
       ? `${relaxingPurpleTheme.palette.primary.main} 58%`
-      : `${defaultTheme.palette.primary.main} 58%`
+      : `${TranquilTealTheme.palette.primary.main} 58%`
   }, white 50%)`};
 font-family: 'Nanum Gothic', sans-serif;
 
@@ -1279,3 +1279,38 @@ export const cardFaceStyle = (props) => ({
   backgroundSize: 'cover',
   boxShadow: props.is3D ? '0 10px 20px rgba(0, 0, 0, 0.2)' : 'none',
 });
+export const ThemeModalHeading=styled.h2`
+
+color: ${ProfileText};
+text-align:center;
+margin-bottom:20px;
+
+`
+
+
+const getBackgroundColor = (theme) => {
+  return theme === 'blue'
+    ? calmingBlueTheme.palette.primary.main
+    : theme === 'green'
+    ? sereneGreenTheme.palette.primary.main
+    : theme === 'purple'
+    ? relaxingPurpleTheme.palette.primary.main
+    : TranquilTealTheme.palette.primary.main;
+};
+
+export const getStyle = (userContextTheme) => {
+  return {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+    backgroundColor: getBackgroundColor(userContextTheme),
+  };
+};
