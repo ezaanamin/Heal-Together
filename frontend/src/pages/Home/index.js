@@ -8,42 +8,58 @@ import PostModal from '../../component/CreatePost';
 import SideBar from '../../component/SideBar';
 import RecommendedUser from "../../component/RecommendedUser"
 import { StyledHome } from '../../styles/styles';
-import MindFulMoment from '../../component/MindFulMoment';
-
+import { GetUsersMindFulDetails } from '../../redux/slice/API';
+import { useDispatch } from 'react-redux';
+import Post from '../../component/Post';
 const Home = () => {
 
    const nav = useNavigate();
+   const dispatch = useDispatch();
+
   const userContext = useContext(UserContext);
   const { SetUserFirstName,SetUserSurName, SetUserGender,SetUserUsername } = userContext;
 
-useEffect(() => {
+  useEffect(() => {
     const userFirstName = localStorage.getItem('UserFirstName');
     const userSurName = localStorage.getItem('UserSurName');
     const userGender = localStorage.getItem('UserGender');
     const userUsername = localStorage.getItem('UserUsername');
-    if(userFirstName || userGender || userSurName || userUsername)
-    {
+
+    if (userFirstName || userGender || userSurName || userUsername) {
+      const fetchData = async () => {
+        try {
+          const action = await dispatch(GetUsersMindFulDetails({ username: userUsername }));
+
+          if (GetUsersMindFulDetails.fulfilled.match(action)) {
+            console.log(action.payload);
+          }
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      };
+
+      fetchData();
+
       SetUserFirstName(userFirstName);
       SetUserSurName(userSurName);
       SetUserGender(userGender);
-      SetUserUsername(userUsername)
-
-    }   
-  }, []);
-// useEffect(()=>{
+      SetUserUsername(userUsername);
+    }
+  }, []); 
+useEffect(()=>{
 
   
-//   const Token = localStorage.getItem('Token');
+  const Token = localStorage.getItem('Token');
 
-//   if(!Token)
-//   {
-//     nav('/')
-//   }
+  if(!Token)
+  {
+    nav('/')
+  }
   
-// // console.log(RecommendedUserList,'ezaanamin')
+// console.log(RecommendedUserList,'ezaanamin')
  
 
-// },[userContext.Login])
+},[userContext.Login])
 
 // useEffect(()=>{
 //   alert(userContext.UserUsername)
@@ -51,22 +67,20 @@ useEffect(() => {
 
   return (
     <>
-
-       <StyledHome theme={userContext.theme}>
-<SideBar/>
-       <div>
-  
-  
-      {userContext.firstTimeUser ? 
-      <RecommendedUser/>:null
-}
-     
-    </div>
-        {userContext.CreatePost ? <PostModal/>:null}
+<StyledHome theme={userContext.theme}>
+        <SideBar />
+        <div>
+          {userContext.firstTimeUser ? <RecommendedUser /> : null}
+        </div>
+        {userContext.CreatePost ? <PostModal /> : null}
         <StatusBar />
-
-
-        </StyledHome>
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+      </StyledHome>
     </>
 )
 };

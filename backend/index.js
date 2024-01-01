@@ -4,6 +4,7 @@ import cors from "cors"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import UserRoutes from "./routes/users.js"
+import MindFulMomentsRoutes from "./routes/MindFulMoments.js"
 import neo4j from "neo4j-driver"
 import cookieParser from "cookie-parser"
 import { Users } from "./model/users.js"
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use('/upload',express.static('upload'))
 
 app.use("/users",UserRoutes);
+app.use('/mindful_moments',MindFulMomentsRoutes)
 
 app.use(cors())
 app.get("/",(req,res)=>{

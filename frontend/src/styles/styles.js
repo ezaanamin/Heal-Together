@@ -4,13 +4,13 @@ import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
-const LightStatusBar =TranquilTealTheme.palette.Comments.backgroundColor
+const LightStatusBar =TranquilTealTheme.palette.statusBar.backgroundColor
 const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
-const BlueStatusBar =calmingBlueTheme.palette.Comments.backgroundColor
+const BlueStatusBar =calmingBlueTheme.palette.statusBar.backgroundColor
 const BlueStatusBarHover =calmingBlueTheme.palette.CommentsHover.backgroundColor
-const GreenStatusBar =sereneGreenTheme.palette.Comments.backgroundColor
+const GreenStatusBar =sereneGreenTheme.palette.statusBar.backgroundColor
 const GreenStatusBarHover =sereneGreenTheme.palette.CommentsHover.backgroundColor
-const PurpleStatusBar = relaxingPurpleTheme.palette.Comments.backgroundColor
+const PurpleStatusBar = relaxingPurpleTheme.palette.statusBar.backgroundColor
 const PurpleStatusBarHover =relaxingPurpleTheme.palette.CommentsHover.backgroundColor
 const GreenTextColor =sereneGreenTheme.palette.text.primary
 const BlueTextColor = calmingBlueTheme.palette.text.primary
@@ -44,6 +44,7 @@ const LightPostBackgroundColor= TranquilTealTheme.palette.Post.containerBackgrou
 const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
 const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
 const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
+
 
 export const GetMainBackGround = (theme) => {
   return theme === 'light' ? LightMainContainer :
@@ -356,7 +357,7 @@ margin-bottom:25px;
 
 `
 export const EditProfilePhoto = styled.img`
-  border-radius: 50%; /* Reduced the border-radius to 50% for a circular shape */
+  border-radius: 50%;
   height: 100px;
   width: 100px;
   position: absolute;
@@ -628,58 +629,21 @@ margin-bottom:10px;
 
 `
 
- export const StyledStatusBar = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 700px;
-    position: fixed;
-    top: 200px;
-    height: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow-x: hidden;
-    background-color: ${props => GetMainBackGround(props.theme) || 'defaultColor'};
-`;
+export const StyledStatusBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  position: fixed;
+  top: 100px;
+  height: 140px;
+  left: 50%;
+  transform: translateX(-50%);
 
-   export const StatusBarButton = styled.button`
-    width: 600px;
-
-    height: 50px;
-    border-radius: 50px;
-    background-color: ${props => MainProfile(props.theme) || 'BLUE'};
-  &:hover {
-    background-color: ${props => MainProfileHover(props.theme) || 'BLACK'};
-  }
-    border: none;
-  `;
-
-   export const StatusBarHeading = styled.h3`
- color:${ProfileText}
-    font-size: 18px;
-    position: relative;
-    right: 130px;
-  `;
-
-  export const StatusBarItems = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
-
-   export const StatusBarProfile = styled.img`
-    height: 50px;
-    border-radius: 50px;
-    position: absolute;
-    left: 0;
-    top: 5px;
-  `;
-
-
-   export const PositionedMenu = styled(ColorLensIcon)`
-color: ${ProfileText};
-
-`;
+  
+  
+`
 
 
 export const VerificationBox=styled.div`
@@ -1052,7 +1016,7 @@ export const MyStoryText = styled.p`
   text-align: center;
   font-size: 16px;
   margin: 0 auto;
-  margin-bottom: 10px; /* Add margin-bottom to create space between MyStoryText and WellnessUpdates */
+  margin-bottom: 10px; 
 `;
 
 
@@ -1163,10 +1127,10 @@ export const ProgressBarContainer = styled.div`
   width: 550px;
   background-color: #ccc;
   border-radius: 5px;
-  margin: 10px auto; /* Center-align horizontally with auto margins */
+  margin: 10px auto; 
   display: flex;
-  justify-content: center; /* Center-align horizontally within the container */
-  align-items: center; /* Center-align vertically within the container */
+  justify-content: center; 
+  align-items: center;
   overflow: hidden;
 `;
 
@@ -1248,7 +1212,7 @@ margin-left:10px;
     outline: none;
   }
 
-  /* Add more styles as needed */
+
 `;
  export const cardStyle = {
   width: '200px',
@@ -1260,7 +1224,7 @@ export const cardWrapperStyle = (isFlipped) => ({
   width: '100%',
   height: '100%',
   transformStyle: 'preserve-3d',
-  transition: 'transform 1s', // Adjust the duration (1s is slower)
+  transition: 'transform 1s', 
   transform: isFlipped ? 'rotateY(360deg)' : 'rotateY(0deg)',
 });
 
@@ -1274,7 +1238,7 @@ export const cardFaceStyle = (props) => ({
   alignItems: 'center',
   fontSize: '24px',
   backgroundColor: props.isFlipped ? props.flippedBackgroundColor || '#2ecc71' : props.frontBackgroundColor || '#3498db',
-  color: props.isFlipped ? `rgba(255, 255, 255, 0.7)` : '#fff', // Adjust opacity as needed
+  color: props.isFlipped ? `rgba(255, 255, 255, 0.7)` : '#fff', 
   backgroundImage: props.isFlipped ? `url(${props.backImage})` : 'none',
   backgroundSize: 'cover',
   boxShadow: props.is3D ? '0 10px 20px rgba(0, 0, 0, 0.2)' : 'none',
@@ -1298,6 +1262,8 @@ const getBackgroundColor = (theme) => {
     : TranquilTealTheme.palette.primary.main;
 };
 
+
+
 export const getStyle = (userContextTheme) => {
   return {
     position: 'absolute',
@@ -1314,3 +1280,123 @@ export const getStyle = (userContextTheme) => {
     backgroundColor: getBackgroundColor(userContextTheme),
   };
 };
+
+const GetPostContainerBackGround = (theme) => {
+  return theme === 'blue'
+    ? calmingBlueTheme.palette.Post.containerBackground
+    : theme === 'green'
+    ? sereneGreenTheme.palette.Post.containerBackground
+    : theme === 'purple'
+    ? relaxingPurpleTheme.palette.Post.containerBackground
+    : TranquilTealTheme.palette.Post.containerBackground
+};
+export const StatusBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 100px;
+  left: 50%; 
+  width: 800px;
+  max-width: 900px;
+  height: 90.01px;
+  max-height: 100px;
+  border-radius: 20px;
+  background-color: ${props => MainButton(props.theme) || 'blue'};
+  overflow: hidden;
+  transform: translateX(-50%); 
+`;
+
+export const StatusBarContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+`;
+
+export const StatusBarHeading = styled.h3`
+  color: ${ProfileText};
+  margin: 20px;
+  font-weight: normal;
+  overflow: hidden;
+  white-space: nowrap; 
+  position: fixed;
+  top:-5px;
+ 
+`;
+
+
+
+  export const StatusBarItems = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; 
+  overflow:hidden;
+  position:relative;
+  top:10px;
+
+
+`;
+
+export const StatusBarItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top:20px;
+  margin-bottom:10px;
+`;
+  export const ColoredHr = styled.div`
+  border-bottom: 5px solid ${(props) => MainBorderColor(props.theme)};
+  width: 100%;
+  margin: 10px 0;
+  position:relative;
+  top:40px;
+`;
+
+
+export const StatusBarProfile = styled.img`
+  width: 30.46px;
+ 
+  height: 30px;
+  border-radius: 50px;
+  margin-right: 10px; 
+  transition: opacity 0.3s ease;
+  position:absolute;
+  top:20px;
+left:20px;
+transform: scale(1.4);
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+   export const PositionedMenu = styled(ColorLensIcon)`
+color: ${ProfileText};
+
+`;
+export const PostContainer = styled.div`
+  background: ${(props) => GetPostContainerBackGround(props.theme)};
+  width: 800px;
+  margin: 220px auto 10px auto; /* Adjust the top and bottom margin values as needed */
+`;
+
+export const PostProfilePic = styled.img`
+  width: 70px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 10px; /* Adjust the margin value as needed */
+`;
+
+export const PostContent = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ProfileHeadingPost = styled.p`
+  margin: 10px; /* Adjust the margin value as needed */
+`;

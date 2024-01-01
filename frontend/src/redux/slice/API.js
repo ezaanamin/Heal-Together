@@ -133,6 +133,20 @@ export const UserFriends = createAsyncThunk(
   }
 );
 
+export const GetUsersMindFulDetails=createAsyncThunk(
+'post/GetUsersMindFulDetails',
+async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('http://localhost:4000/mindful_moments/get', data);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+}
+);
+
+
+
 export const APISlice = createSlice({
   name: 'API',
   initialState: { data: [], error: null, status: 'idle',verfiedStatus:null},
@@ -226,11 +240,6 @@ export const APISlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       });
-
-//GetUsersProfile
-
-
-
 builder
 .addCase(GetUsersProfile.pending, (state) => {
   state.status = 'loading';
@@ -244,7 +253,6 @@ builder
   state.status = 'failed';
   state.error = action.payload;
 });
-
 
 builder
 .addCase(EditUserProfile.pending, (state) => {
@@ -260,14 +268,24 @@ builder
   state.error = action.payload;
 });
 
+builder
+.addCase(GetUsersMindFulDetails.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetUsersMindFulDetails.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetUsersMindFulDetails.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
 
 
 
 
-      
-
-
-
+    
   },
 });
 
