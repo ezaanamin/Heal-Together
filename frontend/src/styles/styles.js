@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 import { relaxingPurpleTheme,sereneGreenTheme,TranquilTealTheme,calmingBlueTheme } from "../themes/themes"
 import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
+import ColorLensIcon from '@mui/icons-material/ColorLens'
 const LightStatusBar =TranquilTealTheme.palette.statusBar.backgroundColor
 const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
 const BlueStatusBar =calmingBlueTheme.palette.statusBar.backgroundColor
@@ -44,6 +44,34 @@ const LightPostBackgroundColor= TranquilTealTheme.palette.Post.containerBackgrou
 const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
 const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
 const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
+const BlueCommentSection=calmingBlueTheme.palette.Comments.backgroundColor
+const GreenCommentSection=sereneGreenTheme.palette.Comments.backgroundColor
+const PurpleCommentSection=relaxingPurpleTheme.palette.Comments.backgroundColor
+const TranquilTealCommentSection=TranquilTealTheme.palette.Comments.backgroundColor
+const LightHeartFill1_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor1;
+const LightHeartFill2_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor2;
+const LightHeartFill3_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor3;
+const LightHeartStroke_TranquilTeal = TranquilTealTheme.palette.animateHeart.strokeColor;
+const LightHeartFilter_TranquilTeal = TranquilTealTheme.palette.animateHeart.filter;
+const LightHeartFill1_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor1;
+const LightHeartFill2_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor2;
+const LightHeartFill3_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor3;
+const LightHeartStroke_CalmingBlue = calmingBlueTheme.palette.animateHeart.strokeColor;
+const LightHeartFilter_CalmingBlue = calmingBlueTheme.palette.animateHeart.filter;
+
+const LightHeartFill1_SereneGreen = sereneGreenTheme.palette.animateHeart.fillColor1;
+const LightHeartFill2_SereneGreen = sereneGreenTheme.palette.animateHeart.fillColor2;
+const LightHeartFill3_SereneGreen = sereneGreenTheme.palette.animateHeart.fillColor3;
+const LightHeartStroke_SereneGreen = sereneGreenTheme.palette.animateHeart.strokeColor;
+const LightHeartFilter_SereneGreen = sereneGreenTheme.palette.animateHeart.filter;
+
+
+const LightHeartFill1_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.fillColor1;
+const LightHeartFill2_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.fillColor2;
+const LightHeartFill3_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.fillColor3;
+const LightHeartStroke_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.strokeColor;
+const LightHeartFilter_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.filter;
+
 
 
 export const GetMainBackGround = (theme) => {
@@ -61,6 +89,53 @@ export const GetPostBackGroundColor = (theme) => {
     theme === 'green' ?  GreenPostBackgroundColor  :
     theme === 'purple' ?  PurplePostBackgroundColor:
     LightPostBackgroundColor; 
+};
+
+export const GetCommentSectionBackground = (theme) => {
+  return theme === 'light' ? TranquilTealCommentSection :
+    theme === 'blue' ? BlueCommentSection :
+    theme === 'green' ?  GreenCommentSection  :
+    theme === 'purple' ?  PurpleCommentSection:
+    TranquilTealCommentSection; 
+};
+
+export const GetLightHeartFill1 = (theme) => {
+  return theme === 'light' ?  LightHeartFill1_TranquilTeal :
+    theme === 'blue' ? LightHeartFill1_CalmingBlue :
+    theme === 'green' ?  LightHeartFill1_SereneGreen  :
+    theme === 'purple' ?  LightHeartFill1_RelaxingPurple:
+    LightHeartFill1_TranquilTeal; 
+};
+export const GetLightHeartFill2 = (theme) => {
+  return theme === 'light' ?  LightHeartFill2_TranquilTeal :
+    theme === 'blue' ? LightHeartFill2_CalmingBlue :
+    theme === 'green' ?  LightHeartFill2_SereneGreen  :
+    theme === 'purple' ?  LightHeartFill2_RelaxingPurple:
+    LightHeartFill2_TranquilTeal; 
+};
+
+export const GetLightHeartFill3 = (theme) => {
+  return theme === 'light' ?  LightHeartFill3_TranquilTeal :
+    theme === 'blue' ? LightHeartFill3_CalmingBlue :
+    theme === 'green' ?  LightHeartFill3_SereneGreen  :
+    theme === 'purple' ?  LightHeartFill3_RelaxingPurple:
+    LightHeartFill3_TranquilTeal; 
+};
+
+export const GetLightHeartStroke = (theme) => {
+  return theme === 'light' ?   LightHeartStroke_TranquilTeal :
+    theme === 'blue' ?  LightHeartStroke_CalmingBlue :
+    theme === 'green' ?   LightHeartStroke_SereneGreen :
+    theme === 'purple' ?   LightHeartStroke_RelaxingPurple:
+    LightHeartStroke_TranquilTeal; 
+};
+
+export const GetLightHeartFilter = (theme) => {
+  return theme === 'light' ?   LightHeartFilter_TranquilTeal :
+    theme === 'blue' ?  LightHeartFilter_CalmingBlue :
+    theme === 'green' ?   LightHeartFilter_SereneGreen :
+    theme === 'purple' ?   LightHeartFilter_RelaxingPurple:
+    LightHeartFilter_TranquilTeal; 
 };
 export const ADDTOPOST=styled.div`
 border: 1px solid black;
@@ -1382,14 +1457,14 @@ color: ${ProfileText};
 export const PostContainer = styled.div`
   background: ${(props) => GetPostContainerBackGround(props.theme)};
   width: 800px;
-  margin: 220px auto 10px auto; /* Adjust the top and bottom margin values as needed */
+  margin: ${(props) => (props.isFirst ? '120px' : '10px')} auto 10px auto; 
 `;
 
 export const PostProfilePic = styled.img`
   width: 70px;
   height: 50px;
   border-radius: 50px;
-  margin: 10px; /* Adjust the margin value as needed */
+  margin: 10px; 
 `;
 
 export const PostContent = styled.div`
@@ -1398,5 +1473,84 @@ export const PostContent = styled.div`
 `;
 
 export const ProfileHeadingPost = styled.p`
-  margin: 10px; /* Adjust the margin value as needed */
+  margin: 10px; 
 `;
+export const CommentSection = styled.div`
+  background: ${(props) => GetCommentSectionBackground(props.theme)};
+  width: 800px;
+  height: 70px;
+`;
+export const HeartContainer = styled.div`
+  fill: none;
+  stroke-width: 1px;
+  stroke: ${props => GetLightHeartStroke(props.theme)};
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 7px ${props => GetLightHeartFilter(props.theme)});
+`;
+
+
+const animateHeart = (props) => keyframes`
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  40% {
+    stroke-dashoffset: 67;
+  }
+
+  80% {
+    stroke-dashoffset: 134;
+    fill: transparent;
+  }
+
+  100% {
+    stroke-dashoffset: 134;
+    fill: ${GetLightHeartFill1(props.theme)};
+  }
+`;
+const reverseHeart = (props) => keyframes`
+  0% {
+    stroke-dashoffset: 134;
+    fill:${(props) => GetLightHeartFill1(props.theme)}
+
+  }
+
+  20% {
+    stroke-dashoffset: 67;
+    fill: transparent;
+  }
+
+  60% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+`;
+
+export const HeartPath = styled.path`
+  stroke-dasharray: 67;
+  stroke-dashoffset: 0;
+
+  ${({ isClicked, theme }) => isClicked
+    ? css`animation: ${animateHeart({ theme })} 3s linear forwards;`
+    : css`animation: ${reverseHeart({ theme })} 3s linear forwards;`}
+`;
+export const HeartSVG = styled.svg`
+  width: 50px;
+  height: 50px;
+`;
+
+// return (
+//     <HeartContainer onClick={handleClick}>
+//       <HeartSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//         <HeartPath
+//           isClicked={isClicked}
+//           clipRule="evenodd"
+//           d="M6.47358 1.96511C8.27963 1.93827 10.2651 2.62414 12 4.04838C13.7349 2.62414 15.7204 1.93827 17.5264 1.96511C19.5142 1.99465 21.3334 2.90112 22.2141 4.68531C23.0878 6.45529 22.9326 8.87625 21.4643 11.7362C19.9939 14.6003 17.1643 18.0021 12.4867 21.8566C12.4382 21.898 12.3855 21.9324 12.3298 21.9596C12.1243 22.0601 11.8798 22.0624 11.6702 21.9596C11.6145 21.9324 11.5618 21.898 11.5133 21.8566C6.83565 18.0021 4.00609 14.6003 2.53569 11.7362C1.06742 8.87625 0.912211 6.45529 1.78589 4.68531C2.66659 2.90112 4.4858 1.99465 6.47358 1.96511Z"
+//           fillRule="evenodd"
+//         />
+//       </HeartSVG>
+//     </HeartContainer>
+// );

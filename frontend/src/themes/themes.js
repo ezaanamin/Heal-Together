@@ -38,6 +38,13 @@ const TranquilTealTheme = createTheme({
       backgroundColor: '#B2DFDB',
       inputBackground: '#E0F7FA',
     },
+    animateHeart: {
+      fillColor1: '#F06292',
+      fillColor2: '#FFB74D',
+      fillColor3: '#81C784',
+      strokeColor: '#D32F2F',
+      filter: '#00000080',
+    },
   },
   overrides: {
     MuiButton: {
@@ -47,6 +54,8 @@ const TranquilTealTheme = createTheme({
     },
   },
 });
+
+// ...
 
 const calmingBlueTheme = createTheme({
   palette: {
@@ -85,6 +94,13 @@ const calmingBlueTheme = createTheme({
     statusBar: {
       backgroundColor: '#90CAF9',
       inputBackground: '#BBDEFB',
+    },
+    animateHeart: {
+      fillColor1: '#64B5F6',
+      fillColor2: '#FF8A65',
+      fillColor3: '#81C784',
+      strokeColor: '#1565C0',
+      filter: '#00000080',
     },
   },
   overrides: {
@@ -134,6 +150,13 @@ const sereneGreenTheme = createTheme({
       backgroundColor: '#A5D6A7',
       inputBackground: '#C8E6C9',
     },
+    animateHeart: {
+      fillColor1: '#689F38',
+      fillColor2: '#FFD54F',
+      fillColor3: '#81C784',
+      strokeColor: '#2E7D32',
+      filter: '#00000080',
+    },
   },
   overrides: {
     MuiButton: {
@@ -182,6 +205,13 @@ const relaxingPurpleTheme = createTheme({
       backgroundColor: '#CE93D8',
       inputBackground: '#E1BEE7',
     },
+    animateHeart: {
+      fillColor1: '#AB47BC',
+      fillColor2: '#FF80AB',
+      fillColor3: '#81C784',
+      strokeColor: '#6A1B9A',
+      filter: '#00000080',
+    },
   },
   overrides: {
     MuiButton: {
@@ -191,6 +221,8 @@ const relaxingPurpleTheme = createTheme({
     },
   },
 });
+
+
 
 
 export { TranquilTealTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme };

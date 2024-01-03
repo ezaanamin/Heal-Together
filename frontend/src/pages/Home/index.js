@@ -17,7 +17,7 @@ const Home = () => {
    const dispatch = useDispatch();
 
   const userContext = useContext(UserContext);
-  const { SetUserFirstName,SetUserSurName, SetUserGender,SetUserUsername } = userContext;
+  const { SetUserFirstName,SetUserSurName, SetUserGender,SetUserUsername,PostContent,SetPostContent } = userContext;
 
   useEffect(() => {
     const userFirstName = localStorage.getItem('UserFirstName');
@@ -31,6 +31,7 @@ const Home = () => {
           const action = await dispatch(GetUsersMindFulDetails({ username: userUsername }));
 
           if (GetUsersMindFulDetails.fulfilled.match(action)) {
+            SetPostContent(action.payload)
             console.log(action.payload);
           }
         } catch (error) {
@@ -74,12 +75,9 @@ useEffect(()=>{
         </div>
         {userContext.CreatePost ? <PostModal /> : null}
         <StatusBar />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {PostContent.map((postData, index) => (
+        <Post key={index} isFirst={index === 0} PostText={postData.MindfulMoments} Date={postData.Date} />
+      ))}
       </StyledHome>
     </>
 )
