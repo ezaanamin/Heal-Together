@@ -4,12 +4,8 @@ import { UserContext } from '../contextState/contextState'
 import { useContext } from 'react';
 import TestProfilePic from "../images/beautiful-woman-street.jpg"
 import { useState } from 'react';
-import CommentIcon from "../images/hands_holding1.svg"
-import HoldingHandsSVG from "../svg/holdinghand.svg"
 import styled, { keyframes } from 'styled-components';
 import HandIcon from '../SVG ANIMATION/HandIcon';
-import MainHand from '../SVG ANIMATION/Main';
-import MainHandAnimation from '../SVG ANIMATION/MainHandAnimation';
 function Post({ isFirst, Date, PostText, Likes,Comments }) {
   const fadeIn = keyframes`
   from {
