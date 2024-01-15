@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
-import CloseIcon from '@mui/icons-material/Close';
 import  {TranquilTealTheme, calmingBlueTheme, sereneGreenTheme, relaxingPurpleTheme} from "../themes/themes"
 import CardFlip from './CardFlip';
 import { useEffect } from 'react';
 import { ThemeModalHeading,getStyle } from '../styles/styles';
+import { ButtonModalTheme,CenteredContainerButton } from '../styles/styles';
 export default function ModalThemeModal() {
   const userContext = useContext(UserContext);
   const { setTheme, SetColorTheme,   isFlippedcalmingBlueTheme,
@@ -81,7 +81,6 @@ export default function ModalThemeModal() {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 700 }}>
-          <CloseIcon style={{ fontSize: 30 }} onClick={handleClose} />
          <ThemeModalHeading> Harmony Palette: Choose Your Healing Theme</ThemeModalHeading>
           <div style={{ display: 'flex', gap: '16px' }}>
   <CardFlip
@@ -131,7 +130,12 @@ export default function ModalThemeModal() {
   >
   Tranquil Teal Theme
   </CardFlip>
+
+
 </div>
+<CenteredContainerButton>
+  <ButtonModalTheme onClick={()=>handleClose()} theme={userContext.theme}>Apply Healing Palette</ButtonModalTheme>
+</CenteredContainerButton>
         </Box>
       </Modal>
     </div>

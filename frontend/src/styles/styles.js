@@ -338,6 +338,53 @@ export const ButtonModal = styled.button`
   }
 `;
 
+export const CenteredContainerButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ButtonModalTheme = styled.button`
+  width: 300px;
+  height: 50px;
+  border-radius: 150px;
+  margin-top:20px;
+  text-transform: capitalize;
+  background-color: ${props => (
+    props.theme === 'blue'
+      ? calmingBlueTheme.palette.borderLine.backgroundColor
+      : props.theme === 'green'
+      ? sereneGreenTheme.palette.borderLine.backgroundColor
+      : props.theme === 'purple'
+      ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+      : TranquilTealTheme.palette.borderLine.backgroundColor
+  )};
+  color: ${ProfileText};
+
+  border: 4px solid ${props => (
+    props.theme === 'blue'
+      ? calmingBlueTheme.palette.borderLine.backgroundColor
+      : props.theme === 'green'
+      ? sereneGreenTheme.palette.borderLine.backgroundColor
+      : props.theme === 'purple'
+      ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+      : TranquilTealTheme.palette.borderLine.backgroundColor
+  )};
+
+  &:hover {
+    background-color: ${props => (
+      props.theme === 'blue'
+        ? calmingBlueTheme.palette.borderLine.backgroundColor
+        : props.theme === 'green'
+        ? sereneGreenTheme.palette.borderLine.backgroundColor
+        : props.theme === 'purple'
+        ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+        : TranquilTealTheme.palette.borderLine.backgroundColor
+    )};
+  }
+`;
+
+
 export const GridItem = styled.div`
 text-align: center;
 color: ${ProfileText};
@@ -1478,7 +1525,9 @@ export const ProfileHeadingPost = styled.p`
 export const CommentSection = styled.div`
   background: ${(props) => GetCommentSectionBackground(props.theme)};
   width: 800px;
-  height: 70px;
+  height: 50px;
+
+  overflow: hidden;
 `;
 export const HeartContainer = styled.div`
   fill: none;
@@ -1486,6 +1535,9 @@ export const HeartContainer = styled.div`
   stroke: ${props => GetLightHeartStroke(props.theme)};
   cursor: pointer;
   filter: drop-shadow(0px 0px 7px ${props => GetLightHeartFilter(props.theme)});
+  display: flex;
+  flex-direction: row;
+
 `;
 
 
@@ -1508,49 +1560,44 @@ const animateHeart = (props) => keyframes`
     fill: ${GetLightHeartFill1(props.theme)};
   }
 `;
-const reverseHeart = (props) => keyframes`
-  0% {
-    stroke-dashoffset: 134;
-    fill:${(props) => GetLightHeartFill1(props.theme)}
 
-  }
 
-  20% {
-    stroke-dashoffset: 67;
-    fill: transparent;
-  }
-
-  60% {
-    stroke-dashoffset: 0;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-  }
-`;
-
-export const HeartPath = styled.path`
+export const AnimatedHeartPath = styled.path`
   stroke-dasharray: 67;
   stroke-dashoffset: 0;
 
   ${({ isClicked, theme }) => isClicked
     ? css`animation: ${animateHeart({ theme })} 3s linear forwards;`
-    : css`animation: ${reverseHeart({ theme })} 3s linear forwards;`}
+    : null};
 `;
 export const HeartSVG = styled.svg`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
+  margin:10px;
 `;
+
+export const HeartPath = styled.path`
+  stroke-dasharray: 67;
+  stroke-dashoffset: 0;
+  stroke-dashoffset: 134;
+  fill: ${(props) => GetLightHeartFill1(props.theme)};
+`;
+
+
+
+
+
+
 
 // return (
 //     <HeartContainer onClick={handleClick}>
-//       <HeartSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//         <HeartPath
+//       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//         <animated_heart_path
 //           isClicked={isClicked}
 //           clipRule="evenodd"
 //           d="M6.47358 1.96511C8.27963 1.93827 10.2651 2.62414 12 4.04838C13.7349 2.62414 15.7204 1.93827 17.5264 1.96511C19.5142 1.99465 21.3334 2.90112 22.2141 4.68531C23.0878 6.45529 22.9326 8.87625 21.4643 11.7362C19.9939 14.6003 17.1643 18.0021 12.4867 21.8566C12.4382 21.898 12.3855 21.9324 12.3298 21.9596C12.1243 22.0601 11.8798 22.0624 11.6702 21.9596C11.6145 21.9324 11.5618 21.898 11.5133 21.8566C6.83565 18.0021 4.00609 14.6003 2.53569 11.7362C1.06742 8.87625 0.912211 6.45529 1.78589 4.68531C2.66659 2.90112 4.4858 1.99465 6.47358 1.96511Z"
 //           fillRule="evenodd"
 //         />
-//       </HeartSVG>
+//       </animated_heart_svg>
 //     </HeartContainer>
 // );

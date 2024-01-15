@@ -11,6 +11,7 @@ import { StyledHome } from '../../styles/styles';
 import { GetUsersMindFulDetails } from '../../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import Post from '../../component/Post';
+import HandIcon from '../../SVG ANIMATION/HandIcon';
 const Home = () => {
 
    const nav = useNavigate();
@@ -32,7 +33,12 @@ const Home = () => {
 
           if (GetUsersMindFulDetails.fulfilled.match(action)) {
             SetPostContent(action.payload)
-            console.log(action.payload);
+            console.log(action.payload[0],'ezaan amin');
+            if (action.payload[0] && action.payload[0].Likes) {
+              console.log('Likes:', action.payload[0].Likes);
+            } else {
+              console.log('Likes array not found in the payload');
+            }
           }
         } catch (error) {
           console.error('Error fetching user details:', error);
@@ -68,7 +74,7 @@ useEffect(()=>{
 
   return (
     <>
-<StyledHome theme={userContext.theme}>
+ <StyledHome theme={userContext.theme}>
         <SideBar />
         <div>
           {userContext.firstTimeUser ? <RecommendedUser /> : null}
@@ -76,9 +82,22 @@ useEffect(()=>{
         {userContext.CreatePost ? <PostModal /> : null}
         <StatusBar />
         {PostContent.map((postData, index) => (
-        <Post key={index} isFirst={index === 0} PostText={postData.MindfulMoments} Date={postData.Date} />
-      ))}
-      </StyledHome>
+  <div key={index}>
+    <Post
+      isFirst={index === 0}
+      PostText={postData.MindfulMoments}
+      Date={postData.Date}
+      Likes={postData.Likes}
+      Comments={postData.Comments}
+    />
+
+  
+  </div>
+))}  
+
+      </StyledHome> 
+
+    
     </>
 )
 };
