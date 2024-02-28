@@ -1511,10 +1511,11 @@ export const PostContainer = styled.div`
 `;
 
 export const PostProfilePic = styled.img`
-  width: 70px;
+  width: 50px;
   height: 50px;
   border-radius: 50px;
-  margin: 10px; 
+  margin: 10px;
+  margin-right:50px; 
 `;
 
 export const PostContent = styled.div`

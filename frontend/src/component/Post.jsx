@@ -1,13 +1,14 @@
 import React from 'react'
-import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
 import { UserContext } from '../contextState/contextState'
 import { useContext } from 'react';
-import TestProfilePic from "../images/beautiful-woman-street.jpg"
+// import TestProfilePic from "../images/beautiful-woman-street.jpg"
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import HandIcon from '../SVG ANIMATION/HandIcon';
 import MainComment from '../SVG ANIMATION/MainComment';
-function Post({ isFirst, Date, PostText, Likes,Comments }) {
+import { Link } from 'react-router-dom';
+import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
+function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic}) {
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -29,25 +30,24 @@ const AnimatedContainer = styled.div`
   const userContext = useContext(UserContext);
 
 
-
   const HandleLikes=()=>{
 
-     SetLike(!like);
-    console.log(like,'this is like')
-    if(!like===true)
-    {
-      SetLikeCount(likesCount+1)
+    SetLike(!like);
+   console.log(like,'this is like')
+   if(!like===true)
+   {
+     SetLikeCount(likesCount+1)
 
-    }
-    if(!like===false)
-    {
-      SetLikeCount(likesCount-1)
+   }
+   if(!like===false)
+   {
+     SetLikeCount(likesCount-1)
 
-    }
-  
-  
-  
-  }
+   }
+ 
+ 
+ 
+ }
 
   const [like,SetLike]=useState(false)
  const [likesCount,SetLikeCount]=useState(Likes.length)
@@ -55,9 +55,11 @@ const AnimatedContainer = styled.div`
   <>
         <PostContainer theme={userContext.theme} isFirst={isFirst}>   
     <PostContent>
-      <PostProfilePic src={TestProfilePic} alt="Profile" />
+    <Link to={`/${username}`}>
+      <PostProfilePic src={`http://localhost:4000/upload/${profile_pic}`}  alt="Profile" />
+      </Link>
       <ProfileHeadingPost>
-        <b>{userContext.UserFirstName} </b>shares her enchanting Mindful_Moments
+        <b>{username} </b>shares her enchanting Mindful_Moments
         <br />
         <b>{Date}</b>
         <br/>

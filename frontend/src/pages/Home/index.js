@@ -32,14 +32,18 @@ const Home = () => {
           const action = await dispatch(GetUsersMindFulDetails({ username: userUsername }));
 
           if (GetUsersMindFulDetails.fulfilled.match(action)) {
-            SetPostContent(action.payload)
-            console.log(action.payload[0],'ezaan amin');
-            if (action.payload[0] && action.payload[0].Likes) {
-              console.log('Likes:', action.payload[0].Likes);
-            } else {
-              console.log('Likes array not found in the payload');
-            }
+
+
+            console.log(action.payload,'post')
           }
+            SetPostContent(action.payload)
+          //   console.log(action.payload[0],'ezaan amin');
+          //   if (action.payload[0] && action.payload[0].Likes) {
+          //     console.log('Likes:', action.payload[0].Likes);
+          //   } else {
+          //     console.log('Likes array not found in the payload');
+          //   }
+          // }
         } catch (error) {
           console.error('Error fetching user details:', error);
         }
@@ -84,11 +88,13 @@ useEffect(()=>{
         {PostContent.map((postData, index) => (
   <div key={index}>
     <Post
+    username={postData.username}
       isFirst={index === 0}
       PostText={postData.MindfulMoments}
       Date={postData.Date}
-      Likes={postData.Likes}
-      Comments={postData.Comments}
+      Likes={postData.support}
+      profile_pic={postData.profile_pic}
+      Comments={"hii"}
     />
 
   

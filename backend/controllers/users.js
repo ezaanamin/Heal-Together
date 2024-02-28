@@ -601,7 +601,7 @@ console.log(data)
     console.log(error)
   }
 
-  returnData(parsedUserData,res)
+  // returnData(parsedUserData,res)
 
 };
 export const GetUsersProfile = async (req, res) => {

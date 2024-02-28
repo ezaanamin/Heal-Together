@@ -5,7 +5,7 @@ export const DateDifference = (date) => {
     const differenceInMilliseconds = formattedDate.diff(currentDate);
     const daysDifference = Math.abs(Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)));
     const weeksDifference = Math.floor(daysDifference / 7);
-    const monthsDifference = Math.floor(weeksDifference / 4.34524); // average days in a month
+    const monthsDifference = Math.floor(weeksDifference / 4.34524); 
     let remainingTime;
     if (daysDifference >= 7) {
       if (monthsDifference >= 12) {

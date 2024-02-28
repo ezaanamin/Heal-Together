@@ -176,7 +176,7 @@ const UserFriendsList = async () => {
  <WellnessUpdatesComments>
  
 
-  {PostContent.map((postData, index) => (
+  {/* {PostContent.map((postData, index) => (
     <div key={index}>
       <Post
         isFirst={false}
@@ -186,7 +186,7 @@ const UserFriendsList = async () => {
         Comments={postData.Comments}
       />
     </div>
-  ))}
+  ))} */}
 
 
 </WellnessUpdatesComments> 
