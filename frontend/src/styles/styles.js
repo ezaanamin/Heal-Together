@@ -267,14 +267,15 @@ export const MainProfile = (theme) => {
 export const Profile = styled.div`
   width: 900px;
   height: 60px;
-  border-radius: 150px;
-  margin-right: 25px;
+  border-radius: 50px;
+  margin-right: 15px;
   margin-bottom: 20px;
-  background-color: ${props => MainProfile(props.theme) || 'BLUE'};
+  background-color: ${props => MainProfile(props.theme)};
   &:hover {
-    background-color: ${props => MainProfileHover(props.theme) || 'BLACK'};
+    background-color: ${props => MainProfileHover(props.theme)};
   }
   color:${ProfileText}
+  
 `;
 export const getDynamicStyle = (theme) => {
   const style = {
@@ -1169,7 +1170,9 @@ color: ${ProfileText};
 `
 
 export const  WellnessUpdatesComments=styled.div`
-position: relative;
+ position: relative;
+
+
 
 `
 
@@ -1527,7 +1530,7 @@ export const CommentSection = styled.div`
   width: 800px;
   height: 50px;
 
-  overflow: hidden;
+    overflow: hidden;
 `;
 export const HeartContainer = styled.div`
   fill: none;

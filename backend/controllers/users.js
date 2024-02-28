@@ -518,11 +518,10 @@ const returnData = (type, res) => {
       UserCoping: type.UserCoping,
       UsersDetail: type.UsersDetail,
       userProfile: type.userProfile,
+
     });
   } else {
-    // Handle the case where res is undefined or doesn't have a json method
     console.error('Invalid or undefined response object');
-    // You might want to send a different response or handle the error accordingly
   }
 };
 function transformDataToArrays(data) {
@@ -544,10 +543,14 @@ const updateUserData = async (doc, username, client, res) => {
 `;
 
 
+
+
+
+
+
   const result = await session.run(cypherQuery);
   const count = result.records[0].get('count');
   const SupportGroup = [count.low];
-
   await session.close();
   driver.close();
 
@@ -564,6 +567,7 @@ const updateUserData = async (doc, username, client, res) => {
     }
   ];
 
+
   const UserCoping = transformDataToArrays(doc.Coping);
 
   const data = {
@@ -571,10 +575,12 @@ const updateUserData = async (doc, username, client, res) => {
     UserMentalHealthInsight: UserMentalHealthInsight,
     UserCoping: UserCoping,
     UsersDetail: UsersDetail,
-    userProfile: doc.userProfile
+    userProfile: doc.userProfile,
   };
 
   const UserData = JSON.stringify(data);
+
+console.log(data)
 
   await client.set(username, UserData);
   const expirationInSeconds = 3600;
@@ -583,17 +589,17 @@ const updateUserData = async (doc, username, client, res) => {
 
 
 
-  // try { 
-  //   res.json({
-  //     SupportGroup: parsedUserData.SupportGroup,
-  //     UserMentalHealthInsight: parsedUserData.UserMentalHealthInsight,
-  //     UserCoping: parsedUserData.UserCoping,
-  //     UsersDetail: parsedUserData.UsersDetail,
-  //     userProfile: parsedUserData.userProfile,
-  //   });
-  // } catch (error) {
-  //   console.log(error)
-  // }
+  try { 
+    res.json({
+      SupportGroup: parsedUserData.SupportGroup,
+      UserMentalHealthInsight: parsedUserData.UserMentalHealthInsight,
+      UserCoping: parsedUserData.UserCoping,
+      UsersDetail: parsedUserData.UsersDetail,
+      userProfile: parsedUserData.userProfile,
+    });
+  } catch (error) {
+    console.log(error)
+  }
 
   returnData(parsedUserData,res)
 
@@ -717,3 +723,43 @@ export const UserFriends = async (req, res) => {
   }
 }
 
+export const Neo4jTesting = async (req, res) => {
+
+    const uri = process.env.NEO4J_URI;
+    const user = process.env.NEO4J_USERNAME;
+    const password = process.env.NEO4J_PASSWORD;
+    
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const session = driver.session();
+
+    const cypherQuery = `
+      MATCH (p:Users {username: "LSmith123"})-[:support_group]->()
+      WITH COUNT(p) AS count
+      
+      MATCH p=(n:Users {username: "LSmith123"})-[:Authors]->(a:\`MindFul Moments\`)
+      RETURN count, COLLECT(a.Mindful_Moments) AS Mindful_Moments
+    `;
+
+
+    {/*
+
+for NEO4j the format is :
+
+
+      MATCH (p:Users {username: "LSmith123"})-[:support_group]->()
+      WITH COUNT(p) AS count
+      
+      MATCH p=(n:Users {username: "LSmith123"})-[:Authors]->(a:`MindFul Moments`)
+      RETURN count, COLLECT(a.Mindful_Moments) AS Mindful_Moments
+*/}
+
+    const result = await session.run(cypherQuery);
+
+    const { count, Mindful_Moments } = result.records[0].toObject();
+
+    console.log(count.low,Mindful_Moments)
+
+
+    res.json({support_group:count.low,Mindful_Moments:Mindful_Moments})
+  
+}

@@ -136,22 +136,24 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
     handleCoverAndProfilePicUpload();
   }, [CoverProilePicFile, ProfilePicFile]);
 
-
-  const HandleChange = () => {
-
-    alert(first_name)
-
-    // Dispatch the action
-    dispatch(EditUserProfile({
-      username: username,
-      firstName: first_name,
-      surName: surname,
-      userStory: story,
-      user_cover_pic: LatestCoverProfileFileName,
-      user_profile_pic: LatestProfilePicFileName,
-    }));
-
-  }
+  const HandleChange = async () => {
+    try {
+      await dispatch(
+        EditUserProfile({
+          username: username,
+          firstName: first_name,
+          surName: surname,
+          userStory: story,
+          user_cover_pic: LatestCoverProfileFileName,
+          user_profile_pic: LatestProfilePicFileName,
+        })
+      ); 
+      SetEditProfileModal(false);
+    } catch (error) {
+   
+      alert("Error editing user profile:", error);
+    }
+  };
 
   useEffect(() => {
     const newWordCount = Story.trim().split(/\s+/).length;

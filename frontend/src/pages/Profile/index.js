@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import SideBar from '../../component/SideBar'
 import { useContext } from 'react';
 import { UserContext } from "../../contextState/contextState"
-import ProfileCompoents from '../../component/Comments';
 import { useState } from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch } from 'react-redux';
@@ -15,10 +14,11 @@ import UserFriendModal from '../../component/UserFriendModal';
 import { StyledProfileHome,StyledHr,NoCoverPhoto,CoverPhoto,ProfilePhoto,NoAccountProfilePhoto,InformationLayer,
   ButtonLayer,ButtonModal,ProfileHeading,Header,AccountDoesnotExist,SearchAccount,MyStorySection,
   MyStory,MyStoryText,WellnessUpdatesSection,WellnessUpdatesHeading,WellnessUpdates,WellnessUpdatesComments} from '../../styles/styles';
+  import Post from '../../component/Post';
 function Profile() {
 
     const userContext = useContext(UserContext);
-    const {SetUserProfileModal,SetEditProfileModal,setSupportGroupData,SetUserFriendModal} = userContext;
+    const {SetUserProfileModal,SetEditProfileModal,setSupportGroupData,SetUserFriendModal,PostContent} = userContext;
     const [support_group,SetSupportGroup]=useState(0)
     const [mentalHealth,SetMentalHealth]=useState([]);
     const [coping,SetCoping]=useState([]);
@@ -30,6 +30,7 @@ function Profile() {
     const [coverphoto,SetCoverPhoto]=useState("");
     const[UserProfile,SetUserProfile]=useState([]);
     const [UserLogin,SetUserLogin]=useState(false);
+    const [Mindful_Moments,SetMindFulMoment]=useState([])
 
    
   const { username } = useParams();
@@ -47,8 +48,11 @@ function Profile() {
         }
         else
         {
-          console.log(action.payload.UsersDetail[0]['user_cover_pic'],'TONY STARK')
-          // console.log(action.payload.UsersDetail[0],'stark')
+          console.log(action.payload,'testing data ')
+          // console.log(action.payload.UsersDetail[0]['user_cover_pic'],'TONY STARK')
+          //  console.log(action.payload.UsersDetail[0],'stark')
+
+          SetMindFulMoment(action.payload.Mindful_Moments)
           console.log(action.payload.UsersDetail[0],'ezaan amin')
           SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
           console.log(action.payload.UsersDetail[0]['firstname'],'stark')
@@ -169,11 +173,23 @@ const UserFriendsList = async () => {
 <WellnessUpdates>Wellness Updates</WellnessUpdates>
 </WellnessUpdatesHeading>
 <WellnessUpdatesSection>
-<WellnessUpdatesComments>
-<ProfileCompoents/>
-<ProfileCompoents/>
-<ProfileCompoents/>
-</WellnessUpdatesComments>
+ <WellnessUpdatesComments>
+ 
+
+  {PostContent.map((postData, index) => (
+    <div key={index}>
+      <Post
+        isFirst={false}
+        PostText={postData.MindfulMoments}
+        Date={postData.Date}
+        Likes={postData.Likes}
+        Comments={postData.Comments}
+      />
+    </div>
+  ))}
+
+
+</WellnessUpdatesComments> 
 </WellnessUpdatesSection>
 </StyledProfileHome>
 </>
