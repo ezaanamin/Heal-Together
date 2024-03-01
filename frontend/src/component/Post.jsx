@@ -7,8 +7,11 @@ import styled, { keyframes } from 'styled-components';
 import HandIcon from '../SVG ANIMATION/HandIcon';
 import MainComment from '../SVG ANIMATION/MainComment';
 import { Link } from 'react-router-dom';
+import {useDispatch } from 'react-redux';
+import { PostSupportMindFulMoments } from '../redux/slice/API';
+
 import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
-function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic}) {
+function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic,support}) {
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -28,12 +31,13 @@ const AnimatedContainer = styled.div`
   animation: ${fadeIn} 1s ease-in-out; 
 `;
   const userContext = useContext(UserContext);
-
+  const dispatch = useDispatch();
 
   const HandleLikes=()=>{
-
+  console.log(PostText,'Mindful Moments')
+  console.log(userContext.UserUsername,'username')
     SetLike(!like);
-   console.log(like,'this is like')
+  //  console.log(like,'this is like')
    if(!like===true)
    {
      SetLikeCount(likesCount+1)
@@ -44,12 +48,27 @@ const AnimatedContainer = styled.div`
      SetLikeCount(likesCount-1)
 
    }
- 
+   const promise = dispatch(PostSupportMindFulMoments({username:userContext.UserUsername,MindfulMoments:PostText}))
+   promise.then((action) => {
+    console.log(action.payload,'result')
+
+    if(action.payload.message==="Success")
+    {
+      console.log(action.payload.status)
+    }
+    else
+    {
+      alert("Error")
+    }
+
+   })
+
+
  
  
  }
 
-  const [like,SetLike]=useState(false)
+  const [like,SetLike]=useState(support)
  const [likesCount,SetLikeCount]=useState(Likes.length)
   return (
   <>
@@ -70,7 +89,7 @@ const AnimatedContainer = styled.div`
     <div onClick={() =>  HandleLikes() } style={{ position: "relative", bottom: 90, left: 20}}>
 {
   <>
-     <HandIcon theme={userContext.theme}/>
+     <HandIcon theme={userContext.theme} liked={like}/>
  <p style={{position:"relative",bottom:50,left:45}}>{likesCount}</p>
  <p style={{position:"relative",bottom:75,left:160}}>{Comments.length}</p>
 

@@ -15,11 +15,11 @@ const themeComponents = {
   default: { icon: MainHand, animation: MainHandAnimation },
 };
 
-function HandIcon({ theme }) {
+function HandIcon({ theme,liked }) {
   const [hi, setHi] = useState(false);
 
   const handleClick = () => {
-    setHi(!hi);
+    setHi(!liked);
   };
 
   const { icon: Icon, animation: Animation } = themeComponents[theme] || themeComponents.default;
@@ -27,7 +27,7 @@ function HandIcon({ theme }) {
   return (
     <>
       <div onClick={handleClick}>
-        {hi ? <Animation /> : <Icon />}
+        {liked ? <Animation /> : <Icon />}
       </div>
     </>
   );

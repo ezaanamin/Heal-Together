@@ -24,3 +24,8 @@ export const DateDifference = (date) => {
     return remainingTime;
     
   };
+
+
+  export const uri = process.env.NEO4J_URI;
+  export const user = process.env.NEO4J_USERNAME;
+  export const password = process.env.NEO4J_PASSWORD;

@@ -763,3 +763,36 @@ for NEO4j the format is :
     res.json({support_group:count.low,Mindful_Moments:Mindful_Moments})
   
 }
+export const UsersMindFulMoments = async (req, res) => {
+
+  const { username } = req.body;
+  const uri = process.env.NEO4J_URI;
+  const user = process.env.NEO4J_USERNAME;
+  const password = process.env.NEO4J_PASSWORD;
+
+
+  const UsernameMindfulMoment = `${username}MindFulMoments`;
+  const userMindfulMomentsCheck = await client.exists(UsernameMindfulMoment);
+
+  if (userMindfulMomentsCheck === 1) {
+    const value = await client.get(UsernameMindfulMoment);
+    const userData = JSON.parse(value);
+    res.json(userData);
+  }
+  else
+  {
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const session = driver.session();
+
+
+    
+
+  }
+
+
+
+
+
+
+
+}

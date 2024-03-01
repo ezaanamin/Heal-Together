@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-
-
 export const SignUpPost = createAsyncThunk(
   'post/postRequest',
   async (data, { rejectWithValue }) => {
@@ -23,28 +20,16 @@ export const SignUpPost = createAsyncThunk(
 export const  Recommended=createAsyncThunk(
   'post/recommended',
   async(data,{rejectWithValue})=>{
-
 try
 {
   const response=await axios.post('http://localhost:4000/users/recommended',data);
-
   return response.data;
-
 }
 catch(error)
 {
   return rejectWithValue(error.response.data);
-
-
 }
-
-    
-
-
   }
-
-
-
 );
 
 export const VerfiedUser = createAsyncThunk(
@@ -145,7 +130,30 @@ async (data, { rejectWithValue }) => {
 }
 );
 
+export const PostSupportMindFulMoments=createAsyncThunk(
+  'post/PostSupportMindFulMoments',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/mindful_moments/support', data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+  );
+  
 
+export const uploadImage = createAsyncThunk(
+  'image/upload',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:4000/upload', formData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const APISlice = createSlice({
   name: 'API',
@@ -283,23 +291,24 @@ builder
 });
 
 
-
+builder
+.addCase(PostSupportMindFulMoments.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(PostSupportMindFulMoments.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(PostSupportMindFulMoments.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
 
     
   },
 });
 
 
-export const uploadImage = createAsyncThunk(
-  'image/upload',
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post('http://localhost:4000/upload', formData);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
 export default APISlice.reducer;
