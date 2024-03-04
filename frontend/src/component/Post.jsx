@@ -34,8 +34,6 @@ const AnimatedContainer = styled.div`
   const dispatch = useDispatch();
 
   const HandleLikes=()=>{
-  console.log(PostText,'Mindful Moments')
-  console.log(userContext.UserUsername,'username')
     SetLike(!like);
   //  console.log(like,'this is like')
    if(!like===true)
@@ -54,7 +52,7 @@ const AnimatedContainer = styled.div`
 
     if(action.payload.message==="Success")
     {
-      console.log(action.payload.status)
+      console.log(action.payload.message)
     }
     else
     {
@@ -62,10 +60,6 @@ const AnimatedContainer = styled.div`
     }
 
    })
-
-
- 
- 
  }
 
   const [like,SetLike]=useState(support)

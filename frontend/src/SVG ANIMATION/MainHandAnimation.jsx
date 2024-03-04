@@ -43,3 +43,5 @@ function MainHandAnimation() {
 }
 
 export default MainHandAnimation
+
+
