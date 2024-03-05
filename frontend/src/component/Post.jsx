@@ -80,21 +80,23 @@ const AnimatedContainer = styled.div`
       </ProfileHeadingPost>
     </PostContent>
     <CommentSection theme={userContext.theme}>
-    <div onClick={() =>  HandleLikes() } style={{ position: "relative", bottom: 90, left: 20}}>
-{
+    <div  style={{ position: "relative", bottom: 90, left: 20}}>
+
   <>
+  <div onClick={() =>  HandleLikes() }>
      <HandIcon theme={userContext.theme} liked={like}/>
+     </div>
  <p style={{position:"relative",bottom:50,left:45}}>{likesCount}</p>
  <p style={{position:"relative",bottom:75,left:160}}>{Comments.length}</p>
 
- <div style={{position:"relative",left:100,bottom:205}}>
-<MainComment theme={userContext.theme}/>
+ <div onClick={()=>alert("Testing hi i am comment icon  ")} style={{position:"relative",left:100,bottom:205}}>
+<MainComment  theme={userContext.theme}/>
  </div>
  <p ></p>
  
   </>
 
-}
+
  
  </div>
 

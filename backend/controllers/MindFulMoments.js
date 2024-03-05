@@ -130,3 +130,41 @@ DELETE  r;
     session.close(); 
   }
 };
+
+export const GetCommentsMindFulMoments = async (req, res) => {
+  const { MindfulMoments } = req.body;
+  let Comments = []; 
+  const uri = process.env.NEO4J_URI;
+  const user = process.env.NEO4J_USERNAME;
+  const password = process.env.NEO4J_PASSWORD;
+  try
+  {
+  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+  const session = driver.session();
+  const momentsQuery = `
+  MATCH p=(n:Users)-[:create_comments]->(l:Comments)-[:Respond_To]->(m:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments}) RETURN n.username as username,n.user_profile_pic as user_profile_pic,l.Comments as comments 
+
+
+  `
+
+      const result = await session.run(momentsQuery, {MindfulMoments });
+  result.records.forEach(record => {
+    let CommentsObjects = {
+      username: record.get('username'),
+      user_profile_pic: record.get('user_profile_pic'),
+      comments: record.get('comments')
+  };
+  Comments.push(CommentsObjects);
+  });
+
+
+  res.status(200).json({comments:Comments})
+  }
+
+  catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+
+
+
+}
