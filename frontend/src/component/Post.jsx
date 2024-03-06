@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { UserContext } from '../contextState/contextState'
 import { useContext } from 'react';
 // import TestProfilePic from "../images/beautiful-woman-street.jpg"
@@ -8,10 +8,13 @@ import HandIcon from '../SVG ANIMATION/HandIcon';
 import MainComment from '../SVG ANIMATION/MainComment';
 import { Link } from 'react-router-dom';
 import {useDispatch } from 'react-redux';
-import { PostSupportMindFulMoments } from '../redux/slice/API';
+import { PostSupportMindFulMoments,GetCommentsMindFulMoments } from '../redux/slice/API';
+import CommentMindFulMomentModal from './CommentMindFulMomentModal';
 
 import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
 function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic,support}) {
+
+  const [currentMindFulMoment,SetCurrentMindfulMoment]=useState("")
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -31,6 +34,8 @@ const AnimatedContainer = styled.div`
   animation: ${fadeIn} 1s ease-in-out; 
 `;
   const userContext = useContext(UserContext);
+  const {SetCommentModal} = userContext;
+
   const dispatch = useDispatch();
 
   const HandleLikes=()=>{
@@ -64,9 +69,32 @@ const AnimatedContainer = styled.div`
 
   const [like,SetLike]=useState(support)
  const [likesCount,SetLikeCount]=useState(Likes.length)
+
+ const GetComments=()=>{
+
+  alert(PostText,'currentMindfulMoment')
+  
+     const promise = dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
+  
+  
+     promise.then((action) => {
+  
+      console.log(action.payload)
+     })
+  
+   }
+
+  
+
+
+
   return (
   <>
+
+
+   
         <PostContainer theme={userContext.theme} isFirst={isFirst}>   
+ 
     <PostContent>
     <Link to={`/${username}`}>
       <PostProfilePic src={`http://localhost:4000/upload/${profile_pic}`}  alt="Profile" />
@@ -89,7 +117,9 @@ const AnimatedContainer = styled.div`
  <p style={{position:"relative",bottom:50,left:45}}>{likesCount}</p>
  <p style={{position:"relative",bottom:75,left:160}}>{Comments.length}</p>
 
- <div onClick={()=>alert("Testing hi i am comment icon  ")} style={{position:"relative",left:100,bottom:205}}>
+ <div onClick={()=>GetComments()} style={{position:"relative",left:100,bottom:205}}>
+ <CommentMindFulMomentModal/>
+
 <MainComment  theme={userContext.theme}/>
  </div>
  <p ></p>

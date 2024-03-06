@@ -131,40 +131,93 @@ DELETE  r;
   }
 };
 
-export const GetCommentsMindFulMoments = async (req, res) => {
-  const { MindfulMoments } = req.body;
-  let Comments = []; 
+
+const GetUserInformation = async (user_id) => {
   const uri = process.env.NEO4J_URI;
   const user = process.env.NEO4J_USERNAME;
   const password = process.env.NEO4J_PASSWORD;
-  try
-  {
-  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
-  const session = driver.session();
-  const momentsQuery = `
-  MATCH p=(n:Users)-[:create_comments]->(l:Comments)-[:Respond_To]->(m:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments}) RETURN n.username as username,n.user_profile_pic as user_profile_pic,l.Comments as comments 
 
+  try {
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const session = driver.session();
 
-  `
+  
+      // Trim the user_id parameter value to remove extra spaces
+      const trimmedUserId = user_id.trim();
 
-      const result = await session.run(momentsQuery, {MindfulMoments });
-  result.records.forEach(record => {
-    let CommentsObjects = {
+      const userQuery = `
+        MATCH (n:Users{_id: $user_id})
+        RETURN n.username AS username, n.user_profile_pic AS user_profile_pic
+        LIMIT 25;
+      `;
+  
+      const parameters = { user_id: trimmedUserId };
+      // const fullQuery = userQuery.replace(/\$user_id/g, JSON.stringify(parameters.user_id));
+  
+      // console.log("Executing query:", fullQuery); // Log the entire query string with parameters
+  
+      const result = await session.run(userQuery, parameters)
+
+    const userInfo = result.records.map(record => ({
       username: record.get('username'),
-      user_profile_pic: record.get('user_profile_pic'),
-      comments: record.get('comments')
-  };
-  Comments.push(CommentsObjects);
-  });
+      user_profile_pic: record.get('user_profile_pic')
+    }));
 
+    // console.log(userInfo)
+    await session.close();
+    await driver.close();
 
-  res.status(200).json({comments:Comments})
+    return userInfo;
+  } catch (error) {
+    console.error("Error fetching user information:", error);
+    throw error; // Re-throw the error for the caller to handle
   }
+};
 
-  catch (error) {
+export const GetCommentsMindFulMoments = async (req, res) => {
+  const { MindfulMoments } = req.body;
+  const client = createClient();
+  await client.connect();
+  const MindFulMomentsComments = `${MindfulMoments}Comments`;
+
+  try {
+    const checkMindFulMomentsComments = await client.exists(MindFulMomentsComments);
+
+    if (checkMindFulMomentsComments === 1) {
+      const value = await client.get(MindFulMomentsComments);
+      const userData = JSON.parse(value);
+      res.json(userData);
+    } else {
+      let Comments = [];
+      const uri = process.env.NEO4J_URI;
+      const user = process.env.NEO4J_USERNAME;
+      const password = process.env.NEO4J_PASSWORD;
+
+      const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+      const session = driver.session();
+
+      const momentsQuery = `
+        MATCH p=(l:Comments)-[:Respond_To]->(n:\`Mindful Moments\`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
+      `;
+
+      const result = await session.run(momentsQuery, { MindfulMoments });
+
+      for (const record of result.records) {
+        const user_id = record.get('user_id');
+        const comment = record.get('Comments');
+        const userInfo = await GetUserInformation(user_id);
+
+        Comments.push({
+          username: userInfo[0].username,
+          user_profile_pic: userInfo[0].user_profile_pic,
+          comment: comment
+        });
+      }
+
+      await client.set(MindFulMomentsComments, JSON.stringify(Comments));
+      res.status(200).json({ comments: Comments });
+    }
+  } catch (error) {
     res.status(404).json({ error: error.message });
   }
-
-
-
-}
+};

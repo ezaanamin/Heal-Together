@@ -142,7 +142,17 @@ export const PostSupportMindFulMoments=createAsyncThunk(
   }
   );
   
-
+  export const GetCommentsMindFulMoments=createAsyncThunk(
+    'post/GetCommentsMindFulMoments',
+    async (data, { rejectWithValue }) => {
+      try {
+        const response = await axios.post('http://localhost:4000/mindful_moments/getMindfulMomentComments', data);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+    );
 export const uploadImage = createAsyncThunk(
   'image/upload',
   async (formData, { rejectWithValue }) => {
@@ -305,6 +315,19 @@ builder
   state.error = action.payload;
 });
 
+builder
+.addCase(GetCommentsMindFulMoments.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetCommentsMindFulMoments.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetCommentsMindFulMoments.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
     
   },
 });

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
-import { getDynamicStyle,MainHeading,Text,Logo,LoginButtonModal,CreateAccountModal,CompanionConnection } from '../styles/styles';
+import { getDynamicStyle,MainHeading,CompanionConnection } from '../styles/styles';
 function UserFriendModal({support_group}) {
 
 

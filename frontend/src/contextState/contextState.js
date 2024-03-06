@@ -1,16 +1,13 @@
 import React, { createContext, useState } from 'react';
-
-
 export const UserContext = createContext();
-
 const Primary_Profile_initialState = {
-  primary_motivation:"",
-  professional_treatment:"",
-  comfortable_discussing_mental_health:"",
-  connect_with_others:"",
-  religious:"",
-  received_a_diagnosis:"",
-  age:0
+  primary_motivation: "",
+  professional_treatment: "",
+  comfortable_discussing_mental_health: "",
+  connect_with_others: "",
+  religious: "",
+  received_a_diagnosis: "",
+  age: 0
 };
 const Interest_initialState = {
   copingTechniques: false,
@@ -21,20 +18,15 @@ const Interest_initialState = {
   spirituality: false,
   otherInterests: false,
 };
-const coping= {
-
+const coping = {
   meditation: false,
   creativeActivities: false,
-  talking_to_friends_family:false,
-  exercising:false,
-  professional_help:false,
-  copingother:false,
+  talking_to_friends_family: false,
+  exercising: false,
+  professional_help: false,
+  copingother: false,
 };
-
-
-const mental_health_insight={
-
-
+const mental_health_insight = {
   depression: false,
   anxiety: false,
   bipolar: false,
@@ -68,7 +60,7 @@ export function UserContextProvider({ children }) {
   const [CreatePost, SetCreatePost] = useState(false);
   const [currentTheme, SetCurrentTheme] = useState("");
   const [LoginModal, SetLoginModal] = useState(false);
-  const [userFriendsModal,SetUserFriendModal]=useState(false);
+  const [userFriendsModal, SetUserFriendModal] = useState(false);
   const [firstTimeUser, SetFirstTimeUser] = useState(false);
   const [RecommendedUserList, SetRecommendedUserList] = useState([]);
   const [UserProfileModal, SetUserProfileModal] = useState(false);
@@ -79,8 +71,9 @@ export function UserContextProvider({ children }) {
   const [isFlippedsereneGreenTheme, setFlippedsereneGreenTheme] = useState(false);
   const [isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme] = useState(false);
   const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme] = useState(false);
-  const [PostContent,SetPostContent]=useState([])
 
+  const [PostContent, SetPostContent] = useState([])
+  const [CommentModal, SetCommentModal] = useState(false)
 
 
 
@@ -146,11 +139,12 @@ export function UserContextProvider({ children }) {
     SetUserUsername,
     story, setStory,
     supportGroupData, setSupportGroupData,
-    userFriendsModal,SetUserFriendModal,  isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme,
+    userFriendsModal, SetUserFriendModal, isFlippedcalmingBlueTheme, setFlippedcalmingBlueTheme,
     isFlippedsereneGreenTheme, setFlippedsereneGreenTheme,
     isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme,
     isFlippedTranquilTealTheme, setFlippedTranquilTealTheme,
-    PostContent,SetPostContent
+    PostContent, SetPostContent,
+    CommentModal, SetCommentModal
   };
 
   return (
