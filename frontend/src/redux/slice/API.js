@@ -44,11 +44,15 @@ export const VerfiedUser = createAsyncThunk(
   }
 );
 
-export const VerifyUser= createAsyncThunk(
+export const VerifyUser = createAsyncThunk(
   'post/VerifyUser',
-  async (data, { rejectWithValue }) => {
+  async ({ token, data }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:4000/users/verifyUser', data);
+      const response = await axios.post('http://localhost:4000/users/verifyUser', data, {
+        headers: {
+          Authorization: `Bearer ${token}` // Assuming your token is a JWT
+        }
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -152,6 +156,23 @@ export const PostSupportMindFulMoments=createAsyncThunk(
         return rejectWithValue(error.response.data);
       }
     }
+    );
+
+    export const GetUsersInformation = createAsyncThunk(
+      '/users/information',
+      async (token, { rejectWithValue }) => {
+       
+        try {
+          const response = await axios.post('http://localhost:4000/users/information', null, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.response.data);
+        }
+      }
     );
 export const uploadImage = createAsyncThunk(
   'image/upload',
@@ -325,6 +346,20 @@ builder
   state.error = null;
 })
 .addCase(GetCommentsMindFulMoments.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+})
+
+builder
+.addCase(GetUsersInformation.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetUsersInformation.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetUsersInformation.rejected, (state, action) => {
   state.status = 'failed';
   state.error = action.payload;
 });

@@ -2,3 +2,4 @@ backend/mongodbData.js
 backend/sampleUser.js
 backend/data
 backend/neo4j latest.txt
+frontend/.env

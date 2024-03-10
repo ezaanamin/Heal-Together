@@ -1,46 +1,50 @@
-import express from "express"
-import bodyParser from "body-parser"
-import cors from "cors"
-import mongoose from "mongoose"
-import dotenv from "dotenv"
-import UserRoutes from "./routes/users.js"
-import MindFulMomentsRoutes from "./routes/MindFulMoments.js"
-import neo4j from "neo4j-driver"
-import cookieParser from "cookie-parser"
-import { Users } from "./model/users.js"
-// import { sampleUsers } from './sampleUser.js';
-import multer from "multer"
-import { MongoClient } from 'mongodb';
-import Post from "./model/posts.js"
-import ObjectsToCsv from "objects-to-csv"
-import Reply from "./model/Reply.js"
-import fs from "fs"
-const app=express()
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import UserRoutes from "./routes/users.js";
+import MindFulMomentsRoutes from "./routes/MindFulMoments.js";
+import multer from "multer";
+import { Server } from "socket.io";
+import http from "http";
+import cookieParser from "cookie-parser";
+
+const app = express();
+const server = http.createServer(app);
+
 dotenv.config();
-app.use(cors())
+app.use(cors());
 app.use(cookieParser());
-
-
-
-
-
-app.use(express.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/upload', express.static('upload'));
+app.use("/users", UserRoutes);
+app.use('/mindful_moments', MindFulMomentsRoutes);
 
-app.use(bodyParser.urlencoded({extended:false}))
-app.use('/upload',express.static('upload'))
+const io=new Server(server,{
+  cors:{
+      origin:process.env.FRONTEND_PORT,
+      methods:["GET","POST"]
+  }
+});
 
-app.use("/users",UserRoutes);
-app.use('/mindful_moments',MindFulMomentsRoutes)
+io.on("connection", (socket) => {
+  console.log("User Connected", socket.id);
 
-app.use(cors())
-app.get("/",(req,res)=>{
-  res.json("hiii")
-})
+  socket.on("disconnect", () => {
+    console.log("user disconnected", socket.id);
+  });
+});
 
+// REST API endpoint to test the server
+app.get("/", (req, res) => {
+  res.json("hiii");
+});
+
+// Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "upload/");
@@ -51,29 +55,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// File upload endpoint
 app.post('/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
 
- 
   const uploadedFile = req.file;
-  
-  
-
   res.status(200).send('File uploaded successfully.');
 });
 
-app.post("/test",(req,res)=>{
- console.log(req.body)
-})
-const PORT = process.env.PORT || 4000;
-const uri = process.env.NEO4J_URI
-const user = process.env.NEO4J_USERNAME
-const password =process.env.NEO4J_PASSWORD
-const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
-const session = driver.session();
-
+// Test endpoint for POST request
+app.post("/test", (req, res) => {
+  console.log(req.body);
+});
 const dataArray = [];
 
 // // Create the data 24 times with true/false values and add it to the array
@@ -166,39 +161,17 @@ const dataArray = [];
 //     console.log(doc)
 //   }
 // })
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    
-    
-  })
-  .then(() => {
-    // console.log(currentYear)
-    // if( currentYear==2023)
-    // {
+const PORT = process.env.PORT || 4000;
 
-    //   DataBaseSales(currentYear)
+// MongoDB connection
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("Connected to MongoDB");
+  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch((error) => {
+  console.error("MongoDB connection error:", error);
+});
 
-    // }
-
-
-  
-
-   
-
-    // Rider.updateMany(
-    //   {}, // Empty filter to update all documents in the collection
-    //   { $set: { assigned_order: [] } }
-    // ).then((doc)=>{
-    //   console.log(doc)
-    
-    // })    
-  
-   
-    
-   console.log("Connected")
-   app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-
-})
-  .catch((error) => console.log(`${error} did not connect`));
+export { io }; 

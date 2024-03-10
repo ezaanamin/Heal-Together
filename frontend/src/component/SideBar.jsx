@@ -16,28 +16,56 @@ import MaleAvatar from "../images/user_default_male.png"
 import { useNavigate } from 'react-router-dom';
 import { decodeToken, } from 'react-jwt';
 import {Link,} from "react-router-dom";
+import { GetUsersInformation } from '../redux/slice/API';
 import { SideBarLogo,SideBarProfile,SideBarItems,SideRight,SideBarContainer,IconHeading,SideBarUserHeading } from '../styles/styles';
+import { useDispatch } from 'react-redux';
 const SideBar = () => {
   const nav = useNavigate();
  
   const userContext = useContext(UserContext);
   const { SetUserFirstName,SetUserGender,SetUserSurName,SetUserUsername } = userContext;
+  const dispatch=useDispatch()
 
   useEffect(() => {
-    const userFirstName = localStorage.getItem('UserFirstName');
-    const userSurName = localStorage.getItem('UserSurName');
-    const userGender = localStorage.getItem('UserGender');
-    const userUsername = localStorage.getItem('UserUsername');
-
-    if(userFirstName || userGender || userSurName || userUsername)
-    {
-      SetUserFirstName(userFirstName);
-      SetUserSurName(userSurName);
-      SetUserGender(userGender);
-      SetUserUsername(userUsername)
-    }
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('Token');
+        console.log(token, 'ezaan amin');
+    
+        // Check if token exists before dispatching the action
+        if (token) {
+          const promise = await dispatch(GetUsersInformation(token));
   
-  }, []);
+          if (promise && promise.payload) {
+            console.log( promise.payload,'amin')
+            const { firstname, surname, gender,username } = promise.payload;
+  
+            // Set local storage values
+            localStorage.setItem('UserFirstName', firstname);
+            localStorage.setItem('UserSurName', surname);
+            localStorage.setItem('UserGender', gender);
+            localStorage.setItem('UserUsername', username);
+  
+            // Set state variables if values are not empty
+            if (firstname || surname || gender || username) {
+              SetUserFirstName(firstname);
+              SetUserSurName(surname);
+              SetUserGender(gender);
+              SetUserUsername(username);
+            }
+          }
+        } else {
+          console.error('Token not found in local storage');
+        }
+      } catch (error) {
+        // Handle any errors
+        console.error('Error fetching user information:', error);
+      }
+    };
+  
+    // Call the fetchData function
+    fetchData();
+  }, [dispatch]);
   useEffect(() => {
     const token = localStorage.getItem('Token');
     if (token) {

@@ -385,11 +385,16 @@ export const VerfiedUser = async (req, res) => {
 
 export const VerifyUser = (req, res) => {
 
-  const token = req.body.token
-  const username = req.body.username
+  const authorizationHeader = req.headers['authorization'];
+  if (!authorizationHeader) {
+  
+    return res.status(401).send('Not authorized');
+  }
 
-  const token_key = username + process.env.TOKEN_KEY
-  const cleanedToken = token.replace(/"/g, '');
+  const token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+ 
+  const token_key=process.env.TOKEN_KEY
+
 
 
 
@@ -397,7 +402,7 @@ export const VerifyUser = (req, res) => {
     // const token = req.headers['authorization']
     // const headers=token.split(" ")[1]
     // console.log(headers);
-    const pay = jwt.verify(String(cleanedToken), token_key);
+    const pay = jwt.verify(token, token_key);
 
     res.json({ status: "Login" })
 
@@ -412,53 +417,80 @@ export const VerifyUser = (req, res) => {
 
 }
 
-export const LoginUser = (req, res) => {
+export const LoginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-  const email = req.body.email;
+    const user = await Users.findOne({ email });
 
-
-  // console.log("hiii") // for testing 
-
-
-  Users.findOne({ email: email }).then((doc) => {
-    if (doc) {
-      comparePassword(req.body.password, doc.password)
-        .then((result) => {
-          if (result) {
-
-
-
-            const token_key = doc.username + process.env.TOKEN_KEY
-
-            // console.log(token_key) // for testing token key
-
-
-
-            const token = jwt.sign(
-              { user_id: doc._id },
-              token_key,
-              {
-                expiresIn: '2h',
-              }
-            );
-
-            // console.log(doc.gender)
-            res.json({ "Token": token, gender: doc.gender, firstName: doc.firstName, SurName: doc.surName, username: doc.username })
-          } else {
-
-            res.json({ status: 'Wrong password' });
-          }
-        })
-        .catch((error) => {
-          console.error('Error comparing passwords:', error);
-        });
-    } else {
-      console.log("User not found")
-      res.json({ status: 'Wrong Email or User Not Found' });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
-  });
-};
 
+    const passwordMatch = await comparePassword(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Wrong password' });
+    }
+    const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_KEY, {
+      expiresIn: '2h',
+    });
+
+    console.log(token)
+    return res.json({ Token: token });
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+export const GetUsersInformation= (req, res) => {
+  const authorizationHeader = req.headers['authorization'];
+    if (!authorizationHeader) {
+    
+      return res.status(401).send('Not authorized');
+    }
+
+    const token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+
+    const secretKey = process.env.TOKEN_KEY;
+    
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        // Token verification failed
+        console.error('Token verification failed:', err);
+      } else {
+        jwt.verify(token, secretKey, (err, decoded) => {
+          if (err) {
+            // Token verification failed
+            console.error('Token verification failed:', err);
+          } else {
+            console.log(decoded.user_id);
+            Users.findById(decoded.user_id).then((doc)=>{
+              res.json({
+                username: doc.username,
+                firstname: doc.firstName,
+                surname: doc.surName,
+                gender: doc.gender,
+                profile_pic: doc.user_profile_pic
+              });
+            })
+          }
+        });
+    
+      }
+    });
+
+    // console.log(cleanedToken);
+    // const pay = jwt.verify(token, process.env.TOKEN_KEY);
+
+    // // console.log(pay.user_id);
+
+
+
+
+
+
+}
 export const RecommendedUserProfile = (req, res) => {
   const values = [];
 

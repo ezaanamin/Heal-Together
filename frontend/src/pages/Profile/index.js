@@ -74,7 +74,7 @@ useEffect(()=>{
   const token = localStorage.getItem('Token');
   if(token)
   { //VerifyUser
-    const promise = dispatch(VerifyUser({ token: token,username:username }));
+    const promise = dispatch(VerifyUser({ token: token }));
     promise.then((action) => {
       if (VerifyUser.fulfilled.match(action)) {
 
