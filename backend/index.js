@@ -10,6 +10,7 @@ import { Server } from "socket.io";
 import http from "http";
 import cookieParser from "cookie-parser";
 
+
 const app = express();
 const server = http.createServer(app);
 
@@ -155,12 +156,21 @@ const dataArray = [];
 
 
 // Create a new MongoClient
-// Users.find({}).then((doc)=>{
-//   if(doc)
-//   {
-//     console.log(doc)
+
+// Users.find({}).then(async (doc) => {
+//   if (doc) {
+//     for (let i = 0; i < doc.length; i++) {
+//       const userProfileData = `${doc[i].username} userProfile_data`;
+//       const userEntry = {
+//         username: doc[i].username,
+//         user_profile_pic: doc[i].user_profile_pic
+//       };
+
+//       // Assuming `client` is your Redis client
+//       await client.set(userProfileData, JSON.stringify(userEntry));
+//     }
 //   }
-// })
+// });
 const PORT = process.env.PORT || 4000;
 
 // MongoDB connection

@@ -72,7 +72,7 @@ const AnimatedContainer = styled.div`
 
  const GetComments=()=>{
 
-  alert(PostText,'currentMindfulMoment')
+  // alert(PostText,'currentMindfulMoment')
   
      const promise = dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
   
