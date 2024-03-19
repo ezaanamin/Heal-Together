@@ -71,6 +71,10 @@ export function UserContextProvider({ children }) {
   const [isFlippedsereneGreenTheme, setFlippedsereneGreenTheme] = useState(false);
   const [isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme] = useState(false);
   const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme] = useState(false);
+  const [Loading,SetLoading]=useState(true);
+  const [Comment,SetComment]=useState([]);
+
+
 
   const [PostContent, SetPostContent] = useState([])
   const [CommentModal, SetCommentModal] = useState(false)
@@ -144,7 +148,9 @@ export function UserContextProvider({ children }) {
     isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme,
     isFlippedTranquilTealTheme, setFlippedTranquilTealTheme,
     PostContent, SetPostContent,
-    CommentModal, SetCommentModal
+    CommentModal, SetCommentModal,
+    Loading,SetLoading,
+    Comment,SetComment
   };
 
   return (

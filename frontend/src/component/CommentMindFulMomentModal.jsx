@@ -1,44 +1,36 @@
-import React from 'react'
-import { getModalStyle,MainHeading,useStyles,getDynamicStyle } from '../styles/styles';  
-import { useContext } from 'react';
-import { UserContext } from '../contextState/contextState'
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Modal from "@material-ui/core/Modal";
 import { Box } from '@mui/material';
-function CommentMindFulMomentModal() {
+import { UserContext } from '../contextState/contextState';
+import { CommentsHeading,CommentLine, getModalStyle, getDynamicStyle} from '../styles/styles';
+import Loading from './Loading';
+function CommentMindFulMomentModal({username}) {
     const [modalStyle] = useState(getModalStyle);
-const userContext = useContext(UserContext);
-const {SetCommentModal,theme} = userContext;
-const style=getDynamicStyle();
-
+    const userContext = useContext(UserContext);
+    const { SetCommentModal, } = userContext;
+    const style = getDynamicStyle();
+    
+    // console.log( userContext.Loading,'loading')
     return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={userContext.CommentModal}
-        onClose={()=>SetCommentModal(false)}
-      >
-
-
-    <Box sx={{ ...style, width: 450,height:400,borderRadius:10 }}>
-
+        <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={userContext.CommentModal}
+            onClose={() => SetCommentModal(false)}
+        >
+            <Box sx={{ ...style, ...modalStyle, width: 450, height: 400 }}>
+                <CommentsHeading>{username} Mindful Moments </CommentsHeading>
+              <CommentLine theme={userContext.theme} />
+           
+          {
+            userContext.Loading?
+            <Loading/>:
+            null
+          }
  
-
-  
-
-
-
-</Box>
-      
-
-
-      </Modal>
-    ) 
-
-
-
-
+            </Box>
+        </Modal>
+    );
 }
 
-
-export default CommentMindFulMomentModal
+export default CommentMindFulMomentModal;

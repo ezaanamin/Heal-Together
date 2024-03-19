@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Verification from '../pages/verification';
 import EmailVerication from '../pages/EmailVerfication';
@@ -6,8 +6,6 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import GettingStarted from '../pages/GettingStarted';
 import Profile from '../pages/Profile';
-import io from 'socket.io-client';
-const socket = io.connect(process.env.REACT_APP_BACKEND_PORT);
 
 
 
@@ -39,22 +37,11 @@ const router = createBrowserRouter([
 ]);
 
 const Routes = () => {
-  useEffect(()=>{
-    // console.log(process.env.REACT_APP_BACKEND_PORT,'backend')
 
-    socket.on('comments', data => {
-  
-  
-  console.log(data,'comment ')
-    // const filtered = data.filter(item => item.status.includes("Pending"));
-    // SetOrdersData(filtered)
-  
-   
-  
-  });
-  
-  
-  },[socket])
+
+
+
+ 
 
   return (
     <RouterProvider router={router} />

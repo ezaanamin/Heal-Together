@@ -10,11 +10,17 @@ import { Link } from 'react-router-dom';
 import {useDispatch } from 'react-redux';
 import { PostSupportMindFulMoments,GetCommentsMindFulMoments } from '../redux/slice/API';
 import CommentMindFulMomentModal from './CommentMindFulMomentModal';
+import io from 'socket.io-client';
 
 import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
 function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic,support}) {
+  const socket = io.connect(process.env.REACT_APP_BACKEND_PORT);
 
-  const [currentMindFulMoment,SetCurrentMindfulMoment]=useState("")
+  // const [Loading,SetLoading]=useState(true)
+  const [currentUsername,SetCurrentUsername]=useState("")
+
+
+
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -34,7 +40,7 @@ const AnimatedContainer = styled.div`
   animation: ${fadeIn} 1s ease-in-out; 
 `;
   const userContext = useContext(UserContext);
-  const {SetCommentModal} = userContext;
+  const {SetCommentModal,SetLoading,Comment,SetComment} = userContext;
 
   const dispatch = useDispatch();
 
@@ -69,28 +75,58 @@ const AnimatedContainer = styled.div`
 
   const [like,SetLike]=useState(support)
  const [likesCount,SetLikeCount]=useState(Likes.length)
+ const GetComments = async () => {
+  SetLoading(true);
+  console.log(username,'username')
+  await SetCurrentUsername(username); 
+  // alert(PostText)
+  SetCommentModal(true);
+  
+      dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
+     console.log(Comments,'number of comment for each post ')
+     socket.on('comments', data => {
+  console.log(data.Comments.length,'length')
 
- const GetComments=()=>{
-
-  // alert(PostText,'currentMindfulMoment')
   
-     const promise = dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
+      if(Comments===data.Comments.length)
+      {
+        SetLoading(false)
+      }
+  
+      console.log(data,'comment ')
+        // const filtered = data.filter(item => item.status.includes("Pending"));
+        // SetOrdersData(filtered)
+        // setloading(false)
+    
+        // alert(Comments)
+      
+       
+      
+      });
   
   
-     promise.then((action) => {
+    //  promise.then((action) => {
   
-      console.log(action.payload)
-     })
+    //   console.log(action.payload)
+    //  })
   
    }
 
-  
+   useEffect(()=>{
 
+
+    console.log(currentUsername,'current username')
+   },[currentUsername])
+  
 
 
   return (
   <>
+{
+  userContext.CommentModal && currentUsername?
+  <CommentMindFulMomentModal username={currentUsername}/>:null
 
+}
 
    
         <PostContainer theme={userContext.theme} isFirst={isFirst}>   
@@ -115,10 +151,10 @@ const AnimatedContainer = styled.div`
      <HandIcon theme={userContext.theme} liked={like}/>
      </div>
  <p style={{position:"relative",bottom:50,left:45}}>{likesCount}</p>
- <p style={{position:"relative",bottom:75,left:160}}>{Comments.length}</p>
+ <p style={{position:"relative",bottom:75,left:160}}>{Comments}</p>
 
  <div onClick={()=>GetComments()} style={{position:"relative",left:100,bottom:205}}>
- <CommentMindFulMomentModal/>
+
 
 <MainComment  theme={userContext.theme}/>
  </div>

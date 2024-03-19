@@ -199,7 +199,7 @@ export const GetCommentsMindFulMoments = async (req, res) => {
         const comment = record.get('Comments').trim();
         const userInfo = await GetUserInformation(userId);
 
-        Comments.push({ userId, comment, userInfo }); 
+        Comments.push({comment, userInfo }); 
         io.emit('comments', {Comments});
       }
 

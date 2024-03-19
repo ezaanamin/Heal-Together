@@ -95,7 +95,7 @@ useEffect(()=>{
       Likes={postData.support}
       profile_pic={postData.profile_pic}
       support={postData.Support}
-      Comments={"hii"}
+      Comments={postData.NumberOfComments}
     />
 
   

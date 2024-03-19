@@ -134,7 +134,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
 
   useEffect(() => {
     handleCoverAndProfilePicUpload();
-  }, [CoverProilePicFile, ProfilePicFile]);
+  }, [CoverProilePicFile, ProfilePicFile,]);
 
   const HandleChange = async () => {
     try {

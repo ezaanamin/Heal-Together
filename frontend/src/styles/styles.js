@@ -137,6 +137,21 @@ export const GetLightHeartFilter = (theme) => {
     theme === 'purple' ?   LightHeartFilter_RelaxingPurple:
     LightHeartFilter_TranquilTeal; 
 };
+
+export const GetRingColor = (theme) => {
+  switch (theme) {
+    case 'light':
+      return LightMainContainer;
+    case 'blue':
+      return BlueMainContainer;
+    case 'green':
+      return GreenMainContainer;
+    case 'purple':
+      return PurpleMainContainer;
+    default:
+      return LightMainContainer; // Default to LightMainContainer if theme is not recognized
+  }
+};
 export const ADDTOPOST=styled.div`
 border: 1px solid black;
 height:50px;
@@ -1588,10 +1603,55 @@ export const HeartPath = styled.path`
 `;
 
 
+export const CommentsHeading=styled.h2`
+text-align:center;
 
 
 
+`
+export const CommentLine=styled.hr`
 
+border: 2px solid ${props => MainBorderColor(props.theme)};
+width: 100%;
+position:absolute;
+left:0
+
+`
+
+const loadingAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+// Styled components
+export const LoadContainer = styled.div`
+  display: flex; /* Use flexbox */
+  justify-content: center; 
+  align-items: center; 
+  margin-top:20px;
+`;
+
+export const LoadingParagraph = styled.p`
+  font-size: 18px;
+  margin-left: 10px; /* Adjust spacing if needed */
+
+`;
+
+export const Ring = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: ${props => GetRingColor(props.theme)};
+  border-radius: 50%;
+  animation: ${loadingAnimation} 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+`;
 
 // return (
 //     <HeartContainer onClick={handleClick}>
