@@ -72,7 +72,7 @@ export function UserContextProvider({ children }) {
   const [isFlippedrelaxingPurpleTheme, setFlippedrelaxingPurpleTheme] = useState(false);
   const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme] = useState(false);
   const [Loading,SetLoading]=useState(true);
-  const [Comment,SetComment]=useState([]);
+  const [Comment,SetComment]=useState(null);
 
 
 

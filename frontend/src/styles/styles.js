@@ -1653,6 +1653,23 @@ export const Ring = styled.div`
   animation: ${loadingAnimation} 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
 `;
 
+export const CommentsProfilePic = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 10px;
+  margin-right:20px; 
+`;
+export const CommentsDiv=styled.div`
+  background: ${(props) => GetCommentSectionBackground(props.theme)};
+  margin-top:10px;
+  border-radius:10px;
+
+
+
+
+`
+
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

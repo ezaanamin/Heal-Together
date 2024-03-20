@@ -80,6 +80,7 @@ const AnimatedContainer = styled.div`
   console.log(username,'username')
   await SetCurrentUsername(username); 
   // alert(PostText)
+  SetComment(null)
   SetCommentModal(true);
   
       dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
@@ -93,7 +94,16 @@ const AnimatedContainer = styled.div`
         SetLoading(false)
       }
   
-      console.log(data,'comment ')
+      console.log(data.Comments,'data comments ')
+      if(Comment==null)
+      {
+        SetComment(data.Comments);
+      }
+      else
+      {
+        SetComment(prevData => [...prevData, data.Comments]);
+
+      }
         // const filtered = data.filter(item => item.status.includes("Pending"));
         // SetOrdersData(filtered)
         // setloading(false)
