@@ -169,45 +169,6 @@ DELETE  r;
   }
 };
 
-
-const GetUserInformation = async (user_id) => {
-  const uri = process.env.NEO4J_URI;
-  const user = process.env.NEO4J_USERNAME;
-  const password = process.env.NEO4J_PASSWORD;
-      const trimmedUserId = user_id.trim();
-      const client = createClient();
-      await client.connect();
-  try {
-    const doc = await Users.findById(trimmedUserId);
-    if (doc) {
-      // console.log(doc.username)
-   
-      const userProfileData = `${doc.username} userProfile_data`;
-
-      const checkUser = await client.exists(userProfileData);
-
-      if (checkUser === 1) {
-        const value = await client.get(userProfileData);
-        const userData = JSON.parse(value);
-        // console.log(userData)
-        await client.quit();
-        return userData;
-      } else {
-        const userEntry = {
-          username: doc.username,
-          user_profile_pic: doc.user_profile_pic
-        };
-        await client.set(userProfileData, JSON.stringify(userEntry));
-        await client.quit();
-        return userEntry;
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching user information:", error);
-    throw error; 
-  }
-};
-
 export const GetCommentsMindFulMoments = async (req, res) => {
   const { MindfulMoments } = req.body;
   const client = createClient();
@@ -224,9 +185,13 @@ export const GetCommentsMindFulMoments = async (req, res) => {
 
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
     const session = driver.session();
-    const momentsQuery = `
-      MATCH p=(l:Comments)-[:Respond_To]->(n:\`Mindful Moments\`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
-    `;
+    // const momentsQuery = `
+    //   MATCH p=(l:Comments)-[:Respond_To]->(n:\`Mindful Moments\`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
+    // `;
+    const momentsQuery=` MATCH p=(l:Comments)-[:Respond_To]->(n2:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments})
+    MATCH n1=(n:Users)
+    WHERE n.\`_id\` = REPLACE(l.User_Comment_id, ' ', '')
+    RETURN l.Comments as comments ,n.username as username ,n.user_profile_pic as profile_pic`
     const result = await session.run(momentsQuery + ` SKIP ${skip} `+ `LIMIT ${limit}`, { MindfulMoments });
     const length = result.records.length;
     let index = 0;
@@ -234,11 +199,13 @@ export const GetCommentsMindFulMoments = async (req, res) => {
     while (index < length) {
       const data = result.records.slice(index, index + SliceSize);
       for (let record of data) {
-        const userId = record.get('user_id').trim(); 
-        const comment = record.get('Comments').trim();
-        const userInfo = await GetUserInformation(userId);
+     
+        const comment = record.get('comments').trim();
+        const username = record.get('username');
+        const profile_pic = record.get('profile_pic');
+        // const userInfo = await GetUserInformation(userId);
 
-        Comments.push({comment, userInfo }); 
+        Comments.push({comment,username,profile_pic }); 
         
       }
 
