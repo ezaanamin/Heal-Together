@@ -69,7 +69,7 @@ if (Login.fulfilled.match(action)) {
  localStorage.setItem('Token', JSON.stringify(action.payload.Token));
 // localStorage.setItem('UserFirstName', action.payload.firstName);
 // localStorage.setItem('UserSurName', action.payload.SurName);
-// localStorage.setItem('UserGender', action.payload.gender);
+// localStorage.setItem('profile_pic', action.payload.gender);
 // localStorage.setItem('UserUsername', action.payload.username);
 
  nav('/home')

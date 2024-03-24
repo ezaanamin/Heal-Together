@@ -124,9 +124,13 @@ export const UserFriends = createAsyncThunk(
 
 export const GetUsersMindFulDetails=createAsyncThunk(
 'post/GetUsersMindFulDetails',
-async (data, { rejectWithValue }) => {
+async (token, { rejectWithValue }) => {
   try {
-    const response = await axios.post('http://localhost:4000/mindful_moments/get', data);
+    const response = await axios.post('http://localhost:4000/mindful_moments/get', null, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

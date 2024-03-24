@@ -18,18 +18,19 @@ const Home = () => {
    const dispatch = useDispatch();
 
   const userContext = useContext(UserContext);
-  const { SetUserFirstName,SetUserSurName, SetUserGender,SetUserUsername,PostContent,SetPostContent } = userContext;
+  const { SetUserFirstName,SetUserSurName, SetUserProfilePic,SetUserUsername,PostContent,SetPostContent } = userContext;
 
   useEffect(() => {
     const userFirstName = localStorage.getItem('UserFirstName');
     const userSurName = localStorage.getItem('UserSurName');
-    const userGender = localStorage.getItem('UserGender');
+    const profile_pic = localStorage.getItem('profile_pic');
     const userUsername = localStorage.getItem('UserUsername');
+    const Token = localStorage.getItem('Token');
 
-    if (userFirstName || userGender || userSurName || userUsername) {
+    if (userFirstName || profile_pic || userSurName || userUsername) {
       const fetchData = async () => {
         try {
-          const action = await dispatch(GetUsersMindFulDetails({ username: userUsername }));
+          const action = await dispatch(GetUsersMindFulDetails(Token));
 
           if (GetUsersMindFulDetails.fulfilled.match(action)) {
 
@@ -53,7 +54,7 @@ const Home = () => {
 
       SetUserFirstName(userFirstName);
       SetUserSurName(userSurName);
-      SetUserGender(userGender);
+      SetUserProfilePic(profile_pic);
       SetUserUsername(userUsername);
     }
   }, []); 
@@ -66,6 +67,7 @@ useEffect(()=>{
   {
     nav('/')
   }
+  
   
 // console.log(RecommendedUserList,'ezaanamin')
  

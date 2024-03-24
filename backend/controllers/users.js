@@ -436,7 +436,7 @@ export const LoginUser = async (req, res) => {
       expiresIn: '2h',
     });
 
-    console.log(token)
+    // console.log(token)
     return res.json({ Token: token });
   } catch (error) {
     console.error('Login error:', error);
@@ -470,7 +470,6 @@ export const GetUsersInformation= (req, res) => {
                 username: doc.username,
                 firstname: doc.firstName,
                 surname: doc.surName,
-                gender: doc.gender,
                 profile_pic: doc.user_profile_pic
               });
             })

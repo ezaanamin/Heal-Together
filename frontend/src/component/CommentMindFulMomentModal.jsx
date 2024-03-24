@@ -11,11 +11,11 @@ function CommentMindFulMomentModal({username}) {
     const { SetCommentModal,Comment } = userContext;
     const style = getDynamicStyle();
     
-    // useEffect(()=>{
+    useEffect(()=>{
 
-    //     console.log(typeof(Comment),'comments ezaan')
+        console.log(Comment,'comments ezaan')
 
-    // },[Comment])
+    },[Comment])
     // console.log( userContext.Loading,'loading')
     return (
         <Modal

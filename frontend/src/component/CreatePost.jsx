@@ -60,9 +60,9 @@ const userContext = useContext(UserContext);
 
 <ModalUser>
 {
-  userContext.UserGender==="Male"?
-                  <ProfileImg src={MaleAvatar}/>:
-                  <ProfileImg src={FemaleAvatar}/>
+
+                  <ProfileImg src={`http://localhost:4000/upload/${userContext.profile_pic}`}/>
+                  
 
 
 

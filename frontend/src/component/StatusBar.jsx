@@ -20,7 +20,7 @@ const StatusBar = () => {
   // const { SetCreatePost } = userContext;
   // useEffect(()=>{
 
-  //   alert(UserGender)
+  //   alert(profile_pic)
   // },[])
   return (
     <>
@@ -28,9 +28,7 @@ const StatusBar = () => {
         <StatusBarContent>
           <a href={`/${userContext.UserUsername}`}>
             <StatusBarProfile
-              src={
-                userContext.UserGender === 'Male' ? MaleAvatar : FemaleAvatar
-              }
+            src={`http://localhost:4000/upload/${userContext.profile_pic}`}
             />
           </a>
           <StatusBarHeading>

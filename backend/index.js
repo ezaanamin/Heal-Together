@@ -32,13 +32,13 @@ const io=new Server(server,{
   }
 });
 
-io.on("connection", (socket) => {
-  console.log("User Connected", socket.id);
+// io.on("connection", (socket) => {
+//   console.log("User Connected", socket.id);
 
-  socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("user disconnected", socket.id);
+//   });
+// });
 
 // REST API endpoint to test the server
 app.get("/", (req, res) => {

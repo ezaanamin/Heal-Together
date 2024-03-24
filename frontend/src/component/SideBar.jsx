@@ -23,7 +23,7 @@ const SideBar = () => {
   const nav = useNavigate();
  
   const userContext = useContext(UserContext);
-  const { SetUserFirstName,SetUserGender,SetUserSurName,SetUserUsername } = userContext;
+  const { SetUserFirstName,SetUserProfilePic,SetUserSurName,SetUserUsername } = userContext;
   const dispatch=useDispatch()
 
   useEffect(() => {
@@ -38,19 +38,19 @@ const SideBar = () => {
   
           if (promise && promise.payload) {
             console.log( promise.payload,'amin')
-            const { firstname, surname, gender,username } = promise.payload;
+            const { firstname, surname, profile_pic,username } = promise.payload;
   
             // Set local storage values
             localStorage.setItem('UserFirstName', firstname);
             localStorage.setItem('UserSurName', surname);
-            localStorage.setItem('UserGender', gender);
+            localStorage.setItem('profile_pic', profile_pic);
             localStorage.setItem('UserUsername', username);
   
             // Set state variables if values are not empty
-            if (firstname || surname || gender || username) {
+            if (firstname || surname || profile_pic || username) {
               SetUserFirstName(firstname);
               SetUserSurName(surname);
-              SetUserGender(gender);
+              SetUserProfilePic(profile_pic);
               SetUserUsername(username);
             }
           }
@@ -129,14 +129,13 @@ const SideBar = () => {
       </SideBarItems>
 
       <SideRight>
-      {
-        userContext.UserGender==="Male"?
-                  <SideBarProfile src={MaleAvatar}/>:
-                  <SideBarProfile src={FemaleAvatar}/>
+      
+                  <SideBarProfile src={`http://localhost:4000/upload/${userContext.profile_pic}`}/>
 
 
 
-          }
+
+          
 
 <SideBarUserHeading>{userContext.UserFirstName}  {userContext.UserSurName}</SideBarUserHeading>
 

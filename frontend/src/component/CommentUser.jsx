@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 function CommentUser({username,comment,profile_pic}) {
   const userContext = useContext(UserContext);
+  
 
   return (
     <PostContent>

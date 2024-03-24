@@ -46,7 +46,7 @@ export function UserContextProvider({ children }) {
   const [SignUpModal, SetSignUpModal] = useState(false);
   const [UserFirstName, SetUserFirstName] = useState("");
   const [UserSurName, SetUserSurName] = useState("");
-  const [UserGender, SetUserGender] = useState("");
+  const [profile_pic, SetUserProfilePic] = useState("");
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
@@ -91,8 +91,8 @@ export function UserContextProvider({ children }) {
     SetUserFirstName,
     UserSurName,
     SetUserSurName,
-    UserGender,
-    SetUserGender,
+    profile_pic,
+    SetUserProfilePic,
     firstTimeUser,
     SetFirstTimeUser,
     SignUpModal,

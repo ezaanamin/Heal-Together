@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 
 import { PostContainer,PostProfilePic,PostContent,ProfileHeadingPost,CommentSection} from '../styles/styles'
 function Post({ isFirst, Date, PostText, Likes,Comments,username,profile_pic,support}) {
-  const socket = io.connect(process.env.REACT_APP_BACKEND_PORT);
+  // const socket = io.connect(process.env.REACT_APP_BACKEND_PORT);
 
   // const [Loading,SetLoading]=useState(true)
   const [currentUsername,SetCurrentUsername]=useState("")
@@ -40,7 +40,7 @@ const AnimatedContainer = styled.div`
   animation: ${fadeIn} 1s ease-in-out; 
 `;
   const userContext = useContext(UserContext);
-  const {SetCommentModal,SetLoading,Comment,SetComment} = userContext;
+  const {SetCommentModal,SetLoading,Comment,SetComment,} = userContext;
 
   const dispatch = useDispatch();
 
@@ -75,35 +75,46 @@ const AnimatedContainer = styled.div`
 
   const [like,SetLike]=useState(support)
  const [likesCount,SetLikeCount]=useState(Likes.length)
- const GetComments = async () => {
+ const GetComments = async (PostText) => {
+ await SetComment(null)
   SetLoading(true);
   console.log(username,'username')
   await SetCurrentUsername(username); 
-  // alert(PostText)
   SetComment(null)
   SetCommentModal(true);
-  
-      dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText}))
-     console.log(Comments,'number of comment for each post ')
-     socket.on('comments', data => {
-  console.log(data.Comments.length,'length')
+
+  let skip=0;
+  let limit=5;
 
   
-      if(Comments===data.Comments.length)
-      {
-        SetLoading(false)
-      }
-  
-      console.log(data.Comments,'data comments ')
-      if(Comment==null)
-      {
-        SetComment(data.Comments);
-      }
-      else
-      {
-        SetComment(prevData => [...prevData, data.Comments]);
+  console.log(skip,'skip',limit,'limit')
+         const promise= await dispatch(GetCommentsMindFulMoments({MindfulMoments:PostText,skip:skip,limit:limit}))
+            if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
 
-      }
+         
+                console.log(promise.payload,'data')
+              await  SetComment(promise.payload.data);
+             
+              
+           
+              
+         
+
+
+
+
+
+               }
+
+
+
+  
+    //  console.log(Comments,'number of comment for each post ')
+
+  
+
+  
+ 
         // const filtered = data.filter(item => item.status.includes("Pending"));
         // SetOrdersData(filtered)
         // setloading(false)
@@ -111,14 +122,9 @@ const AnimatedContainer = styled.div`
         // alert(Comments)
       
        
-      
-      });
-  
-  
-    //  promise.then((action) => {
-  
-    //   console.log(action.payload)
-    //  })
+
+
+
   
    }
 
@@ -163,7 +169,7 @@ const AnimatedContainer = styled.div`
  <p style={{position:"relative",bottom:50,left:45}}>{likesCount}</p>
  <p style={{position:"relative",bottom:75,left:160}}>{Comments}</p>
 
- <div onClick={()=>GetComments()} style={{position:"relative",left:100,bottom:205}}>
+ <div onClick={()=>GetComments(PostText)} style={{position:"relative",left:100,bottom:205}}>
 
 
 <MainComment  theme={userContext.theme}/>
