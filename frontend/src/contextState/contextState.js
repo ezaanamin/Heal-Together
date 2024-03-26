@@ -73,6 +73,12 @@ export function UserContextProvider({ children }) {
   const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme] = useState(false);
   const [Loading,SetLoading]=useState(true);
   const [Comment,SetComment]=useState(null);
+  const [HasMore,SetHasMore]=useState(false);
+  const [skip,SetSkip]=useState(0);
+  const [limit,SetLimit]=useState(5);
+  const [currentMindfulMoment,SetCurrentMindfulMoment]=useState("");
+  const [CurrentCommentLength,SetCurrentCommentLength]=useState(0);
+
 
 
 
@@ -150,7 +156,12 @@ export function UserContextProvider({ children }) {
     PostContent, SetPostContent,
     CommentModal, SetCommentModal,
     Loading,SetLoading,
-    Comment,SetComment
+    Comment,SetComment,
+    HasMore,SetHasMore,
+    skip,SetSkip,
+    limit,SetLimit,
+    currentMindfulMoment,SetCurrentMindfulMoment,
+    SetCurrentCommentLength,CurrentCommentLength
   };
 
   return (

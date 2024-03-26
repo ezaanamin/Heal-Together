@@ -1664,6 +1664,7 @@ export const CommentsDiv=styled.div`
   background: ${(props) => GetCommentSectionBackground(props.theme)};
   margin-top:10px;
   border-radius:10px;
+  width:430px;
 
 
 
