@@ -5,77 +5,96 @@ import { UserContext } from '../contextState/contextState';
 import { CommentsHeading,CommentLine, getModalStyle, getDynamicStyle} from '../styles/styles';
 import Loading from './Loading';
 import CommentUser from './CommentUser';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { GetCommentsMindFulMoments } from '../redux/slice/API';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 function CommentMindFulMomentModal({username,CommentLength}) {
     const [modalStyle] = useState(getModalStyle);
     const dispatch = useDispatch();
-
+    const [alertTriggered, setAlertTriggered] = useState(false);
     const userContext = useContext(UserContext);
     const { SetCommentModal,Comment ,SetComment,SetHasMore,HasMore, skip,SetSkip,limit,CurrentCommentLength,currentMindfulMoment,SetLoading} = userContext;
     const style = getDynamicStyle();
+ 
     
-    useEffect(() => {
-      const handleScroll = () => {
-        SetHasMore(true)
-      };
-  
-      window.addEventListener('scroll', handleScroll);
-  
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
+
+      const [items, setItems] = useState(Array.from({ length: 20 }));
+      const [hasMore, setHasMore] = useState(true);
+    
+      const fetchMoreData = () => {
+        if (items.length >= 200) {
+          setHasMore(false);
+          return;
+        }
+        // a fake async api call like which sends
+        // 20 more records in .5 secs
+        setTimeout(() => {
+          setItems(prevItems =>
+            prevItems.concat(Array.from({ length: 20 }))
+          );
+        }, 500);
+      
+ 
+      }
+
+
     useEffect(()=>{
 
         console.log(Comment,'comments ezaan')
         console.log(CommentLength,'length')
 
-        if(Comment!=null)
+        if(Comment!=null && CurrentCommentLength==Comment.length)
         {
-          console.log("Has true")
+    //  alert("done")
+          
+            SetLoading(false)
+        
           // SetHasMore(true);
         }
+      
+      
+       
 
     },[Comment])
     // console.log( userContext.Loading,'loading')
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-      const fetchData = async () => {
-        if (HasMore) {
-          if (Comment.length === CurrentCommentLength) {
-            SetHasMore(false);
-            SetLoading(false)
-            
-          } else {
-            try {
-              const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: currentMindfulMoment, skip: skip, limit: limit }));
-              if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
-                const newData = promise.payload.data.flat();
-                await SetComment(Comment => [...Comment, ...newData]);
-                SetSkip(skip + 5);
-                SetHasMore(false)
-              }
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            }
-          }
-        }
-      };
     
-      fetchData();
+    
+    //   fetchData();
 
 
-    },[HasMore])
+    // },[HasMore])
 
+
+    const fetchData = async () => {
+      try {
+        if (Comment.length === CurrentCommentLength || Comment.length > CommentLength) {
+          setHasMore(false);
+        } else {
+          // Simulate a delay before fetching data
+          setTimeout(async () => {
+            const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: currentMindfulMoment, skip: skip, limit: limit }));
+            if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
+              const newData = promise.payload.data.flat();
+              await SetComment(prevComment => [...prevComment, ...newData]);
+              SetSkip(prevSkip => prevSkip + 5);
+            }
+          }, 500); // Adjust the delay time as needed
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     const HandleClose=()=>{
 
       SetComment(null);
-      SetCommentModal(false)
+      SetCommentModal(false);
+       SetSkip(0);
+
 
 
     }
@@ -87,19 +106,34 @@ function CommentMindFulMomentModal({username,CommentLength}) {
       onClose={() => HandleClose()}
     >
      
-  
-            <Box sx={{ ...style, ...modalStyle, width: 550, height: 500 }}>
-            <IconButton
+ <>
+ <Box sx={{ ...style, ...modalStyle,width:600}}>
+ <IconButton
         style={{ position: "absolute", top: "0", right: "0" }}
         onClick={() => HandleClose()} 
       >
         <CloseIcon />
       </IconButton>
-                <CommentsHeading>{username} Mindful Moments </CommentsHeading>
-              <CommentLine theme={userContext.theme} />
-
-  {Comment && Array.isArray(Comment) && Comment.map((comment, index) => (
-    <div style={{overflow:"scroll"}} key={index}>
+  <div>
+  <CommentsHeading>{username} Mindful Moments </CommentsHeading>
+      <hr />
+      {Comment?
+         <InfiniteScroll
+        dataLength={Comment.length}
+        next={fetchData}
+        hasMore={hasMore}
+        loader={<Loading/>}
+        height={300}
+     
+     
+      >
+        {/* {items.map((_, index) => (
+          <div key={index}>
+            div - #{index}
+          </div>
+        ))} */}
+        {Comment && Array.isArray(Comment) && Comment.map((comment, index) => (
+    <div key={index}>
       <CommentUser 
         comment={comment.comment}
         username={comment.username}
@@ -108,17 +142,23 @@ function CommentMindFulMomentModal({username,CommentLength}) {
     </div>
   ))}
 
-           {/* <CommentUser/>
-           
-           <CommentUser/> */}
-         {
-            userContext.Loading?
+      </InfiniteScroll>:null
+
+      }
+   
+    </div>
+    {
+            Comment==null?
             <Loading/>
            :
             null
           } 
+ </Box>
+
+ </>
+     
  
-            </Box>
+         
         </Modal>
     );
 }

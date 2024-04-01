@@ -73,7 +73,7 @@ export function UserContextProvider({ children }) {
   const [isFlippedTranquilTealTheme, setFlippedTranquilTealTheme] = useState(false);
   const [Loading,SetLoading]=useState(true);
   const [Comment,SetComment]=useState(null);
-  const [HasMore,SetHasMore]=useState(false);
+  const [HasMore,SetHasMore]=useState(true);
   const [skip,SetSkip]=useState(0);
   const [limit,SetLimit]=useState(5);
   const [currentMindfulMoment,SetCurrentMindfulMoment]=useState("");

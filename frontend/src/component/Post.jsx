@@ -72,6 +72,7 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
   const [like, SetLike] = useState(support)
   const [likesCount, SetLikeCount] = useState(Likes.length)
   const GetComments = async (PostText) => {
+    await SetSkip(5);
     SetCommentModal(true);
     SetLoading(true);
     console.log(username, 'username')
@@ -115,10 +116,10 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
 
       //   }
 
-      //   if(Comments==Comment.length)
-      //   {
-      //     SetLoading(false)
-      //   }
+        // if(Comments==Comment.length)
+        // {
+        //   SetLoading(false)
+        // }
 
       // }
 
