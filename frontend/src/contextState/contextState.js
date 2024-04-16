@@ -75,7 +75,7 @@ export function UserContextProvider({ children }) {
   const [Comment,SetComment]=useState(null);
   const [HasMore,SetHasMore]=useState(true);
   const [skip,SetSkip]=useState(0);
-  const [limit,SetLimit]=useState(5);
+
   const [currentMindfulMoment,SetCurrentMindfulMoment]=useState("");
   const [CurrentCommentLength,SetCurrentCommentLength]=useState(0);
 
@@ -159,7 +159,7 @@ export function UserContextProvider({ children }) {
     Comment,SetComment,
     HasMore,SetHasMore,
     skip,SetSkip,
-    limit,SetLimit,
+ 
     currentMindfulMoment,SetCurrentMindfulMoment,
     SetCurrentCommentLength,CurrentCommentLength
   };

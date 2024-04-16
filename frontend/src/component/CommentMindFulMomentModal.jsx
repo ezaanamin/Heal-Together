@@ -15,7 +15,7 @@ function CommentMindFulMomentModal({username,CommentLength}) {
     const dispatch = useDispatch();
     const [alertTriggered, setAlertTriggered] = useState(false);
     const userContext = useContext(UserContext);
-    const { SetCommentModal,Comment ,SetComment,SetHasMore,HasMore, skip,SetSkip,limit,CurrentCommentLength,currentMindfulMoment,SetLoading} = userContext;
+    const { SetCommentModal,Comment ,SetComment,SetHasMore,HasMore, skip,SetSkip,CurrentCommentLength,currentMindfulMoment,SetLoading} = userContext;
     const style = getDynamicStyle();
  
     
@@ -77,13 +77,13 @@ function CommentMindFulMomentModal({username,CommentLength}) {
         } else {
           // Simulate a delay before fetching data
           setTimeout(async () => {
-            const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: currentMindfulMoment, skip: skip, limit: limit }));
+            const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: currentMindfulMoment}));
             if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
               const newData = promise.payload.data.flat();
               await SetComment(prevComment => [...prevComment, ...newData]);
-              SetSkip(prevSkip => prevSkip + 5);
+      
             }
-          }, 500); // Adjust the delay time as needed
+          }, 500);
         }
       } catch (error) {
         console.error('Error fetching data:', error);

@@ -40,7 +40,7 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
   animation: ${fadeIn} 1s ease-in-out; 
 `;
   const userContext = useContext(UserContext);
-  const { SetCommentModal, SetLoading, Comment, SetComment, SetHasMore, SetCurrentCommentLength, skip,SetSkip,limit,SetLimit,SetCurrentMindfulMoment} = userContext;
+  const { SetCommentModal, SetLoading, Comment, SetComment, SetHasMore, SetCurrentCommentLength, skip,SetSkip,SetCurrentMindfulMoment} = userContext;
 
   const dispatch = useDispatch();
 
@@ -84,12 +84,12 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
     
 
 
-    console.log(skip, 'skip', limit, 'limit')
+  
     // while(Comments!=Comment.length)
     // {
       
     // }
-    const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: PostText, skip: skip, limit: limit }))
+    const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: PostText}))
     if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
 
 
@@ -97,7 +97,7 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
     
       if (Comment == null) {
         await SetComment(promise.payload.data);
-        SetSkip(skip+5);
+
 
       }
       // else {

@@ -60,14 +60,16 @@ export const GetUsersMindFulDetails = async (req, res) => {
                 
                 const momentsQuery = `
                 UNWIND $supportGroup AS username
-                MATCH (author:Users {username: username})-[:Author]->(post:\`Mindful Moments\`)
+                MATCH (author:Users {username: username})-[:Author]->(post:Mindful_Moments)
                 OPTIONAL MATCH (post)<-[:Respond_To]-(comments:Comments)
                 WITH post, COUNT(comments) AS NumberOfComments, author.username AS username, author.user_profile_pic AS profile_pic
                 OPTIONAL MATCH (post)<-[:likes]-(liker:Users)
+                WITH post, NumberOfComments, username, profile_pic, COLLECT(liker.username) AS liked
                 OPTIONAL MATCH (post)<-[:likes]-(support:Users {username: $username1})
-                RETURN post.Mindful_Moments AS MindfulMoments, NumberOfComments, username, profile_pic, COLLECT(liker.username) AS liked, post.Date AS Date,
+                RETURN post.Mindful_Moments AS MindfulMoments, NumberOfComments, username, profile_pic, liked, post.Date AS Date,
                        COUNT(support) > 0 AS Support
               `;
+              
               const mindfulMomentsResult = await session.run(momentsQuery, { supportGroup, username1 });
                 const mindfulMoments = mindfulMomentsResult.records.map(record => ({
                   username: record.get("username"),
@@ -125,9 +127,10 @@ export const SupportMindFulMoments = async (req, res) => {
   const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
   const session = driver.session();
   const momentsQuery = `
-    MATCH p=(n:Users{username:$username})-[:likes]->(m:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments})
-    RETURN COUNT(p) > 0 AS support
-  `;
+  MATCH (n:Users {username: $username})-[:likes]->(m:Mindful_Moments {Mindful_Moments: $MindfulMoments})
+  RETURN COUNT(m) > 0 AS support
+`;
+
   let support = false;
 
   try {
@@ -140,17 +143,17 @@ export const SupportMindFulMoments = async (req, res) => {
     let Support_Query;
     if (support==false) {
       Support_Query = `
-        MATCH (m:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments}), (n:Users{username:$username})
-        MERGE (n)-[r:likes]->(m) ON CREATE SET r.created = TRUE ON MATCH SET r.created = FALSE
-        RETURN r.created AS Support
-      `;
+      MATCH (m:Mindful_Moments {Mindful_Moments: $MindfulMoments}), (n:Users {username: $username})
+      MERGE (n)-[r:likes]->(m) 
+      ON CREATE SET r.created = TRUE 
+      ON MATCH SET r.created = FALSE
+      RETURN r.created AS Support
+  `;
     } if(support==true) {
       Support_Query = `
-      MATCH (n:Users {username: $username})-[r:likes]->(m:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments})
-DELETE  r;
-  
-      
-      `;
+      MATCH (n:Users {username: $username})-[r:likes]->(m:Mindful_Moments {Mindful_Moments: $MindfulMoments})
+      DELETE r
+  `;
       // console.log(Support_Query)
       console.log("I am running from deatch ")
     }
@@ -180,46 +183,65 @@ export const GetCommentsMindFulMoments = async (req, res) => {
     const uri = process.env.NEO4J_URI;
     const user = process.env.NEO4J_USERNAME;
     const password = process.env.NEO4J_PASSWORD;
-    let skip=req.body.skip;
-    let limit=req.body.limit;
+    let comment_id=req.body.comment_id;
+      let Comment_ID=-1;
+
+    if(!comment_id)
+    {
+      comment_id=0;
+    }
+    let limit=5;
 
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
     const session = driver.session();
     // const momentsQuery = `
-    //   MATCH p=(l:Comments)-[:Respond_To]->(n:\`Mindful Moments\`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
+    //   MATCH p=(l:Comments)-[:Respond_To]->(n:Mindful_Moments`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
     // `;
-    const momentsQuery=` MATCH p=(l:Comments)-[:Respond_To]->(n2:\`Mindful Moments\`{Mindful_Moments:$MindfulMoments})
-    MATCH n1=(n:Users)
-    WHERE n.\`_id\` = REPLACE(l.User_Comment_id, ' ', '')
-    RETURN l.Comments as comments ,n.username as username ,n.user_profile_pic as profile_pic`
-    const result = await session.run(momentsQuery + ` SKIP ${skip} `+ `LIMIT ${limit}`, { MindfulMoments });
+    const momentsQuery = `
+    MATCH (l:Comments)-[:Respond_To]->(n2:Mindful_Moments {Mindful_Moments:$MindfulMoments})
+    where l.Comment_ID>$comment_id
+
+    MATCH (n:Users)
+    WHERE n._id = REPLACE(l.User_Comment_id, ' ', '')
+    WITH l.Comments AS comments, n.username AS username, n.user_profile_pic AS profile_pic, l.Comment_ID AS comment_id
+    RETURN comments, username, profile_pic, LAST(COLLECT(comment_id)) AS Comment_ID
+    `;
+
+    const result = await session.run(momentsQuery + `LIMIT ${limit}`, { MindfulMoments,comment_id });
+
     const length = result.records.length;
     let index = 0;
     const SliceSize = 5;
     while (index < length) {
       const data = result.records.slice(index, index + SliceSize);
+
       for (let record of data) {
      
         const comment = record.get('comments').trim();
         const username = record.get('username');
         const profile_pic = record.get('profile_pic');
+        const commentID = record.get('Comment_ID').toNumber();
+        if(commentID>Comment_ID)
+        {
+          Comment_ID=commentID;
+        }
+        
         // const userInfo = await GetUserInformation(userId);
-
-        Comments.push({comment,username,profile_pic }); 
+        Comments.push({comment,username,profile_pic}); 
         
       }
+// Comments.push({Comment_ID:Comment_ID})
 
       index += SliceSize; 
     } 
-    // console.log(Comments);
+    console.log(Comments);
 
   
 
-
+console.log(Comment_ID)
     session.close();
     driver.close(); 
-
-    res.json({ success: true, data: Comments });
+    res.json({ success: true, data: Comments,Comment_ID:Comment_ID });
   } catch (error) {
     console.error("Error fetching comments:", error);
     res.status(500).json({ success: false, message: "Internal server error" });

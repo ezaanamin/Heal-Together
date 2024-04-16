@@ -764,12 +764,13 @@ export const Neo4jTesting = async (req, res) => {
     const session = driver.session();
 
     const cypherQuery = `
-      MATCH (p:Users {username: "LSmith123"})-[:support_group]->()
-      WITH COUNT(p) AS count
-      
-      MATCH p=(n:Users {username: "LSmith123"})-[:Authors]->(a:\`MindFul Moments\`)
-      RETURN count, COLLECT(a.Mindful_Moments) AS Mindful_Moments
-    `;
+    MATCH (p:Users {username: "LSmith123"})-[:support_group]->()
+    WITH COUNT(p) AS count
+    
+    MATCH (n:Users {username: "LSmith123"})-[:Authors]->(a:Mindful_Moments)
+    RETURN count, COLLECT(a.Mindful_Moments) AS Mindful_Moments
+  `;
+  
 
 
     {/*
