@@ -60,7 +60,7 @@ async function SendCode(email, code, firstName, LastName) {
 
   });
 
-  console.log(info)
+  //console.log(info)
 }
 
 export const NewUser = async (req, res) => {
@@ -256,7 +256,7 @@ export const NewUser = async (req, res) => {
         parameters
       )
       .then((result) => {
-        console.log(result.records[0].get('n'));
+        //console.log(result.records[0].get('n'));
         session.close();
         driver.close();
       })
@@ -401,7 +401,7 @@ export const VerifyUser = (req, res) => {
   try {
     // const token = req.headers['authorization']
     // const headers=token.split(" ")[1]
-    // console.log(headers);
+    // //console.log(headers);
     const pay = jwt.verify(token, token_key);
 
     res.json({ status: "Login" })
@@ -436,7 +436,7 @@ export const LoginUser = async (req, res) => {
       expiresIn: '2h',
     });
 
-    // console.log(token)
+    // //console.log(token)
     return res.json({ Token: token });
   } catch (error) {
     console.error('Login error:', error);
@@ -464,7 +464,7 @@ export const GetUsersInformation= (req, res) => {
             // Token verification failed
             console.error('Token verification failed:', err);
           } else {
-            console.log(decoded.user_id);
+            //console.log(decoded.user_id);
             Users.findById(decoded.user_id).then((doc)=>{
               res.json({
                 username: doc.username,
@@ -479,10 +479,10 @@ export const GetUsersInformation= (req, res) => {
       }
     });
 
-    // console.log(cleanedToken);
+    // //console.log(cleanedToken);
     // const pay = jwt.verify(token, process.env.TOKEN_KEY);
 
-    // // console.log(pay.user_id);
+    // // //console.log(pay.user_id);
 
 
 
@@ -506,8 +506,8 @@ export const RecommendedUserProfile = (req, res) => {
 
 
     if (doc) {
-      console.log(doc);
-      console.log(doc.length)
+      //console.log(doc);
+      //console.log(doc.length)
       res.json({ "data": doc })
     }
     else {
@@ -611,7 +611,7 @@ const updateUserData = async (doc, username, client, res) => {
 
   const UserData = JSON.stringify(data);
 
-console.log(data)
+//console.log(data)
 
   await client.set(username, UserData);
   const expirationInSeconds = 3600;
@@ -629,7 +629,7 @@ console.log(data)
       userProfile: parsedUserData.userProfile,
     });
   } catch (error) {
-    console.log(error)
+    //console.log(error)
   }
 
   // returnData(parsedUserData,res)
@@ -640,7 +640,7 @@ export const GetUsersProfile = async (req, res) => {
   const client = createClient();
   await client.connect();
   const UserCheckBool = await client.exists(username)
-  console.log(UserCheckBool, 'ezaan amin')
+  //console.log(UserCheckBool, 'ezaan amin')
   const value = await client.get(username);
   const UserData = JSON.parse(value);
   if (UserCheckBool == 1) {
@@ -741,7 +741,7 @@ export const UserFriends = async (req, res) => {
         const friend_surName = result.records[i]._fields[1]
         const friend_username = result.records[i]._fields[2]
         const friend_profile_pic = result.records[i]._fields[3]
-        // console.log(" " + friend_username)
+        // //console.log(" " + friend_username)
         var fullFriendName = friend_first_name + " " + friend_surName
         support_group[fullFriendName] = {
           username: friend_username,
@@ -789,7 +789,7 @@ for NEO4j the format is :
 
     const { count, Mindful_Moments } = result.records[0].toObject();
 
-    console.log(count.low,Mindful_Moments)
+    //console.log(count.low,Mindful_Moments)
 
 
     res.json({support_group:count.low,Mindful_Moments:Mindful_Moments})

@@ -82,7 +82,7 @@ export const GetUsersMindFulDetails = async (req, res) => {
                 }));
         
         
-                // console.log(mindfulMoments);
+                // //console.log(mindfulMoments);
                 // const UserData = JSON.stringify(mindfulMoments);
         
                 // await client.set(usernameSupportMindfulMoment, UserData);
@@ -137,7 +137,7 @@ export const SupportMindFulMoments = async (req, res) => {
     const result = await session.run(momentsQuery, { username, MindfulMoments });
     result.records.forEach(record => {
       support = record.get('support');
-      console.log(record.get('support'));
+      //console.log(record.get('support'));
     });
 
     let Support_Query;
@@ -154,14 +154,14 @@ export const SupportMindFulMoments = async (req, res) => {
       MATCH (n:Users {username: $username})-[r:likes]->(m:Mindful_Moments {Mindful_Moments: $MindfulMoments})
       DELETE r
   `;
-      // console.log(Support_Query)
-      console.log("I am running from deatch ")
+      // //console.log(Support_Query)
+      //console.log("I am running from deatch ")
     }
 
     const supportResult = await session.run(Support_Query, { username, MindfulMoments });
     // if(supportResult)
     // {
-    //   console.log(supportResult,'testing mate')
+    //   //console.log(supportResult,'testing mate')
     // }
     
     res.status(200).json({ message: "Success" });
@@ -177,19 +177,25 @@ export const GetCommentsMindFulMoments = async (req, res) => {
   const client = createClient();
   await client.connect();
 
-  // console.log(skip,limit);
+  // //console.log(skip,limit);
   try {
     let Comments = [];
     const uri = process.env.NEO4J_URI;
     const user = process.env.NEO4J_USERNAME;
     const password = process.env.NEO4J_PASSWORD;
     let comment_id=req.body.comment_id;
+    let total_length=req.body.total_length;
+
+    console.log(total_length ,'total length');
+
+    if(comment_id==-1)
+    {
+      console.log("no more comments");
+      return;
+    }
+    console.log(comment_id,'comment id')
       let Comment_ID=-1;
 
-    if(!comment_id)
-    {
-      comment_id=0;
-    }
     let limit=5;
 
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
@@ -198,49 +204,58 @@ export const GetCommentsMindFulMoments = async (req, res) => {
     //   MATCH p=(l:Comments)-[:Respond_To]->(n:Mindful_Moments`{Mindful_Moments: $MindfulMoments}) RETURN l.User_Comment_id as user_id, l.Comments as Comments
     // `;
     const momentsQuery = `
-    MATCH (l:Comments)-[:Respond_To]->(n2:Mindful_Moments {Mindful_Moments:$MindfulMoments})
-    where l.Comment_ID>$comment_id
-
-    MATCH (n:Users)
-    WHERE n._id = REPLACE(l.User_Comment_id, ' ', '')
-    WITH l.Comments AS comments, n.username AS username, n.user_profile_pic AS profile_pic, l.Comment_ID AS comment_id
-    RETURN comments, username, profile_pic, LAST(COLLECT(comment_id)) AS Comment_ID
+      MATCH (l:Comments)-[:Respond_To]->(n2:Mindful_Moments {Mindful_Moments:$MindfulMoments})
+      WHERE l.Comment_ID > $comment_id
+      MATCH (n:Users)
+      WHERE n._id = REPLACE(l.User_Comment_id, ' ', '')
+      WITH l.Comments AS comments, n.username AS username, n.user_profile_pic AS profile_pic, l.Comment_ID AS comment_id
+      RETURN comments, username, profile_pic, LAST(COLLECT(comment_id)) AS Comment_ID
     `;
 
-    const result = await session.run(momentsQuery + `LIMIT ${limit}`, { MindfulMoments,comment_id });
+    const countQuery = `
+      MATCH (l:Comments)-[:Respond_To]->(n2:Mindful_Moments {Mindful_Moments: $MindfulMoments})
+      WHERE l.Comment_ID > $comment_id
+      RETURN count(l) AS commentCount
+    `;
 
-    const length = result.records.length;
-    let index = 0;
-    const SliceSize = 5;
-    while (index < length) {
-      const data = result.records.slice(index, index + SliceSize);
+    const countResult = await session.run(countQuery, { MindfulMoments, comment_id });
 
-      for (let record of data) {
-     
-        const comment = record.get('comments').trim();
-        const username = record.get('username');
-        const profile_pic = record.get('profile_pic');
-        const commentID = record.get('Comment_ID').toNumber();
-        if(commentID>Comment_ID)
-        {
-          Comment_ID=commentID;
-        }
-        
-        // const userInfo = await GetUserInformation(userId);
-        Comments.push({comment,username,profile_pic}); 
-        
+    const commentCount = countResult.records[0].get('commentCount').toNumber();
+    // console.log(commentCount,'count ');
+let result;
+    if (commentCount <= 5) {
+       result=await session.run(momentsQuery ,{ MindfulMoments, comment_id });
+
+    }
+    else
+    {
+    result=await session.run(momentsQuery + ` LIMIT ${limit}`, { MindfulMoments, comment_id });
+
+
+    }
+
+
+    result.records.forEach(record => {
+      const comment = record.get('comments').trim();
+      const username = record.get('username');
+      const profile_pic = record.get('profile_pic');
+      const commentID = record.get('Comment_ID').toNumber();
+      if(commentID>Comment_ID)
+      {
+        Comment_ID=commentID;
       }
+      Comments.push({ comment, username, profile_pic });
+    });
 // Comments.push({Comment_ID:Comment_ID})
-
-      index += SliceSize; 
-    } 
-    console.log(Comments);
+session.close();
+driver.close();
+     
+    //console.log(Comments);
 
   
 
-console.log(Comment_ID)
-    session.close();
-    driver.close(); 
+// console.log(Comment_ID,'comment id 2 ')
+   
     res.json({ success: true, data: Comments,Comment_ID:Comment_ID });
   } catch (error) {
     console.error("Error fetching comments:", error);
@@ -278,7 +293,7 @@ console.log(Comment_ID)
     //               const user_id = record.get('user_id');
     //               const comment = record.get('Comments');
     //               const userInfo = await GetUserInformation(user_id);
-    //       // console.log(userInfo)
+    //       // //console.log(userInfo)
     //               Comments.push({
     //                 username: userInfo.username,
     //                 user_profile_pic: userInfo.user_profile_pic,

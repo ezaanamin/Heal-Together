@@ -89,6 +89,7 @@ export function UserContextProvider({ children }) {
 
   const [theme, setTheme] = useState("light");
   const [ColorTheme, SetColorTheme] = useState(false);
+  const [currentCommentID,SetCurrentCommentID]=useState(5);
 
   const userContextValue = {
     EditProfileModal,
@@ -161,7 +162,8 @@ export function UserContextProvider({ children }) {
     skip,SetSkip,
  
     currentMindfulMoment,SetCurrentMindfulMoment,
-    SetCurrentCommentLength,CurrentCommentLength
+    SetCurrentCommentLength,CurrentCommentLength,
+    currentCommentID,SetCurrentCommentID
   };
 
   return (

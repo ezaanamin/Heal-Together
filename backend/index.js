@@ -33,10 +33,10 @@ const io=new Server(server,{
 });
 
 // io.on("connection", (socket) => {
-//   console.log("User Connected", socket.id);
+//   //console.log("User Connected", socket.id);
 
 //   socket.on("disconnect", () => {
-//     console.log("user disconnected", socket.id);
+//     //console.log("user disconnected", socket.id);
 //   });
 // });
 
@@ -68,7 +68,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 // Test endpoint for POST request
 app.post("/test", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 });
 const dataArray = [];
 
@@ -107,7 +107,7 @@ const dataArray = [];
 //   dataArray.push(data);
 // }
 
-// console.log(dataArray);
+// //console.log(dataArray);
 // const tx = session.beginTransaction();
 
 // try {
@@ -130,7 +130,7 @@ const dataArray = [];
 //   }
 
 //   await tx.commit();
-//   console.log('Data inserted successfully.');
+//   //console.log('Data inserted successfully.');
 // } catch (error) {
 //   await tx.rollback();
 //   console.error('Error inserting data:', error);
@@ -149,7 +149,7 @@ const dataArray = [];
 //   await csv.toDisk('/home/ezaan-amin/Documents/Profolio/Heal-Together/backend/userdata5.csv');
  
 //   // Return the CSV file as string:
-//   // console.log(await csv.toString());
+//   // //console.log(await csv.toString());
 // })();
 
 // Connection URI (replace with your MongoDB connection string)

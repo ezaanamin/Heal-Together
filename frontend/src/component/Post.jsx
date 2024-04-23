@@ -12,7 +12,7 @@ import { PostSupportMindFulMoments, GetCommentsMindFulMoments } from '../redux/s
 import CommentMindFulMomentModal from './CommentMindFulMomentModal';
 import io from 'socket.io-client';
 
-import { PostContainer, PostProfilePic, PostContent, ProfileHeadingPost, CommentSection } from '../styles/styles'
+import { PostContainer, PostProfilePic, PostContent, ProfileHeadingPost, CommentSection,PContainer,AnimatedContainer} from '../styles/styles'
 function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic, support }) {
   // const socket = io.connect(process.env.REACT_APP_BACKEND_PORT);
 
@@ -21,26 +21,9 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
 
 
 
-  const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 
-  const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-  const AnimatedContainer = styled.div`
-  animation: ${fadeIn} 1s ease-in-out; 
-`;
   const userContext = useContext(UserContext);
-  const { SetCommentModal, SetLoading, Comment, SetComment, SetHasMore, SetCurrentCommentLength, skip,SetSkip,SetCurrentMindfulMoment} = userContext;
+  const { SetCommentModal, SetLoading, Comment, SetComment, SetHasMore, SetCurrentCommentLength,SetCurrentMindfulMoment,currentCommentID,SetCurrentCommentID} = userContext;
 
   const dispatch = useDispatch();
 
@@ -72,13 +55,26 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
   const [like, SetLike] = useState(support)
   const [likesCount, SetLikeCount] = useState(Likes.length)
   const GetComments = async (PostText) => {
-    await SetSkip(5);
+
     SetCommentModal(true);
     SetLoading(true);
     console.log(username, 'username')
     await SetCurrentUsername(username);
  await SetCurrentMindfulMoment(PostText);
  await SetCurrentCommentLength(Comments);
+ if(Comments<=5)
+ {
+  // alert("hoo")
+  await SetCurrentCommentID(0);
+
+ }
+ else
+ {
+  // alert("bye")
+ await  SetCurrentCommentID(5);
+
+
+ }
     console.log(Comments,'comments lengths')
 
     
@@ -89,7 +85,10 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
     // {
       
     // }
-    const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: PostText}))
+
+
+  
+    const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: PostText,comment_id: currentCommentID}))
     if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
 
 
@@ -161,7 +160,22 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
     console.log(currentUsername, 'current username')
   }, [currentUsername])
 
+  const fetchData = async () => {
+    try {
+      const promise = await dispatch(GetCommentsMindFulMoments({ MindfulMoments: PostText, comment_id: currentCommentID }));
+      if (GetCommentsMindFulMoments.fulfilled.match(promise)) {
 
+        const newData = promise.payload.data.flat();
+        console.log(newData,'comments')
+        SetCurrentCommentID(promise.payload.Comment_ID);
+        // SetComment(prevComment => [...prevComment, ...newData]);
+      } else {
+        console.error("Failed to fetch comments:", promise.error);
+      }
+    } catch (error) {
+      console.error('Failed fetching data:', error);
+    }
+  };
 
   return (
     <>
@@ -183,7 +197,7 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
             <br />
             <b>{Date}</b>
             <br />
-            {PostText}
+           {PostText}
           </ProfileHeadingPost>
         </PostContent>
         <CommentSection theme={userContext.theme}>
@@ -209,11 +223,11 @@ function Post({ isFirst, Date, PostText, Likes, Comments, username, profile_pic,
 
           </div>
 
-          <Container>
+          <PContainer>
             <AnimatedContainer>
 
             </AnimatedContainer>
-          </Container>
+          </PContainer>
         </CommentSection>
 
       </PostContainer>

@@ -1671,6 +1671,25 @@ export const CommentsDiv=styled.div`
 
 `
 
+const fadeIn = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
+
+export const  PContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+`;
+export const AnimatedContainer = styled.div`
+animation: ${fadeIn} 1s ease-in-out; 
+`; 
+
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
