@@ -3,6 +3,7 @@ import { relaxingPurpleTheme,sereneGreenTheme,TranquilTealTheme,calmingBlueTheme
 import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
+import { lighten, darken } from 'polished';
 import ColorLensIcon from '@mui/icons-material/ColorLens'
 const LightStatusBar =TranquilTealTheme.palette.statusBar.backgroundColor
 const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
@@ -1690,6 +1691,44 @@ export const AnimatedContainer = styled.div`
 animation: ${fadeIn} 1s ease-in-out; 
 `; 
 
+export const ChatSideBarDiv=styled.div`
+  background-color: ${props => darken(0.10, MainButton(props.theme))};
+width:374px;
+height:100vh;
+`
+
+export const ChatHeader = styled.div`
+flex: 1; 
+  height: 100px;
+  background-color: ${props => MainButton(props.theme) || 'BLUE'};
+
+
+  
+`;
+
+export const ContainerChat=styled.div`
+
+display:flex;
+flex-direction: row;
+
+`
+export const ProfileImgChatRoom=styled.img`
+height:80px;
+border-radius:50%;
+width:6%;
+margin-left:50px;
+margin-top:10px;
+
+
+`
+
+export const ChatHeading=styled.h1`
+color:${ProfileText};
+margin-left:170px;
+margin-top:-60px;
+
+
+`
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

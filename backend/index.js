@@ -24,21 +24,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/upload', express.static('upload'));
 app.use("/users", UserRoutes);
 app.use('/mindful_moments', MindFulMomentsRoutes);
-
 const io=new Server(server,{
+  // pingTimeout:60000,
   cors:{
-      origin:process.env.FRONTEND_PORT,
+      origin:"http://localhost:3000",
       methods:["GET","POST"]
   }
 });
 
-// io.on("connection", (socket) => {
-//   //console.log("User Connected", socket.id);
+io.on("connection", (socket) => {
+  console.log("User Connected", socket.id);
 
-//   socket.on("disconnect", () => {
-//     //console.log("user disconnected", socket.id);
-//   });
-// });
+});
 
 // REST API endpoint to test the server
 app.get("/", (req, res) => {
@@ -183,5 +180,3 @@ mongoose.connect(process.env.MONGO_URL, {
 }).catch((error) => {
   console.error("MongoDB connection error:", error);
 });
-
-export { io }; 

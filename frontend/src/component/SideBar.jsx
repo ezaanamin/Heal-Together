@@ -105,7 +105,12 @@ const SideBar = () => {
         </IconButton>
         <IconButton style={{ marginBottom: 10 }}>
           <ChatIcon fontSize="large" />
+          {            <Link to={`/chatroom`}>
+
           <IconHeading>Message</IconHeading>
+          </Link>
+
+          }
         </IconButton>
         <IconButton style={{ marginBottom: 10 }}>
           <PeopleAltIcon fontSize="large" />

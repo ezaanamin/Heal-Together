@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import GettingStarted from '../pages/GettingStarted';
 import Profile from '../pages/Profile';
+import ChatRoom from '../pages/ChatRoom';
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/:username",
     element: <Profile />,
+  },
+  {
+    path:"/chatroom",
+    element:<ChatRoom/>
   }
 ]);
 

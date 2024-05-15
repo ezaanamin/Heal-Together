@@ -1,5 +1,4 @@
 import React from 'react'
-import Profile from "../images/beautiful-woman-street.jpg"
 import { PostContent,CommentsProfilePic,CommentsDiv } from '../styles/styles'
 import { UserContext } from '../contextState/contextState'
 import { useContext } from 'react'

@@ -1,7 +1,6 @@
 import neo4j from 'neo4j-driver';
 import { DateDifference} from './helpers.js';
 import { createClient } from 'redis';
-import { io } from '../index.js';
 import { Users } from '../model/users.js';
 import jwt from "jsonwebtoken"
 
