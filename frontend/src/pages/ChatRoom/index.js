@@ -15,14 +15,18 @@ const ChatRoom = () => {
         <StyledHome theme={userContext.theme}>
 <ContainerChat>
 <ChatSideBar/>
-<ChatHeader>
+<ChatHeader theme={userContext.theme}>
+     
 <ProfileImgChatRoom src={ProfilePic}/>
 <ChatHeading>Emily </ChatHeading>
 
-      <FontAwesomeIcon style={{position:"absolute",right:40,top:45}} icon={faSearch} size="2x" />
-    
-</ChatHeader>
+<FontAwesomeIcon 
+  style={{position: "absolute", right: 40, top: 45, color: "#005f7f"}} 
+  icon={faSearch} 
+  size="2x" 
+/>    
 
+      </ChatHeader>
 </ContainerChat>
 
       </StyledHome>

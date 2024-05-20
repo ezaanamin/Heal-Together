@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatSideBarDiv } from '../styles/styles';
+import { ChatSideBarDiv, MainHeading,SideBarChat } from '../styles/styles';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
 const ChatSideBar = () => {
@@ -7,7 +7,8 @@ const ChatSideBar = () => {
 
     return (
         <ChatSideBarDiv theme={userContext.theme}>
-            
+
+            <SideBarChat>Chat</SideBarChat>
         </ChatSideBarDiv>
             
      

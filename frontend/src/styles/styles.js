@@ -3,8 +3,9 @@ import { relaxingPurpleTheme,sereneGreenTheme,TranquilTealTheme,calmingBlueTheme
 import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
-import { lighten, darken } from 'polished';
+import { darken } from 'polished';
 import ColorLensIcon from '@mui/icons-material/ColorLens'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const LightStatusBar =TranquilTealTheme.palette.statusBar.backgroundColor
 const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
 const BlueStatusBar =calmingBlueTheme.palette.statusBar.backgroundColor
@@ -13,18 +14,26 @@ const GreenStatusBar =sereneGreenTheme.palette.statusBar.backgroundColor
 const GreenStatusBarHover =sereneGreenTheme.palette.CommentsHover.backgroundColor
 const PurpleStatusBar = relaxingPurpleTheme.palette.statusBar.backgroundColor
 const PurpleStatusBarHover =relaxingPurpleTheme.palette.CommentsHover.backgroundColor
+
+
 const GreenTextColor =sereneGreenTheme.palette.text.primary
 const BlueTextColor = calmingBlueTheme.palette.text.primary
 const LightTextColor =TranquilTealTheme.palette.text.primary
 const PurpleTextColor =relaxingPurpleTheme.palette.text.primary
+
+
 const LightMainContainer = TranquilTealTheme.palette.primary.main
 const BlueMainContainer =calmingBlueTheme.palette.primary.main
 const GreenMainContainer =sereneGreenTheme.palette.primary.main
 const PurpleMainContainer = relaxingPurpleTheme.palette.primary.main
+
+
 const LightBorder =TranquilTealTheme.palette.borderLine.backgroundColor
 const BlueBorder =calmingBlueTheme.palette.borderLine.backgroundColor
 const GreenBorder =sereneGreenTheme.palette.borderLine.backgroundColor
 const PurpleBorder =relaxingPurpleTheme.palette.borderLine.backgroundColor;
+
+
 const LightButtonColor=TranquilTealTheme.palette.secondary.main;
 const BlueButtonColor=calmingBlueTheme.palette.secondary.main;
 const PurpleButtonColor=relaxingPurpleTheme.palette.secondary.main
@@ -33,27 +42,37 @@ const BlueMainHoverColor= calmingBlueTheme.palette.action.hover
 const GreenMainHoverColor=sereneGreenTheme.palette.action.hover
 const LIghtMainHoverColor=TranquilTealTheme.palette.action.hover
 const PurpleMainHoverColor=relaxingPurpleTheme.palette.action.hover
+
+
 const LightButtonCreateColor=TranquilTealTheme.overrides.MuiButton.root.backgroundColor
 const BlueButtonCreateColor=calmingBlueTheme.overrides.MuiButton.root.backgroundColor
 const GreenButtonCreateColor=sereneGreenTheme.overrides.MuiButton.root.backgroundColor
-const PurpleButtonCreateColor=relaxingPurpleTheme.overrides.MuiButton.root.backgroundColort
+const PurpleButtonCreateColor=relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor
+
 const LightColorSideBar=TranquilTealTheme.palette.SideBar.backgroundColor
 const BlueColorSideBar=calmingBlueTheme.palette.SideBar.backgroundColor
 const GreenColorSideBar=sereneGreenTheme.palette.SideBar.backgroundColor
 const PurpleColorSideBar=relaxingPurpleTheme.palette.SideBar.backgroundColor
+
+
 const LightPostBackgroundColor= TranquilTealTheme.palette.Post.containerBackground;
 const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
 const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
 const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
-const BlueCommentSection=calmingBlueTheme.palette.Comments.backgroundColor
-const GreenCommentSection=sereneGreenTheme.palette.Comments.backgroundColor
-const PurpleCommentSection=relaxingPurpleTheme.palette.Comments.backgroundColor
-const TranquilTealCommentSection=TranquilTealTheme.palette.Comments.backgroundColor
+
+
+const BlueCommentSection=calmingBlueTheme.palette.Comments.backgroundColor;
+const GreenCommentSection=sereneGreenTheme.palette.Comments.backgroundColor;
+const PurpleCommentSection=relaxingPurpleTheme.palette.Comments.backgroundColor;
+const TranquilTealCommentSection=TranquilTealTheme.palette.Comments.backgroundColor;
+
+
 const LightHeartFill1_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor1;
 const LightHeartFill2_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor2;
 const LightHeartFill3_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor3;
 const LightHeartStroke_TranquilTeal = TranquilTealTheme.palette.animateHeart.strokeColor;
 const LightHeartFilter_TranquilTeal = TranquilTealTheme.palette.animateHeart.filter;
+
 const LightHeartFill1_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor1;
 const LightHeartFill2_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor2;
 const LightHeartFill3_CalmingBlue = calmingBlueTheme.palette.animateHeart.fillColor3;
@@ -72,6 +91,13 @@ const LightHeartFill2_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.
 const LightHeartFill3_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.fillColor3;
 const LightHeartStroke_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.strokeColor;
 const LightHeartFilter_RelaxingPurple = relaxingPurpleTheme.palette.animateHeart.filter;
+
+
+const TranquilTealThemeIconColor = TranquilTealTheme.palette.ButtonActive.backgroundColor;
+const CalmingBlueThemeIconColor = calmingBlueTheme.palette.ButtonActive.backgroundColor;
+const SereneGreenThemeIconColor = sereneGreenTheme.palette.ButtonActive.backgroundColor;
+const RelaxingPurpleIconColor = relaxingPurpleTheme.palette.ButtonActive.backgroundColor;
+
 
 
 
@@ -139,6 +165,21 @@ export const GetLightHeartFilter = (theme) => {
     LightHeartFilter_TranquilTeal; 
 };
 
+export const GetIconColor = (theme) => {
+  switch (theme) {
+    case 'light':
+      return TranquilTealThemeIconColor;
+    case 'blue':
+      return CalmingBlueThemeIconColor;
+    case 'green':
+      return SereneGreenThemeIconColor;
+    case 'purple':
+      return RelaxingPurpleIconColor;
+    default:
+      return ; 
+  }
+};
+
 export const GetRingColor = (theme) => {
   switch (theme) {
     case 'light':
@@ -150,7 +191,7 @@ export const GetRingColor = (theme) => {
     case 'purple':
       return PurpleMainContainer;
     default:
-      return LightMainContainer; // Default to LightMainContainer if theme is not recognized
+      return LightMainContainer; 
   }
 };
 export const ADDTOPOST=styled.div`
@@ -1729,6 +1770,22 @@ margin-top:-60px;
 
 
 `
+export const SideBarChat=styled.h1`
+color:${ProfileText};
+text-align:center;
+margin-top:30px;
+
+
+
+`
+
+export const StyledSearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  right: 40px;
+  top: 45px;
+  color: #005f7f; 
+  font-size:2x;
+`;
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

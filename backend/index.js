@@ -6,10 +6,9 @@ import dotenv from "dotenv";
 import UserRoutes from "./routes/users.js";
 import MindFulMomentsRoutes from "./routes/MindFulMoments.js";
 import multer from "multer";
-import { Server } from "socket.io";
 import http from "http";
 import cookieParser from "cookie-parser";
-
+import SetupSocket from "./socket/socket.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -24,18 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/upload', express.static('upload'));
 app.use("/users", UserRoutes);
 app.use('/mindful_moments', MindFulMomentsRoutes);
-const io=new Server(server,{
-  // pingTimeout:60000,
-  cors:{
-      origin:"http://localhost:3000",
-      methods:["GET","POST"]
-  }
-});
-
-io.on("connection", (socket) => {
-  console.log("User Connected", socket.id);
-
-});
+const io = SetupSocket(server);
 
 // REST API endpoint to test the server
 app.get("/", (req, res) => {

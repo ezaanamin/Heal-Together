@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Routes from "./Routes/index"
 import { useEffect } from 'react';
@@ -6,14 +6,35 @@ import { UserContext } from './contextState/contextState';
 import { useContext } from 'react';
 import { io } from 'socket.io-client';
 
+
 function App() {
 
   const userContext = useContext(UserContext);
   const { setTheme } = userContext;
+  const [token, setToken] = useState(null);
+  const [socket, setSocket] = useState(null);
 
-  const socket = io('http://localhost:4000');
+  useEffect(() => {
+    const token = localStorage.getItem('Token');
+    console.log(token, 'token');
+    setToken(token);  
+  }, []);
 
-  console.log(socket,'socket')
+  useEffect(() => {
+    if (token) {
+      const newSocket = io('http://localhost:4000', {
+        query: { token }
+      });
+      setSocket(newSocket);
+
+
+      return () => newSocket.close();
+    }
+  }, [token]); 
+
+
+
+
   
 
   useEffect(()=>{
