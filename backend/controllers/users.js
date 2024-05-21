@@ -5,7 +5,7 @@ import neo4j, { auth } from "neo4j-driver"
 import jwt from "jsonwebtoken"
 import { Users } from "../model/users.js"
 import { createClient } from 'redis';
-
+import { Authentication } from "./authentication.js"
 function generateCode() {
   const min = 100000;
   const max = 999999;
@@ -712,7 +712,26 @@ export const EditProfile = async (req, res) => {
 }
 
 export const UserFriends = async (req, res) => {
-  const username = req.body.username
+  const authorizationHeader = req.headers['authorization'];
+  // console.log(authorizationHeader,'header token');
+  let token;
+  token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+
+let username;
+  let user_id= await Authentication(token);
+let doc;
+
+  if(user_id)
+    {
+      doc=await Users.findById(user_id);
+      username =doc.username
+
+    }
+    else
+    {
+      res.json({error:"error"})
+    }
+
   const client = createClient();
   await client.connect();
   var userFriends = username + "__friends"

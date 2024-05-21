@@ -20,17 +20,17 @@ function App() {
     setToken(token);  
   }, []);
 
-  useEffect(() => {
-    if (token) {
-      const newSocket = io('http://localhost:4000', {
-        query: { token }
-      });
-      setSocket(newSocket);
+  // useEffect(() => {
+  //   if (token) {
+  //     const newSocket = io('http://localhost:4000', {
+  //       query: { token }
+  //     });
+  //     setSocket(newSocket);
 
 
-      return () => newSocket.close();
-    }
-  }, [token]); 
+  //     return () => newSocket.close();
+  //   }
+  // }, [token]); 
 
 
 

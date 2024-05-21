@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChatHeader, ContainerChat, StyledHome } from '../../styles/styles';
 import { UserContext } from '../../contextState/contextState';
 import { useContext } from 'react';
@@ -8,7 +8,18 @@ import ProfilePic from "../../images/profile_pic_test.jpg"
 import { ChatHeading } from '../../styles/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { io } from 'socket.io-client';
+
 const ChatRoom = () => {
+
+  useEffect(()=>{
+    const token = localStorage.getItem('Token');
+    const socket = io('http://localhost:4000');
+    socket.emit("setup",token)
+
+
+
+  },[])
     const userContext = useContext(UserContext);
 
     return (

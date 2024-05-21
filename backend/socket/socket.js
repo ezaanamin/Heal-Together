@@ -12,11 +12,12 @@ const setupSocket = (server) => {
     }
   });
 
-  io.once("connection", async (socket) => { 
+  io.on("connection", async (socket) => { 
     console.log("User Connected", socket.id);
 
 
     socket.on("setup", (userData) => {
+      console.log(userData,'userdata')
     //     const h = await Authentication(token);
 
     //     if(h!='error')
@@ -26,8 +27,8 @@ const setupSocket = (server) => {
         
     //   //   console.log(h)
 
-      socket.join(userData._id);
-      socket.emit("connected");
+      // socket.join(userData._id);
+      // socket.emit("connected");
     });
   });
 

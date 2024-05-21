@@ -1786,6 +1786,26 @@ export const StyledSearchIcon = styled(FontAwesomeIcon)`
   color: #005f7f; 
   font-size:2x;
 `;
+
+
+export const ChatBox = styled.div`
+  width: 340px;
+  height: 70px;
+  background: ${(props) => (props.isClicked ? MainProfileHover(props.theme): GetCommentSectionBackground(props.theme))};
+  border-radius: 10px;
+  position: relative;
+  left: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: ${ ProfileText};  
+
+  &:focus {
+    background-color: red;
+  }
+`;
+
+
+
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
