@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { ChatSideBarDiv, MainHeading,SideBarChat,ChatBox,ChatContainer } from '../styles/styles';
+import { ChatSideBarDiv,SideBarChat,ChatBox} from '../styles/styles';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
 import { UserFriends } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
 const ChatSideBar = () => {
     const userContext = useContext(UserContext);
-    const [ChatClicked,SetChatClicked]=useState(false);
+    const {openChat,SetOpenChat,SetCurrentName,SetChatProfilePic} = userContext;
+    const [clickedStatus, setClickedStatus] = useState({});
     const [chatFriends, setChatFriends] = useState({});
+    const HandleClick=(key,profile_pic)=>{
+    // console.log(profile_pic,'profile_pic')
+      setClickedStatus(prevState => ({
+        ...prevState,
+        [key]: !prevState[key]
 
-    const HandleClick=()=>{
-        SetChatClicked(!ChatClicked);
+      }));
+      SetCurrentName(key)
+      SetChatProfilePic(profile_pic)
+      SetOpenChat(true)
 
     }
 
@@ -34,21 +42,24 @@ const ChatSideBar = () => {
         fetchUserFriends();
       }, []);
 
-      useEffect(()=>{
-
-        console.log(chatFriends,'friends')
-
-      },[chatFriends])
+      // useEffect(()=>{
+      //   console.log(chatFriends,'friends')
+      // },[chatFriends])
 
     return (
-        <ChatSideBarDiv theme={userContext.theme}>
+        <ChatSideBarDiv width={openChat} theme={userContext.theme}>
 
             <SideBarChat>Chat</SideBarChat>
             {Object.keys(chatFriends).map(key => (
         <div key={key}>
-      <ChatBox isClicked={ChatClicked}  onClick={HandleClick} theme={userContext.theme}>
-        <img src={`http://localhost:4000/upload/${chatFriends[key].profile_pic}`}/>
-      <h2 style={{textAlign:"center",marginTop:10}}> {chatFriends[key].username}</h2>
+      <ChatBox   isClicked={clickedStatus[key] || false}
+      onClick={() => HandleClick(key,chatFriends[key].profile_pic)} theme={userContext.theme}>
+        <div style={{display:"flex",flexDirection:"row"}}>
+
+   
+        <img style={{width:50,height:50,marginTop:10}} src={`http://localhost:4000/upload/${chatFriends[key].profile_pic}`}/>
+      <h2 style={{textAlign:"center",marginTop:20}}> {chatFriends[key].username}</h2>
+      </div>
 </ChatBox>
       
     

@@ -1732,19 +1732,16 @@ export const AnimatedContainer = styled.div`
 animation: ${fadeIn} 1s ease-in-out; 
 `; 
 
-export const ChatSideBarDiv=styled.div`
+export const ChatSideBarDiv = styled.div`
   background-color: ${props => darken(0.10, MainButton(props.theme))};
-width:374px;
-height:100vh;
-`
-
+  width: ${props => (props.width ? '440px' : '374px')};
+  height: 100vh;
+`;
 export const ChatHeader = styled.div`
 flex: 1; 
-  height: 100px;
-  background-color: ${props => MainButton(props.theme) || 'BLUE'};
-
-
-  
+height: 50px;
+background-color: ${props => MainButton(props.theme) || 'BLUE'};
+overflow:hidden;
 `;
 
 export const ContainerChat=styled.div`
@@ -1754,19 +1751,19 @@ flex-direction: row;
 
 `
 export const ProfileImgChatRoom=styled.img`
-height:80px;
+height:40px;
 border-radius:50%;
-width:6%;
+width:50px;
 margin-left:50px;
 margin-top:10px;
 
 
 `
 
-export const ChatHeading=styled.h1`
+export const ChatHeading=styled.h3`
 color:${ProfileText};
-margin-left:170px;
-margin-top:-60px;
+margin-left:120px;
+margin-top:-40px;
 
 
 `

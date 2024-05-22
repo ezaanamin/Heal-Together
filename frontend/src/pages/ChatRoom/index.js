@@ -9,6 +9,7 @@ import { ChatHeading } from '../../styles/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { io } from 'socket.io-client';
+import ChatScreen from '../../component/ChatScreen';
 
 const ChatRoom = () => {
 
@@ -21,24 +22,26 @@ const ChatRoom = () => {
 
   },[])
     const userContext = useContext(UserContext);
+    const {openChat,currentChatName,ChatProfilePic} = userContext;
+
 
     return (
-        <StyledHome theme={userContext.theme}>
+        <StyledHome  theme={userContext.theme}>
 <ContainerChat>
-<ChatSideBar/>
-<ChatHeader theme={userContext.theme}>
+
+<ChatSideBar />
+
+{
+  openChat?
+  <ChatScreen username={currentChatName} profilePic={ChatProfilePic}/>
+:null
+}
+
+   
      
-<ProfileImgChatRoom src={ProfilePic}/>
-<ChatHeading>Emily </ChatHeading>
-
-<FontAwesomeIcon 
-  style={{position: "absolute", right: 40, top: 45, color: "#005f7f"}} 
-  icon={faSearch} 
-  size="2x" 
-/>    
-
-      </ChatHeader>
 </ContainerChat>
+
+
 
       </StyledHome>
     );
