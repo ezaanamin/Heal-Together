@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ChatSideBarDiv,SideBarChat,ChatBox} from '../styles/styles';
+import { ChatSideBarDiv,SideBarChat,ChatSearchInputField,SearchIcon,ChatBox} from '../styles/styles';
 import { useContext } from 'react';
 import { UserContext } from '../contextState/contextState';
 import { UserFriends } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+
 const ChatSideBar = () => {
     const userContext = useContext(UserContext);
     const {openChat,SetOpenChat,SetCurrentName,SetChatProfilePic} = userContext;
@@ -50,6 +53,10 @@ const ChatSideBar = () => {
         <ChatSideBarDiv width={openChat} theme={userContext.theme}>
 
             <SideBarChat>Chat</SideBarChat>
+       
+        <ChatSearchInputField theme={userContext.theme} type="text" placeholder="Search..." />
+      <SearchIcon icon={faSearch} />
+
             {Object.keys(chatFriends).map(key => (
         <div key={key}>
       <ChatBox   isClicked={clickedStatus[key] || false}
@@ -62,7 +69,7 @@ const ChatSideBar = () => {
       </div>
 </ChatBox>
       
-    
+  
         </div>
       ))}
 

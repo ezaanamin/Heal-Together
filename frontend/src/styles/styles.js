@@ -1733,8 +1733,9 @@ animation: ${fadeIn} 1s ease-in-out;
 `; 
 
 export const ChatSideBarDiv = styled.div`
-  background-color: ${props => darken(0.10, MainButton(props.theme))};
-  width: ${props => (props.width ? '440px' : '374px')};
+background-color: ${props => darken(0.10, MainButton(props.theme))};
+
+width: ${props => (props.width ? '460px' : '370px')};
   height: 100vh;
 `;
 export const ChatHeader = styled.div`
@@ -1769,8 +1770,11 @@ margin-top:-40px;
 `
 export const SideBarChat=styled.h1`
 color:${ProfileText};
-text-align:center;
+margin-left:20px;
 margin-top:30px;
+margin-bottom:20px;
+font-size:36px;
+font-weight:normal;
 
 
 
@@ -1802,7 +1806,51 @@ export const ChatBox = styled.div`
 `;
 
 
+export const ChatSearchInputField=styled.input`
 
+margin: auto;
+display: block;
+width:300px;
+height:32px;
+border-radius:50px;
+border:none;
+background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
+font-size:20px;
+padding-left: 35px;
+padding-right:20px;
+
+
+
+
+`
+
+export const SearchIcon = styled(FontAwesomeIcon)`
+  position: relative;
+bottom:27px;
+left:20px;
+
+`;
+export const ChatFooterBar = styled.div`
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  background-color: ${darken(0.10, '#B3C9E8')};
+`;
+export const ChatInput=styled.input`
+
+position: relative;
+left:200px;
+margin-top:10px;
+width:60%;
+border-radius: 50px;
+height:35px;
+border:none;
+background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
+
+font-size:20px;
+
+`
 // return (
 //     <HeartContainer onClick={handleClick}>
 //       <animated_heart_svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
