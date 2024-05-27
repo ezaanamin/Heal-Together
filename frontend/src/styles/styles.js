@@ -1,70 +1,70 @@
 import styled, { keyframes, css } from 'styled-components';
-import { relaxingPurpleTheme,sereneGreenTheme,TranquilTealTheme,calmingBlueTheme } from "../themes/themes"
+import { relaxingPurpleTheme, sereneGreenTheme, TranquilTealTheme, calmingBlueTheme } from "../themes/themes"
 import { useContext } from "react";
 import { UserContext } from "../contextState/contextState";
 import { makeStyles } from '@material-ui/core/styles';
 import { darken } from 'polished';
 import ColorLensIcon from '@mui/icons-material/ColorLens'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const LightStatusBar =TranquilTealTheme.palette.statusBar.backgroundColor
-const LightStatusBarHover =TranquilTealTheme.palette.CommentsHover.backgroundColor
-const BlueStatusBar =calmingBlueTheme.palette.statusBar.backgroundColor
-const BlueStatusBarHover =calmingBlueTheme.palette.CommentsHover.backgroundColor
-const GreenStatusBar =sereneGreenTheme.palette.statusBar.backgroundColor
-const GreenStatusBarHover =sereneGreenTheme.palette.CommentsHover.backgroundColor
+const LightStatusBar = TranquilTealTheme.palette.statusBar.backgroundColor
+const LightStatusBarHover = TranquilTealTheme.palette.CommentsHover.backgroundColor
+const BlueStatusBar = calmingBlueTheme.palette.statusBar.backgroundColor
+const BlueStatusBarHover = calmingBlueTheme.palette.CommentsHover.backgroundColor
+const GreenStatusBar = sereneGreenTheme.palette.statusBar.backgroundColor
+const GreenStatusBarHover = sereneGreenTheme.palette.CommentsHover.backgroundColor
 const PurpleStatusBar = relaxingPurpleTheme.palette.statusBar.backgroundColor
-const PurpleStatusBarHover =relaxingPurpleTheme.palette.CommentsHover.backgroundColor
+const PurpleStatusBarHover = relaxingPurpleTheme.palette.CommentsHover.backgroundColor
 
 
-const GreenTextColor =sereneGreenTheme.palette.text.primary
+const GreenTextColor = sereneGreenTheme.palette.text.primary
 const BlueTextColor = calmingBlueTheme.palette.text.primary
-const LightTextColor =TranquilTealTheme.palette.text.primary
-const PurpleTextColor =relaxingPurpleTheme.palette.text.primary
+const LightTextColor = TranquilTealTheme.palette.text.primary
+const PurpleTextColor = relaxingPurpleTheme.palette.text.primary
 
 
 const LightMainContainer = TranquilTealTheme.palette.primary.main
-const BlueMainContainer =calmingBlueTheme.palette.primary.main
-const GreenMainContainer =sereneGreenTheme.palette.primary.main
+const BlueMainContainer = calmingBlueTheme.palette.primary.main
+const GreenMainContainer = sereneGreenTheme.palette.primary.main
 const PurpleMainContainer = relaxingPurpleTheme.palette.primary.main
 
 
-const LightBorder =TranquilTealTheme.palette.borderLine.backgroundColor
-const BlueBorder =calmingBlueTheme.palette.borderLine.backgroundColor
-const GreenBorder =sereneGreenTheme.palette.borderLine.backgroundColor
-const PurpleBorder =relaxingPurpleTheme.palette.borderLine.backgroundColor;
+const LightBorder = TranquilTealTheme.palette.borderLine.backgroundColor
+const BlueBorder = calmingBlueTheme.palette.borderLine.backgroundColor
+const GreenBorder = sereneGreenTheme.palette.borderLine.backgroundColor
+const PurpleBorder = relaxingPurpleTheme.palette.borderLine.backgroundColor;
 
 
-const LightButtonColor=TranquilTealTheme.palette.secondary.main;
-const BlueButtonColor=calmingBlueTheme.palette.secondary.main;
-const PurpleButtonColor=relaxingPurpleTheme.palette.secondary.main
-const GreenButtonColor=sereneGreenTheme.palette.secondary.main
-const BlueMainHoverColor= calmingBlueTheme.palette.action.hover
-const GreenMainHoverColor=sereneGreenTheme.palette.action.hover
-const LIghtMainHoverColor=TranquilTealTheme.palette.action.hover
-const PurpleMainHoverColor=relaxingPurpleTheme.palette.action.hover
+const LightButtonColor = TranquilTealTheme.palette.secondary.main;
+const BlueButtonColor = calmingBlueTheme.palette.secondary.main;
+const PurpleButtonColor = relaxingPurpleTheme.palette.secondary.main
+const GreenButtonColor = sereneGreenTheme.palette.secondary.main
+const BlueMainHoverColor = calmingBlueTheme.palette.action.hover
+const GreenMainHoverColor = sereneGreenTheme.palette.action.hover
+const LIghtMainHoverColor = TranquilTealTheme.palette.action.hover
+const PurpleMainHoverColor = relaxingPurpleTheme.palette.action.hover
 
 
-const LightButtonCreateColor=TranquilTealTheme.overrides.MuiButton.root.backgroundColor
-const BlueButtonCreateColor=calmingBlueTheme.overrides.MuiButton.root.backgroundColor
-const GreenButtonCreateColor=sereneGreenTheme.overrides.MuiButton.root.backgroundColor
-const PurpleButtonCreateColor=relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor
+const LightButtonCreateColor = TranquilTealTheme.overrides.MuiButton.root.backgroundColor
+const BlueButtonCreateColor = calmingBlueTheme.overrides.MuiButton.root.backgroundColor
+const GreenButtonCreateColor = sereneGreenTheme.overrides.MuiButton.root.backgroundColor
+const PurpleButtonCreateColor = relaxingPurpleTheme.overrides.MuiButton.root.backgroundColor
 
-const LightColorSideBar=TranquilTealTheme.palette.SideBar.backgroundColor
-const BlueColorSideBar=calmingBlueTheme.palette.SideBar.backgroundColor
-const GreenColorSideBar=sereneGreenTheme.palette.SideBar.backgroundColor
-const PurpleColorSideBar=relaxingPurpleTheme.palette.SideBar.backgroundColor
-
-
-const LightPostBackgroundColor= TranquilTealTheme.palette.Post.containerBackground;
-const BluePostBackgroundColor= calmingBlueTheme.palette.Post.containerBackground;
-const GreenPostBackgroundColor= sereneGreenTheme.palette.Post.containerBackground;
-const PurplePostBackgroundColor=relaxingPurpleTheme.palette.Post.containerBackground;
+const LightColorSideBar = TranquilTealTheme.palette.SideBar.backgroundColor
+const BlueColorSideBar = calmingBlueTheme.palette.SideBar.backgroundColor
+const GreenColorSideBar = sereneGreenTheme.palette.SideBar.backgroundColor
+const PurpleColorSideBar = relaxingPurpleTheme.palette.SideBar.backgroundColor
 
 
-const BlueCommentSection=calmingBlueTheme.palette.Comments.backgroundColor;
-const GreenCommentSection=sereneGreenTheme.palette.Comments.backgroundColor;
-const PurpleCommentSection=relaxingPurpleTheme.palette.Comments.backgroundColor;
-const TranquilTealCommentSection=TranquilTealTheme.palette.Comments.backgroundColor;
+const LightPostBackgroundColor = TranquilTealTheme.palette.Post.containerBackground;
+const BluePostBackgroundColor = calmingBlueTheme.palette.Post.containerBackground;
+const GreenPostBackgroundColor = sereneGreenTheme.palette.Post.containerBackground;
+const PurplePostBackgroundColor = relaxingPurpleTheme.palette.Post.containerBackground;
+
+
+const BlueCommentSection = calmingBlueTheme.palette.Comments.backgroundColor;
+const GreenCommentSection = sereneGreenTheme.palette.Comments.backgroundColor;
+const PurpleCommentSection = relaxingPurpleTheme.palette.Comments.backgroundColor;
+const TranquilTealCommentSection = TranquilTealTheme.palette.Comments.backgroundColor;
 
 
 const LightHeartFill1_TranquilTeal = TranquilTealTheme.palette.animateHeart.fillColor1;
@@ -104,65 +104,65 @@ const RelaxingPurpleIconColor = relaxingPurpleTheme.palette.ButtonActive.backgro
 export const GetMainBackGround = (theme) => {
   return theme === 'light' ? LightMainContainer :
     theme === 'blue' ? BlueMainContainer :
-    theme === 'green' ?  GreenMainContainer  :
-    theme === 'purple' ?  PurpleMainContainer:
-    LightMainContainer; 
+      theme === 'green' ? GreenMainContainer :
+        theme === 'purple' ? PurpleMainContainer :
+          LightMainContainer;
 };
 
 
 export const GetPostBackGroundColor = (theme) => {
   return theme === 'light' ? LightPostBackgroundColor :
     theme === 'blue' ? BluePostBackgroundColor :
-    theme === 'green' ?  GreenPostBackgroundColor  :
-    theme === 'purple' ?  PurplePostBackgroundColor:
-    LightPostBackgroundColor; 
+      theme === 'green' ? GreenPostBackgroundColor :
+        theme === 'purple' ? PurplePostBackgroundColor :
+          LightPostBackgroundColor;
 };
 
 export const GetCommentSectionBackground = (theme) => {
   return theme === 'light' ? TranquilTealCommentSection :
     theme === 'blue' ? BlueCommentSection :
-    theme === 'green' ?  GreenCommentSection  :
-    theme === 'purple' ?  PurpleCommentSection:
-    TranquilTealCommentSection; 
+      theme === 'green' ? GreenCommentSection :
+        theme === 'purple' ? PurpleCommentSection :
+          TranquilTealCommentSection;
 };
 
 export const GetLightHeartFill1 = (theme) => {
-  return theme === 'light' ?  LightHeartFill1_TranquilTeal :
+  return theme === 'light' ? LightHeartFill1_TranquilTeal :
     theme === 'blue' ? LightHeartFill1_CalmingBlue :
-    theme === 'green' ?  LightHeartFill1_SereneGreen  :
-    theme === 'purple' ?  LightHeartFill1_RelaxingPurple:
-    LightHeartFill1_TranquilTeal; 
+      theme === 'green' ? LightHeartFill1_SereneGreen :
+        theme === 'purple' ? LightHeartFill1_RelaxingPurple :
+          LightHeartFill1_TranquilTeal;
 };
 export const GetLightHeartFill2 = (theme) => {
-  return theme === 'light' ?  LightHeartFill2_TranquilTeal :
+  return theme === 'light' ? LightHeartFill2_TranquilTeal :
     theme === 'blue' ? LightHeartFill2_CalmingBlue :
-    theme === 'green' ?  LightHeartFill2_SereneGreen  :
-    theme === 'purple' ?  LightHeartFill2_RelaxingPurple:
-    LightHeartFill2_TranquilTeal; 
+      theme === 'green' ? LightHeartFill2_SereneGreen :
+        theme === 'purple' ? LightHeartFill2_RelaxingPurple :
+          LightHeartFill2_TranquilTeal;
 };
 
 export const GetLightHeartFill3 = (theme) => {
-  return theme === 'light' ?  LightHeartFill3_TranquilTeal :
+  return theme === 'light' ? LightHeartFill3_TranquilTeal :
     theme === 'blue' ? LightHeartFill3_CalmingBlue :
-    theme === 'green' ?  LightHeartFill3_SereneGreen  :
-    theme === 'purple' ?  LightHeartFill3_RelaxingPurple:
-    LightHeartFill3_TranquilTeal; 
+      theme === 'green' ? LightHeartFill3_SereneGreen :
+        theme === 'purple' ? LightHeartFill3_RelaxingPurple :
+          LightHeartFill3_TranquilTeal;
 };
 
 export const GetLightHeartStroke = (theme) => {
-  return theme === 'light' ?   LightHeartStroke_TranquilTeal :
-    theme === 'blue' ?  LightHeartStroke_CalmingBlue :
-    theme === 'green' ?   LightHeartStroke_SereneGreen :
-    theme === 'purple' ?   LightHeartStroke_RelaxingPurple:
-    LightHeartStroke_TranquilTeal; 
+  return theme === 'light' ? LightHeartStroke_TranquilTeal :
+    theme === 'blue' ? LightHeartStroke_CalmingBlue :
+      theme === 'green' ? LightHeartStroke_SereneGreen :
+        theme === 'purple' ? LightHeartStroke_RelaxingPurple :
+          LightHeartStroke_TranquilTeal;
 };
 
 export const GetLightHeartFilter = (theme) => {
-  return theme === 'light' ?   LightHeartFilter_TranquilTeal :
-    theme === 'blue' ?  LightHeartFilter_CalmingBlue :
-    theme === 'green' ?   LightHeartFilter_SereneGreen :
-    theme === 'purple' ?   LightHeartFilter_RelaxingPurple:
-    LightHeartFilter_TranquilTeal; 
+  return theme === 'light' ? LightHeartFilter_TranquilTeal :
+    theme === 'blue' ? LightHeartFilter_CalmingBlue :
+      theme === 'green' ? LightHeartFilter_SereneGreen :
+        theme === 'purple' ? LightHeartFilter_RelaxingPurple :
+          LightHeartFilter_TranquilTeal;
 };
 
 export const GetIconColor = (theme) => {
@@ -176,7 +176,7 @@ export const GetIconColor = (theme) => {
     case 'purple':
       return RelaxingPurpleIconColor;
     default:
-      return ; 
+      return;
   }
 };
 
@@ -191,24 +191,24 @@ export const GetRingColor = (theme) => {
     case 'purple':
       return PurpleMainContainer;
     default:
-      return LightMainContainer; 
+      return LightMainContainer;
   }
 };
-export const ADDTOPOST=styled.div`
+export const ADDTOPOST = styled.div`
 border: 1px solid black;
 height:50px;
 overflow: hidden;
 
 
 `
-export const Heading=styled.h3`
+export const Heading = styled.h3`
 
 
 margin-top:10px;
 margin-left:20px;
 
 `
- export const AddToPostItems=styled.div`
+export const AddToPostItems = styled.div`
 
 display: flex;
 justify-content: flex-end;
@@ -236,11 +236,11 @@ export const ProfileText = () => {
 
 
   const selectedTextColor =
-  userContext.theme === 'light' ? LightTextColor :
-  userContext.theme === 'blue' ? BlueTextColor :
-  userContext.theme === 'green' ? GreenTextColor :
-  userContext.theme === 'purple' ? PurpleTextColor :
-    LightTextColor; 
+    userContext.theme === 'light' ? LightTextColor :
+      userContext.theme === 'blue' ? BlueTextColor :
+        userContext.theme === 'green' ? GreenTextColor :
+          userContext.theme === 'purple' ? PurpleTextColor :
+            LightTextColor;
 
   return selectedTextColor;
 }
@@ -249,10 +249,10 @@ export const ProfileText = () => {
 export const MainHover = (theme) => {
   return (
     theme === 'light' ? LIghtMainHoverColor :
-    theme === 'blue' ? BlueMainHoverColor :
-    theme === 'green' ? GreenMainHoverColor :
-    theme === 'purple' ? PurpleMainHoverColor :
-    LIghtMainHoverColor
+      theme === 'blue' ? BlueMainHoverColor :
+        theme === 'green' ? GreenMainHoverColor :
+          theme === 'purple' ? PurpleMainHoverColor :
+            LIghtMainHoverColor
   );
 };
 
@@ -260,20 +260,20 @@ export const MainHover = (theme) => {
 export const MainSideBar = (theme) => {
   return (
     theme === 'light' ? LightColorSideBar :
-    theme === 'blue' ? BlueColorSideBar :
-    theme === 'green' ? GreenColorSideBar :
-    theme === 'purple' ? PurpleColorSideBar :
-    LightColorSideBar
+      theme === 'blue' ? BlueColorSideBar :
+        theme === 'green' ? GreenColorSideBar :
+          theme === 'purple' ? PurpleColorSideBar :
+            LightColorSideBar
   );
 };
 
 export const MainButtonCreate = (theme) => {
   return (
     theme === 'light' ? LightButtonCreateColor :
-    theme === 'blue' ? BlueButtonCreateColor :
-    theme === 'green' ? GreenButtonCreateColor :
-    theme === 'purple' ? PurpleButtonCreateColor :
-    LightButtonCreateColor
+      theme === 'blue' ? BlueButtonCreateColor :
+        theme === 'green' ? GreenButtonCreateColor :
+          theme === 'purple' ? PurpleButtonCreateColor :
+            LightButtonCreateColor
   );
 };
 
@@ -282,10 +282,10 @@ export const MainButtonCreate = (theme) => {
 export const MainProfileHover = (theme) => {
   return (
     theme === 'light' ? LightStatusBarHover :
-    theme === 'blue' ? BlueStatusBarHover :
-    theme === 'green' ? GreenStatusBarHover :
-    theme === 'purple' ? PurpleStatusBarHover :
-    LightStatusBarHover
+      theme === 'blue' ? BlueStatusBarHover :
+        theme === 'green' ? GreenStatusBarHover :
+          theme === 'purple' ? PurpleStatusBarHover :
+            LightStatusBarHover
   );
 };
 
@@ -293,18 +293,18 @@ export const MainProfileHover = (theme) => {
 export const MainButton = (theme) => {
   return (
     theme === 'light' ? LightButtonColor :
-    theme === 'blue' ? BlueButtonColor :
-    theme === 'green' ? GreenButtonColor :
-    theme === 'purple' ? PurpleButtonColor :
-    LightButtonColor
+      theme === 'blue' ? BlueButtonColor :
+        theme === 'green' ? GreenButtonColor :
+          theme === 'purple' ? PurpleButtonColor :
+            LightButtonColor
   );
 };
 
-export const MainBorderColor  = (theme) => {
+export const MainBorderColor = (theme) => {
   return theme === 'blue' ? BlueBorder :
     theme === 'green' ? GreenBorder :
-    theme === 'purple' ? PurpleBorder :
-    LightBorder; 
+      theme === 'purple' ? PurpleBorder :
+        LightBorder;
 };
 
 
@@ -313,10 +313,10 @@ export const MainProfile = (theme) => {
 
   return (
     theme === 'light' ? LightStatusBar :
-    theme === 'blue' ? BlueStatusBar :
-    theme === 'green' ? GreenStatusBar :
-    theme === 'purple' ? PurpleStatusBar :
-    LightStatusBar
+      theme === 'blue' ? BlueStatusBar :
+        theme === 'green' ? GreenStatusBar :
+          theme === 'purple' ? PurpleStatusBar :
+            LightStatusBar
   );
 
 };
@@ -348,7 +348,7 @@ export const getDynamicStyle = (theme) => {
   };
 
   style.backgroundColor = MainButton(theme);
-  
+
   style.border = `2px solid ${MainBorderColor(theme)}`;
 
   return style;
@@ -372,7 +372,7 @@ grid-template-columns: repeat(2, 1fr);
 grid-template-rows: auto; 
 `;
 
- export const CenteredContainer = styled.div`
+export const CenteredContainer = styled.div`
 display: flex;
 justify-content: center; 
 align-items: center; 
@@ -412,10 +412,10 @@ export const ButtonModalTheme = styled.button`
     props.theme === 'blue'
       ? calmingBlueTheme.palette.borderLine.backgroundColor
       : props.theme === 'green'
-      ? sereneGreenTheme.palette.borderLine.backgroundColor
-      : props.theme === 'purple'
-      ? relaxingPurpleTheme.palette.borderLine.backgroundColor
-      : TranquilTealTheme.palette.borderLine.backgroundColor
+        ? sereneGreenTheme.palette.borderLine.backgroundColor
+        : props.theme === 'purple'
+          ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+          : TranquilTealTheme.palette.borderLine.backgroundColor
   )};
   color: ${ProfileText};
 
@@ -423,22 +423,22 @@ export const ButtonModalTheme = styled.button`
     props.theme === 'blue'
       ? calmingBlueTheme.palette.borderLine.backgroundColor
       : props.theme === 'green'
-      ? sereneGreenTheme.palette.borderLine.backgroundColor
-      : props.theme === 'purple'
-      ? relaxingPurpleTheme.palette.borderLine.backgroundColor
-      : TranquilTealTheme.palette.borderLine.backgroundColor
+        ? sereneGreenTheme.palette.borderLine.backgroundColor
+        : props.theme === 'purple'
+          ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+          : TranquilTealTheme.palette.borderLine.backgroundColor
   )};
 
   &:hover {
     background-color: ${props => (
-      props.theme === 'blue'
-        ? calmingBlueTheme.palette.borderLine.backgroundColor
-        : props.theme === 'green'
+    props.theme === 'blue'
+      ? calmingBlueTheme.palette.borderLine.backgroundColor
+      : props.theme === 'green'
         ? sereneGreenTheme.palette.borderLine.backgroundColor
         : props.theme === 'purple'
-        ? relaxingPurpleTheme.palette.borderLine.backgroundColor
-        : TranquilTealTheme.palette.borderLine.backgroundColor
-    )};
+          ? relaxingPurpleTheme.palette.borderLine.backgroundColor
+          : TranquilTealTheme.palette.borderLine.backgroundColor
+  )};
   }
 `;
 
@@ -462,19 +462,19 @@ export function getModalStyle() {
   };
 }
 
-export const ProfileImg=styled.img`
+export const ProfileImg = styled.img`
 height:50px;
 border-radius:50px;
 margin-top:10px;
 
 
 `
-export const ModalUser=styled.div`
+export const ModalUser = styled.div`
 display:flex;
 flex-direction: row;
 
 `
-export const ModalUserHeading=styled.p`
+export const ModalUserHeading = styled.p`
 position: absolute;
 left:90px;
 margin-top:20px;
@@ -602,7 +602,7 @@ export const Errors = styled.p`
 margin-bottom: 10px;
 color: red;
 `;
-export const Logo=styled.img`
+export const Logo = styled.img`
     
 width:100px;
 height:100px;
@@ -613,7 +613,7 @@ margin-left:auto;
 
 `
 
-export const LoginButtonModal=styled.button`
+export const LoginButtonModal = styled.button`
 height:40px;
 width:200px;
 display:block;
@@ -657,7 +657,7 @@ export const CreateAccountModal = styled.button`
 
 
 `;
- export const UserDisplay = styled.div`
+export const UserDisplay = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
@@ -665,17 +665,17 @@ export const CreateAccountModal = styled.button`
     justify-content: space-between;
 `;
 
- export const ProfilePic = styled.img`
+export const ProfilePic = styled.img`
     height: 50px;
     width: 50px;
     border-radius: 10px;
 `;
 
- export const UserName = styled.h3`
+export const UserName = styled.h3`
     margin: 0;
 `;
 
- export const ConnectButton = styled.button`
+export const ConnectButton = styled.button`
     background-color: #6fbf73;
     color: white;
     border-radius: 10px;
@@ -690,7 +690,7 @@ export const CreateAccountModal = styled.button`
 `;
 
 
- export const SideBarContainer = styled.div`
+export const SideBarContainer = styled.div`
 display: flex;
 flex-direction: column;
 position: fixed;
@@ -726,7 +726,7 @@ align-items: center;
 margin-top: auto;
 padding-bottom: 20px;
 `;
-export const SideBarProfile=styled.img`
+export const SideBarProfile = styled.img`
 height:50px;
 border-radius:50px;
 margin-top:10px;
@@ -755,7 +755,7 @@ export const IconHeading = styled.p`
 margin-left: 10px;
 `;
 
-export const SideBarUserHeading=styled.p`
+export const SideBarUserHeading = styled.p`
 position: relative;
 font-size:20px;
 
@@ -766,7 +766,7 @@ font-weight:bold;
 
 
 `
- export const SignUp=styled.div`
+export const SignUp = styled.div`
 
 display:flex;
 flex-direction: row;
@@ -776,7 +776,7 @@ margin-top:10px;
 
 
 `
- export const RadioFlex=styled.div`
+export const RadioFlex = styled.div`
 
 display:flex;
 flex-direction: row;
@@ -785,7 +785,7 @@ align-items: center;
 
 `
 
- export const SignUpButton=styled.button`
+export const SignUpButton = styled.button`
 width:250px;
 height:40px;
 font-size:25px;
@@ -803,7 +803,7 @@ border-color:${sereneGreenTheme.palette.borderLine.backgroundColor};
 
 
 `
- export const TermsPrivacyPolicy=styled.p`
+export const TermsPrivacyPolicy = styled.p`
 
 margin-bottom:10px;
 
@@ -826,7 +826,7 @@ export const StyledStatusBar = styled.div`
 `
 
 
-export const VerificationBox=styled.div`
+export const VerificationBox = styled.div`
 
 display: flex;
 justify-content: center;
@@ -848,7 +848,7 @@ flex-direction:column;
 
 `
 
-export const VerificationButton=styled.button`
+export const VerificationButton = styled.button`
 
 width:300px;
 height:50px;
@@ -877,25 +877,25 @@ width: 700px;
 margin: 0 auto; 
 `;
 
-export const GettingStartedLogo=styled.img`
+export const GettingStartedLogo = styled.img`
 width:100px;
 height:100px;
 position: fixed;
 left:0;
 `
-export const QuestionDiv=styled.div`
+export const QuestionDiv = styled.div`
 width:600px;
 background-color: white;
 margin-right:auto;
 margin-left:auto;
 
 `
-export const QuestionHeading=styled.h3`
+export const QuestionHeading = styled.h3`
 margin-top:25px;
 text-align:center;
 margin-bottom:25px;
 `
-export const QuestionOption=styled.div`
+export const QuestionOption = styled.div`
 display:flex;
 flex-direction:column;
 `
@@ -926,17 +926,16 @@ export const Container = styled.div`
 width: 100%;
 height: 100vh;
 background-image: ${({ theme }) =>
-  `linear-gradient(to right, ${
-    theme === 'light'
+    `linear-gradient(to right, ${theme === 'light'
       ? `${TranquilTealTheme.palette.primary.main} 58%`
       : theme === 'blue'
-      ? `${calmingBlueTheme.palette.primary.main} 58%`
-      : theme === 'green'
-      ? `${sereneGreenTheme.palette.primary.main} 58%`
-      : theme === 'purple'
-      ? `${relaxingPurpleTheme.palette.primary.main} 58%`
-      : `${TranquilTealTheme.palette.primary.main} 58%`
-  }, white 50%)`};
+        ? `${calmingBlueTheme.palette.primary.main} 58%`
+        : theme === 'green'
+          ? `${sereneGreenTheme.palette.primary.main} 58%`
+          : theme === 'purple'
+            ? `${relaxingPurpleTheme.palette.primary.main} 58%`
+            : `${TranquilTealTheme.palette.primary.main} 58%`
+    }, white 50%)`};
 font-family: 'Nanum Gothic', sans-serif;
 
 display: flex;
@@ -949,17 +948,16 @@ position: relative;
   width: 100%;
 height: 100vh;
 background-image: ${({ theme }) =>
-  `linear-gradient(to bottom, ${
-    theme === 'light'
+    `linear-gradient(to bottom, ${theme === 'light'
       ? `${TranquilTealTheme.palette.primary.main} 58%`
       : theme === 'blue'
-      ? `${calmingBlueTheme.palette.primary.main} 58%`
-      : theme === 'green'
-      ? `${sereneGreenTheme.palette.primary.main} 58%`
-      : theme === 'purple'
-      ? `${relaxingPurpleTheme.palette.primary.main} 58%`
-      : `${TranquilTealTheme.palette.primary.main} 58%`
-  }, white 50%)`};
+        ? `${calmingBlueTheme.palette.primary.main} 58%`
+        : theme === 'green'
+          ? `${sereneGreenTheme.palette.primary.main} 58%`
+          : theme === 'purple'
+            ? `${relaxingPurpleTheme.palette.primary.main} 58%`
+            : `${TranquilTealTheme.palette.primary.main} 58%`
+    }, white 50%)`};
 font-family: 'Nanum Gothic', sans-serif;
 
 display: flex;
@@ -1019,7 +1017,7 @@ top:300px;
 
 
 
-export const NoCoverPhoto=styled.div`
+export const NoCoverPhoto = styled.div`
 
 width: 80%;
 height: 30%;
@@ -1044,7 +1042,7 @@ background-color:: ${props => MainBorderColor(props.theme)}
 `;
 
 
-  
+
 export const StyledProfileHome = styled.div`
 width: 100%;
 height: 100vh;
@@ -1093,7 +1091,7 @@ export const NoAccountProfilePhoto = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const InformationLayer=styled.div`
+export const InformationLayer = styled.div`
 position: absolute;
 left: 20px;
 top: 500px;
@@ -1105,7 +1103,7 @@ flex-direction:column;
 
 
 
-export const MentalHealthInsights=styled.div`
+export const MentalHealthInsights = styled.div`
  display:flex;
  flex-direction:row;
  position: relative;
@@ -1114,7 +1112,7 @@ export const MentalHealthInsights=styled.div`
 
 
 `
-export const CopingTechniques=styled.div`
+export const CopingTechniques = styled.div`
 
 display:flex;
 flex-direction:row;
@@ -1138,14 +1136,14 @@ export const ButtonLayer = styled.div`
 
 
 
- export const ProfileHeading = styled.h2`
+export const ProfileHeading = styled.h2`
   margin-bottom: 5px 0;
   margin-left: 60px;
   margin-top: 10px;
   color: ${ProfileText};
 `;
 
-export const Header=styled.h2`
+export const Header = styled.h2`
 margin-bottom:5px 0;
 margin-left:60px;
 margin-top:50px;
@@ -1154,17 +1152,17 @@ color: ${ProfileText};
 
 `
 
-export const AccountDoesnotExist=styled.h1`
+export const AccountDoesnotExist = styled.h1`
 
 color: ${ProfileText};
 
 
 `
-export const SearchAccount=styled.p`
+export const SearchAccount = styled.p`
 color: ${ProfileText};
 
 `
-export const MentalHealthInsightsHeading=styled.h2`
+export const MentalHealthInsightsHeading = styled.h2`
 
 color: ${ProfileText};
 margin-right:30px;
@@ -1210,7 +1208,7 @@ export const WellnessUpdatesSection = styled.div`
 
 
 `;
-export const WellnessUpdatesHeading=styled.div`
+export const WellnessUpdatesHeading = styled.div`
 position: absolute;
 
 top: 850px;
@@ -1219,14 +1217,14 @@ left: 120px;
 
 `
 
-export const WellnessUpdates=styled.h2`
+export const WellnessUpdates = styled.h2`
 color: ${ProfileText};
 
 
 
 `
 
-export const  WellnessUpdatesComments=styled.div`
+export const WellnessUpdatesComments = styled.div`
  position: relative;
 
 
@@ -1241,7 +1239,7 @@ export const MentalHealthGuide = styled.div`
   top: 600px;
   left: 50px;
 `;
-export const ChangeEmail=styled.p`
+export const ChangeEmail = styled.p`
 margin-bottom:10px;
 margin-top:20px;
 &:hover {
@@ -1250,13 +1248,13 @@ margin-top:20px;
 
 
 `
-export const VerificationDiv=styled.div`
+export const VerificationDiv = styled.div`
 
 background-color: #E6F1F7;
 height:100vh;
 
 `
-export const LoginHeading=styled.h1`
+export const LoginHeading = styled.h1`
 
 text-align: center;
 
@@ -1280,10 +1278,10 @@ export const MainLoginButton = styled.button`
   color: ${ProfileText};
   border-radius: 5px;
   font-weight: bold;
-  background-color: ${props =>MainButton(props.theme) || 'blue'};
+  background-color: ${props => MainButton(props.theme) || 'blue'};
 `;
 
-export const CreateAccountButton= styled.button`
+export const CreateAccountButton = styled.button`
 marginTop: 10px;
 height: 40px;
 width: 250px;
@@ -1354,7 +1352,7 @@ export const StyledTextarea = styled.textarea`
     outline-width: 0;
   }
 `;
-export const MindFulMomentContainer=styled.div`
+export const MindFulMomentContainer = styled.div`
 
 background-color: ${props => GetPostBackGroundColor(props.theme) || 'defaultColor'};
 
@@ -1396,7 +1394,7 @@ margin-left:10px;
 
 
 `;
- export const cardStyle = {
+export const cardStyle = {
   width: '200px',
   height: '300px',
   perspective: '1000px',
@@ -1406,7 +1404,7 @@ export const cardWrapperStyle = (isFlipped) => ({
   width: '100%',
   height: '100%',
   transformStyle: 'preserve-3d',
-  transition: 'transform 1s', 
+  transition: 'transform 1s',
   transform: isFlipped ? 'rotateY(360deg)' : 'rotateY(0deg)',
 });
 
@@ -1420,12 +1418,12 @@ export const cardFaceStyle = (props) => ({
   alignItems: 'center',
   fontSize: '24px',
   backgroundColor: props.isFlipped ? props.flippedBackgroundColor || '#2ecc71' : props.frontBackgroundColor || '#3498db',
-  color: props.isFlipped ? `rgba(255, 255, 255, 0.7)` : '#fff', 
+  color: props.isFlipped ? `rgba(255, 255, 255, 0.7)` : '#fff',
   backgroundImage: props.isFlipped ? `url(${props.backImage})` : 'none',
   backgroundSize: 'cover',
   boxShadow: props.is3D ? '0 10px 20px rgba(0, 0, 0, 0.2)' : 'none',
 });
-export const ThemeModalHeading=styled.h2`
+export const ThemeModalHeading = styled.h2`
 
 color: ${ProfileText};
 text-align:center;
@@ -1438,10 +1436,10 @@ const getBackgroundColor = (theme) => {
   return theme === 'blue'
     ? calmingBlueTheme.palette.primary.main
     : theme === 'green'
-    ? sereneGreenTheme.palette.primary.main
-    : theme === 'purple'
-    ? relaxingPurpleTheme.palette.primary.main
-    : TranquilTealTheme.palette.primary.main;
+      ? sereneGreenTheme.palette.primary.main
+      : theme === 'purple'
+        ? relaxingPurpleTheme.palette.primary.main
+        : TranquilTealTheme.palette.primary.main;
 };
 
 
@@ -1467,10 +1465,10 @@ const GetPostContainerBackGround = (theme) => {
   return theme === 'blue'
     ? calmingBlueTheme.palette.Post.containerBackground
     : theme === 'green'
-    ? sereneGreenTheme.palette.Post.containerBackground
-    : theme === 'purple'
-    ? relaxingPurpleTheme.palette.Post.containerBackground
-    : TranquilTealTheme.palette.Post.containerBackground
+      ? sereneGreenTheme.palette.Post.containerBackground
+      : theme === 'purple'
+        ? relaxingPurpleTheme.palette.Post.containerBackground
+        : TranquilTealTheme.palette.Post.containerBackground
 };
 export const StatusBarContainer = styled.div`
   display: flex;
@@ -1513,7 +1511,7 @@ export const StatusBarHeading = styled.h3`
 
 
 
-  export const StatusBarItems = styled.div`
+export const StatusBarItems = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1532,7 +1530,7 @@ export const StatusBarItem = styled.div`
   margin-top:20px;
   margin-bottom:10px;
 `;
-  export const ColoredHr = styled.div`
+export const ColoredHr = styled.div`
   border-bottom: 5px solid ${(props) => MainBorderColor(props.theme)};
   width: 100%;
   margin: 10px 0;
@@ -1557,7 +1555,7 @@ transform: scale(1.4);
   }
 `;
 
-   export const PositionedMenu = styled(ColorLensIcon)`
+export const PositionedMenu = styled(ColorLensIcon)`
 color: ${ProfileText};
 
 `;
@@ -1645,13 +1643,13 @@ export const HeartPath = styled.path`
 `;
 
 
-export const CommentsHeading=styled.h2`
+export const CommentsHeading = styled.h2`
 text-align:center;
 
 
 
 `
-export const CommentLine=styled.hr`
+export const CommentLine = styled.hr`
 
 border: 2px solid ${props => MainBorderColor(props.theme)};
 width: 100%;
@@ -1702,7 +1700,7 @@ export const CommentsProfilePic = styled.img`
   margin: 10px;
   margin-right:20px; 
 `;
-export const CommentsDiv=styled.div`
+export const CommentsDiv = styled.div`
   background: ${(props) => GetCommentSectionBackground(props.theme)};
   margin-top:10px;
   border-radius:10px;
@@ -1722,7 +1720,7 @@ to {
 }
 `;
 
-export const  PContainer = styled.div`
+export const PContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
@@ -1730,7 +1728,7 @@ height: 100vh;
 `;
 export const AnimatedContainer = styled.div`
 animation: ${fadeIn} 1s ease-in-out; 
-`; 
+`;
 
 export const ChatSideBarDiv = styled.div`
 background-color: ${props => darken(0.10, MainButton(props.theme))};
@@ -1745,13 +1743,13 @@ background-color: ${props => MainButton(props.theme) || 'BLUE'};
 overflow:hidden;
 `;
 
-export const ContainerChat=styled.div`
+export const ContainerChat = styled.div`
 
 display:flex;
 flex-direction: row;
 
 `
-export const ProfileImgChatRoom=styled.img`
+export const ProfileImgChatRoom = styled.img`
 height:40px;
 border-radius:50%;
 width:50px;
@@ -1761,14 +1759,14 @@ margin-top:10px;
 
 `
 
-export const ChatHeading=styled.h3`
+export const ChatHeading = styled.h3`
 color:${ProfileText};
 margin-left:120px;
 margin-top:-40px;
 
 
 `
-export const SideBarChat=styled.h1`
+export const SideBarChat = styled.h1`
 color:${ProfileText};
 margin-left:20px;
 margin-top:30px;
@@ -1792,13 +1790,13 @@ export const StyledSearchIcon = styled(FontAwesomeIcon)`
 export const ChatBox = styled.div`
   width: 340px;
   height: 70px;
-  background: ${(props) => (props.isClicked ? MainProfileHover(props.theme): GetCommentSectionBackground(props.theme))};
+  background: ${(props) => (props.isClicked ? MainProfileHover(props.theme) : GetCommentSectionBackground(props.theme))};
   border-radius: 10px;
   position: relative;
   left: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
-  color: ${ ProfileText};  
+  color: ${ProfileText};  
 
   &:focus {
     background-color: red;
@@ -1806,7 +1804,7 @@ export const ChatBox = styled.div`
 `;
 
 
-export const ChatSearchInputField=styled.input`
+export const ChatSearchInputField = styled.input`
 
 margin: auto;
 display: block;
@@ -1837,7 +1835,7 @@ export const ChatFooterBar = styled.div`
   bottom: 0;
   background-color: ${darken(0.10, '#B3C9E8')};
 `;
-export const ChatInput=styled.input`
+export const ChatInput = styled.input`
 
 position: relative;
 left:200px;
@@ -1850,6 +1848,29 @@ background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
 
 font-size:20px;
 
+`
+export const MessageConversation=styled.div`
+
+color:white;
+background-color: ${(props) => GetCommentSectionBackground(props.theme)};
+
+max-width:50%;
+min-width:100px;
+min-height:30px;
+max-height:50%;
+text-align:center;
+border-radius:20px;
+margin-top:31px;
+margin-left:20px;
+
+
+
+`
+export const MessageProfilePic=styled.img`
+width:50px;
+height:50px;
+margin-top:20px;
+margin-left:20px;
 `
 // return (
 //     <HeartContainer onClick={handleClick}>
