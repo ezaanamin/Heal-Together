@@ -130,6 +130,26 @@ export const UserFriends = createAsyncThunk(
   }
 );
 
+
+export const GetConversation = createAsyncThunk(
+  'post/GetConversation',
+  async ({ token, received_name }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/chat/Conversation',
+        { received_name },  // Pass received_name in the request body
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const GetUsersMindFulDetails=createAsyncThunk(
 'post/GetUsersMindFulDetails',
 async (token, { rejectWithValue }) => {
@@ -376,8 +396,30 @@ builder
   state.error = action.payload;
 });
     
-  },
+
+
+  builder
+.addCase(GetConversation.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetConversation.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetConversation.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
 });
+    
+  },
+
+})
+
+
+
+
+//GetConversation
 
 
 

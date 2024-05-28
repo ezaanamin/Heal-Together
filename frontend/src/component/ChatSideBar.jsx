@@ -5,21 +5,25 @@ import { UserContext } from '../contextState/contextState';
 import { UserFriends } from '../redux/slice/API';
 import { useDispatch } from 'react-redux';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { GetConversation } from '../redux/slice/API';
 
 
 const ChatSideBar = () => {
+  let token=localStorage.getItem("Token")
   const userContext = useContext(UserContext);
   const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic } = userContext;
   const [clickedStatus, setClickedStatus] = useState({});
   const [chatFriends, setChatFriends] = useState({});
-  const HandleClick = (key, profile_pic) => {
+  const HandleClick = (key, profile_pic,username) => {
     // console.log(profile_pic,'profile_pic')
+    alert("hii")
     setClickedStatus(prevState => ({
       ...prevState,
       [key]: !prevState[key]
 
     }));
     SetCurrentName(key)
+    dispatch(GetConversation({ token: token, received_name: username}));
     SetChatProfilePic(profile_pic)
     SetOpenChat(true)
 
@@ -44,9 +48,9 @@ const ChatSideBar = () => {
     fetchUserFriends();
   }, []);
 
-  // useEffect(()=>{
-  //   console.log(chatFriends,'friends')
-  // },[chatFriends])
+  useEffect(()=>{
+    console.log(chatFriends,'friends')
+  },[chatFriends])
 
   return (
     <ChatSideBarDiv width={openChat} theme={userContext.theme}>
@@ -59,12 +63,14 @@ const ChatSideBar = () => {
       {Object.keys(chatFriends).map(key => (
         <div key={key}>
           <ChatBox isClicked={clickedStatus[key] || false}
-            onClick={() => HandleClick(key, chatFriends[key].profile_pic)} theme={userContext.theme}>
+            onClick={() => HandleClick(key, chatFriends[key].profile_pic,chatFriends[key].username)} theme={userContext.theme}>
             <div style={{ display: "flex", flexDirection: "row" }}>
 
 
               <img style={{ width: 50, height: 50, marginTop: 10 }} src={`http://localhost:4000/upload/${chatFriends[key].profile_pic}`} />
               <h2 style={{ textAlign: "center", marginTop: 20 }}> {chatFriends[key].username}</h2>
+              {/* <h2 style={{ textAlign: "center", marginTop: 20 }}> {chatFriends[key]._id}</h2> */}
+
             </div>
           </ChatBox>
 

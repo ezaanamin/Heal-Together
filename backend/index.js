@@ -9,7 +9,7 @@ import multer from "multer";
 import http from "http";
 import cookieParser from "cookie-parser";
 import SetupSocket from "./socket/socket.js";
-
+import ChatRoutes from "./routes/Chat.js"
 const app = express();
 const server = http.createServer(app);
 
@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/upload', express.static('upload'));
 app.use("/users", UserRoutes);
 app.use('/mindful_moments', MindFulMomentsRoutes);
+app.use('/chat', ChatRoutes);
+
 const io = SetupSocket(server);
 
 // REST API endpoint to test the server
