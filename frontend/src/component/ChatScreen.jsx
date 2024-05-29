@@ -1,22 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState,useContext } from 'react';
 import { ChatHeader, ContainerChat, StyledHome, ProfileImgChatRoom, ChatHeading } from "../styles/styles"
 import { UserContext } from '../contextState/contextState';
-import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import ProfilePic from "../images/profile_pic_test.jpg"
 import CloseIcon from '@mui/icons-material/Close';
 import { ChatFooterBar, ChatInput } from '../styles/styles';
 import Conversation from './Conversation';
+
 const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
-    const { SetOpenChat } = userContext;
+    const { SetOpenChat,ChatTokenChange } = userContext;
+    const [ChatToken,SetChatToken]=useState("");
 
 
     useEffect(() => {
-        console.log(userContext.theme, 'theme')
+        // console.log(userContext.theme, 'theme')
+        let token= localStorage.getItem("chatToken");
+        console.log(token,'token');
 
-    }, [])
+
+
+    }, [ChatTokenChange])
+
+
     return (
         <StyledHome theme={userContext.theme}>
             <ChatHeader theme={userContext.theme}>

@@ -92,7 +92,8 @@ export function UserContextProvider({ children }) {
   const [theme, setTheme] = useState("light");
   const [ColorTheme, SetColorTheme] = useState(false);
   const [currentCommentID,SetCurrentCommentID]=useState(5);
-  const [ChatProfilePic,SetChatProfilePic]=useState("")
+  const [ChatProfilePic,SetChatProfilePic]=useState("");
+  const [ChatTokenChange,SetChatTokenChange]=useState(false)
 
   const userContextValue = {
     EditProfileModal,
@@ -169,7 +170,8 @@ export function UserContextProvider({ children }) {
     currentCommentID,SetCurrentCommentID,
     openChat,SetOpenChat,
     currentChatName,SetCurrentName,
-    ChatProfilePic,SetChatProfilePic
+    ChatProfilePic,SetChatProfilePic,
+    ChatTokenChange,SetChatTokenChange
   };
 
   return (

@@ -1,11 +1,17 @@
 import jwt from "jsonwebtoken"
 
-export const Authentication  = async (token) => {
+export const Authentication  = async (token,token_type) => {
+let token_key;
+  if(token_type=='user')
+    {
+      token_key=process.env.TOKEN_KEY
 
- const token_key=process.env.TOKEN_KEY
+    }
+if(token_type=="chat")
+  {
+    token_type=process.env.TOKEN_CHAT_KEY
+  }
 token=token.replace(/"/g, '');
-
-
 return new Promise((resolve, reject) => {
     const token_key = process.env.TOKEN_KEY;
     token = token.replace(/"/g, '');
@@ -21,5 +27,6 @@ return new Promise((resolve, reject) => {
     });
   });
 };
+
 
  

@@ -1,6 +1,6 @@
 // socket.js
 import { Server } from "socket.io";
-import { Authentication } from "../controllers/authentication.js";
+// import { Authentication } from "../controllers/authentication.js";
 
 const setupSocket = (server) => {
     let token;

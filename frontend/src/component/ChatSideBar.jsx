@@ -11,19 +11,26 @@ import { GetConversation } from '../redux/slice/API';
 const ChatSideBar = () => {
   let token=localStorage.getItem("Token")
   const userContext = useContext(UserContext);
-  const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic } = userContext;
+  const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic,ChatTokenChange,SetChatTokenChange } = userContext;
   const [clickedStatus, setClickedStatus] = useState({});
   const [chatFriends, setChatFriends] = useState({});
-  const HandleClick = (key, profile_pic,username) => {
+  const HandleClick = async (key, profile_pic,username) => {
     // console.log(profile_pic,'profile_pic')
-    alert("hii")
+    // alert("hii")
     setClickedStatus(prevState => ({
       ...prevState,
       [key]: !prevState[key]
 
     }));
     SetCurrentName(key)
-    dispatch(GetConversation({ token: token, received_name: username}));
+    let action= await dispatch(GetConversation({ token: token, received_name: username}));
+
+    // console.log(action,'action')
+    if(action.payload.token)
+      {
+        localStorage.setItem('chatToken', JSON.stringify(action.payload.token));
+        SetChatTokenChange(!ChatTokenChange)
+      }
     SetChatProfilePic(profile_pic)
     SetOpenChat(true)
 
@@ -37,7 +44,7 @@ const ChatSideBar = () => {
         const action = await dispatch(UserFriends({ token }));
 
         if (action.payload) {
-          console.log(action.payload.support_group, 'action')
+          // console.log(action.payload.support_group, 'action')
           await setChatFriends(action.payload.support_group);
 
         }
@@ -49,7 +56,7 @@ const ChatSideBar = () => {
   }, []);
 
   useEffect(()=>{
-    console.log(chatFriends,'friends')
+    // console.log(chatFriends,'friends')
   },[chatFriends])
 
   return (
