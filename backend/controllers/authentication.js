@@ -9,11 +9,12 @@ let token_key;
     }
 if(token_type=="chat")
   {
-    token_type=process.env.TOKEN_CHAT_KEY
+    token_key=process.env.TOKEN_CHAT_KEY
   }
 token=token.replace(/"/g, '');
+console.log(token_key,'tokem key')
+
 return new Promise((resolve, reject) => {
-    const token_key = process.env.TOKEN_KEY;
     token = token.replace(/"/g, '');
 
     jwt.verify(token, token_key, (err, decoded) => {
@@ -21,8 +22,19 @@ return new Promise((resolve, reject) => {
         console.log(err);
         reject('error');
       } else {
-        console.log(decoded.user_id, 'ezaan amin');
-        resolve(decoded.user_id);
+        
+        if(token_type=="user")
+          {
+            // console.log(decoded.user_id, 'ezaan amin');
+
+            resolve(decoded.user_id);
+
+          }
+          if(token_type=="chat")
+            {
+              // console.log(decoded,'decoded')
+              resolve(decoded.conversation_id);
+            }
       }
     });
   });

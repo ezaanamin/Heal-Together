@@ -1,5 +1,5 @@
 import express from "express"
-import { GetConverstionID } from "../controllers/Chat.js";
+import { GetConverstionID,GetChat } from "../controllers/Chat.js";
 
 
 
@@ -9,5 +9,5 @@ import { GetConverstionID } from "../controllers/Chat.js";
 const router=express.Router();
 
 router.post('/Conversation',GetConverstionID);
-
+router.post('/getchat',GetChat)
 export default router;

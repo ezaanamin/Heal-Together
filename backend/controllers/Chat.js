@@ -2,6 +2,7 @@ import { Users } from "../model/users.js";
 import { Authentication } from "./authentication.js"
 import Conversation from "../model/Conversation.js";
 import jwt from "jsonwebtoken"
+import Message from "../model/Message.js";
 
 export const GetConverstionID = async (req, res) => {
     const authorizationHeader = req.headers['authorization'];
@@ -31,18 +32,18 @@ if (con.length === 0) {
 
   let member=[];
   member.push(user_id, received_id.toString());
-  console.log(member);
+  // console.log(member);
 let key= process.env.TOKEN_CHAT_KEY 
 console.log(key)
   Conversation.insertMany({members:member}).then((doc)=>{
     if(doc)
       {
         // console.log("sucess")
-        console.log(doc._id)
-        res.json({status:"sucess"})
+        // console.log(doc[0]._id,'id')
+        // res.json({status:"sucess"})
         const token = jwt.sign(
           {
-            conversation_id: con[0]._id.toString(),
+            conversation_id:doc[0]._id.toString(),
           },
           key, 
           { algorithm: 'HS256' } 
@@ -56,16 +57,12 @@ console.log(key)
         res.json({status:"error"})
 
       }
+      
   })
-
-
 } else {
 let key= process.env.TOKEN_CHAT_KEY 
-console.log(key)
-
-  console.log('Conversation found:', con[0]._id.toString());
-
-
+// console.log(key)
+  // console.log('Conversation found:', con[0]._id.toString());
   const token = jwt.sign(
     {
       conversation_id: con[0]._id.toString(),
@@ -77,10 +74,49 @@ console.log(key)
   // console.log(token,'token')
   res.json({"token":token})
 }
-  
+}
+export const GetChat= async (req, res) => {
+  const authorizationHeader = req.headers['authorization'];
+  const chatToken = req.headers['chattoken']; 
+  // console.log(authorizationHeader,'token')
+  let token;
+  console.log(authorizationHeader,'token1')
+  console.log(chatToken,'token2');
+  // token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+
+  let token_type="chat";
+
+  // const conversation_id= await Authentication(token,token_type)
+
+  // let con=await Message.find({conversationId:conversation_id})
+
+  // if(con.length==0)
+  //   {
+  //     console.log("need to create con")
+  //     let con_id={conversationId:conversation_id}
+  //     Message.insertMany({con_id}).then((doc)=>{
+  //       if(doc)
+  //         {
+  //                   res.json({status:"sucess"})
+
+  //         }
+  //         else
+  //         {
+  //           res.json({status:"error"})
+
+  //         }
+  //     })
+
+      
+  //   }
+  //   else
+  //   {
+  //     console.log(con,'converstion');
+
+
+  //   }
 
 
 
-    
 
 }

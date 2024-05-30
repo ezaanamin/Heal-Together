@@ -137,10 +137,33 @@ export const GetConversation = createAsyncThunk(
     try {
       const response = await axios.post(
         'http://localhost:4000/chat/Conversation',
-        { received_name },  // Pass received_name in the request body
+        { received_name },  
         {
           headers: {
             Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+export const GetChat = createAsyncThunk(
+  'post/GetChat',
+  async ({ token,chatToken }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/chat/getchat',
+        {}, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            chatToken:`Bearer ${chatToken}`,
+            
           }
         }
       );
@@ -396,7 +419,19 @@ builder
   state.error = action.payload;
 });
     
-
+builder
+.addCase(GetChat.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(GetChat.fulfilled, (state, action) => {
+  state.status = 'succeeded';
+  state.data = action.payload;
+  state.error = null;
+})
+.addCase(GetChat.rejected, (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+});
 
   builder
 .addCase(GetConversation.pending, (state) => {

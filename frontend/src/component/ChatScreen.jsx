@@ -7,21 +7,27 @@ import ProfilePic from "../images/profile_pic_test.jpg"
 import CloseIcon from '@mui/icons-material/Close';
 import { ChatFooterBar, ChatInput } from '../styles/styles';
 import Conversation from './Conversation';
+import { useDispatch } from 'react-redux';
+import { GetChat } from '../redux/slice/API';
 
 const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
     const { SetOpenChat,ChatTokenChange } = userContext;
     const [ChatToken,SetChatToken]=useState("");
-
+    const dispatch=useDispatch();
 
     useEffect(() => {
-        // console.log(userContext.theme, 'theme')
-        let token= localStorage.getItem("chatToken");
-        console.log(token,'token');
+        const fetchChat = async () => {
+            let chatToken = localStorage.getItem("chatToken");
+            let token = localStorage.getItem("Token");
 
+            console.log(chatToken, 'chatToken');
+            await dispatch(GetChat({ chatToken: chatToken,token:token }));
+        };
 
+        fetchChat();
+    }, [ChatTokenChange]);
 
-    }, [ChatTokenChange])
 
 
     return (
