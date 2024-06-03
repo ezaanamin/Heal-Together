@@ -79,44 +79,56 @@ export const GetChat= async (req, res) => {
   const authorizationHeader = req.headers['authorization'];
   const chatToken = req.headers['chattoken']; 
   // console.log(authorizationHeader,'token')
-  let token;
-  console.log(authorizationHeader,'token1')
-  console.log(chatToken,'token2');
-  // token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+  let authorization_token;
+  let chat_token;
+  // console.log(authorizationHeader,'token1')
+  // console.log(chatToken,'token2');
+  authorization_token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+  chat_token=chatToken.split(' ')[1].replace(/"/g, '');
+  let authorization_type="user";
+  let chat_token_key="chat";
+  const conversation_id= await Authentication(chat_token,chat_token_key);
+  const user_id= await Authentication(authorization_token,authorization_type);
+  // console.log(conversation_id,'chat id');
+  // console.log(user_id,'user_id')
 
-  let token_type="chat";
+  let con=await Message.find({conversationId:conversation_id});
 
-  // const conversation_id= await Authentication(token,token_type)
-
-  // let con=await Message.find({conversationId:conversation_id})
-
-  // if(con.length==0)
-  //   {
-  //     console.log("need to create con")
-  //     let con_id={conversationId:conversation_id}
-  //     Message.insertMany({con_id}).then((doc)=>{
-  //       if(doc)
-  //         {
-  //                   res.json({status:"sucess"})
-
-  //         }
-  //         else
-  //         {
-  //           res.json({status:"error"})
-
-  //         }
-  //     })
-
+  var allmessage = [];
+  let data={message:"",sender:false};
+ 
+  for (let i=0;i<con.length;i++)
+    {
+      data['message']=con[i].message;
+      const isoString = con[i].createdAt.toISOString();
+  
+      const datePart = isoString.split('T')[0];
+      const timePart = isoString.split('T')[1]; 
+      const timeWithoutSeconds = timePart.substring(0, 5); 
+    
+      data['date']=datePart;
+      data['time']=timeWithoutSeconds;
       
-  //   }
-  //   else
-  //   {
-  //     console.log(con,'converstion');
+
+      if(con[i].senderId==user_id)
+        {
+          data['sender']=true;
+
+          
+        }
+        else
+        {
+          data['sender']=false;
+
+        }
+   
+        allmessage.push(data)
+      
+    }
 
 
-  //   }
+    // console.log(allmessage)
+    res.json({"message":allmessage});
+    }
 
-
-
-
-}
+ 
