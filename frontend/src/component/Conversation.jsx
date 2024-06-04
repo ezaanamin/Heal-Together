@@ -3,37 +3,51 @@ import { useContext } from 'react';
 import { MessageConversation,MessageProfilePic } from '../styles/styles';
 import { UserContext } from '../contextState/contextState';
 
-const Conversation = ({chat}) => {
+const Conversation = ({chat,sender,time}) => {
     const userContext = useContext(UserContext);
     const {openChat,currentChatName,ChatProfilePic} = userContext;
     return (
         <>
-        <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start"}}>
 
-        <MessageProfilePic src={`http://localhost:4000/upload/${ChatProfilePic}`} />
+        {
+          sender?
+          <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start"}}>
 
-           <MessageConversation theme={userContext.theme}>
-            
+          <MessageProfilePic src={`http://localhost:4000/upload/${ChatProfilePic}`} />
+  
+             <MessageConversation theme={userContext.theme}>
+              
+  
+  {chat}
+  {
+    <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+  }
+  
+          </MessageConversation>
+  
+          
+          </div>:
 
-{chat}
 
-        </MessageConversation>
-
-        
-        </div>
-
-        <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-end"}}>
+<div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-end"}}>
 <MessageProfilePic src={`http://localhost:4000/upload/${ChatProfilePic}`} />
 
    <MessageConversation theme={userContext.theme}>
     
 
 {chat}
+{
+    <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+  }
+  
 
 </MessageConversation>
 
 
 </div>
+        }
+
+
 </>
     )
 {/* <>

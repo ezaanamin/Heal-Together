@@ -75,6 +75,15 @@ let key= process.env.TOKEN_CHAT_KEY
   res.json({"token":token})
 }
 }
+
+function convertDateToDay(data) {
+  const date = new Date(data.date);
+  const dayNumber = date.getDay();
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayName = daysOfWeek[dayNumber];
+  data.day = dayName;
+}
+
 export const GetChat= async (req, res) => {
   const authorizationHeader = req.headers['authorization'];
   const chatToken = req.headers['chattoken']; 
@@ -99,35 +108,36 @@ export const GetChat= async (req, res) => {
  
   for (let i=0;i<con.length;i++)
     {
-      data['message']=con[i].message;
+      let messageData = { message: con[i].message}
+      console.log(con[i].message,i)
       const isoString = con[i].createdAt.toISOString();
   
       const datePart = isoString.split('T')[0];
       const timePart = isoString.split('T')[1]; 
       const timeWithoutSeconds = timePart.substring(0, 5); 
+      messageData['time']=timeWithoutSeconds;
     
-      data['date']=datePart;
-      data['time']=timeWithoutSeconds;
-      
+      messageData['date']=datePart;
 
+      convertDateToDay(data);
       if(con[i].senderId==user_id)
         {
-          data['sender']=true;
+          messageData['sender']=true;
 
           
         }
         else
         {
-          data['sender']=false;
+          messageData['sender']=false;
 
         }
    
-        allmessage.push(data)
+        allmessage.push(messageData)
       
     }
 
 
-    // console.log(allmessage)
+    console.log(allmessage)
     res.json({"message":allmessage});
     }
 

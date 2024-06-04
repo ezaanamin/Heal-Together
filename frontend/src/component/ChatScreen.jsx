@@ -14,6 +14,7 @@ const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
     const { SetOpenChat,ChatTokenChange } = userContext;
     const [ChatToken,SetChatToken]=useState("");
+const [AllMessage,SetAllMessage]=useState([])    
     const dispatch=useDispatch();
 
     useEffect(() => {
@@ -21,14 +22,25 @@ const ChatScreen = ({ username, profilePic }) => {
             let chatToken = localStorage.getItem("chatToken");
             let token = localStorage.getItem("Token");
 
-            console.log(chatToken, 'chatToken');
-            await dispatch(GetChat({ chatToken: chatToken,token:token }));
+            // console.log(chatToken, 'chatToken');
+           const action= await dispatch(GetChat({ chatToken: chatToken,token:token }));
+
+           if(action.payload)
+            {
+                console.log(action.payload,'chat');
+               await SetAllMessage(action.payload)
+            }
         };
 
         fetchChat();
     }, [ChatTokenChange]);
 
 
+    useEffect(()=>{
+
+        console.log(AllMessage,'ALL MESSAGES')
+
+    },[AllMessage])
 
     return (
         <StyledHome theme={userContext.theme}>
@@ -41,7 +53,34 @@ const ChatScreen = ({ username, profilePic }) => {
                 </div>
             </ChatHeader>
 
-<Conversation chat={"hi"}/>
+{/* <Conversation chat={"hi"} sender={true}/>
+<Conversation chat={"hi"} sender={true}/>
+<Conversation chat={"hi"} sender={false}/> */}
+  <div>
+  {/* {AllMessage && AllMessage.length > 0 ? (
+        AllMessage.map((_, index) => (
+          <div key={index}>
+         <Conversation chat={index.chat} sender={index.sender}/>
+          </div>
+        ))
+      ) : null}
+     */}
+
+<div>
+ 
+<div>
+      {Object.keys(AllMessage).map(key => (
+        <div key={key}>
+          {AllMessage[key].map((message, index) => (
+            <div key={index}>
+              <Conversation sender={message.sender} chat={message.message} time={message.time}/>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+    </div>
+    </div>
 
 
             <ChatFooterBar theme={UserContext.theme}>
