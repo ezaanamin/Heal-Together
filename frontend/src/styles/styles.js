@@ -1834,6 +1834,7 @@ export const ChatFooterBar = styled.div`
   position: absolute;
   bottom: 0;
   background-color: ${darken(0.10, '#B3C9E8')};
+  margin-top:200px;
 `;
 export const ChatInput = styled.input`
 
@@ -1841,7 +1842,7 @@ position: relative;
 left:200px;
 margin-top:10px;
 width:60%;
-border-radius: 50px;
+border-radius: 10px;
 height:35px;
 border:none;
 background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
@@ -1851,17 +1852,19 @@ font-size:20px;
 `
 export const MessageConversation=styled.div`
 
-color:white;
-background-color: ${(props) => GetCommentSectionBackground(props.theme)};
-
+color:black;
+background-color: ${(props) => props.sender ? GetCommentSectionBackground(props.theme) : MainHover(props.theme)};
 max-width:50%;
 min-width:100px;
 min-height:30px;
 max-height:50%;
 text-align:center;
-border-radius:20px;
-margin-top:31px;
+border-radius:10px;
+margin-top:10px;
 margin-left:20px;
+margin-bottom: ${(props) => (props.isLast ? '100px' : '1px')};
+margin-right:20px;
+
 
 
 

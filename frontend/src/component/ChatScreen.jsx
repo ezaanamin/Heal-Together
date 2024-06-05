@@ -73,7 +73,7 @@ const [AllMessage,SetAllMessage]=useState([])
         <div key={key}>
           {AllMessage[key].map((message, index) => (
             <div key={index}>
-              <Conversation sender={message.sender} chat={message.message} time={message.time}/>
+              <Conversation sender={message.sender} chat={message.message} time={message.time}         isLast={index === AllMessage[key].length-1 }/>
             </div>
           ))}
         </div>

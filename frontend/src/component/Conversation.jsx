@@ -3,49 +3,49 @@ import { useContext } from 'react';
 import { MessageConversation,MessageProfilePic } from '../styles/styles';
 import { UserContext } from '../contextState/contextState';
 
-const Conversation = ({chat,sender,time}) => {
-    const userContext = useContext(UserContext);
-    const {openChat,currentChatName,ChatProfilePic} = userContext;
-    return (
-        <>
+const Conversation = ({chat,sender,time,isLast}) => {
+  const userContext = useContext(UserContext);
+  const {openChat,currentChatName,ChatProfilePic} = userContext;
+  return (
+      <>
 
-        {
-          sender?
-          <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start"}}>
+      {
+        sender?
+        <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start"}}>
 
-          <MessageProfilePic src={`http://localhost:4000/upload/${ChatProfilePic}`} />
-  
-             <MessageConversation theme={userContext.theme}>
-              
-  
-  {chat}
-  {
-    <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
-  }
-  
-          </MessageConversation>
-  
-          
-          </div>:
+
+           <MessageConversation sender={sender} isLast={isLast} theme={userContext.theme}>
+       
+
+{chat}
+
+
+{
+  <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+}
+
+        </MessageConversation  >
+
+        
+        </div>:
 
 
 <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-end"}}>
-<MessageProfilePic src={`http://localhost:4000/upload/${ChatProfilePic}`} />
 
-   <MessageConversation theme={userContext.theme}>
-    
+ <MessageConversation  sender={sender} isLast={isLast}  theme={userContext.theme}>
+
 
 {chat}
 {
-    <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
-  }
-  
+  <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+}
+
 
 </MessageConversation>
 
 
 </div>
-        }
+      }
 
 
 </>
