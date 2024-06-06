@@ -229,6 +229,24 @@ export const PostSupportMindFulMoments=createAsyncThunk(
         }
       }
     );
+
+
+    export const AuthenticateUser = createAsyncThunk(
+      '/users/AuthenticateUser',
+      async (token, { rejectWithValue }) => {
+       
+        try {
+          const response = await axios.post('http://localhost:4000/users/Authenticate', null, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.response.data);
+        }
+      }
+    );
 export const uploadImage = createAsyncThunk(
   'image/upload',
   async (formData, { rejectWithValue }) => {

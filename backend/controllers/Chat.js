@@ -137,7 +137,7 @@ export const GetChat= async (req, res) => {
     }
 
 
-    console.log(allmessage)
+   
     res.json({"message":allmessage});
     }
 

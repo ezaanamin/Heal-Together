@@ -5,24 +5,20 @@ import { UserContext } from '../contextState/contextState';
 
 const Conversation = ({chat,sender,time,isLast}) => {
   const userContext = useContext(UserContext);
-  const {openChat,currentChatName,ChatProfilePic} = userContext;
   return (
       <>
-
       {
         sender?
         <div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start"}}>
 
 
-           <MessageConversation sender={sender} isLast={isLast} theme={userContext.theme}>
-       
+           <MessageConversation sender={sender} isLast={isLast} theme={userContext.theme}>       
+<div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+<p style={{textAlign:"left"}}>{chat}</p>
+<p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
 
-{chat}
+</div>
 
-
-{
-  <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
-}
 
         </MessageConversation  >
 
@@ -50,18 +46,7 @@ const Conversation = ({chat,sender,time,isLast}) => {
 
 </>
     )
-{/* <>
-  <div style={{margin: "0 10px"}}>Child 1</div>
-  <div style={{margin: "0 10px"}}>Child 2</div>
-  <div style={{margin: "0 10px"}}>Child 3</div>
-</div>
 
-<div style={{display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-end"}}>
-  <div style={{margin: "0 10px"}}>Child 1</div>
-  <div style={{margin: "0 10px"}}>Child 2</div>
-  <div style={{margin: "0 10px"}}>Child 3</div>
-</div>
-</> */}
     
      
     

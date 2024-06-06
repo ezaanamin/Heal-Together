@@ -848,3 +848,45 @@ export const UsersMindFulMoments = async (req, res) => {
 
 
 }
+
+export const AuthenticateUser = async (req, res) => {
+  const authorizationHeader = req.headers['authorization'];
+
+  let token;
+  token = authorizationHeader.split(' ')[1].replace(/"/g, '');
+  token=token.replace(/"/g, '');
+
+
+  let token_type="user"
+console.log(token);
+let user_id;
+try
+{
+  user_id=await Authentication(token,token_type);
+
+
+}
+catch(error)
+{
+  res.json({ message: "not verified" });
+
+}
+console.log(user_id)
+  if(user_id!='not verified')
+    {
+      res.json({message:"sucess"})
+
+    }
+    else
+    {
+      res.json({ message: "not verified" });
+
+    }
+
+
+
+
+
+
+
+}

@@ -8,14 +8,19 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ChatFooterBar, ChatInput } from '../styles/styles';
 import Conversation from './Conversation';
 import { useDispatch } from 'react-redux';
-import { GetChat } from '../redux/slice/API';
+import { GetChat,AuthenticateUser } from '../redux/slice/API';
+
 
 const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
     const { SetOpenChat,ChatTokenChange } = userContext;
     const [ChatToken,SetChatToken]=useState("");
+    const [sender,SetSender]=useState(false)
 const [AllMessage,SetAllMessage]=useState([])    
     const dispatch=useDispatch();
+
+    
+
 
     useEffect(() => {
         const fetchChat = async () => {
@@ -24,12 +29,15 @@ const [AllMessage,SetAllMessage]=useState([])
 
             // console.log(chatToken, 'chatToken');
            const action= await dispatch(GetChat({ chatToken: chatToken,token:token }));
+           const action1=await dispatch(AuthenticateUser({token:token}))
 
            if(action.payload)
             {
                 console.log(action.payload,'chat');
                await SetAllMessage(action.payload)
             }
+            console.log(action1,'action1')
+
         };
 
         fetchChat();
@@ -41,6 +49,22 @@ const [AllMessage,SetAllMessage]=useState([])
         console.log(AllMessage,'ALL MESSAGES')
 
     },[AllMessage])
+
+
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        if(!event.target.value);
+          else
+          {
+            const date = new Date();
+            const showTime = date.getHours() + ':' + date.getMinutes() 
+            const new_message={message:event.target.value,time:showTime}
+                    console.log(new_message,'new_message')
+
+
+          }
+      }
+    };
 
     return (
         <StyledHome theme={userContext.theme}>
@@ -76,6 +100,7 @@ const [AllMessage,SetAllMessage]=useState([])
               <Conversation sender={message.sender} chat={message.message} time={message.time}         isLast={index === AllMessage[key].length-1 }/>
             </div>
           ))}
+        
         </div>
       ))}
     </div>
@@ -84,8 +109,9 @@ const [AllMessage,SetAllMessage]=useState([])
 
 
             <ChatFooterBar theme={UserContext.theme}>
- 
-                <ChatInput theme={userContext.theme} />
+         
+                <ChatInput         onKeyDown={handleKeyPress}       theme={userContext.theme} />
+
             </ChatFooterBar>
 
 

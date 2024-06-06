@@ -1,5 +1,5 @@
 import express from "express"
-import { GetUsersProfile, LoginUser,HashPassword, NewUser, ReSendCode, RecommendedUserProfile, VerfiedUser,VerifyUser, deleteAllNodes, EditProfile, UserFriends, Neo4jTesting, GetUsersInformation } from "../controllers/users.js";
+import { GetUsersProfile, LoginUser,HashPassword, NewUser, ReSendCode, RecommendedUserProfile, VerfiedUser,VerifyUser, deleteAllNodes, EditProfile, UserFriends, Neo4jTesting, GetUsersInformation, AuthenticateUser } from "../controllers/users.js";
 
 const router=express.Router();
 router.post('/',NewUser);
@@ -15,5 +15,6 @@ router.post('/editprofile',EditProfile)
 router.post('/userfriend',UserFriends)
 router.post('/test',Neo4jTesting);
 router.post('/information',GetUsersInformation)
+router.post('/Authenticate',AuthenticateUser)
 
 export default router;
