@@ -96,6 +96,8 @@ export const GetChat= async (req, res) => {
   chat_token=chatToken.split(' ')[1].replace(/"/g, '');
   let authorization_type="user";
   let chat_token_key="chat";
+  console.log(authorization_token,'token1')
+  console.log(chat_token,'token2')
   const conversation_id= await Authentication(chat_token,chat_token_key);
   const user_id= await Authentication(authorization_token,authorization_type);
   // console.log(conversation_id,'chat id');
@@ -134,10 +136,7 @@ export const GetChat= async (req, res) => {
    
         allmessage.push(messageData)
       
-    }
-
-
-   
+    }  
     res.json({"message":allmessage});
     }
 

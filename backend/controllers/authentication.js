@@ -11,8 +11,9 @@ if(token_type=="chat")
   {
     token_key=process.env.TOKEN_CHAT_KEY
   }
-token=token.replace(/"/g, '');
-console.log(token_key,'tokem key')
+// token=token.replace(/"/g, '');
+console.log(token_key,'token key')
+console.log(token,'token')
 
 return new Promise((resolve, reject) => {
     token = token.replace(/"/g, '');

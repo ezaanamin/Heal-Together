@@ -29,14 +29,14 @@ const [AllMessage,SetAllMessage]=useState([])
 
             // console.log(chatToken, 'chatToken');
            const action= await dispatch(GetChat({ chatToken: chatToken,token:token }));
-           const action1=await dispatch(AuthenticateUser({token:token}))
+          
 
            if(action.payload)
             {
                 console.log(action.payload,'chat');
                await SetAllMessage(action.payload)
             }
-            console.log(action1,'action1')
+        
 
         };
 
@@ -51,72 +51,63 @@ const [AllMessage,SetAllMessage]=useState([])
     },[AllMessage])
 
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = async (event, key) => {
       if (event.key === 'Enter') {
-        if(!event.target.value);
-          else
-          {
-            const date = new Date();
-            const showTime = date.getHours() + ':' + date.getMinutes() 
-            const new_message={message:event.target.value,time:showTime}
-                    console.log(new_message,'new_message')
-
-
-          }
+        if (!event.target.value) {
+          return;
+        } else {
+          const date = new Date();
+          const showTime = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+          const new_message = { sender: true, message: event.target.value, time: showTime };
+    
+          const updatedMessages = {
+            ...AllMessage,
+            [key]: AllMessage[key] ? [...AllMessage[key], new_message] : [new_message]
+          };
+    
+          console.log(new_message, 'new_message');
+          await SetAllMessage(updatedMessages);
+          event.target.value = '';
+        }
       }
     };
 
     return (
-        <StyledHome theme={userContext.theme}>
-            <ChatHeader theme={userContext.theme}>
-                <ProfileImgChatRoom src={`http://localhost:4000/upload/${profilePic}`} />
-                <ChatHeading>{username} </ChatHeading>
-                <div style={{ position: "absolute", right: 20, top: 15, display: "flex", flexDirection: "row" }} >
-                    <FontAwesomeIcon style={{ marginRight: 20, position: "relative", top: 3.5 }} icon={faSearch} />
-                    <CloseIcon onClick={() => SetOpenChat(false)} />
-                </div>
-            </ChatHeader>
-
-{/* <Conversation chat={"hi"} sender={true}/>
-<Conversation chat={"hi"} sender={true}/>
-<Conversation chat={"hi"} sender={false}/> */}
-  <div>
-  {/* {AllMessage && AllMessage.length > 0 ? (
-        AllMessage.map((_, index) => (
-          <div key={index}>
-         <Conversation chat={index.chat} sender={index.sender}/>
+      <StyledHome theme={userContext.theme}>
+        <ChatHeader theme={userContext.theme}>
+          <ProfileImgChatRoom src={`http://localhost:4000/upload/${profilePic}`} />
+          <ChatHeading>{username}</ChatHeading>
+          <div style={{ position: 'absolute', right: 20, top: 15, display: 'flex', flexDirection: 'row' }}>
+            <FontAwesomeIcon style={{ marginRight: 20, position: 'relative', top: 3.5 }} icon={faSearch} />
+            <CloseIcon onClick={() => SetOpenChat(false)} />
           </div>
-        ))
-      ) : null}
-     */}
-
-<div>
- 
-<div>
-      {Object.keys(AllMessage).map(key => (
-        <div key={key}>
-          {AllMessage[key].map((message, index) => (
-            <div key={index}>
-              <Conversation sender={message.sender} chat={message.message} time={message.time}         isLast={index === AllMessage[key].length-1 }/>
+        </ChatHeader>
+  
+        <div>
+          {Object.keys(AllMessage).map(key => (
+            <div key={key}>
+              {AllMessage[key].map((message, index) => (
+                <div key={index}>
+                  <Conversation 
+                    sender={message.sender} 
+                    chat={message.message} 
+                    time={message.time} 
+                    isLast={index === AllMessage[key].length - 1} 
+                  />
+                </div>
+              ))}
+              <ChatFooterBar theme={userContext.theme}>
+                <ChatInput 
+                  onKeyDown={(event) => handleKeyPress(event, key)} 
+                  theme={userContext.theme} 
+                />
+              </ChatFooterBar>
             </div>
           ))}
-        
         </div>
-      ))}
-    </div>
-    </div>
-    </div>
-
-
-            <ChatFooterBar theme={UserContext.theme}>
-         
-                <ChatInput         onKeyDown={handleKeyPress}       theme={userContext.theme} />
-
-            </ChatFooterBar>
-
-
-        </StyledHome>
+      </StyledHome>
     );
+   
 }
 
 export default ChatScreen;

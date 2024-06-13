@@ -14,8 +14,10 @@ const Conversation = ({chat,sender,time,isLast}) => {
 
            <MessageConversation sender={sender} isLast={isLast} theme={userContext.theme}>       
 <div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
-<p style={{textAlign:"left"}}>{chat}</p>
-<p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+<p style={{textAlign:"left",marginRight:10,marginLeft:10,marginTop:10,marginBottom
+  :10}}>{chat}</p>
+    <p style={{fontSize:11,textAlign:"right",position:"relative",right:5,marginBottom:5,marginRight:10}}>{time}</p>
+
 
 </div>
 
@@ -33,7 +35,7 @@ const Conversation = ({chat,sender,time,isLast}) => {
 
 {chat}
 {
-  <p style={{fontSize:11,textAlign:"right",position:"relative",right:5}}>{time}</p>
+  <p style={{fontSize:11,textAlign:"right",position:"relative",right:5,marginBottom:5,marginRight:10}}>{time}</p>
 }
 
 
