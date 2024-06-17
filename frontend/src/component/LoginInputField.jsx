@@ -38,7 +38,7 @@ const LoginInputField = () => {
           promise.then((action) => {
             if (Login.fulfilled.match(action)) {
             // setverficationEmail("")
-             localStorage.setItem('Token', JSON.stringify(action.payload.Token));
+             sessionStorage.setItem('Token', JSON.stringify(action.payload.Token));
              nav('/home')
 
         

@@ -15,7 +15,7 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('Token');
     console.log(token, 'token');
     setToken(token);  
   }, []);
@@ -41,7 +41,7 @@ function App() {
     // console.log(`API Key: ${apiUrl}`);
     const GetTheme = () => {
     
-      const theme = localStorage.getItem('theme');
+      const theme = sessionStorage.getItem('theme');
       setTheme(theme)
     };
   

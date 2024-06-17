@@ -35,7 +35,7 @@ const handleClick = (email, password) => {
 
   promise.then((action) => {
     if (Login.fulfilled.match(action)) {
-     localStorage.setItem('Token', JSON.stringify(action.payload.Token));
+     sessionStorage.setItem('Token', JSON.stringify(action.payload.Token));
      SetLoginModal(false);
     } else if (Login.rejected.match(action)) {
      alert("Error")

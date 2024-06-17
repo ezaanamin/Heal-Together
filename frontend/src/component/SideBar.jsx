@@ -29,7 +29,7 @@ const SideBar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('Token');
+        const token = sessionStorage.getItem('Token');
         console.log(token, 'ezaan amin');
     
         // Check if token exists before dispatching the action
@@ -41,10 +41,10 @@ const SideBar = () => {
             const { firstname, surname, profile_pic,username } = promise.payload;
   
             // Set local storage values
-            localStorage.setItem('UserFirstName', firstname);
-            localStorage.setItem('UserSurName', surname);
-            localStorage.setItem('profile_pic', profile_pic);
-            localStorage.setItem('UserUsername', username);
+            sessionStorage.setItem('UserFirstName', firstname);
+            sessionStorage.setItem('UserSurName', surname);
+            sessionStorage.setItem('profile_pic', profile_pic);
+            sessionStorage.setItem('UserUsername', username);
   
             // Set state variables if values are not empty
             if (firstname || surname || profile_pic || username) {
@@ -67,7 +67,7 @@ const SideBar = () => {
     fetchData();
   }, [dispatch]);
   useEffect(() => {
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('Token');
     if (token) {
       const expirationTime = decodeToken(token).exp * 1000;
       const expiration = decodeToken(token)
@@ -75,10 +75,10 @@ const SideBar = () => {
       console.log(expiration,'ezaan')
 
       if (Date.now() > expirationTime) {
-        localStorage.removeItem('Token');
+        sessionStorage.removeItem('Token');
       } else {
         const timeoutId = setTimeout(() => {
-          localStorage.removeItem('Token');
+          sessionStorage.removeItem('Token');
           nav('/');
         }, expirationTime - Date.now());
 

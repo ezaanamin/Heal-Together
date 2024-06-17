@@ -9,7 +9,7 @@ import { ChatFooterBar, ChatInput } from '../styles/styles';
 import Conversation from './Conversation';
 import { useDispatch } from 'react-redux';
 import { GetChat,AuthenticateUser } from '../redux/slice/API';
-
+import { io } from 'socket.io-client';
 
 const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
@@ -18,14 +18,15 @@ const ChatScreen = ({ username, profilePic }) => {
     const [sender,SetSender]=useState(false)
 const [AllMessage,SetAllMessage]=useState([])    
     const dispatch=useDispatch();
+  const socket = io.connect('http://localhost:4000/');
 
     
 
 
     useEffect(() => {
         const fetchChat = async () => {
-            let chatToken = localStorage.getItem("chatToken");
-            let token = localStorage.getItem("Token");
+            let chatToken = sessionStorage.getItem("chatToken");
+            let token = sessionStorage.getItem("Token");
 
             // console.log(chatToken, 'chatToken');
            const action= await dispatch(GetChat({ chatToken: chatToken,token:token }));

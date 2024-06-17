@@ -80,7 +80,7 @@ console.log(typeof Code1, typeof Code)
           promise.then((action) => {
             if (VerfiedUser.fulfilled.match(action)) {
 
-              localStorage.setItem('Token', JSON.stringify(action.payload.Token));
+              sessionStorage.setItem('Token', JSON.stringify(action.payload.Token));
 
  
 

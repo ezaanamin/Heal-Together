@@ -9,7 +9,7 @@ import { GetConversation } from '../redux/slice/API';
 
 
 const ChatSideBar = () => {
-  let token=localStorage.getItem("Token")
+  let token=sessionStorage.getItem("Token")
   const userContext = useContext(UserContext);
   const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic,ChatTokenChange,SetChatTokenChange } = userContext;
   const [clickedStatus, setClickedStatus] = useState({});
@@ -28,7 +28,7 @@ const ChatSideBar = () => {
     // console.log(action,'action')
     if(action.payload.token)
       {
-        localStorage.setItem('chatToken', JSON.stringify(action.payload.token));
+        sessionStorage.setItem('chatToken', JSON.stringify(action.payload.token));
         SetChatTokenChange(!ChatTokenChange)
       }
     SetChatProfilePic(profile_pic)
@@ -39,12 +39,12 @@ const ChatSideBar = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const fetchUserFriends = async () => {
-      const token = localStorage.getItem("Token");
+      const token = sessionStorage.getItem("Token");
       if (token) {
         const action = await dispatch(UserFriends({ token }));
 
         if (action.payload) {
-          // console.log(action.payload.support_group, 'action')
+          console.log(action.payload.support_group, 'friends')
           await setChatFriends(action.payload.support_group);
 
         }

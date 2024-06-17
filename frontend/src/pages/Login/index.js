@@ -66,11 +66,11 @@ if (Login.fulfilled.match(action)) {
   {
 
   console.log(action.payload.Token)
- localStorage.setItem('Token', JSON.stringify(action.payload.Token));
-// localStorage.setItem('UserFirstName', action.payload.firstName);
-// localStorage.setItem('UserSurName', action.payload.SurName);
-// localStorage.setItem('profile_pic', action.payload.gender);
-// localStorage.setItem('UserUsername', action.payload.username);
+ sessionStorage.setItem('Token', JSON.stringify(action.payload.Token));
+// sessionStorage.setItem('UserFirstName', action.payload.firstName);
+// sessionStorage.setItem('UserSurName', action.payload.SurName);
+// sessionStorage.setItem('profile_pic', action.payload.gender);
+// sessionStorage.setItem('UserUsername', action.payload.username);
 
  nav('/home')
   }

@@ -27,7 +27,6 @@ app.use('/chat', ChatRoutes);
 
 const io = SetupSocket(server);
 
-// REST API endpoint to test the server
 app.get("/", (req, res) => {
   res.json("hiii");
 });

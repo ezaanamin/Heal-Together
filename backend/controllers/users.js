@@ -420,14 +420,17 @@ export const VerifyUser = (req, res) => {
 export const LoginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    // console.log(email,password);
+    
 
     const user = await Users.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
+    console.log(user.password,'user password')
     const passwordMatch = await comparePassword(password, user.password);
+    console.log(passwordMatch,'password match')
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Wrong password' });
@@ -750,8 +753,7 @@ let doc;
     var support_group = {};
     const cypherQuery = `
   MATCH (p:Users {username: '${username}'})-[:support_group]->(friend)
-  RETURN friend.firstName AS firstName, friend.surName AS surname, friend.username as Username,friend.user_profile_pic as profile_pic
-  LIMIT 25;
+  RETURN friend.firstName AS firstName, friend.surName AS surname, friend.username as Username,friend.user_profile_pic as profile_pic;
 `;
     const result = await session.run(cypherQuery);
     const friends_length = result.records.length

@@ -71,7 +71,7 @@ function Profile() {
     });
   }, []);
 useEffect(()=>{
-  const token = localStorage.getItem('Token');
+  const token = sessionStorage.getItem('Token');
   if(token)
   { //VerifyUser
     const promise = dispatch(VerifyUser({ token: token }));

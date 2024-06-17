@@ -85,6 +85,7 @@ function convertDateToDay(data) {
 }
 
 export const GetChat= async (req, res) => {
+
   const authorizationHeader = req.headers['authorization'];
   const chatToken = req.headers['chattoken']; 
   // console.log(authorizationHeader,'token')

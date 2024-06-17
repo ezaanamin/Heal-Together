@@ -14,7 +14,7 @@ import ChatScreen from '../../component/ChatScreen';
 const ChatRoom = () => {
 
   useEffect(()=>{
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('chatToken');
     const socket = io('http://localhost:4000');
     socket.emit("setup",token)
 

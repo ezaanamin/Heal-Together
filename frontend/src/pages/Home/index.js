@@ -21,11 +21,11 @@ const Home = () => {
   const { SetUserFirstName,SetUserSurName, SetUserProfilePic,SetUserUsername,PostContent,SetPostContent } = userContext;
 
   useEffect(() => {
-    const userFirstName = localStorage.getItem('UserFirstName');
-    const userSurName = localStorage.getItem('UserSurName');
-    const profile_pic = localStorage.getItem('profile_pic');
-    const userUsername = localStorage.getItem('UserUsername');
-    const Token = localStorage.getItem('Token');
+    const userFirstName = sessionStorage.getItem('UserFirstName');
+    const userSurName = sessionStorage.getItem('UserSurName');
+    const profile_pic = sessionStorage.getItem('profile_pic');
+    const userUsername = sessionStorage.getItem('UserUsername');
+    const Token = sessionStorage.getItem('Token');
 
     if (userFirstName || profile_pic || userSurName || userUsername) {
       const fetchData = async () => {
@@ -61,7 +61,7 @@ const Home = () => {
 useEffect(()=>{
 
   
-  const Token = localStorage.getItem('Token');
+  const Token = sessionStorage.getItem('Token');
 
   if(!Token)
   {

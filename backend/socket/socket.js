@@ -1,6 +1,6 @@
 // socket.js
 import { Server } from "socket.io";
-// import { Authentication } from "../controllers/authentication.js";
+import { Authentication } from "../controllers/authentication.js";
 
 const setupSocket = (server) => {
     let token;
@@ -16,16 +16,12 @@ const setupSocket = (server) => {
     console.log("User Connected", socket.id);
 
 
-    socket.on("setup", (userData) => {
+    socket.on("setup", async (userData) => {
+       let token_type="chat"
       console.log(userData,'userdata')
-    //     const h = await Authentication(token);
-
-    //     if(h!='error')
-    //       {
-  
-    //       }
-        
-    //   //   console.log(h)
+      let h=await Authentication(userData,token_type)
+console.log(h)
+    
 
       // socket.join(userData._id);
       // socket.emit("connected");

@@ -54,7 +54,7 @@ export default function ModalThemeModal() {
 ]);
 
   useEffect(() => {
-    localStorage.setItem('theme', userContext.theme);
+    sessionStorage.setItem('theme', userContext.theme);
   }, [userContext.theme]);
 
   useEffect(() => {
