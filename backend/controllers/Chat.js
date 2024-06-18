@@ -97,8 +97,8 @@ export const GetChat= async (req, res) => {
   chat_token=chatToken.split(' ')[1].replace(/"/g, '');
   let authorization_type="user";
   let chat_token_key="chat";
-  console.log(authorization_token,'token1')
-  console.log(chat_token,'token2')
+  // console.log(authorization_token,'token1')
+  // console.log(chat_token,'token2')
   const conversation_id= await Authentication(chat_token,chat_token_key);
   const user_id= await Authentication(authorization_token,authorization_type);
   // console.log(conversation_id,'chat id');
@@ -112,7 +112,7 @@ export const GetChat= async (req, res) => {
   for (let i=0;i<con.length;i++)
     {
       let messageData = { message: con[i].message}
-      console.log(con[i].message,i)
+      // console.log(con[i].message,i)
       const isoString = con[i].createdAt.toISOString();
   
       const datePart = isoString.split('T')[0];

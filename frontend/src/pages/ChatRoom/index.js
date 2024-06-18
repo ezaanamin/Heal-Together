@@ -8,19 +8,11 @@ import ProfilePic from "../../images/profile_pic_test.jpg"
 import { ChatHeading } from '../../styles/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { io } from 'socket.io-client';
 import ChatScreen from '../../component/ChatScreen';
 
 const ChatRoom = () => {
 
-  useEffect(()=>{
-    const token = sessionStorage.getItem('chatToken');
-    const socket = io('http://localhost:4000');
-    socket.emit("setup",token)
 
-
-
-  },[])
     const userContext = useContext(UserContext);
     const {openChat,currentChatName,ChatProfilePic} = userContext;
 

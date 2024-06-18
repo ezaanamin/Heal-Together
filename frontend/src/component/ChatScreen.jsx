@@ -15,12 +15,20 @@ const ChatScreen = ({ username, profilePic }) => {
     const userContext = useContext(UserContext);
     const { SetOpenChat,ChatTokenChange } = userContext;
     const [ChatToken,SetChatToken]=useState("");
+    const [FetchMessage,SetFetchMessage]=useState(false)
     const [sender,SetSender]=useState(false)
 const [AllMessage,SetAllMessage]=useState([])    
     const dispatch=useDispatch();
-  const socket = io.connect('http://localhost:4000/');
 
-    
+  useEffect(()=>{
+    const token = sessionStorage.getItem('Token');
+    const socket = io('http://localhost:4000');
+    socket.emit("setup",token)
+
+
+
+  },[])
+
 
 
     useEffect(() => {
@@ -36,6 +44,7 @@ const [AllMessage,SetAllMessage]=useState([])
             {
                 console.log(action.payload,'chat');
                await SetAllMessage(action.payload)
+
             }
         
 

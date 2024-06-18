@@ -12,11 +12,11 @@ if(token_type=="chat")
     token_key=process.env.TOKEN_CHAT_KEY
   }
 // token=token.replace(/"/g, '');
-console.log(token_key,'token key')
-console.log(token,'token')
+// console.log(token_key,'token key')
+// console.log(token,'token')
 
 return new Promise((resolve, reject) => {
-    token = token.replace(/"/g, '');
+
 
     jwt.verify(token, token_key, (err, decoded) => {
       if (err) {

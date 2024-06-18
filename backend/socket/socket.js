@@ -17,15 +17,32 @@ const setupSocket = (server) => {
 
 
     socket.on("setup", async (userData) => {
-       let token_type="chat"
-      console.log(userData,'userdata')
-      let h=await Authentication(userData,token_type)
-console.log(h)
-    
+       let token_type="user"
+      // console.log(userData,'userdata')
+let   token = userData.replace(/"/g, '');
 
-      // socket.join(userData._id);
-      // socket.emit("connected");
+// console.log(token,'socket token');
+ 
+
+      let user_id=await Authentication(token,token_type)
+      socket.join(user_id);
     });
+
+    socket.on("join_room",async(chat_token)=>{
+    let token_type="chat"
+    let   token = chat_token.replace(/"/g, '');
+    let con_id=await Authentication(token,token_type)
+    socket.join(con_id);
+
+    console.log("User join room"  +  con_id)
+
+
+
+
+    })
+
+
+
   });
 
   return io;
