@@ -17,7 +17,9 @@ const ChatScreen = ({ username, profilePic }) => {
     const [ChatToken,SetChatToken]=useState("");
     const [FetchMessage,SetFetchMessage]=useState(false)
     const [sender,SetSender]=useState(false)
-const [AllMessage,SetAllMessage]=useState([])    
+const [AllMessage,SetAllMessage]=useState([]);
+const [new_message_chat,Setnew_message_chat]=useState([]);
+const [new_messageAlert,SetNewMessageAlert]=useState(false);    
     const dispatch=useDispatch();
 
   useEffect(()=>{
@@ -28,6 +30,18 @@ const [AllMessage,SetAllMessage]=useState([])
 
 
   },[])
+
+  useEffect(()=>{
+    // alert("hi")
+    const socket = io('http://localhost:4000');
+    socket.emit("new_message",new_message_chat)
+
+
+  },[new_messageAlert])
+
+
+
+  
 
 
 
@@ -62,6 +76,8 @@ const [AllMessage,SetAllMessage]=useState([])
 
 
     const handleKeyPress = async (event, key) => {
+      let token=sessionStorage.getItem('Token');
+      let chatToken=sessionStorage.getItem('chatToken')
       if (event.key === 'Enter') {
         if (!event.target.value) {
           return;
@@ -76,6 +92,9 @@ const [AllMessage,SetAllMessage]=useState([])
           };
     
           console.log(new_message, 'new_message');
+          const messageWithToken = { message: new_message.message, time: new_message.time, Usertoken: token,chatToken:chatToken };
+          Setnew_message_chat(messageWithToken);
+          SetNewMessageAlert(!new_messageAlert)
           await SetAllMessage(updatedMessages);
           event.target.value = '';
         }

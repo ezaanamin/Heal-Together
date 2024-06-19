@@ -20,7 +20,11 @@ const ChatSideBar = () => {
     const token = sessionStorage.getItem('chatToken');
     const socket = io('http://localhost:4000');
 
-    socket.emit("join_room",token)
+    if(token)
+      {
+        socket.emit("join_room",token)
+
+      }
 
     
   },[ChatTokenChange])
