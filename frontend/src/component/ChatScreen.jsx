@@ -12,6 +12,8 @@ import { GetChat,AuthenticateUser } from '../redux/slice/API';
 import { io } from 'socket.io-client';
 
 const ChatScreen = ({ username, profilePic }) => {
+  const socket = io('http://localhost:4000');
+
     const userContext = useContext(UserContext);
     const { SetOpenChat,ChatTokenChange } = userContext;
     const [ChatToken,SetChatToken]=useState("");
@@ -24,24 +26,20 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
 
   useEffect(()=>{
     const token = sessionStorage.getItem('Token');
-    const socket = io('http://localhost:4000');
     socket.emit("setup",token)
-
-
-
   },[])
 
   useEffect(()=>{
     // alert("hi")
-    const socket = io('http://localhost:4000');
     socket.emit("new_message",new_message_chat)
+    socket.on("message_received", (message) => {
+    console.log(message,'new_message')
 
+    });
 
   },[new_messageAlert])
 
 
-
-  
 
 
 
