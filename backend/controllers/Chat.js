@@ -3,6 +3,7 @@ import { Authentication } from "./authentication.js"
 import Conversation from "../model/Conversation.js";
 import jwt from "jsonwebtoken"
 import Message from "../model/Message.js";
+import { convertDateToDay } from "./helpers.js";
 
 export const GetConverstionID = async (req, res) => {
     const authorizationHeader = req.headers['authorization'];
@@ -76,13 +77,7 @@ let key= process.env.TOKEN_CHAT_KEY
 }
 }
 
-function convertDateToDay(data) {
-  const date = new Date(data.date);
-  const dayNumber = date.getDay();
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const dayName = daysOfWeek[dayNumber];
-  data.day = dayName;
-}
+
 
 export const GetChat= async (req, res) => {
 

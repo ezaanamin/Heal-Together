@@ -29,19 +29,25 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
     socket.emit("setup",token)
   },[])
 
-  useEffect(()=>{
-    // alert("hi")
-    socket.emit("new_message",new_message_chat)
-    socket.on("message_received", (message) => {
-    console.log(message,'new_message')
+  useEffect(() => {
+    if (new_message_chat) {
+      socket.emit('new_message', new_message_chat);
+    }
+  }, [new_messageAlert]);
 
-    });
-
-  },[new_messageAlert])
-
-
-
-
+  useEffect(() => {
+    const handleMessageReceived = async (message) => {
+      console.log('Message received from server:', message);
+      const arrayFromValues = Object.values(message);
+      await     SetAllMessage(prevMessages => ([...prevMessages, message]));
+    };
+  
+    socket.on('message_received', handleMessageReceived);
+  
+    return () => {
+      socket.off('message_received', handleMessageReceived);
+    };
+  }, [new_message_chat]);
 
     useEffect(() => {
         const fetchChat = async () => {

@@ -25,7 +25,13 @@ export const DateDifference = (date) => {
     
   };
 
-
+  export function convertDateToDay(data) {
+    const date = new Date(data.date);
+    const dayNumber = date.getDay();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = daysOfWeek[dayNumber];
+    data.day = dayName;
+  }
   export const uri = process.env.NEO4J_URI;
   export const user = process.env.NEO4J_USERNAME;
   export const password = process.env.NEO4J_PASSWORD;
