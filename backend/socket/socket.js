@@ -71,13 +71,15 @@ const setupSocket = (server) => {
             const timePart = isoString.split('T')[1];
             const timeWithoutSeconds = timePart.substring(0, 5);
 
-            const messageData = {
-              sender: false,
-              message: new_message.message,
-              time: timeWithoutSeconds,
-              date: datePart,
-            };
-
+            const messageData = [
+              timeWithoutSeconds,
+              datePart,
+             false,
+             new_message.message,
+         
+          
+            ]
+           
             if (users) {
               for (let memberId of users.members) {
                 if (memberId.toString() !== user_id.toString()) {

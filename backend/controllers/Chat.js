@@ -100,40 +100,29 @@ export const GetChat= async (req, res) => {
   // console.log(user_id,'user_id')
 
   let con=await Message.find({conversationId:conversation_id});
-
   var allmessage = [];
-  let data={message:"",sender:false};
- 
-  for (let i=0;i<con.length;i++)
-    {
-      let messageData = { message: con[i].message}
-      // console.log(con[i].message,i)
-      const isoString = con[i].createdAt.toISOString();
-  
-      const datePart = isoString.split('T')[0];
-      const timePart = isoString.split('T')[1]; 
-      const timeWithoutSeconds = timePart.substring(0, 5); 
-      messageData['time']=timeWithoutSeconds;
+
+  for (let i = 0; i < con.length; i++) {
+    let messageData = [];
+    const isoString = con[i].createdAt.toISOString();
     
-      messageData['date']=datePart;
-
-      convertDateToDay(data);
-      if(con[i].senderId==user_id)
-        {
-          messageData['sender']=true;
-
-          
-        }
-        else
-        {
-          messageData['sender']=false;
-
-        }
-   
-        allmessage.push(messageData)
-      
-    }  
-    res.json({"message":allmessage});
+    const datePart = isoString.split('T')[0];
+    const timePart = isoString.split('T')[1]; 
+    const timeWithoutSeconds = timePart.substring(0, 5); 
+    
+    messageData.push(timeWithoutSeconds); 
+    messageData.push(datePart); 
+    
+    if (con[i].senderId == user_id) {
+      messageData.push(true); 
+    } else {
+      messageData.push(false); 
     }
-
- 
+  
+    messageData.push(con[i].message); 
+  
+    allmessage.push(messageData);
+  }
+  
+  res.send(allmessage);
+}

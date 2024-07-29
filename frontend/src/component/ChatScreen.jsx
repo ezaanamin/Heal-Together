@@ -21,7 +21,8 @@ const ChatScreen = ({ username, profilePic }) => {
     const [sender,SetSender]=useState(false)
 const [AllMessage,SetAllMessage]=useState([]);
 const [new_message_chat,Setnew_message_chat]=useState([]);
-const [new_messageAlert,SetNewMessageAlert]=useState(false);    
+const [new_messageAlert,SetNewMessageAlert]=useState(false);
+const [messagelength,SetMessagesLength]=useState(0);    
     const dispatch=useDispatch();
 
   useEffect(()=>{
@@ -38,10 +39,19 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
   useEffect(() => {
     const handleMessageReceived = async (message) => {
       console.log('Message received from server:', message);
-      const arrayFromValues = Object.values(message);
-      await     SetAllMessage(prevMessages => ([...prevMessages, message]));
-    };
+ 
+    
+  console.log(messagelength,'length')
+  console.log(typeof AllMessage,'TYPE');
+  console.log(typeof AllMessage.message,'TYPE1');
+  SetAllMessage(prevMessages => [...prevMessages, message]);  
+
+};
+     
+    
   
+    console.log(AllMessage,'all messages')
+
     socket.on('message_received', handleMessageReceived);
   
     return () => {
@@ -72,12 +82,16 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
     }, [ChatTokenChange]);
 
 
-    useEffect(()=>{
-
-        console.log(AllMessage,'ALL MESSAGES')
-
-    },[AllMessage])
-
+    useEffect(() => {
+      const updateMessagesLength = async () => {
+        console.log(AllMessage, 'ALL MESSAGES');
+  
+        // SetMessagesLength(AllMessage.message.length);
+        // console.log(AllMessage.message.length,'ALL MESSAGES')
+      };
+  
+      updateMessagesLength(); // Call the async function
+    }, [AllMessage]); // Dependency array: runs when AllMessage changes
 
     const handleKeyPress = async (event, key) => {
       let token=sessionStorage.getItem('Token');
@@ -90,16 +104,11 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
           const showTime = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
           const new_message = { sender: true, message: event.target.value, time: showTime };
     
-          const updatedMessages = {
-            ...AllMessage,
-            [key]: AllMessage[key] ? [...AllMessage[key], new_message] : [new_message]
-          };
-    
+      
           console.log(new_message, 'new_message');
           const messageWithToken = { message: new_message.message, time: new_message.time, Usertoken: token,chatToken:chatToken };
           Setnew_message_chat(messageWithToken);
           SetNewMessageAlert(!new_messageAlert)
-          await SetAllMessage(updatedMessages);
           event.target.value = '';
         }
       }
@@ -117,27 +126,23 @@ const [new_messageAlert,SetNewMessageAlert]=useState(false);
         </ChatHeader>
   
         <div>
-          {Object.keys(AllMessage).map(key => (
-            <div key={key}>
-              {AllMessage[key].map((message, index) => (
-                <div key={index}>
-                  <Conversation 
-                    sender={message.sender} 
-                    chat={message.message} 
-                    time={message.time} 
-                    isLast={index === AllMessage[key].length - 1} 
-                  />
-                </div>
-              ))}
+        {AllMessage.map((message, index) => (
+        <Conversation
+          key={index}
+          sender={message['2']}
+          chat={message['3']}
+          time={message['0']}
+        />
+      ))}
+           
               <ChatFooterBar theme={userContext.theme}>
                 <ChatInput 
-                  onKeyDown={(event) => handleKeyPress(event, key)} 
+                  onKeyDown={(event) => handleKeyPress(event)} 
                   theme={userContext.theme} 
                 />
               </ChatFooterBar>
             </div>
-          ))}
-        </div>
+        
       </StyledHome>
     );
    
