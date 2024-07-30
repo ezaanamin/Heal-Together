@@ -47,8 +47,8 @@ const setupSocket = (server) => {
     });
 
     socket.on("new_message", async (new_message) => {
-      console.log(new_message.chatToken);
-
+      // console.log(new_message.chatToken);
+console.log(new_message,'new messages')
       if (new_message.chatToken && new_message.Usertoken) {
         let chattoken = new_message.chatToken.replace(/"/g, '');
         let usertoken = new_message.Usertoken.replace(/"/g, '');

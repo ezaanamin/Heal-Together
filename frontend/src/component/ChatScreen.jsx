@@ -1,14 +1,16 @@
 import React, { useEffect,useState,useContext } from 'react';
-import { ChatHeader, ContainerChat, StyledHome, ProfileImgChatRoom, ChatHeading } from "../styles/styles"
+import { ChatHeader, StyledHome, ProfileImgChatRoom, ChatHeading,SendIcon } from "../styles/styles"
 import { UserContext } from '../contextState/contextState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faShare } from '@fortawesome/free-solid-svg-icons';
 import ProfilePic from "../images/profile_pic_test.jpg"
 import CloseIcon from '@mui/icons-material/Close';
 import { ChatFooterBar, ChatInput } from '../styles/styles';
 import Conversation from './Conversation';
 import { useDispatch } from 'react-redux';
 import { GetChat,AuthenticateUser } from '../redux/slice/API';
+
+
 import { io } from 'socket.io-client';
 
 const ChatScreen = ({ username, profilePic }) => {
@@ -45,6 +47,7 @@ const [messagelength,SetMessagesLength]=useState(0);
   console.log(typeof AllMessage,'TYPE');
   console.log(typeof AllMessage.message,'TYPE1');
   SetAllMessage(prevMessages => [...prevMessages, message]);  
+
 
 };
      
@@ -101,12 +104,16 @@ const [messagelength,SetMessagesLength]=useState(0);
           return;
         } else {
           const date = new Date();
+          const dateOnly = date.toISOString().split('T')[0]; 
           const showTime = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
-          const new_message = { sender: true, message: event.target.value, time: showTime };
+          // const new_message = { sender: true, message: event.target.value, time: showTime };
+        const  new_message=[showTime,dateOnly,true,event.target.value]
     
       
           console.log(new_message, 'new_message');
-          const messageWithToken = { message: new_message.message, time: new_message.time, Usertoken: token,chatToken:chatToken };
+          SetAllMessage(prevMessages => [...prevMessages, new_message]);  
+
+          const messageWithToken = { message: event.target.value, time: new_message.time, Usertoken: token,chatToken:chatToken };
           Setnew_message_chat(messageWithToken);
           SetNewMessageAlert(!new_messageAlert)
           event.target.value = '';
@@ -132,6 +139,7 @@ const [messagelength,SetMessagesLength]=useState(0);
           sender={message['2']}
           chat={message['3']}
           time={message['0']}
+          isLast={index === AllMessage.length - 1} 
         />
       ))}
            
@@ -140,6 +148,7 @@ const [messagelength,SetMessagesLength]=useState(0);
                   onKeyDown={(event) => handleKeyPress(event)} 
                   theme={userContext.theme} 
                 />
+                      <SendIcon icon={faShare} />
               </ChatFooterBar>
             </div>
         
