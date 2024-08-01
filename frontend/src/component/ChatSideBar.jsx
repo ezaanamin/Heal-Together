@@ -14,6 +14,8 @@ const ChatSideBar = () => {
   const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic,ChatTokenChange,SetChatTokenChange } = userContext;
   const [clickedStatus, setClickedStatus] = useState({});
   const [chatFriends, setChatFriends] = useState({});
+  const [SearchUser,SetSearchUser]=useState("")
+
 
 
   useEffect(()=>{
@@ -72,6 +74,18 @@ const ChatSideBar = () => {
     fetchUserFriends();
   }, []);
 
+  const SearchChatUser = (event) => {
+    const newSearchUser = event
+    SetSearchUser(newSearchUser);
+  
+    console.log(newSearchUser)
+
+    setTimeout(() => {
+      const filteredFriends = Object.keys(chatFriends).filter(key => chatFriends[key].username === newSearchUser);
+      console.log(filteredFriends, 'new friend');
+    }, 0);
+  }
+
   useEffect(()=>{
     // console.log(chatFriends,'friends')
   },[chatFriends])
@@ -81,7 +95,7 @@ const ChatSideBar = () => {
 
       <SideBarChat>Chat</SideBarChat>
 
-      <ChatSearchInputField theme={userContext.theme} type="text" placeholder="Search..." />
+      <ChatSearchInputField value={SearchUser} onChange={(event)=>SearchChatUser(event.target.value)} theme={userContext.theme} type="text" placeholder="Search..." />
       <SearchIcon icon={faSearch} />
 
       {Object.keys(chatFriends).map(key => (
