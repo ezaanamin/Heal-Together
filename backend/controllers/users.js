@@ -721,6 +721,7 @@ export const UserFriends = async (req, res) => {
   token = authorizationHeader.split(' ')[1].replace(/"/g, '');
 
 let username;
+// console.log(username,'username')
 let token_type="user"
   let user_id= await Authentication(token,token_type);
 let doc;

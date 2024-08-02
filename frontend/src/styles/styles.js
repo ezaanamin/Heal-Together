@@ -1645,6 +1645,7 @@ export const HeartPath = styled.path`
 
 export const CommentsHeading = styled.h2`
 text-align:center;
+  text-transform: capitalize;
 
 
 
@@ -1763,6 +1764,7 @@ export const ChatHeading = styled.h3`
 color:${ProfileText};
 margin-left:120px;
 margin-top:-40px;
+text-transform: capitalize;
 
 
 `

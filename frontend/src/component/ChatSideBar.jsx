@@ -11,10 +11,14 @@ import { io } from 'socket.io-client';
 const ChatSideBar = () => {
   let token=sessionStorage.getItem("Token")
   const userContext = useContext(UserContext);
-  const { openChat, SetOpenChat, SetCurrentName, SetChatProfilePic,ChatTokenChange,SetChatTokenChange } = userContext;
+  const { openChat, SetOpenChat, SetCurrentName,currentChatName, SetChatProfilePic,ChatTokenChange,SetChatTokenChange } = userContext;
   const [clickedStatus, setClickedStatus] = useState({});
   const [chatFriends, setChatFriends] = useState({});
   const [SearchUser,SetSearchUser]=useState("")
+  const [filterChat,SetFilterChat]=useState({})
+  const [Filter,SetFilter]=useState(false)
+  const [isOpen,SetIsOpen]=useState(false)
+
 
 
 
@@ -30,10 +34,12 @@ const ChatSideBar = () => {
 
     
   },[ChatTokenChange])
-    
+    const ChatOpen=()=>{
+
+
+      
+    }
   const HandleClick = async (key, profile_pic,username) => {
-    // console.log(profile_pic,'profile_pic')
-    // alert("hii")
     setClickedStatus(prevState => ({
       ...prevState,
       [key]: !prevState[key]
@@ -65,6 +71,7 @@ const ChatSideBar = () => {
         if (action.payload) {
           console.log(action.payload.support_group, 'friends')
           await setChatFriends(action.payload.support_group);
+          await SetFilterChat(action.payload.support_group)
 
         }
 
@@ -74,21 +81,51 @@ const ChatSideBar = () => {
     fetchUserFriends();
   }, []);
 
-  const SearchChatUser = (event) => {
-    const newSearchUser = event
+  useEffect(()=>{
+    console.log(Object.keys(clickedStatus).length,'length')
+    
+    if(clickedStatus[currentChatName]==false)
+    {
+    
+      setClickedStatus({})
+
+    }
+
+  },[clickedStatus])
+
+  const SearchChatUser  = async (event) => {
+    const newSearchUser = event.toLowerCase();
+  
     SetSearchUser(newSearchUser);
   
-    console.log(newSearchUser)
+    console.log(newSearchUser);
+  
+    // Filter chatFriends based on the newSearchUser
+    const filteredFriends = Object.values(chatFriends).filter(friend =>
+      friend.username.toLowerCase().includes(newSearchUser)
+    );
+  
+    console.log(filteredFriends, 'filtered friends');
+    await SetFilterChat(filteredFriends)
+  };
 
-    setTimeout(() => {
-      const filteredFriends = Object.keys(chatFriends).filter(key => chatFriends[key].username === newSearchUser);
-      console.log(filteredFriends, 'new friend');
-    }, 0);
-  }
+  useEffect(() => {
+    const updateFilterChat = async () => {
+      if (SearchUser === "") {
+        SetFilter(false);
+        await SetFilterChat(chatFriends);
+        console.log(filterChat,'chat'); // You may want to log `chatFriends` instead of `filterChat` if `filterChat` has not yet updated
+      } else {
+        SetFilter(true);
+        console.log(filterChat,'chat'); // You may want to log `chatFriends` instead of `filterChat` if `filterChat` has not yet updated
 
-  useEffect(()=>{
-    // console.log(chatFriends,'friends')
-  },[chatFriends])
+      }
+    };
+  
+    updateFilterChat();
+  }, [SearchUser]); 
+
+  
 
   return (
     <ChatSideBarDiv width={openChat} theme={userContext.theme}>
@@ -98,15 +135,15 @@ const ChatSideBar = () => {
       <ChatSearchInputField value={SearchUser} onChange={(event)=>SearchChatUser(event.target.value)} theme={userContext.theme} type="text" placeholder="Search..." />
       <SearchIcon icon={faSearch} />
 
-      {Object.keys(chatFriends).map(key => (
+      {Object.keys(filterChat).map(key => (
         <div key={key}>
           <ChatBox isClicked={clickedStatus[key] || false}
-            onClick={() => HandleClick(key, chatFriends[key].profile_pic,chatFriends[key].username)} theme={userContext.theme}>
+            onClick={() => HandleClick(key, filterChat[key].profile_pic,filterChat[key].username)} theme={userContext.theme}>
             <div style={{ display: "flex", flexDirection: "row" }}>
 
 
-              <img style={{ width: 50, height: 50, marginTop: 10 }} src={`http://localhost:4000/upload/${chatFriends[key].profile_pic}`} />
-              <h2 style={{ textAlign: "center", marginTop: 20 }}> {chatFriends[key].username}</h2>
+              <img style={{ width: 50, height: 50, marginTop: 10 }} src={`http://localhost:4000/upload/${filterChat[key].profile_pic}`} />
+              <h2 style={{ textAlign: "center", marginTop: 20,textTransform:"capitalize" }}> {filterChat[key].username}</h2>
               {/* <h2 style={{ textAlign: "center", marginTop: 20 }}> {chatFriends[key]._id}</h2> */}
 
             </div>

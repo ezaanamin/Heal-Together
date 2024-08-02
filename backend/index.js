@@ -10,8 +10,11 @@ import http from "http";
 import cookieParser from "cookie-parser";
 import SetupSocket from "./socket/socket.js";
 import ChatRoutes from "./routes/Chat.js"
+import { Users } from "./model/users.js";
 const app = express();
 const server = http.createServer(app);
+
+
 
 dotenv.config();
 app.use(cors());
@@ -157,6 +160,27 @@ const dataArray = [];
 //     }
 //   }
 // });
+
+// Users.updateMany(
+//   {},
+//   [
+//     {
+//       $set: {
+//         username: { $toLower: "$username" },
+//         firstName: { $toLower: "$firstName" },
+//         surName: { $toLower: "$surName" }
+//       }
+//     }
+//   ]
+// )
+// .then(result => {
+//   console.log('Update successful:', result);
+// })
+// .catch(err => {
+//   console.error('Error updating documents:', err);
+// });
+
+
 const PORT = process.env.PORT || 4000;
 
 // MongoDB connection
