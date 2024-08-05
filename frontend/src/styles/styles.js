@@ -1807,22 +1807,17 @@ export const ChatBox = styled.div`
 
 
 export const ChatSearchInputField = styled.input`
-
-margin: auto;
-display: block;
-width:300px;
-height:32px;
-border-radius:50px;
-border:none;
-background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
-font-size:20px;
-padding-left: 35px;
-padding-right:20px;
-
-
-
-
-`
+  margin: auto;
+  display: block;
+  width: 300px;
+  height: 32px;
+  border-radius: 50px;
+  border: none;
+  background-color: ${props => MainSideBar(props.theme)};
+  font-size: 20px
+  padding-left: 35px;
+  padding-right: 20px;
+`;
 
 export const SearchIcon = styled(FontAwesomeIcon)`
   position: relative;
@@ -1835,23 +1830,21 @@ export const ChatFooterBar = styled.div`
   height: 50px;
   position: absolute;
   bottom: 0;
-  background-color: ${darken(0.10, '#B3C9E8')};
-  margin-top:200px;
+  background-color: ${props => darken(0.10, GetRingColor(props.theme))};
+  margin-top: 200px;
 `;
 export const ChatInput = styled.input`
+  position: relative;
+  left: 200px;
+  margin-top: 10px;
+  width: 60%;
+  border-radius: 10px;
+  height: 35px;
+  border: none;
+  background-color: ${props => MainSideBar(props.theme) || 'blue'};
+  font-size: 20px;
+`;
 
-position: relative;
-left:200px;
-margin-top:10px;
-width:60%;
-border-radius: 10px;
-height:35px;
-border:none;
-background-color: ${props => MainSideBar(props.theme) || 'BLUE'};
-
-font-size:20px;
-
-`
 export const MessageConversation=styled.div`
 
 color:black;

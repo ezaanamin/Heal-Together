@@ -40,11 +40,14 @@ const ChatSideBar = () => {
       
     }
   const HandleClick = async (key, profile_pic,username) => {
+ 
+    
     setClickedStatus(prevState => ({
-      ...prevState,
       [key]: !prevState[key]
 
     }));
+    console.log(clickedStatus,'clickedStatus')
+
     SetCurrentName(key)
     let action= await dispatch(GetConversation({ token: token, received_name: username}));
 
@@ -81,18 +84,23 @@ const ChatSideBar = () => {
     fetchUserFriends();
   }, []);
 
-  useEffect(()=>{
-    console.log(Object.keys(clickedStatus).length,'length')
-    
-    if(clickedStatus[currentChatName]==false)
-    {
-    
-      setClickedStatus({})
+  // useEffect(() => {
+  //   const keys = Object.keys(clickedStatus);
+  //   const updatedStatus = {};
+  //   if(keys.length>1)
+  //   {
+  //     for (let i = 0; i < keys.length - 1; i++) {
+  //       console.log(keys[i],'ezaan')
+  //       updatedStatus[keys[i]] = false;
+  //     }
+  //     updatedStatus[keys[keys.length-1]]=true
+  //     console.log(updatedStatus,'ezaan')
+  //     // console.log(,'ezaan')
+  //     setClickedStatus(updatedStatus);
 
-    }
-
-  },[clickedStatus])
-
+  //   }
+  
+  // }, [clickedStatus, currentChatName]);
   const SearchChatUser  = async (event) => {
     const newSearchUser = event.toLowerCase();
   
