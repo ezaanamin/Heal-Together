@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { darken } from 'polished';
 import ColorLensIcon from '@mui/icons-material/ColorLens'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const LightStatusBar = TranquilTealTheme.palette.statusBar.backgroundColor
 const LightStatusBarHover = TranquilTealTheme.palette.CommentsHover.backgroundColor
 const BlueStatusBar = calmingBlueTheme.palette.statusBar.backgroundColor
@@ -490,10 +491,10 @@ export const SaveButton = styled.button`
   height: 40px;
   width: 100px;
   display: block;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 20px;
+  margin-right: 20px;
   color: white;
   font-weight: bold;
   border-radius: 50px;
@@ -501,6 +502,17 @@ export const SaveButton = styled.button`
   background-color: ${props => MainButton(props.theme) || 'BLUE'};
 
 `;
+export const EditText=styled.p`
+text-align:center;
+font-size:18px;
+  margin-top: 2px;
+
+margin-bottom:10px;
+font-weight:bold;
+color:${ProfileText}
+
+
+`
 
 export const Text = styled.p`
 text-align:center;
@@ -513,8 +525,6 @@ color:${ProfileText}
 
 
 `
-
-
 export const EditCoverPhoto = styled.img`
 width: 600px;
 height: 150px;
@@ -527,14 +537,11 @@ border:0px;
 border: 4px solid ${props => MainBorderColor(props.theme)};
 
 `;
-
 export const NameDiv = styled.div`
 
 position:relative;
-left:130px;
-margin-bottom:25px;
-
-
+left:110px;
+bottom:40px;
 `
 export const EditProfilePhoto = styled.img`
   border-radius: 50%;
@@ -1141,6 +1148,7 @@ export const ProfileHeading = styled.h2`
   margin-left: 60px;
   margin-top: 10px;
   color: ${ProfileText};
+    text-transform: capitalize;
 `;
 
 export const Header = styled.h2`
@@ -1876,6 +1884,15 @@ position:absolute;
 font-size:40px;
 right:480px;
 top:10px;
+
+
+
+`
+export const EditMainPhotos=styled.img`
+width:50px;
+height:50px;
+position: relative;
+left:-45px;
 
 
 

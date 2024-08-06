@@ -13,7 +13,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import Typography from '@mui/material/Typography';
 import { uploadImage } from '../redux/slice/API';
 import { EditUserProfile } from '../redux/slice/API';
-import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditCoverPhoto,NameDiv,EditProfilePhoto} from '../styles/styles';
+import EditP from "../images/Change_Profile.png"
+import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditText,EditCoverPhoto,NameDiv,EditProfilePhoto,EditMainPhotos} from '../styles/styles';
 export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username }) {
   const dispatch = useDispatch();
   const urlParts = cover_photo.split('/');
@@ -156,9 +157,6 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   };
 
   useEffect(() => {
-    const newWordCount = Story.trim().split(/\s+/).length;
-    setCurrentWordCount(newWordCount);
-    console.log(currentWordCount, 'ezaan amin')
   }, [Story]);
 
   return (
@@ -174,7 +172,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
 
           <Typography sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 2 }}>
             <CloseIcon onClick={() => handleClose()} style={{ marginRight: 25 }} />
-            <Text>Edit Profile</Text>
+            <EditText>Edit Profile</EditText>
 
             <Typography sx={{ position: "absolute", right: 0, top: -5 }}>
               <SaveButton theme={userContext.theme} onClick={() => HandleChange()}>Save</SaveButton>
@@ -185,20 +183,23 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
           <EditCoverPhoto src={CoverPhotoPic} />
           <input type="file" id="imageInput" style={{ display: 'none' }} accept="image/*" onChange={handleCoverImageChange} />
           <label htmlFor="imageInput">
-            <CameraAltIcon fontSize="large" style={{ position: 'relative', bottom: 100, left: 250, cursor: 'pointer' }} />
+            <CameraAltIcon fontSize="large" style={{ position: 'relative', bottom: 120, left: 250, cursor: 'pointer' }} />
 
           </label>
-          <CloseIcon onClick={RemoveCoverPhoto} fontSize='large' style={{ position: "relative", bottom: 100, left: 300 }} />
-          <EditProfilePhoto theme={userContext.theme} src={ProfilePic} />
-          <input type="file" id="profile_pic" style={{ display: 'none' }} accept="image/*" onChange={handleProfileImageChange} />
-          <label htmlFor="profile_pic">
-
-            <CameraAltIcon
-              style={{ position: "relative", top: 70, right: 10 }}
-              fontSize="large"
-
-            />
-          </label>
+          <CloseIcon onClick={RemoveCoverPhoto} fontSize='large' style={{ position: "relative", bottom: 120, left: 300 }} />
+          <input
+        type="file"
+        id="profile_pic"
+        style={{ display: 'none' }}
+        accept="image/*"
+        onChange={handleProfileImageChange}
+      />
+      <EditProfilePhoto
+        theme={userContext.theme}
+        src={ProfilePic}
+        onClick={() => document.getElementById('profile_pic').click()} 
+      />
+<EditMainPhotos src={EditP}/>
           <NameDiv>
 
 
@@ -239,7 +240,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
             />
 
             <p style={{ textAlign: 'right' }}>
-              {currentWordCount} / {maxWords}
+              {Story.length} / {maxWords}
               {currentWordCount < maxWords ? (
                 <CheckIcon style={{ fill: '#333333' }} />
               ) : (
