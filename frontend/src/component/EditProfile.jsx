@@ -15,7 +15,7 @@ import { uploadImage } from '../redux/slice/API';
 import { EditUserProfile } from '../redux/slice/API';
 import EditP from "../images/Change_Profile.png"
 import { MainBorderColor,getDynamicStyle,SaveButton,GetMainBackGround,Text,EditText,EditCoverPhoto,NameDiv,EditProfilePhoto,EditMainPhotos} from '../styles/styles';
-export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username }) {
+export default function EditProfile({ cover_photo, profile_pic, First_Name, SurName, story, username,StoryWord }) {
   const dispatch = useDispatch();
   const urlParts = cover_photo.split('/');
   const CoverPhotoName = urlParts[urlParts.length - 1];
@@ -32,7 +32,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
   const [first_name, Setfirstname] = useState(First_Name);
   const [surname, SetSurName] = useState(SurName);
   const [Story, SetStory] = useState(story)
-  const [currentWordCount, setCurrentWordCount] = useState(0);
+  const [currentWordCount, setCurrentWordCount] = useState(StoryWord);
   const MainBorder = MainBorderColor(userContext.theme);
   const maxWords = 200
   const handleTextChange = (e) => {
@@ -80,7 +80,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
         SetProfilePic(e.target.result);
         SetProfilePicFile(file);
 
-      };
+      }
 
 
       reader.readAsDataURL(file);
@@ -98,7 +98,14 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
 
 
   }
+useEffect(()=>{
+  const words = Story.split(' ');
 
+  console.log(words.length,'story')
+  setCurrentWordCount(words.length)
+
+
+},[Story])
   
   const handleCoverAndProfilePicUpload = () => {
     if (CoverProilePicFile) {
@@ -240,7 +247,7 @@ export default function EditProfile({ cover_photo, profile_pic, First_Name, SurN
             />
 
             <p style={{ textAlign: 'right' }}>
-              {Story.length} / {maxWords}
+              {currentWordCount} / {maxWords}
               {currentWordCount < maxWords ? (
                 <CheckIcon style={{ fill: '#333333' }} />
               ) : (

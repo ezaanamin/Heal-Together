@@ -12,6 +12,20 @@ function generateCode() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function StoryLength(story)
+{
+  let words=0
+  for (let i=0;i<story.length;i++)
+  {
+    if(story[i]==" ")
+    {
+      words+=1;
+    }
+
+  }
+  return words
+}
+
 async function comparePassword(password, hashedPassword) {
   try {
     const match = await bcrypt.compare(password, hashedPassword);
@@ -589,6 +603,7 @@ const updateUserData = async (doc, username, client, res) => {
   driver.close();
 
   const UserMentalHealthInsight = transformDataToArrays(doc.Mental_Health_Insight);
+  let StoryWord=StoryLength(doc.userStory)
 
   const UsersDetail = [
     {
@@ -597,7 +612,8 @@ const updateUserData = async (doc, username, client, res) => {
       username: doc.username,
       user_profile_pic: doc.user_profile_pic,
       userStory: doc.userStory,
-      user_cover_pic: doc.user_cover_pic
+      user_cover_pic: doc.user_cover_pic,
+      StoryWord:StoryWord
     }
   ];
 

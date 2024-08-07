@@ -31,6 +31,7 @@ function Profile() {
     const[UserProfile,SetUserProfile]=useState([]);
     const [UserLogin,SetUserLogin]=useState(false);
     const [Mindful_Moments,SetMindFulMoment]=useState([])
+    const [StoryLength,SetStoryLength]=useState(0)
 
    
   const { username } = useParams();
@@ -55,6 +56,7 @@ function Profile() {
           SetMindFulMoment(action.payload.Mindful_Moments)
           console.log(action.payload.UsersDetail[0],'ezaan amin')
           SetUserFirstName(action.payload.UsersDetail[0]['firstname']);
+          SetStoryLength(action.payload.UsersDetail[0]['StoryWord'])
           console.log(action.payload.UsersDetail[0]['firstname'],'stark')
           SetUserSurName(action.payload.UsersDetail[0]['surname'])
           SetSupportGroup(action.payload.SupportGroup[0])
@@ -134,7 +136,7 @@ const UserFriendsList = async () => {
  }
  {
   userContext.EditProfileModal?
-  <EditProfile username={username} story={UserStory} First_Name={UserFirstName} SurName={UserSurName} cover_photo ={`http://localhost:4000/upload/${coverphoto}`} profile_pic={`http://localhost:4000/upload/${userProfilePic}`}/>:
+  <EditProfile StoryWord={StoryLength} username={username} story={UserStory} First_Name={UserFirstName} SurName={UserSurName} cover_photo ={`http://localhost:4000/upload/${coverphoto}`} profile_pic={`http://localhost:4000/upload/${userProfilePic}`}/>:
   null
  }
     <Header>Profile</Header>
