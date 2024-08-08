@@ -127,8 +127,8 @@ useEffect(()=>{
     if (ProfilePicFile) {
       const formData = new FormData();
       formData.append('image', ProfilePicFile);
-
-      SetLatestProfilePicFileName(ProfilePic.name)
+console.log(ProfilePicFile.name, 'profile ')
+      SetLatestProfilePicFileName(ProfilePicFile.name)
 
 
       dispatch(uploadImage(formData));
@@ -142,7 +142,12 @@ useEffect(()=>{
 
   useEffect(() => {
     handleCoverAndProfilePicUpload();
-  }, [CoverProilePicFile, ProfilePicFile,]);
+  }, [CoverProilePicFile, ProfilePicFile]);
+
+  useEffect(()=>{
+
+    console.log(LatestProfilePicFileName,'profile pic')
+  },[ProfilePicFile])
 
   const HandleChange = async () => {
     try {
@@ -151,7 +156,7 @@ useEffect(()=>{
           username: username,
           firstName: first_name,
           surName: surname,
-          userStory: story,
+          userStory: Story,
           user_cover_pic: LatestCoverProfileFileName,
           user_profile_pic: LatestProfilePicFileName,
         })

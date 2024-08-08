@@ -696,6 +696,8 @@ export const EditProfile = async (req, res) => {
 
     }
   }
+  // console.log(req.body)
+  // console.log(newvalues,myquery)
 
   Users.updateOne(myquery, newvalues)
     .then((doc) => {
