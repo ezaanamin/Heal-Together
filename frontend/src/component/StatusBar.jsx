@@ -31,8 +31,8 @@ const StatusBar = () => {
             src={`http://localhost:4000/upload/${userContext.profile_pic}`}
             />
           </a>
-          <StatusBarHeading>
-            Share Your Thoughts, Feel Heard!
+          <StatusBarHeading placeholder='    Share Your Thoughts, Feel Heard!' theme={userContext.theme}>
+        
           </StatusBarHeading>
         </StatusBarContent>
 

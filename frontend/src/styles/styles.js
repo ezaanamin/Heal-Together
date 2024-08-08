@@ -1506,14 +1506,23 @@ export const StatusBarContent = styled.div`
   box-sizing: border-box;
 `;
 
-export const StatusBarHeading = styled.h3`
+export const StatusBarHeading = styled.textarea`
   color: ${ProfileText};
   margin: 20px;
   font-weight: normal;
   overflow: hidden;
   white-space: nowrap; 
   position: fixed;
-  top:-5px;
+  top:-20px;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+
+   background-color: ${props => MainButton(props.theme) || 'blue'};
+ 
+
+
+
  
 `;
 

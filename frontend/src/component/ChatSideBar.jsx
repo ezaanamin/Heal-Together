@@ -18,10 +18,6 @@ const ChatSideBar = () => {
   const [filterChat,SetFilterChat]=useState({})
   const [Filter,SetFilter]=useState(false)
   const [isOpen,SetIsOpen]=useState(false)
-
-
-
-
   useEffect(()=>{
     const token = sessionStorage.getItem('chatToken');
     const socket = io('http://localhost:4000');
@@ -34,12 +30,8 @@ const ChatSideBar = () => {
 
     
   },[ChatTokenChange])
-    const ChatOpen=()=>{
-
-
-      
-    }
-  const HandleClick = async (key, profile_pic,username) => {
+  
+const HandleClick = async (key, profile_pic,username) => {
  
     
     setClickedStatus(prevState => ({
@@ -122,10 +114,10 @@ const ChatSideBar = () => {
       if (SearchUser === "") {
         SetFilter(false);
         await SetFilterChat(chatFriends);
-        console.log(filterChat,'chat'); // You may want to log `chatFriends` instead of `filterChat` if `filterChat` has not yet updated
+        console.log(filterChat,'chat'); 
       } else {
         SetFilter(true);
-        console.log(filterChat,'chat'); // You may want to log `chatFriends` instead of `filterChat` if `filterChat` has not yet updated
+        console.log(filterChat,'chat');
 
       }
     };
@@ -152,7 +144,6 @@ const ChatSideBar = () => {
 
               <img style={{ width: 50, height: 50, marginTop: 10 }} src={`http://localhost:4000/upload/${filterChat[key].profile_pic}`} />
               <h2 style={{ textAlign: "center", marginTop: 20,textTransform:"capitalize" }}> {filterChat[key].username}</h2>
-              {/* <h2 style={{ textAlign: "center", marginTop: 20 }}> {chatFriends[key]._id}</h2> */}
 
             </div>
           </ChatBox>
